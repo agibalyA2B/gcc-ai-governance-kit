@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.2.0 (2026-09-27)
+- New framework: **UAE Code for Government Services and Zero Bureaucracy**, adopted by the UAE Cabinet in April 2026.
+  It is cited together with the federal agentic-AI service design guide, the Agentic AI National Reference (July 2026)
+  and the Government Services Data Sharing Policy (May 2026).
+- 13 new controls, mostly agentic:
+  - governance review and an approved scope document for each agent;
+  - classification against the national agentic definition;
+  - specific approval for each action, and one-step revocation of permissions;
+  - handover to a person with full context, and explicit consent before payment;
+  - "ask once", authoritative data sources, and disclosure of the data an agent used;
+  - an identity and authority check before each action;
+  - KPIs and a continue/stop decision for each agent.
+- 21 existing controls now cite the new UAE sources. The totals are 56 controls, 48 verified.
+- New **recommended autonomy** feature: three prioritisation questions (usage, complexity, readiness), from the UAE
+  AI-assistant priority matrix, recommend an autonomy level. A warning shows when the design exceeds it. See ADR 004.
+- The agentic-AI help text now follows the national definition.
+- Resolved: the April 2026 UAE Cabinet target to deploy agentic AI across 50% of government sectors and operations within
+  two years is now cited.
+
 ## 0.1.0 (2026-09-27)
 First public release.
 - Browser-only AI use-case register with JSON/XLSX export and import.

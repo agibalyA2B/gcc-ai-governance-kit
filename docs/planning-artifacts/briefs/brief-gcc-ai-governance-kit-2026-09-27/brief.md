@@ -103,7 +103,7 @@ moat.
 
 **Known unknowns:**
 - The exact wording of the UAE federal "agentic AI in government services" target could not be sourced yet. It will
-  not be cited until verified.
+  not be cited until verified. *(Resolved 27 Sep 2026: the UAE Cabinet announced it in April 2026; now cited in the kit.)*
 - Some UAE and Qatar source pages blocked automated access and need manual confirmation.
 
 ## Vision

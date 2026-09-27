@@ -13,7 +13,7 @@ VERIFIED means confirmed this session. UNVERIFIED means it must be checked manua
 | ISO/IEC 42001:2023 (paid, © ISO; cite clause/Annex A numbers + own paraphrase only) | VERIFIED | https://www.iso.org/standard/42001 |
 | NIST AI RMF ↔ ISO/IEC 42001 crosswalk (Microsoft-authored, maps to the 42001 FDIS) | VERIFIED | https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf |
 | Abu Dhabi DGE AI policy; QCB AI Guideline; Bahrain draft AI law | UNVERIFIED | — |
-| UAE federal target for agentic AI in government services (~50%) | NOT CONFIRMED; do not cite | — |
+| UAE federal target for agentic AI across 50% of government sectors/operations within two years | CONFIRMED (Cabinet, April 2026) | https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years |
 
 ## Competitors and comparables (GitHub stars on 27 Sep 2026)
 - verifywise-ai/verifywise (359): full platform covering the EU AI Act, ISO 42001 and NIST. English, no GCC coverage.

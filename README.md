@@ -7,7 +7,7 @@
 [**Try it live →**](https://agibalya2b.github.io/gcc-ai-governance-kit/) · [Templates](https://agibalya2b.github.io/gcc-ai-governance-kit/#/templates) · [How scoring works](https://agibalya2b.github.io/gcc-ai-governance-kit/#/scoring) · [العربية](#بالعربية)
 
 ![CI](https://github.com/agibalyA2B/gcc-ai-governance-kit/actions/workflows/deploy.yml/badge.svg)
-![Controls verified](https://img.shields.io/badge/controls%20verified-35%2F43-2e7d5b)
+![Controls verified](https://img.shields.io/badge/controls%20verified-48%2F56-2e7d5b)
 ![Languages](https://img.shields.io/badge/languages-AR%20%7C%20EN-0f5257)
 ![Code: MIT](https://img.shields.io/badge/code-MIT-blue) ![Content: CC BY 4.0](https://img.shields.io/badge/content-CC%20BY%204.0-lightgrey)
 
@@ -18,7 +18,8 @@
 ## Why this exists
 
 GCC governments and large organisations are deploying AI faster than they can govern it. The principles exist: the
-UAE AI Charter, Dubai's AI Ethics Guidelines, SDAIA's AI Ethics Principles, ISO/IEC 42001 and the NIST AI RMF. The
+UAE AI Charter, the UAE Code for Government Services, Dubai's AI Ethics Guidelines, SDAIA's AI Ethics Principles,
+ISO/IEC 42001 and the NIST AI RMF. The
 practical layer does not. Teams still build their use-case register, risk tiering and control list by hand, in
 English-only spreadsheets. **Agentic AI** also raises questions the classic questionnaires never ask: how autonomous
 is it, who approves its actions, what systems can it change, and can those actions be undone?
@@ -32,8 +33,9 @@ This kit is that practical layer. It is open, free and bilingual, and it runs en
 | **Use-case register** | Record AI use cases with owner, purpose and status. Saved only in your browser; export and import as JSON or XLSX. |
 | **Two-level risk questionnaire** | An 8-question *Quick check* (including four agentic-AI factors) gives a first tier in about 2 minutes; a 10-question *Deep-dive* can only raise it. |
 | **Explainable tier** | Four tiers aligned to SDAIA's risk levels. Every weight is visible, rules that set a minimum tier are named, and the top reasons are in plain language. |
-| **Framework-filtered controls** | 43 controls across six themes, mapped to the UAE AI Charter, Dubai AI Ethics, SDAIA, ISO/IEC 42001 (clause numbers only), NIST AI RMF and the EU AI Act. Pick the frameworks you follow. |
-| **Honest verification** | Each control shows its sources and whether its references were checked against them: **35 of 43 verified**. See the [content audit](docs/content-audit.md). |
+| **Framework-filtered controls** | 56 controls across six themes, mapped to the UAE AI Charter, the **UAE Code for Government Services and Zero Bureaucracy** (with the federal agentic-AI guide, national reference and data-sharing policy), Dubai AI Ethics, SDAIA, ISO/IEC 42001 (clause numbers only), NIST AI RMF and the EU AI Act. Pick the frameworks you follow. |
+| **Recommended autonomy** | Three prioritisation questions (usage, complexity, readiness), from the UAE AI-assistant priority matrix, recommend how much autonomy the AI should have, and warn when a design goes beyond it. |
+| **Honest verification** | Each control shows its sources and whether its references were checked against them: **48 of 56 verified**. See the [content audit](docs/content-audit.md). |
 | **Committee-ready outputs** | A one-to-two-page *AI Use-Case Risk Summary* (print to PDF) with a sign-off block, plus control lists as CSV/XLSX with right-to-left Arabic sheets. |
 | **Templates** | Register, impact assessment and control checklist in Arabic and English (XLSX, CSV, Markdown) for teams that prefer spreadsheets. |
 
@@ -66,6 +68,8 @@ No sign-up, no backend, no API key. Nothing you type leaves the browser; an auto
 
 The reasoning behind these choices is recorded in [ADR 002](docs/decisions/002-risk-tier-scoring.md).
 
+**Recommended autonomy** is separate from risk. The UAE priority matrix combines usage intensity, complexity and readiness into four levels: full autonomous execution, supervised autonomy, AI assistance, and not suitable yet. A High tier or a regulated domain caps the result at supervised. See [ADR 004](docs/decisions/004-recommended-autonomy-level.md).
+
 ## Adopting it in your organisation
 
 - **As-is:** use the live site. Each person's register stays in their own browser, and teams share it by exporting
@@ -81,6 +85,8 @@ The reasoning behind these choices is recorded in [ADR 002](docs/decisions/002-r
   verification* until they are checked by hand.
 - ISO/IEC 42001 is a paid standard. The kit cites clause and Annex A numbers only and paraphrases in its own words.
 - The mappings are the kit's interpretation, not endorsed by any framework body.
+- UAE Government Services Code references cite card numbers (e.g. "Code 5.2"). The Data Sharing Policy and the Agentic
+  AI National Reference are cited by article or page; see the [content audit](docs/content-audit.md).
 
 ## Built with
 
@@ -98,8 +104,8 @@ npm test && npm run e2e    # unit and end-to-end tests
 
 ## Roadmap
 
-- v0.2: verify the remaining rows (starting with the UAE Charter); sector packs for UAE banking (CBUAE), Qatar (QCB)
-  and telecoms; DIFC Regulation 10 as a selectable framework.
+- v0.3: verify the remaining UAE Charter rows; an agentic pre-launch readiness checklist per use case (from the federal
+  agentic-AI guide); sector packs for UAE banking (CBUAE), Qatar (QCB) and telecoms; DIFC Regulation 10.
 - Later: shareable read-only links, and an assessment-history diff per use case.
 
 Contributions are welcome. Corrections to mappings are the most valuable; see [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -119,7 +125,7 @@ and governance programmes in UAE federal government.
 - الحصول على مستوى مخاطر قابل للتفسير، يشمل عوامل الذكاء الاصطناعي الوكيلي: الاستقلالية، والإشراف البشري،
   وصلاحيات الأنظمة، وإمكانية التراجع؛
 - تصدير الضوابط المنطبقة وفق الأطر التي تختارها: ميثاق الإمارات، وأخلاقيات دبي، وسدايا، وآيزو 42001، وإطار NIST،
-  وقانون الاتحاد الأوروبي.
+  وقانون الاتحاد الأوروبي، إضافةً إلى كود الإمارات للخدمات الحكومية وتصفير البيروقراطية والدليل الاتحادي للذكاء الاصطناعي المساعد. وتوصي الحقيبة بمستوى الاستقلالية المناسب للذكاء الاصطناعي وفق مصفوفة الأولويات الحكومية.
 
 تعمل بالكامل داخل المتصفح، ولا تغادر بياناتك جهازك.
 [جرّبها الآن](https://agibalya2b.github.io/gcc-ai-governance-kit/)
