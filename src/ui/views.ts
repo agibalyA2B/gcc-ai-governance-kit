@@ -276,4 +276,29 @@ export function templatesView(lang: Lang, base: string): string {
     </tbody></table><p class="muted">${t(lang, 'tpl.licence')}</p></section>`;
 }
 
+const GUIDE_SECTIONS = ['s1', 's2', 's3', 's4', 's5', 's6'] as const;
+
+export function guideView(lang: Lang, base: string): string {
+  const fig = (name: string, key: string) => `<figure class="shot"><img src="${base}guide/${lang}/${name}.jpg" alt="" loading="lazy" width="1200" height="750"/><figcaption>${t(lang, key)}</figcaption></figure>`;
+  const sec = (id: (typeof GUIDE_SECTIONS)[number], body: string) => `<section class="guide-sec" id="gd-${id}"><h2>${t(lang, `gd.${id}.h`)}</h2>${body}</section>`;
+  return `<article class="card prose guide">
+    <h1 tabindex="-1">${t(lang, 'gd.title')}</h1>
+    <p>${t(lang, 'gd.intro')}</p>
+    <div class="guide-tools no-print"><button type="button" class="btn" data-action="print-guide">${t(lang, 'gd.print')}</button></div>
+    <nav class="guide-toc no-print" aria-label="${t(lang, 'gd.toc')}"><ol>${GUIDE_SECTIONS.map((id) => `<li><button type="button" class="link" data-action="goto" data-target="gd-${id}">${t(lang, `gd.${id}.h`).replace(/^\d+\.\s*/, '')}</button></li>`).join('')}</ol></nav>
+    ${sec('s1', `<ol class="steps"><li>${t(lang, 'gd.s1.1')}</li><li>${t(lang, 'gd.s1.2')}</li><li>${t(lang, 'gd.s1.3')}</li></ol>
+      ${fig('home', 'gd.fig.home')}<p>${t(lang, 'gd.s1.fw')}</p>${fig('quick', 'gd.fig.quick')}<p>${t(lang, 'gd.s1.deep')}</p>${fig('tier', 'gd.fig.tier')}`)}
+    ${sec('s2', `<p>${t(lang, 'gd.s2.intro')}</p><dl class="tiers">${TIER_ORDER.map((x) => `<dt>${tierBadge(lang, x)}</dt><dd>${t(lang, `gd.t.${x}`)}</dd>`).join('')}</dl>`)}
+    ${sec('s3', `<p>${t(lang, 'gd.s3.p1')}</p><p>${t(lang, 'gd.s3.p2')}</p><p>${t(lang, 'gd.s3.badges')}</p>
+      <ul class="badges"><li><span class="vbadge verified"><span aria-hidden="true">✓</span> ${t(lang, 'ctl.verified')}</span> ${t(lang, 'gd.s3.v')}</li>
+      <li><span class="vbadge pending"><span aria-hidden="true">⏱</span> ${t(lang, 'ctl.needs')}</span> ${t(lang, 'gd.s3.n')}</li></ul>
+      <p>${t(lang, 'gd.s3.filter')}</p>${fig('controls', 'gd.fig.controls')}`)}
+    ${sec('s4', `<p>${t(lang, 'gd.s4.p1')}</p><ul>${[4, 3, 2, 1].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}:</strong> ${t(lang, `auto.l${n}`)}</li>`).join('')}</ul><p>${t(lang, 'gd.s4.p2')}</p>`)}
+    ${sec('s5', `<ul class="plain"><li>${t(lang, 'gd.s5.pdf')}</li><li>${t(lang, 'gd.s5.ctl')}</li></ul>${fig('export', 'gd.fig.export')}
+      <ul class="plain"><li>${t(lang, 'gd.s5.backup')}</li><li>${t(lang, 'gd.s5.share')}</li><li>${t(lang, 'gd.s5.tpl')}</li></ul>`)}
+    ${sec('s6', `<p>${t(lang, 'gd.s6.p')}</p><p>${t(lang, 'gd.s6.clear')}</p>`)}
+    <p class="muted small">${t(lang, 'rep.disclaimer')}</p>
+  </article>`;
+}
+
 export { TIER_ORDER };

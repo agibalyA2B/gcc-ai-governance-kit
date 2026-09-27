@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: '.',
-  testMatch: 'record-demo.spec.ts',
+  testMatch: ['record-demo.spec.ts', 'guide-shots.spec.ts', 'guide-pdf.spec.ts'],
   outputDir: '../../test-results/media',
   use: {
     ...devices['Desktop Chrome'],

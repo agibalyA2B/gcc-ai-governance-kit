@@ -22,6 +22,7 @@ function shell(content: string): string {
   <header class="header">
     <a class="brand" href="#/"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#C8A96A" stroke-width="1.6" aria-hidden="true"><rect x="6" y="6" width="16" height="16"/><rect x="6" y="6" width="16" height="16" transform="rotate(45 14 14)"/><circle cx="14" cy="14" r="3"/></svg>${t(lang, 'app.title')}</a>
     <nav class="nav" aria-label="${t(lang, 'nav.primary')}">
+      <a href="#/guide">${t(lang, 'nav.guide')}</a>
       <a href="#/scoring">${t(lang, 'nav.scoring')}</a>
       <a href="#/templates">${t(lang, 'nav.templates')}</a>
       <a href="#/about">${t(lang, 'nav.about')}</a>
@@ -93,6 +94,7 @@ function render(focus = true): void {
   let uc: UseCase | undefined;
 
   if (!page) content = V.registerView(lang, store.list(), store.frameworks(), store.persistent, regFilter);
+  else if (page === 'guide') content = V.guideView(lang, import.meta.env.BASE_URL);
   else if (page === 'scoring') content = V.scoringView(lang);
   else if (page === 'about') content = V.aboutView(lang);
   else if (page === 'templates') content = V.templatesView(lang, import.meta.env.BASE_URL);
@@ -153,6 +155,12 @@ function onClick(e: Event): void {
       break;
     case 'ctl-csv': if (uc) download(`controls-${slug(uc.name)}-${stamp()}.csv`, toCsv(controlRows(uc, store.frameworks())), 'text/csv;charset=utf-8'); break;
     case 'ctl-xlsx': if (uc) download(`controls-${slug(uc.name)}-${stamp()}.xlsx`, toXlsx([{ name: t(lang, 'step.controls'), rows: controlRows(uc, store.frameworks()) }], lang === 'ar'), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); break;
+    case 'goto': document.getElementById(el.dataset.target!)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); break;
+    case 'print-guide': {
+      const g = document.querySelector('.guide');
+      if (g) { document.getElementById('print-root')!.innerHTML = g.outerHTML; window.print(); }
+      break;
+    }
     case 'pdf':
       if (uc) {
         document.getElementById('print-root')!.innerHTML = V.reportView(lang, uc, computeTier(uc.answers), store.frameworks());

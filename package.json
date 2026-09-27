@@ -14,7 +14,8 @@
     "check:i18n": "node scripts/check-i18n.mjs",
     "e2e": "playwright test",
     "check:secrets": "node scripts/check-secrets.mjs",
-    "check:data": "node scripts/validate-data.mjs"
+    "check:data": "node scripts/validate-data.mjs",
+    "media:guide": "playwright test -c scripts/media/playwright.media.config.ts guide-shots && playwright test -c scripts/media/playwright.media.config.ts guide-pdf"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0",

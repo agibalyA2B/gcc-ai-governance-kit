@@ -92,3 +92,19 @@ test('templates page says no upload is needed and links back to the app', async 
   await page.getByRole('link', { name: 'Start an assessment in the browser instead' }).click();
   await expect(page.locator('#f-name')).toBeVisible();
 });
+
+test('user guide is linked from the header, covers six topics and loads its screenshots', async ({ page }) => {
+  await page.getByRole('link', { name: 'Guide' }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('User guide');
+  await expect(page.locator('.guide-sec')).toHaveCount(6);
+  await expect(page.locator('.tiers dt')).toHaveCount(4);
+  const imgs = page.locator('.guide img');
+  await expect(imgs).toHaveCount(5);
+  for (const img of await imgs.all()) {
+    await img.scrollIntoViewIfNeeded();
+    await expect.poll(() => img.evaluate((i: HTMLImageElement) => i.complete && i.naturalWidth)).toBeGreaterThan(0);
+  }
+  await page.getByTestId('lang-toggle').click();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('دليل الاستخدام');
+  await expect(page.locator('.guide img').first()).toHaveAttribute('src', /guide\/ar\/home\.jpg$/);
+});
