@@ -1,0 +1,22 @@
+name: Mapping correction
+description: A control maps to the wrong or a missing framework reference
+labels: [content]
+body:
+  - type: input
+    id: control
+    attributes: { label: Control ID, placeholder: CTL-HUM-02 }
+    validations: { required: true }
+  - type: dropdown
+    id: framework
+    attributes:
+      label: Framework
+      options: [UAE AI Charter, Dubai AI Ethics, SDAIA, ISO/IEC 42001, NIST AI RMF, EU AI Act]
+    validations: { required: true }
+  - type: textarea
+    id: correction
+    attributes: { label: What should it be, and why? }
+    validations: { required: true }
+  - type: input
+    id: source
+    attributes: { label: Official source URL }
+    validations: { required: true }

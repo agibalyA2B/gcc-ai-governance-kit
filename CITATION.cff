@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this kit, please cite it as below."
+title: "GCC AI Governance Kit"
+type: software
+authors:
+  - family-names: Omar
+    given-names: Ahmed
+repository-code: "https://github.com/agibalyA2B/gcc-ai-governance-kit"
+url: "https://agibalya2b.github.io/gcc-ai-governance-kit/"
+license: MIT
+version: 0.1.0
+date-released: 2026-09-27
+keywords: [AI governance, GCC, UAE, Saudi Arabia, ISO/IEC 42001, NIST AI RMF, agentic AI, Arabic]
