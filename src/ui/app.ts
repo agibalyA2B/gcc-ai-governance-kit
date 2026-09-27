@@ -20,7 +20,7 @@ const route = () => location.hash.replace(/^#\/?/, '').split('/').filter(Boolean
 function shell(content: string): string {
   return `<a class="skip" href="#main">${t(lang, 'nav.skip')}</a>
   <header class="header">
-    <a class="brand" href="#/">${t(lang, 'app.title')}</a>
+    <a class="brand" href="#/"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#C8A96A" stroke-width="1.6" aria-hidden="true"><rect x="6" y="6" width="16" height="16"/><rect x="6" y="6" width="16" height="16" transform="rotate(45 14 14)"/><circle cx="14" cy="14" r="3"/></svg>${t(lang, 'app.title')}</a>
     <nav class="nav" aria-label="${t(lang, 'nav.primary')}">
       <a href="#/scoring">${t(lang, 'nav.scoring')}</a>
       <a href="#/templates">${t(lang, 'nav.templates')}</a>

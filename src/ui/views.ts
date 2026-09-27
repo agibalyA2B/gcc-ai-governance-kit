@@ -39,17 +39,17 @@ export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId
           <td>${tierBadge(lang, r.quickComplete ? r.tier : null)}</td>
           <td>${r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo')}</td>
           <td>${esc(uc.updatedAt.slice(0, 10))}</td>
-          <td class="row-actions"><button type="button" class="link" data-action="duplicate" data-id="${esc(uc.id)}">${t(lang, 'reg.duplicate')}</button>
-          <button type="button" class="link danger" data-action="delete" data-id="${esc(uc.id)}">${t(lang, 'reg.delete')}</button></td>
+          <td><div class="row-actions"><button type="button" class="link" data-action="duplicate" data-id="${esc(uc.id)}">${t(lang, 'reg.duplicate')}</button>
+          <button type="button" class="link danger" data-action="delete" data-id="${esc(uc.id)}">${t(lang, 'reg.delete')}</button></div></td>
         </tr>`).join('')}</tbody></table></div>`
     : `<div class="empty"><p>${t(lang, 'reg.empty')}</p>
         <button type="button" class="btn" data-action="samples">${t(lang, 'reg.samples')}</button></div>`;
   return `
-    <section class="hero"><h1>${t(lang, 'app.tagline')}</h1><p>${t(lang, 'app.intro')}</p></section>
+    <section class="hero"><div><span class="eyebrow">${t(lang, 'app.eyebrow')}</span><h1>${t(lang, 'app.tagline')}</h1><p>${t(lang, 'app.intro')}</p></div>
+      <a class="btn primary btn-lg" href="#/new" data-testid="new-uc"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3v12M3 9h12"/></svg>${t(lang, 'reg.new')}</a></section>
     ${persistent ? '' : `<p class="notice warn" role="alert">${t(lang, 'store.unavailable')}</p>`}
     ${frameworkChips(lang, selected)}
     <div class="toolbar">
-      <a class="btn primary" href="#/new" data-testid="new-uc">${t(lang, 'reg.new')}</a>
       <label class="filter">${t(lang, 'reg.filter')}
         <select data-action="filter"><option value="">${t(lang, 'reg.filter.all')}</option>
         ${TIER_ORDER.map((x) => `<option value="${x}" ${filter === x ? 'selected' : ''}>${t(lang, `tier.${x}`)}</option>`).join('')}</select></label>
@@ -65,9 +65,10 @@ export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId
 
 export function stepper(lang: Lang, uc: UseCase, step: Step, r: TierResult): string {
   const enabled = (s: Step) => s === 'details' || (s === 'quick' ? !!uc.name && !!uc.owner : r.quickComplete);
+  const done = (s: Step) => s === 'details' ? !!uc.name && !!uc.owner : s === 'quick' || s === 'tier' ? r.quickComplete : s === 'deep' ? r.deepComplete : false;
   return `<nav class="stepper" aria-label="${t(lang, 'step.nav')}"><ol>${STEPS.map((s, i) => `
-    <li class="${s === step ? 'current' : ''}">${enabled(s)
-      ? `<a href="#/uc/${esc(uc.id)}/${s}" ${s === step ? 'aria-current="step"' : ''}><span class="num">${i + 1}</span> ${t(lang, `step.${s}`)}</a>`
+    <li class="${s === step ? 'current' : done(s) ? 'done' : ''}">${enabled(s)
+      ? `<a href="#/uc/${esc(uc.id)}/${s}" ${s === step ? 'aria-current="step"' : ''}><span class="num">${s !== step && done(s) ? '✓' : i + 1}</span> ${t(lang, `step.${s}`)}</a>`
       : `<span class="disabled"><span class="num">${i + 1}</span> ${t(lang, `step.${s}`)}</span>`}</li>`).join('')}</ol></nav>`;
 }
 

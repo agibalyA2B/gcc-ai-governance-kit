@@ -152,5 +152,6 @@
   "tpl.register": "AI use-case register",
   "tpl.impact": "AI impact assessment",
   "tpl.checklist": "Control checklist",
-  "tpl.licence": "Templates are licensed under CC BY 4.0."
+  "tpl.licence": "Templates are licensed under CC BY 4.0.",
+  "app.eyebrow": "Open · Bilingual · Browser-only"
 }

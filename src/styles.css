@@ -1,4 +1,12 @@
-/* Design tokens: seed values from the UX spec. Final tokens replace this block (design/export/tokens.json). */
+/* Design tokens: from design/export/tokens.json. */
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-sans/700.css';
+@import '@fontsource/ibm-plex-sans-arabic/400.css';
+@import '@fontsource/ibm-plex-sans-arabic/600.css';
+@import '@fontsource/ibm-plex-sans-arabic/700.css';
+@import '@fontsource/source-serif-4/600.css';
+@import '@fontsource/noto-kufi-arabic/600.css';
 :root {
   --color-primary: #0f5257;
   --color-primary-dark: #0a3b3f;
@@ -18,8 +26,19 @@
   --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px; --space-12: 48px;
   --shadow: 0 1px 2px rgb(15 82 87 / 0.06), 0 4px 16px rgb(15 82 87 / 0.06);
   --font-latin: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-arabic: 'IBM Plex Sans Arabic', 'Noto Kufi Arabic', 'Geeza Pro', system-ui, sans-serif;
+  --font-arabic: 'IBM Plex Sans Arabic', 'Geeza Pro', system-ui, sans-serif;
+  --font-display: 'Source Serif 4', Georgia, serif;
+  --font-display-arabic: 'Noto Kufi Arabic', 'IBM Plex Sans Arabic', sans-serif;
+  --color-accent-text: #8a6d32;
+  --color-text-body: #3d484a;
 }
+h1, .card h2.display { font-family: var(--font-display); }
+html[lang='ar'] h1 { font-family: var(--font-display-arabic); line-height: 1.4; }
+.eyebrow { display: block; font-size: 0.8rem; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase; color: var(--color-accent-text); margin-block-end: var(--space-2); }
+html[lang='ar'] .eyebrow { letter-spacing: 0; text-transform: none; font-size: 0.9rem; }
+.brand { display: inline-flex; align-items: center; gap: 12px; }
+.hero { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--space-8); flex-wrap: wrap; }
+.stepper .done .num { background: transparent; color: var(--tier-little); }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -45,7 +64,7 @@ main:focus { outline: none; }
 .site-footer { text-align: center; color: var(--color-text-muted); font-size: 0.875rem; padding: var(--space-6); border-top: 1px solid var(--color-border); }
 
 .hero { padding-block: var(--space-6); }
-.hero h1 { margin-block: 0 var(--space-2); color: var(--color-primary); font-size: clamp(1.6rem, 3vw, 2.25rem); }
+.hero h1 { margin-block: 0 var(--space-3); color: var(--color-primary); font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.1; }
 .hero p { max-width: 70ch; color: var(--color-text-muted); margin: 0; }
 
 .card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); box-shadow: var(--shadow); margin-block-end: var(--space-6); }
@@ -167,3 +186,4 @@ thead th { font-size: 0.85rem; color: var(--color-text-muted); background: #fbfa
   .report .tier-badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .report footer { margin-block-start: 12pt; border-top: 1px solid #ccc; padding-top: 4pt; }
 }
+.btn-lg { padding: 13px 22px; font-size: 1rem; border-radius: 12px; }
