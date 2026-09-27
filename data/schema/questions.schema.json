@@ -2,24 +2,96 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Risk questionnaire",
   "type": "object",
-  "required": ["version", "thresholds", "questions", "triggers"],
+  "required": [
+    "version",
+    "thresholds",
+    "questions",
+    "triggers"
+  ],
   "properties": {
-    "version": { "type": "integer" },
-    "thresholds": { "type": "object", "required": ["limited", "high"], "properties": { "limited": { "type": "number" }, "high": { "type": "number" } } },
+    "version": {
+      "type": "integer"
+    },
+    "thresholds": {
+      "type": "object",
+      "required": [
+        "limited",
+        "high"
+      ],
+      "properties": {
+        "limited": {
+          "type": "number"
+        },
+        "high": {
+          "type": "number"
+        }
+      }
+    },
     "questions": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "level", "factor", "text_en", "text_ar", "help_en", "help_ar", "options"],
+        "required": [
+          "id",
+          "level",
+          "factor",
+          "text_en",
+          "text_ar",
+          "help_en",
+          "help_ar",
+          "options"
+        ],
         "properties": {
-          "level": { "enum": ["quick", "deep"] },
-          "options": { "type": "array", "minItems": 2, "items": { "type": "object", "required": ["id", "points", "en", "ar"], "properties": { "points": { "type": "number", "minimum": 0 } } } }
+          "level": {
+            "enum": [
+              "quick",
+              "deep",
+              "prio"
+            ]
+          },
+          "options": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "points",
+                "en",
+                "ar"
+              ],
+              "properties": {
+                "points": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              }
+            }
+          }
         }
       }
     },
     "triggers": {
       "type": "array",
-      "items": { "type": "object", "required": ["id", "min_tier", "when", "reason_en", "reason_ar"], "properties": { "min_tier": { "enum": ["limited", "high", "unacceptable"] } } }
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "min_tier",
+          "when",
+          "reason_en",
+          "reason_ar"
+        ],
+        "properties": {
+          "min_tier": {
+            "enum": [
+              "limited",
+              "high",
+              "unacceptable"
+            ]
+          }
+        }
+      }
     }
   }
 }

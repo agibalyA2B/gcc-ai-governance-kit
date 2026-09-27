@@ -5,7 +5,7 @@ export const TIER_ORDER: Tier[] = ['little', 'limited', 'high', 'unacceptable'];
 
 export interface Option { id: string; points: number; en: string; ar: string }
 export interface Question {
-  id: string; level: 'quick' | 'deep'; factor: string;
+  id: string; level: 'quick' | 'deep' | 'prio'; factor: string;
   text_en: string; text_ar: string; help_en: string; help_ar: string; options: Option[];
 }
 export interface Trigger {

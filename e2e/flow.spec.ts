@@ -57,3 +57,15 @@ test('no network request carries use-case data', async ({ page }) => {
   await expect(page.locator('.tier-result .tier-badge')).toContainText('Limited');
   expect(requests).toEqual([]);
 });
+
+test('prioritisation gives a recommended autonomy level and flags over-autonomy', async ({ page }) => {
+  await page.getByRole('button', { name: 'Load 2 sample use cases' }).click();
+  await page.getByRole('link', { name: 'Citizen service triage agent' }).click();
+  await expect(page.locator('.autonomy.pending')).toBeVisible();
+  await page.getByRole('link', { name: 'Answer them now' }).click();
+  for (const [q, v] of [['usage', 'high'], ['complexity', 'medium'], ['readiness', 'medium']] as const)
+    await page.locator(`input[name="${q}"][value="${v}"]`).check();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await expect(page.locator('.autonomy .auto-level')).toContainText('Level 3');
+  await expect(page.locator('.auto-fits')).toBeVisible();
+});

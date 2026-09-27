@@ -187,3 +187,11 @@ thead th { font-size: 0.85rem; color: var(--color-text-muted); background: #fbfa
   .report footer { margin-block-start: 12pt; border-top: 1px solid #ccc; padding-top: 4pt; }
 }
 .btn-lg { padding: 13px 22px; font-size: 1rem; border-radius: 12px; }
+.prio-block { margin-block-start: var(--space-6); padding-block-start: var(--space-4); border-top: 2px dashed var(--color-border); }
+.prio-block h3 { color: var(--color-primary); margin-block: 0 var(--space-2); }
+.autonomy { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); margin-block: var(--space-4); background: #f4f8f8; }
+.autonomy h3 { margin-block: 0 var(--space-2); font-size: 1rem; }
+.autonomy.warn { background: #fff4ec; border-color: var(--tier-high); }
+.auto-level { font-size: 1.1rem; margin: 0 0 var(--space-1); }
+.auto-exceeds { color: #8a2d08; font-weight: 600; margin-block-end: 0; }
+.auto-fits { color: #1f5e43; font-weight: 600; margin-block-end: 0; }

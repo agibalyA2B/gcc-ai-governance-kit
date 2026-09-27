@@ -1,249 +1,719 @@
 {
   "version": 1,
-  "thresholds": { "limited": 20, "high": 45 },
+  "thresholds": {
+    "limited": 20,
+    "high": 45
+  },
   "questions": [
     {
-      "id": "impact", "level": "quick", "factor": "impact",
+      "id": "impact",
+      "level": "quick",
+      "factor": "impact",
       "text_en": "What does the AI's output influence?",
       "text_ar": "على ماذا تؤثر مخرجات نظام الذكاء الاصطناعي؟",
       "help_en": "Think about the most serious thing the output can lead to, not the usual case.",
       "help_ar": "فكّر في أخطر ما قد تؤدي إليه المخرجات، لا في الحالة المعتادة.",
       "options": [
-        { "id": "internal", "points": 0, "en": "Internal productivity only (drafts, summaries, search)", "ar": "الإنتاجية الداخلية فقط (مسودات، ملخصات، بحث)" },
-        { "id": "public-info", "points": 5, "en": "Information given to the public or customers", "ar": "معلومات تُقدَّم للجمهور أو المتعاملين" },
-        { "id": "recommend-individuals", "points": 15, "en": "Recommendations to staff about specific people", "ar": "توصيات للموظفين بشأن أشخاص بعينهم" },
-        { "id": "decide-individuals", "points": 25, "en": "Decisions about people's rights, benefits, access to services or money", "ar": "قرارات تمس حقوق الأفراد أو مستحقاتهم أو وصولهم إلى الخدمات أو أموالهم" },
-        { "id": "prohibited", "points": 0, "en": "Social scoring, manipulation, or real-time biometric surveillance of the public", "ar": "التصنيف الاجتماعي للأفراد، أو التلاعب بالسلوك، أو المراقبة البيومترية الفورية للجمهور" }
+        {
+          "id": "internal",
+          "points": 0,
+          "en": "Internal productivity only (drafts, summaries, search)",
+          "ar": "الإنتاجية الداخلية فقط (مسودات، ملخصات، بحث)"
+        },
+        {
+          "id": "public-info",
+          "points": 5,
+          "en": "Information given to the public or customers",
+          "ar": "معلومات تُقدَّم للجمهور أو المتعاملين"
+        },
+        {
+          "id": "recommend-individuals",
+          "points": 15,
+          "en": "Recommendations to staff about specific people",
+          "ar": "توصيات للموظفين بشأن أشخاص بعينهم"
+        },
+        {
+          "id": "decide-individuals",
+          "points": 25,
+          "en": "Decisions about people's rights, benefits, access to services or money",
+          "ar": "قرارات تمس حقوق الأفراد أو مستحقاتهم أو وصولهم إلى الخدمات أو أموالهم"
+        },
+        {
+          "id": "prohibited",
+          "points": 0,
+          "en": "Social scoring, manipulation, or real-time biometric surveillance of the public",
+          "ar": "التصنيف الاجتماعي للأفراد، أو التلاعب بالسلوك، أو المراقبة البيومترية الفورية للجمهور"
+        }
       ]
     },
     {
-      "id": "data", "level": "quick", "factor": "data",
+      "id": "data",
+      "level": "quick",
+      "factor": "data",
       "text_en": "What data does it use?",
       "text_ar": "ما البيانات التي يستخدمها؟",
       "help_en": "Sensitive data includes health, biometric, financial, criminal-record, religious and children's data.",
       "help_ar": "تشمل البيانات الحساسة البيانات الصحية والبيومترية والمالية والسوابق الجنائية والمعتقد الديني وبيانات الأطفال.",
       "options": [
-        { "id": "none", "points": 0, "en": "No data about people, or public data only", "ar": "لا بيانات عن الأشخاص، أو بيانات عامة فقط" },
-        { "id": "internal", "points": 3, "en": "Internal business data, no personal data", "ar": "بيانات عمل داخلية دون بيانات شخصية" },
-        { "id": "personal", "points": 10, "en": "Personal data", "ar": "بيانات شخصية" },
-        { "id": "sensitive", "points": 18, "en": "Sensitive personal data", "ar": "بيانات شخصية حساسة" }
+        {
+          "id": "none",
+          "points": 0,
+          "en": "No data about people, or public data only",
+          "ar": "لا بيانات عن الأشخاص، أو بيانات عامة فقط"
+        },
+        {
+          "id": "internal",
+          "points": 3,
+          "en": "Internal business data, no personal data",
+          "ar": "بيانات عمل داخلية دون بيانات شخصية"
+        },
+        {
+          "id": "personal",
+          "points": 10,
+          "en": "Personal data",
+          "ar": "بيانات شخصية"
+        },
+        {
+          "id": "sensitive",
+          "points": 18,
+          "en": "Sensitive personal data",
+          "ar": "بيانات شخصية حساسة"
+        }
       ]
     },
     {
-      "id": "affected", "level": "quick", "factor": "affected",
+      "id": "affected",
+      "level": "quick",
+      "factor": "affected",
       "text_en": "Who could be affected?",
       "text_ar": "من قد يتأثر؟",
       "help_en": "Choose the most exposed group.",
       "help_ar": "اختر الفئة الأكثر عرضة للتأثر.",
       "options": [
-        { "id": "staff", "points": 3, "en": "Employees only", "ar": "الموظفون فقط" },
-        { "id": "public", "points": 8, "en": "Customers or the public", "ar": "المتعاملون أو الجمهور" },
-        { "id": "vulnerable", "points": 15, "en": "Vulnerable groups (children, elderly, people with disabilities)", "ar": "فئات أكثر عرضة للتأثر (الأطفال، كبار السن، أصحاب الهمم)" }
+        {
+          "id": "staff",
+          "points": 3,
+          "en": "Employees only",
+          "ar": "الموظفون فقط"
+        },
+        {
+          "id": "public",
+          "points": 8,
+          "en": "Customers or the public",
+          "ar": "المتعاملون أو الجمهور"
+        },
+        {
+          "id": "vulnerable",
+          "points": 15,
+          "en": "Vulnerable groups (children, elderly, people with disabilities)",
+          "ar": "فئات أكثر عرضة للتأثر (الأطفال، كبار السن، أصحاب الهمم)"
+        }
       ]
     },
     {
-      "id": "ai_type", "level": "quick", "factor": "ai_type",
+      "id": "ai_type",
+      "level": "quick",
+      "factor": "ai_type",
       "text_en": "What kind of AI is it?",
       "text_ar": "ما نوع الذكاء الاصطناعي المستخدم؟",
-      "help_en": "Agentic AI plans and takes actions through tools or systems, not just produces text or predictions.",
-      "help_ar": "الذكاء الاصطناعي الوكيلي يخطط وينفّذ إجراءات عبر الأدوات أو الأنظمة، ولا يكتفي بإنتاج نص أو تنبؤ.",
+      "help_en": "Per the UAE national reference, a system is agentic only if it works towards a goal, uses external tools or systems, keeps its working state, and runs its own step-by-step loop. Chatbots that only answer questions and fixed-script automation are not agentic.",
+      "help_ar": "وفق الدليل التعريفي الوطني، لا يُعدّ النظام مساعداً (وكيلياً) إلا إذا عمل نحو هدف، واستخدم أدوات أو أنظمة خارجية، واحتفظ بحالة التشغيل، ونفّذ خطواته بشكل تكراري ذاتي. أما روبوتات المحادثة التي تكتفي بالإجابة والأتمتة ذات الخطوات الثابتة فليست كذلك.",
       "options": [
-        { "id": "predictive", "points": 5, "en": "Predictive (scores, classifies, forecasts)", "ar": "تنبؤي (يقيّم أو يصنّف أو يتوقع)" },
-        { "id": "generative", "points": 5, "en": "Generative (writes text, images or answers)", "ar": "توليدي (يُنتج نصوصاً أو صوراً أو إجابات)" },
-        { "id": "agentic", "points": 10, "en": "Agentic (plans and takes actions)", "ar": "وكيلي (يخطط وينفّذ إجراءات)" }
+        {
+          "id": "predictive",
+          "points": 5,
+          "en": "Predictive (scores, classifies, forecasts)",
+          "ar": "تنبؤي (يقيّم أو يصنّف أو يتوقع)"
+        },
+        {
+          "id": "generative",
+          "points": 5,
+          "en": "Generative (writes text, images or answers)",
+          "ar": "توليدي (يُنتج نصوصاً أو صوراً أو إجابات)"
+        },
+        {
+          "id": "agentic",
+          "points": 10,
+          "en": "Agentic (plans and takes actions)",
+          "ar": "وكيلي (يخطط وينفّذ إجراءات)"
+        }
       ]
     },
     {
-      "id": "autonomy", "level": "quick", "factor": "autonomy",
+      "id": "autonomy",
+      "level": "quick",
+      "factor": "autonomy",
       "text_en": "How much does it act on its own?",
       "text_ar": "إلى أي مدى يعمل باستقلالية؟",
       "help_en": "Autonomy is about who makes the final move: a person or the system.",
       "help_ar": "الاستقلالية تتعلق بمن يتخذ الخطوة الأخيرة: الإنسان أم النظام.",
       "options": [
-        { "id": "suggests", "points": 0, "en": "It only suggests; a person decides and acts", "ar": "يقترح فقط؛ والإنسان يقرر وينفّذ" },
-        { "id": "approval", "points": 5, "en": "It acts only after a person approves", "ar": "ينفّذ فقط بعد موافقة الإنسان" },
-        { "id": "monitored", "points": 15, "en": "It acts on its own; people monitor", "ar": "ينفّذ من تلقاء نفسه مع متابعة بشرية" },
-        { "id": "full", "points": 25, "en": "Fully autonomous, no routine human involvement", "ar": "مستقل تماماً دون تدخل بشري معتاد" }
+        {
+          "id": "suggests",
+          "points": 0,
+          "en": "It only suggests; a person decides and acts",
+          "ar": "يقترح فقط؛ والإنسان يقرر وينفّذ"
+        },
+        {
+          "id": "approval",
+          "points": 5,
+          "en": "It acts only after a person approves",
+          "ar": "ينفّذ فقط بعد موافقة الإنسان"
+        },
+        {
+          "id": "monitored",
+          "points": 15,
+          "en": "It acts on its own; people monitor",
+          "ar": "ينفّذ من تلقاء نفسه مع متابعة بشرية"
+        },
+        {
+          "id": "full",
+          "points": 25,
+          "en": "Fully autonomous, no routine human involvement",
+          "ar": "مستقل تماماً دون تدخل بشري معتاد"
+        }
       ]
     },
     {
-      "id": "oversight", "level": "quick", "factor": "oversight",
+      "id": "oversight",
+      "level": "quick",
+      "factor": "oversight",
       "text_en": "How is its work reviewed by people?",
       "text_ar": "كيف يراجع البشر عمله؟",
       "help_en": "Human-in-the-loop means a person can catch and correct errors before they cause harm.",
       "help_ar": "وجود الإنسان في الحلقة يعني قدرته على اكتشاف الأخطاء وتصحيحها قبل أن تُحدث ضرراً.",
       "options": [
-        { "id": "every", "points": 0, "en": "A person reviews every output", "ar": "يراجع شخصٌ كل مُخرج" },
-        { "id": "exceptions", "points": 5, "en": "People review samples or exceptions", "ar": "مراجعة عينات أو الحالات الاستثنائية" },
-        { "id": "complaints", "points": 12, "en": "Only when someone complains", "ar": "فقط عند ورود شكوى" },
-        { "id": "none", "points": 20, "en": "No routine review", "ar": "لا توجد مراجعة معتادة" }
+        {
+          "id": "every",
+          "points": 0,
+          "en": "A person reviews every output",
+          "ar": "يراجع شخصٌ كل مُخرج"
+        },
+        {
+          "id": "exceptions",
+          "points": 5,
+          "en": "People review samples or exceptions",
+          "ar": "مراجعة عينات أو الحالات الاستثنائية"
+        },
+        {
+          "id": "complaints",
+          "points": 12,
+          "en": "Only when someone complains",
+          "ar": "فقط عند ورود شكوى"
+        },
+        {
+          "id": "none",
+          "points": 20,
+          "en": "No routine review",
+          "ar": "لا توجد مراجعة معتادة"
+        }
       ]
     },
     {
-      "id": "access", "level": "quick", "factor": "access",
+      "id": "access",
+      "level": "quick",
+      "factor": "access",
       "text_en": "What can it change in other systems?",
       "text_ar": "ما الذي يمكنه تغييره في الأنظمة الأخرى؟",
       "help_en": "A system of record is where official data lives (cases, accounts, payments, records).",
       "help_ar": "نظام السجل هو المكان الذي تُحفظ فيه البيانات الرسمية (الطلبات، الحسابات، المدفوعات، السجلات).",
       "options": [
-        { "id": "none", "points": 0, "en": "Nothing: no access, or read-only", "ar": "لا شيء: لا صلاحيات أو قراءة فقط" },
-        { "id": "internal", "points": 8, "en": "Writes to internal, non-critical tools", "ar": "يكتب في أدوات داخلية غير حرجة" },
-        { "id": "record", "points": 15, "en": "Writes to systems of record, makes payments, or sends external messages", "ar": "يكتب في أنظمة السجل، أو يجري مدفوعات، أو يرسل رسائل خارجية" }
+        {
+          "id": "none",
+          "points": 0,
+          "en": "Nothing: no access, or read-only",
+          "ar": "لا شيء: لا صلاحيات أو قراءة فقط"
+        },
+        {
+          "id": "internal",
+          "points": 8,
+          "en": "Writes to internal, non-critical tools",
+          "ar": "يكتب في أدوات داخلية غير حرجة"
+        },
+        {
+          "id": "record",
+          "points": 15,
+          "en": "Writes to systems of record, makes payments, or sends external messages",
+          "ar": "يكتب في أنظمة السجل، أو يجري مدفوعات، أو يرسل رسائل خارجية"
+        }
       ]
     },
     {
-      "id": "reversibility", "level": "quick", "factor": "reversibility",
+      "id": "reversibility",
+      "level": "quick",
+      "factor": "reversibility",
       "text_en": "If it gets something wrong, can the result be undone?",
       "text_ar": "إذا أخطأ، هل يمكن التراجع عن النتيجة؟",
       "help_en": "Consider the effect on the person, not only the data.",
       "help_ar": "انظر إلى الأثر على الشخص، لا على البيانات فقط.",
       "options": [
-        { "id": "easy", "points": 0, "en": "Yes, easily", "ar": "نعم، بسهولة" },
-        { "id": "effort", "points": 6, "en": "Yes, with effort", "ar": "نعم، ولكن بجهد" },
-        { "id": "hard", "points": 15, "en": "No, or only with lasting harm", "ar": "لا، أو فقط مع ضرر دائم" }
+        {
+          "id": "easy",
+          "points": 0,
+          "en": "Yes, easily",
+          "ar": "نعم، بسهولة"
+        },
+        {
+          "id": "effort",
+          "points": 6,
+          "en": "Yes, with effort",
+          "ar": "نعم، ولكن بجهد"
+        },
+        {
+          "id": "hard",
+          "points": 15,
+          "en": "No, or only with lasting harm",
+          "ar": "لا، أو فقط مع ضرر دائم"
+        }
       ]
     },
     {
-      "id": "scale", "level": "deep", "factor": "scale",
+      "id": "scale",
+      "level": "deep",
+      "factor": "scale",
       "text_en": "How many people does it affect per month?",
       "text_ar": "كم عدد الأشخاص الذين يتأثرون به شهرياً؟",
       "help_en": "Scale multiplies the effect of any single error.",
       "help_ar": "الحجم يضاعف أثر أي خطأ منفرد.",
       "options": [
-        { "id": "small", "points": 0, "en": "Fewer than 1,000", "ar": "أقل من 1,000" },
-        { "id": "medium", "points": 4, "en": "1,000 to 100,000", "ar": "من 1,000 إلى 100,000" },
-        { "id": "large", "points": 8, "en": "More than 100,000", "ar": "أكثر من 100,000" }
+        {
+          "id": "small",
+          "points": 0,
+          "en": "Fewer than 1,000",
+          "ar": "أقل من 1,000"
+        },
+        {
+          "id": "medium",
+          "points": 4,
+          "en": "1,000 to 100,000",
+          "ar": "من 1,000 إلى 100,000"
+        },
+        {
+          "id": "large",
+          "points": 8,
+          "en": "More than 100,000",
+          "ar": "أكثر من 100,000"
+        }
       ]
     },
     {
-      "id": "explain", "level": "deep", "factor": "explainability",
+      "id": "explain",
+      "level": "deep",
+      "factor": "explainability",
       "text_en": "Can you explain an individual result to the person affected?",
       "text_ar": "هل يمكنك شرح نتيجة بعينها للشخص المتأثر بها؟",
       "help_en": "People affected by a decision often have a right to understand it.",
       "help_ar": "غالباً ما يحق للمتأثرين بقرار ما فهم أسبابه.",
       "options": [
-        { "id": "yes", "points": 0, "en": "Yes, in plain language", "ar": "نعم، بلغة واضحة" },
-        { "id": "partly", "points": 4, "en": "Partly", "ar": "جزئياً" },
-        { "id": "no", "points": 8, "en": "No", "ar": "لا" }
+        {
+          "id": "yes",
+          "points": 0,
+          "en": "Yes, in plain language",
+          "ar": "نعم، بلغة واضحة"
+        },
+        {
+          "id": "partly",
+          "points": 4,
+          "en": "Partly",
+          "ar": "جزئياً"
+        },
+        {
+          "id": "no",
+          "points": 8,
+          "en": "No",
+          "ar": "لا"
+        }
       ]
     },
     {
-      "id": "third_party", "level": "deep", "factor": "supply-chain",
+      "id": "third_party",
+      "level": "deep",
+      "factor": "supply-chain",
       "text_en": "Does it rely on a third-party model or service?",
       "text_ar": "هل يعتمد على نموذج أو خدمة من طرف ثالث؟",
       "help_en": "Include foundation models used through an API.",
       "help_ar": "يشمل ذلك النماذج الأساسية المستخدمة عبر واجهات برمجية.",
       "options": [
-        { "id": "no", "points": 0, "en": "No, built and hosted in-house", "ar": "لا، مطوَّر ومستضاف داخلياً" },
-        { "id": "local", "points": 3, "en": "Yes, hosted in-country under our control", "ar": "نعم، مستضاف داخل الدولة وتحت سيطرتنا" },
-        { "id": "external", "points": 6, "en": "Yes, an external service outside our control", "ar": "نعم، خدمة خارجية خارج سيطرتنا" }
+        {
+          "id": "no",
+          "points": 0,
+          "en": "No, built and hosted in-house",
+          "ar": "لا، مطوَّر ومستضاف داخلياً"
+        },
+        {
+          "id": "local",
+          "points": 3,
+          "en": "Yes, hosted in-country under our control",
+          "ar": "نعم، مستضاف داخل الدولة وتحت سيطرتنا"
+        },
+        {
+          "id": "external",
+          "points": 6,
+          "en": "Yes, an external service outside our control",
+          "ar": "نعم، خدمة خارجية خارج سيطرتنا"
+        }
       ]
     },
     {
-      "id": "cross_border", "level": "deep", "factor": "data",
+      "id": "cross_border",
+      "level": "deep",
+      "factor": "data",
       "text_en": "Does data leave the country?",
       "text_ar": "هل تنتقل البيانات خارج الدولة؟",
       "help_en": "Check where the model provider processes and stores data.",
       "help_ar": "تحقّق من مكان معالجة مزوّد النموذج للبيانات وتخزينها.",
       "options": [
-        { "id": "no", "points": 0, "en": "No", "ar": "لا" },
-        { "id": "unsure", "points": 4, "en": "Not sure", "ar": "غير متأكد" },
-        { "id": "yes", "points": 6, "en": "Yes", "ar": "نعم" }
+        {
+          "id": "no",
+          "points": 0,
+          "en": "No",
+          "ar": "لا"
+        },
+        {
+          "id": "unsure",
+          "points": 4,
+          "en": "Not sure",
+          "ar": "غير متأكد"
+        },
+        {
+          "id": "yes",
+          "points": 6,
+          "en": "Yes",
+          "ar": "نعم"
+        }
       ]
     },
     {
-      "id": "bias_tested", "level": "deep", "factor": "fairness",
+      "id": "bias_tested",
+      "level": "deep",
+      "factor": "fairness",
       "text_en": "Has it been tested for unfair results across groups?",
       "text_ar": "هل اختُبر للتأكد من عدم تحيّز نتائجه بين الفئات المختلفة؟",
       "help_en": "For example by nationality, gender, age or language.",
       "help_ar": "مثلاً حسب الجنسية أو الجنس أو العمر أو اللغة.",
       "options": [
-        { "id": "yes", "points": 0, "en": "Yes, with documented results", "ar": "نعم، بنتائج موثّقة" },
-        { "id": "planned", "points": 4, "en": "Planned, not done yet", "ar": "مخطط له ولم يُنفَّذ بعد" },
-        { "id": "no", "points": 8, "en": "No", "ar": "لا" }
+        {
+          "id": "yes",
+          "points": 0,
+          "en": "Yes, with documented results",
+          "ar": "نعم، بنتائج موثّقة"
+        },
+        {
+          "id": "planned",
+          "points": 4,
+          "en": "Planned, not done yet",
+          "ar": "مخطط له ولم يُنفَّذ بعد"
+        },
+        {
+          "id": "no",
+          "points": 8,
+          "en": "No",
+          "ar": "لا"
+        }
       ]
     },
     {
-      "id": "security_tested", "level": "deep", "factor": "security",
+      "id": "security_tested",
+      "level": "deep",
+      "factor": "security",
       "text_en": "Has it been tested against misuse and attacks (e.g. prompt injection)?",
       "text_ar": "هل اختُبر ضد إساءة الاستخدام والهجمات (مثل حقن التعليمات)؟",
       "help_en": "Agentic systems with tool access need this most.",
       "help_ar": "الأنظمة الوكيلية التي تملك صلاحيات على الأدوات هي الأحوج لذلك.",
       "options": [
-        { "id": "yes", "points": 0, "en": "Yes", "ar": "نعم" },
-        { "id": "planned", "points": 4, "en": "Planned", "ar": "مخطط له" },
-        { "id": "no", "points": 8, "en": "No", "ar": "لا" }
+        {
+          "id": "yes",
+          "points": 0,
+          "en": "Yes",
+          "ar": "نعم"
+        },
+        {
+          "id": "planned",
+          "points": 4,
+          "en": "Planned",
+          "ar": "مخطط له"
+        },
+        {
+          "id": "no",
+          "points": 8,
+          "en": "No",
+          "ar": "لا"
+        }
       ]
     },
     {
-      "id": "monitoring", "level": "deep", "factor": "monitoring",
+      "id": "monitoring",
+      "level": "deep",
+      "factor": "monitoring",
       "text_en": "Is its performance monitored after launch?",
       "text_ar": "هل يُراقَب أداؤه بعد الإطلاق؟",
       "help_en": "Monitoring catches drift, errors and new risks over time.",
       "help_ar": "المراقبة تكشف الانحراف والأخطاء والمخاطر المستجدة مع الوقت.",
       "options": [
-        { "id": "yes", "points": 0, "en": "Yes, with defined metrics and owners", "ar": "نعم، بمؤشرات ومسؤولين محددين" },
-        { "id": "adhoc", "points": 4, "en": "Ad hoc", "ar": "بشكل غير منتظم" },
-        { "id": "no", "points": 8, "en": "No", "ar": "لا" }
+        {
+          "id": "yes",
+          "points": 0,
+          "en": "Yes, with defined metrics and owners",
+          "ar": "نعم، بمؤشرات ومسؤولين محددين"
+        },
+        {
+          "id": "adhoc",
+          "points": 4,
+          "en": "Ad hoc",
+          "ar": "بشكل غير منتظم"
+        },
+        {
+          "id": "no",
+          "points": 8,
+          "en": "No",
+          "ar": "لا"
+        }
       ]
     },
     {
-      "id": "incident", "level": "deep", "factor": "monitoring",
+      "id": "incident",
+      "level": "deep",
+      "factor": "monitoring",
       "text_en": "Is there a way to stop it and handle incidents?",
       "text_ar": "هل توجد آلية لإيقافه ومعالجة الحوادث؟",
       "help_en": "For example a kill switch, rollback and a named incident owner.",
       "help_ar": "مثل مفتاح إيقاف، وإمكانية التراجع، ومسؤول محدد عن الحوادث.",
       "options": [
-        { "id": "yes", "points": 0, "en": "Yes, documented and tested", "ar": "نعم، موثّقة ومختبرة" },
-        { "id": "partial", "points": 4, "en": "Partly", "ar": "جزئياً" },
-        { "id": "no", "points": 8, "en": "No", "ar": "لا" }
+        {
+          "id": "yes",
+          "points": 0,
+          "en": "Yes, documented and tested",
+          "ar": "نعم، موثّقة ومختبرة"
+        },
+        {
+          "id": "partial",
+          "points": 4,
+          "en": "Partly",
+          "ar": "جزئياً"
+        },
+        {
+          "id": "no",
+          "points": 8,
+          "en": "No",
+          "ar": "لا"
+        }
       ]
     },
     {
-      "id": "regulated", "level": "deep", "factor": "impact",
+      "id": "regulated",
+      "level": "deep",
+      "factor": "impact",
       "text_en": "Is it used in a regulated domain?",
       "text_ar": "هل يُستخدم في مجال خاضع للتنظيم؟",
       "help_en": "For example finance, health, justice, employment, education or critical infrastructure.",
       "help_ar": "مثل المال والصحة والعدالة والتوظيف والتعليم والبنية التحتية الحيوية.",
       "options": [
-        { "id": "no", "points": 0, "en": "No", "ar": "لا" },
-        { "id": "yes", "points": 6, "en": "Yes", "ar": "نعم" }
+        {
+          "id": "no",
+          "points": 0,
+          "en": "No",
+          "ar": "لا"
+        },
+        {
+          "id": "yes",
+          "points": 6,
+          "en": "Yes",
+          "ar": "نعم"
+        }
       ]
     },
     {
-      "id": "disclosure", "level": "deep", "factor": "transparency",
+      "id": "disclosure",
+      "level": "deep",
+      "factor": "transparency",
       "text_en": "Are people told they are dealing with AI?",
       "text_ar": "هل يُبلَّغ الأشخاص بأنهم يتعاملون مع ذكاء اصطناعي؟",
       "help_en": "Clear disclosure builds trust and is expected by most frameworks.",
       "help_ar": "الإفصاح الواضح يبني الثقة، وتتوقعه معظم الأطر.",
       "options": [
-        { "id": "yes", "points": 0, "en": "Yes, clearly", "ar": "نعم، بوضوح" },
-        { "id": "no", "points": 5, "en": "No", "ar": "لا" }
+        {
+          "id": "yes",
+          "points": 0,
+          "en": "Yes, clearly",
+          "ar": "نعم، بوضوح"
+        },
+        {
+          "id": "no",
+          "points": 5,
+          "en": "No",
+          "ar": "لا"
+        }
+      ]
+    },
+    {
+      "id": "usage",
+      "level": "prio",
+      "factor": "priority",
+      "text_en": "How heavily is the service used?",
+      "text_ar": "ما كثافة استخدام الخدمة؟",
+      "help_en": "Volume and frequency of transactions, and the operational load on the entity.",
+      "help_ar": "حجم المعاملات وتكرارها، والعبء التشغيلي على الجهة.",
+      "options": [
+        {
+          "id": "low",
+          "points": 0,
+          "en": "Low: limited use, infrequent transactions",
+          "ar": "منخفضة: استخدام محدود ومعاملات غير متكررة"
+        },
+        {
+          "id": "medium",
+          "points": 0,
+          "en": "Medium",
+          "ar": "متوسطة"
+        },
+        {
+          "id": "high",
+          "points": 0,
+          "en": "High: wide use, repeated transactions",
+          "ar": "مرتفعة: استخدام واسع ومعاملات متكررة"
+        }
+      ]
+    },
+    {
+      "id": "complexity",
+      "level": "prio",
+      "factor": "priority",
+      "text_en": "How complex is the service to deliver or transform?",
+      "text_ar": "ما مستوى تعقيد تنفيذ الخدمة أو تحويلها؟",
+      "help_en": "Steps, entities and approvals involved; exceptions; ambiguity in decisions; regulatory and integration demands.",
+      "help_ar": "عدد الخطوات والجهات والاعتمادات، والاستثناءات، وغموض القرار، والمتطلبات التنظيمية ومتطلبات التكامل.",
+      "options": [
+        {
+          "id": "low",
+          "points": 0,
+          "en": "Low: simple, standard, repeatable",
+          "ar": "منخفض: بسيط وموحّد وقابل للتكرار"
+        },
+        {
+          "id": "medium",
+          "points": 0,
+          "en": "Medium",
+          "ar": "متوسط"
+        },
+        {
+          "id": "high",
+          "points": 0,
+          "en": "High: multi-entity, variable, heavily governed",
+          "ar": "مرتفع: متعدد الجهات ومتغيّر وخاضع لحوكمة مشددة"
+        }
+      ]
+    },
+    {
+      "id": "readiness",
+      "level": "prio",
+      "factor": "priority",
+      "text_en": "How ready is the service for AI?",
+      "text_ar": "ما مدى جاهزية الخدمة لتبنّي الذكاء الاصطناعي؟",
+      "help_en": "Data availability and quality, digital maturity, integration between entities, clear standard procedures, legal and governance readiness.",
+      "help_ar": "توفر البيانات وجودتها، ونضج الرقمنة، والتكامل بين الجهات، ووضوح الإجراءات وتوحيدها، والجاهزية التشريعية والحوكمة.",
+      "options": [
+        {
+          "id": "low",
+          "points": 0,
+          "en": "Low: manual, fragmented, unclear",
+          "ar": "منخفضة: يدوية ومجزأة وغير واضحة"
+        },
+        {
+          "id": "medium",
+          "points": 0,
+          "en": "Medium",
+          "ar": "متوسطة"
+        },
+        {
+          "id": "high",
+          "points": 0,
+          "en": "High: structured, digital, integrated",
+          "ar": "مرتفعة: منظّمة ورقمية ومتكاملة"
+        }
       ]
     }
   ],
   "triggers": [
     {
-      "id": "T-PROHIBITED", "min_tier": "unacceptable",
-      "when": [{ "q": "impact", "in": ["prohibited"] }],
+      "id": "T-PROHIBITED",
+      "min_tier": "unacceptable",
+      "when": [
+        {
+          "q": "impact",
+          "in": [
+            "prohibited"
+          ]
+        }
+      ],
       "reason_en": "The use falls into a prohibited category (social scoring, manipulation or real-time biometric surveillance).",
       "reason_ar": "يندرج الاستخدام ضمن فئة محظورة (التصنيف الاجتماعي أو التلاعب أو المراقبة البيومترية الفورية)."
     },
     {
-      "id": "T-AUTONOMOUS-DECISIONS", "min_tier": "high",
-      "when": [{ "q": "impact", "in": ["decide-individuals"] }, { "q": "autonomy", "in": ["monitored", "full"] }],
+      "id": "T-AUTONOMOUS-DECISIONS",
+      "min_tier": "high",
+      "when": [
+        {
+          "q": "impact",
+          "in": [
+            "decide-individuals"
+          ]
+        },
+        {
+          "q": "autonomy",
+          "in": [
+            "monitored",
+            "full"
+          ]
+        }
+      ],
       "reason_en": "It makes decisions about people without a person approving each one.",
       "reason_ar": "يتخذ قرارات تخص الأفراد دون موافقة بشرية على كل قرار."
     },
     {
-      "id": "T-SENSITIVE-DECISIONS", "min_tier": "high",
-      "when": [{ "q": "impact", "in": ["decide-individuals"] }, { "q": "data", "in": ["sensitive"] }],
+      "id": "T-SENSITIVE-DECISIONS",
+      "min_tier": "high",
+      "when": [
+        {
+          "q": "impact",
+          "in": [
+            "decide-individuals"
+          ]
+        },
+        {
+          "q": "data",
+          "in": [
+            "sensitive"
+          ]
+        }
+      ],
       "reason_en": "It decides about people using sensitive personal data.",
       "reason_ar": "يتخذ قرارات تخص الأفراد باستخدام بيانات شخصية حساسة."
     },
     {
-      "id": "T-IRREVERSIBLE-ACTIONS", "min_tier": "high",
-      "when": [{ "q": "autonomy", "in": ["monitored", "full"] }, { "q": "reversibility", "in": ["hard"] }, { "q": "affected", "in": ["public", "vulnerable"] }],
+      "id": "T-IRREVERSIBLE-ACTIONS",
+      "min_tier": "high",
+      "when": [
+        {
+          "q": "autonomy",
+          "in": [
+            "monitored",
+            "full"
+          ]
+        },
+        {
+          "q": "reversibility",
+          "in": [
+            "hard"
+          ]
+        },
+        {
+          "q": "affected",
+          "in": [
+            "public",
+            "vulnerable"
+          ]
+        }
+      ],
       "reason_en": "It acts on its own and its actions on people cannot easily be undone.",
       "reason_ar": "ينفّذ إجراءات من تلقاء نفسه ولا يمكن التراجع بسهولة عن أثرها على الأشخاص."
     }

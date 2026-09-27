@@ -4,6 +4,7 @@ import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
 import { applicableControls, verifiedShare, THEMES, CROSSWALK, type Control } from '../core/controls';
 import type { UseCase } from '../core/usecase';
 import { esc, tierIcon } from './html';
+import { recommendAutonomy } from '../core/autonomy';
 
 export const STEPS = ['details', 'quick', 'tier', 'deep', 'controls', 'export'] as const;
 export type Step = (typeof STEPS)[number];
@@ -88,18 +89,36 @@ export function detailsForm(lang: Lang, uc: UseCase): string {
     <div class="actions"><button class="btn primary" type="submit">${t(lang, 'nav.next')}</button></div></form>`;
 }
 
+function questionBlock(lang: Lang, uc: UseCase, qs: typeof QUESTIONS.questions, showPoints: boolean): string {
+  return qs.map((q, i) => `<fieldset class="question"><legend><span class="qnum">${i + 1}.</span> ${esc(L(lang, q.text_en, q.text_ar))}</legend>
+      <p class="help">${esc(L(lang, q.help_en, q.help_ar))}</p>
+      ${q.options.map((o) => `<label class="option"><input type="radio" name="${q.id}" value="${o.id}" ${uc.answers[q.id] === o.id ? 'checked' : ''}/>
+        <span>${esc(L(lang, o.en, o.ar))}</span>${showPoints && q.level !== 'prio' ? `<span class="pts">+${o.points}</span>` : ''}</label>`).join('')}
+    </fieldset>`).join('');
+}
+
 export function questionsForm(lang: Lang, uc: UseCase, level: 'quick' | 'deep', showPoints: boolean): string {
   const qs = QUESTIONS.questions.filter((q) => q.level === level);
   const answered = qs.filter((q) => uc.answers[q.id]).length;
+  const prio = level === 'deep' ? QUESTIONS.questions.filter((q) => q.level === 'prio') : [];
   return `<form class="card" data-form="${level}">
     <h2 tabindex="-1">${t(lang, `step.${level}`)}</h2>
     <p class="muted">${t(lang, `${level}.intro`)} <span class="progress" aria-live="polite">${answered}/${qs.length}</span></p>
-    ${qs.map((q, i) => `<fieldset class="question"><legend><span class="qnum">${i + 1}.</span> ${esc(L(lang, q.text_en, q.text_ar))}</legend>
-      <p class="help">${esc(L(lang, q.help_en, q.help_ar))}</p>
-      ${q.options.map((o) => `<label class="option"><input type="radio" name="${q.id}" value="${o.id}" ${uc.answers[q.id] === o.id ? 'checked' : ''}/>
-        <span>${esc(L(lang, o.en, o.ar))}</span>${showPoints ? `<span class="pts">+${o.points}</span>` : ''}</label>`).join('')}
-    </fieldset>`).join('')}
+    ${questionBlock(lang, uc, qs, showPoints)}
+    ${prio.length ? `<section class="prio-block"><h3>${t(lang, 'prio.title')}</h3><p class="muted">${t(lang, 'prio.intro')}</p>${questionBlock(lang, uc, prio, false)}</section>` : ''}
     <div class="actions"><button class="btn primary" type="submit">${t(lang, 'nav.next')}</button></div></form>`;
+}
+
+export function autonomyCard(lang: Lang, uc: UseCase, r: TierResult): string {
+  const a = recommendAutonomy(uc.answers, r.tier);
+  if (!a.complete) return `<div class="autonomy pending"><h3>${t(lang, 'auto.title')}</h3><p class="muted">${t(lang, 'auto.pending')}</p>
+    <a class="link" href="#/uc/${esc(uc.id)}/deep">${t(lang, 'auto.answer')}</a></div>`;
+  return `<div class="autonomy ${a.exceeds ? 'warn' : 'ok'}"><h3>${t(lang, 'auto.title')}</h3>
+    <p class="auto-level"><strong>${t(lang, 'auto.level')} ${a.recommended}</strong>: ${t(lang, `auto.l${a.recommended}`)}</p>
+    <p class="muted">${t(lang, `auto.l${a.recommended}.desc`)}</p>
+    ${a.capReasons.length ? `<p class="small">${t(lang, `auto.cap.${a.capReasons[0]}`)}</p>` : ''}
+    ${a.actual ? `<p class="${a.exceeds ? 'auto-exceeds' : 'auto-fits'}">${t(lang, a.exceeds ? 'auto.exceeds' : 'auto.fits').replace('{n}', String(a.actual))}</p>` : ''}
+  </div>`;
 }
 
 export function tierView(lang: Lang, uc: UseCase, r: TierResult): string {
@@ -117,6 +136,7 @@ export function tierView(lang: Lang, uc: UseCase, r: TierResult): string {
       <tbody>${r.factors.map((f) => `<tr><td>${esc(qText(f.questionId))}</td><td>${f.points}</td></tr>`).join('')}</tbody></table>
       <p class="muted">${t(lang, 'tier.thresholds')} ${QUESTIONS.thresholds.limited} / ${QUESTIONS.thresholds.high}. <a href="#/scoring">${t(lang, 'nav.scoring')}</a></p>
     </details>
+    ${autonomyCard(lang, uc, r)}
     ${!r.deepComplete ? `<div class="prompt ${r.tier === 'high' || r.tier === 'unacceptable' ? 'strong' : ''}">
       <p>${t(lang, r.tier === 'high' || r.tier === 'unacceptable' ? 'tier.deep.strong' : 'tier.deep.offer')}</p>
       <a class="btn" href="#/uc/${esc(uc.id)}/deep">${t(lang, 'tier.deep.cta')}</a></div>` : ''}
@@ -183,7 +203,8 @@ export function reportView(lang: Lang, uc: UseCase, r: TierResult, frameworks: F
       <tr><th>${t(lang, 'uc.businessUnit')}</th><td>${esc(uc.businessUnit)}</td></tr><tr><th>${t(lang, 'uc.purpose')}</th><td>${esc(uc.purpose)}</td></tr>
       <tr><th>${t(lang, 'uc.status')}</th><td>${t(lang, `status.${uc.status}`)}</td></tr>
       <tr><th>${t(lang, 'reg.tier')}</th><td>${tierBadge(lang, r.tier)} (${r.points} ${t(lang, 'tier.points')}; ${r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo')})</td></tr>
-      <tr><th>${t(lang, 'fw.legend')}</th><td>${esc(fwNames)}</td></tr></tbody></table>
+      <tr><th>${t(lang, 'fw.legend')}</th><td>${esc(fwNames)}</td></tr>
+      ${(() => { const a = recommendAutonomy(uc.answers, r.tier); return a.complete ? `<tr><th>${t(lang, 'auto.title')}</th><td>${t(lang, 'auto.level')} ${a.recommended}: ${t(lang, `auto.l${a.recommended}`)}${a.exceeds ? ` — ${t(lang, 'auto.exceeds').replace('{n}', String(a.actual))}` : ''}</td></tr>` : ''; })()}</tbody></table>
     <h2>${t(lang, 'tier.why')}</h2><ul>${topReasons(r, lang).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
     <h2>${t(lang, 'rep.controls')}</h2>
     ${r.tier === 'unacceptable' ? `<p>${t(lang, 'ctl.unacceptable')}</p>` : `<table class="checklist"><thead><tr><th>☐</th><th>${t(lang, 'rep.control')}</th><th>${t(lang, 'rep.refs')}</th><th>${t(lang, 'rep.status')}</th></tr></thead>
@@ -207,7 +228,9 @@ export function scoringView(lang: Lang): string {
     <h2>${t(lang, 'sc.triggers')}</h2><ul>${QUESTIONS.triggers.map((x) => `<li><strong>${esc(x.id)}</strong> → ${t(lang, `tier.${x.min_tier}`)}: ${esc(L(lang, x.reason_en, x.reason_ar))}</li>`).join('')}</ul>
     <h2>${t(lang, 'step.quick')}</h2><table class="weights"><tbody>${section('quick')}</tbody></table>
     <h2>${t(lang, 'step.deep')}</h2><table class="weights"><tbody>${section('deep')}</tbody></table>
-    <p class="muted">${t(lang, 'sc.deep.rule')}</p></section>`;
+    <p class="muted">${t(lang, 'sc.deep.rule')}</p>
+    <h2>${t(lang, 'auto.title')}</h2><p>${t(lang, 'sc.auto')}</p>
+    <ul>${[4, 3, 2, 1].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}: ${t(lang, `auto.l${n}`)}</strong> — ${t(lang, `auto.l${n}.desc`)}</li>`).join('')}</ul></section>`;
 }
 
 export function aboutView(lang: Lang): string {
@@ -216,7 +239,12 @@ export function aboutView(lang: Lang): string {
     <p>${t(lang, 'ab.intro')}</p>
     <p><strong>${share.verified}/${share.total}</strong> ${t(lang, 'ab.verified')}</p>
     <h2>${t(lang, 'ab.sources')}</h2><ul>
-      <li>${t(lang, 'ab.src.uae')}</li><li><a href="https://www.digitaldubai.ae/self-assessment" target="_blank" rel="noopener">${t(lang, 'ab.src.dubai')}</a></li>
+      <li>${t(lang, 'ab.src.uae')}</li>
+      <li><a href="https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years" target="_blank" rel="noopener">${t(lang, 'ab.src.uaecode')}</a></li>
+      <li><a href="https://uaemodel.egsep.ae/agentic_ai_guide_website.html" target="_blank" rel="noopener">${t(lang, 'ab.src.egsep')}</a></li>
+      <li>${t(lang, 'ab.src.datapolicy')}</li>
+      <li>${t(lang, 'ab.src.agenticref')}</li>
+      <li>${t(lang, 'ab.src.matrix')}</li><li><a href="https://www.digitaldubai.ae/self-assessment" target="_blank" rel="noopener">${t(lang, 'ab.src.dubai')}</a></li>
       <li><a href="https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf" target="_blank" rel="noopener">${t(lang, 'ab.src.sdaia')}</a></li>
       <li><a href="https://www.iso.org/standard/42001" target="_blank" rel="noopener">ISO/IEC 42001:2023</a> — ${t(lang, 'ab.iso')}</li>
       <li><a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf" target="_blank" rel="noopener">NIST AI RMF 1.0</a>; <a href="https://airc.nist.gov/airmf-resources/crosswalks/" target="_blank" rel="noopener">${t(lang, 'ab.nistcw')}</a></li>
