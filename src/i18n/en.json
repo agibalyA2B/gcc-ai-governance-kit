@@ -1,0 +1,11 @@
+{
+  "app.title": "GCC AI Governance Kit",
+  "app.tagline": "Adopt AI governance in one afternoon.",
+  "app.intro": "Register an AI use case, get an explainable risk tier, and export the controls that apply under the frameworks you follow. Everything stays in your browser.",
+  "lang.toggle": "عربي",
+  "lang.toggle.label": "Switch to Arabic",
+  "nav.scoring": "How scoring works",
+  "nav.templates": "Templates",
+  "nav.github": "GitHub",
+  "status.preview": "Preview build: features are being added."
+}

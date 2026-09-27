@@ -1,0 +1,25 @@
+{
+  "name": "gcc-ai-governance-kit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Open, bilingual (AR/EN) AI-governance starter kit for GCC organisations.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173 --strictPort",
+    "test": "vitest run",
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "e2e": "playwright test",
+    "check:secrets": "node scripts/check-secrets.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^22.20.4",
+    "jsdom": "^25.0.0",
+    "typescript": "^5.6.0",
+    "vite": "^5.4.0",
+    "vitest": "^2.1.0"
+  }
+}

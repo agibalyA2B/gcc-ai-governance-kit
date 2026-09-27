@@ -1,0 +1,28 @@
+/* Seed tokens from docs/planning-artifacts/ux-designs/.../DESIGN.md; replaced by design/export/tokens.json in story 7.1. */
+:root {
+  --color-primary: #0f5257;
+  --color-accent: #c8a96a;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f6f3ec;
+  --color-text: #1b2426;
+  --color-text-muted: #5b6668;
+  --color-border: #e3ded3;
+  --radius-md: 10px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --font-latin: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-arabic: 'IBM Plex Sans Arabic', 'Noto Kufi Arabic', 'Geeza Pro', system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-latin); color: var(--color-text); background: var(--color-surface-muted); line-height: 1.5; }
+html[lang='ar'] body { font-family: var(--font-arabic); line-height: 1.7; }
+.header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-4) var(--space-6); background: var(--color-primary); color: #fff; }
+.header a, .header button { color: #fff; }
+.brand { font-weight: 700; font-size: 1.1rem; }
+.nav { display: flex; gap: var(--space-4); align-items: center; }
+.lang-toggle { background: transparent; border: 1px solid rgb(255 255 255 / 0.6); border-radius: var(--radius-md); padding: 4px 12px; font: inherit; cursor: pointer; }
+.lang-toggle:focus-visible, a:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+main { max-width: 1120px; margin-inline: auto; padding: var(--space-6); }
+.hero h1 { margin-block: 0 8px; color: var(--color-primary); }
+.hero p { max-width: 70ch; color: var(--color-text-muted); }
+.notice { margin-block-start: var(--space-6); padding: 12px var(--space-4); border-inline-start: 4px solid var(--color-accent); background: var(--color-surface); border-radius: var(--radius-md); }
