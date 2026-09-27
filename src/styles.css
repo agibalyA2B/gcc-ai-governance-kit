@@ -97,7 +97,7 @@ select, input, textarea { font: inherit; }
 select, input:not([type='checkbox']):not([type='radio']), textarea { padding: 8px 10px; border: 1px solid #c9c2b4; border-radius: var(--radius-sm); background: #fff; width: 100%; }
 .filter select { width: auto; }
 
-.table-wrap { overflow-x: auto; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+.table-wrap { position: relative; overflow-x: auto; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
 table { border-collapse: collapse; width: 100%; }
 th, td { text-align: start; padding: var(--space-3); border-bottom: 1px solid var(--color-border); vertical-align: top; }
 thead th { font-size: 0.85rem; color: var(--color-text-muted); background: #fbfaf7; }
