@@ -22,6 +22,7 @@ const qText = (id, lang) => q(id)[`text_${lang}`];
 // Mirrors src/core/frameworks.ts (kept here as data so this script has no dependency on TS sources).
 const FRAMEWORKS = [
   { id: 'uae_charter', en: 'UAE AI Charter', ar: 'ميثاق الإمارات للذكاء الاصطناعي' },
+  { id: 'uae_gov_code', en: 'UAE Gov Services Code', ar: 'كود الإمارات للخدمات الحكومية' },
   { id: 'dubai_ethics', en: 'Dubai AI Ethics', ar: 'أخلاقيات الذكاء الاصطناعي في دبي' },
   { id: 'sdaia', en: 'SDAIA AI Ethics', ar: 'مبادئ أخلاقيات الذكاء الاصطناعي (سدايا)' },
   { id: 'iso42001', en: 'ISO/IEC 42001', ar: 'آيزو/آي إي سي 42001' },
@@ -160,9 +161,9 @@ function buildImpactAssessment(lang) {
   const machineHeader = IMPACT_FIELDS;
   const humanHeader = impactHumanHeader(lang);
   const questionRows = questionsData.questions.map((qq) => [
-    qq.level === 'quick' ? T('step.quick', lang) : T('step.deep', lang),
+    qq.level === 'quick' ? T('step.quick', lang) : qq.level === 'deep' ? T('step.deep', lang) : T('prio.title', lang),
     qq[`text_${lang}`],
-    qq.options.map((o) => `${o[lang]} (${o.points})`).join('; '),
+    qq.options.map((o) => (qq.level === 'prio' ? o[lang] : `${o[lang]} (${o.points})`)).join('; '),
     '',
     '',
   ]);

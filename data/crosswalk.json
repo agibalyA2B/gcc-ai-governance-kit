@@ -13,6 +13,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Accountability"
       ],
@@ -55,6 +56,9 @@
       "uae_charter": [
         "Governance and accountability"
       ],
+      "uae_gov_code": [
+        "Agentic Reference p.9"
+      ],
       "dubai_ethics": [
         "Accountability"
       ],
@@ -77,7 +81,7 @@
     ],
     "verified": false,
     "verified_on": null,
-    "notes": "needs-verification: UAE Charter principle name(s) Governance and accountability (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+    "notes": "needs-verification: UAE Charter principle name(s) Governance and accountability (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27. p.9 of the UAE Agentic AI National Reference (July 2026) confirmed against the document text; no public URL known, so it is recorded here rather than in source_urls."
   },
   {
     "id": "CTL-ACC-03",
@@ -93,6 +97,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [],
       "sdaia": [
         "Accountability & Responsibility"
@@ -128,6 +133,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Accountability"
       ],
@@ -173,6 +179,11 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [
+        "Code 2.1",
+        "Code 8.8",
+        "Agentic Guide §06"
+      ],
       "dubai_ethics": [],
       "sdaia": [
         "Accountability & Responsibility",
@@ -190,7 +201,9 @@
     "source_urls": [
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
-      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
@@ -210,6 +223,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Accountability"
       ],
@@ -255,6 +269,9 @@
       "uae_charter": [
         "Promoting AI awareness for an inclusive society"
       ],
+      "uae_gov_code": [
+        "Code 6.2"
+      ],
       "dubai_ethics": [],
       "sdaia": [],
       "iso42001": [
@@ -271,7 +288,8 @@
     "source_urls": [
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
     ],
     "verified": false,
     "verified_on": null,
@@ -293,6 +311,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Accountability"
       ],
@@ -319,6 +338,122 @@
     "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
   },
   {
+    "id": "CTL-ACC-09",
+    "theme": "accountability",
+    "title_en": "Governance review for each agent",
+    "title_ar": "مراجعة حوكمة لكل وكيل",
+    "control_text_en": "Run a documented governance review of each AI agent before launch, and again whenever its scope, permissions, data or outputs change. Record each decision to continue, modify or stop in a review log kept for that agent.",
+    "control_text_ar": "إجراء مراجعة حوكمة موثقة لكل وكيل ذكاء اصطناعي قبل إطلاقه، وإعادتها عند أي تغيير في نطاقه أو صلاحياته أو بياناته أو مخرجاته، مع تسجيل كل قرار بالاستمرار أو التعديل أو الإيقاف في سجل مراجعة خاص بالوكيل.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [
+        "Code 2.1",
+        "Agentic Guide §06"
+      ],
+      "dubai_ethics": [],
+      "sdaia": [
+        "Accountability & Responsibility"
+      ],
+      "iso42001": [
+        "A.6.2.5"
+      ],
+      "nist_ai_rmf": [
+        "MANAGE 1.1"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-ACC-10",
+    "theme": "accountability",
+    "title_en": "Approved scope document for each agent",
+    "title_ar": "وثيقة نطاق معتمدة لكل وكيل",
+    "control_text_en": "Keep an approved, current scope document for each agent that lists the services and cases it may handle, its permissions and access limits, and which decisions it may take alone or must refer to a person. Re-approve it after any material change and block use outside it.",
+    "control_text_ar": "الاحتفاظ لكل وكيل بوثيقة نطاق معتمدة ومحدّثة تحدد الخدمات والحالات التي يجوز له التعامل معها، وصلاحياته وحدود وصوله، والقرارات التي يتخذها بمفرده وتلك التي يجب أن يحيلها إلى موظف، مع إعادة اعتمادها بعد أي تغيير جوهري ومنع تشغيله خارج نطاقها.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.4",
+        "Agentic Guide §05"
+      ],
+      "dubai_ethics": [],
+      "sdaia": [],
+      "iso42001": [],
+      "nist_ai_rmf": [
+        "MAP 3.3"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": ""
+  },
+  {
+    "id": "CTL-ACC-11",
+    "theme": "accountability",
+    "title_en": "Classify systems against the national agentic definition",
+    "title_ar": "تصنيف الأنظمة وفق التعريف الوطني للذكاء الاصطناعي المساعد",
+    "control_text_en": "Before registering an AI system, classify it as generative, agentic or multi-agent using the national definition and self-assessment criteria. Do not label chatbots, scripted automation, reply-drafting copilots or avatar interfaces as agentic unless they meet every criterion.",
+    "control_text_ar": "قبل تسجيل أي نظام ذكاء اصطناعي، يُصنَّف توليديًا أو مساعدًا أو متعدد المساعدين وفق التعريف الوطني ومعايير التقييم الذاتي، ولا تُصنَّف روبوتات المحادثة أو الأتمتة المبرمجة مسبقًا أو أدوات صياغة الردود أو الشخصيات الافتراضية أنظمةَ ذكاء اصطناعي مساعد ما لم تستوفِ جميع المعايير.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [
+        "Agentic Reference p.6",
+        "Agentic Reference p.7",
+        "Agentic Reference p.9",
+        "Agentic Reference p.13",
+        "Agentic Reference p.14"
+      ],
+      "dubai_ethics": [],
+      "sdaia": [],
+      "iso42001": [],
+      "nist_ai_rmf": [
+        "MAP 2.1"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "p.6, p.7, p.9, p.13, p.14 of the UAE Agentic AI National Reference (July 2026) confirmed against the document text; no public URL known, so it is recorded here rather than in source_urls."
+  },
+  {
     "id": "CTL-TRA-01",
     "theme": "transparency",
     "title_en": "Disclose AI interaction",
@@ -333,6 +468,10 @@
     "refs": {
       "uae_charter": [
         "Transparency"
+      ],
+      "uae_gov_code": [
+        "Code 5.6",
+        "Agentic Guide §06"
       ],
       "dubai_ethics": [
         "Transparency"
@@ -352,7 +491,9 @@
       "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
     ],
     "verified": false,
     "verified_on": null,
@@ -374,6 +515,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Security"
       ],
@@ -414,6 +556,9 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.6"
+      ],
       "dubai_ethics": [
         "Explainability"
       ],
@@ -435,7 +580,8 @@
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
@@ -457,6 +603,9 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.6"
+      ],
       "dubai_ethics": [
         "Transparency"
       ],
@@ -475,7 +624,8 @@
       "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
@@ -495,6 +645,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Transparency"
       ],
@@ -539,6 +690,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Transparency"
       ],
@@ -577,6 +729,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [],
       "sdaia": [
         "Transparency & Explainability"
@@ -602,6 +755,83 @@
     "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
   },
   {
+    "id": "CTL-TRA-08",
+    "theme": "transparency",
+    "title_en": "Show the data sources an agent used",
+    "title_ar": "الإفصاح عن مصادر البيانات التي استخدمها الوكيل",
+    "control_text_en": "When an agent delivers a service, tell the customer which data sources it relied on and, before it acts, which of their data it will use.",
+    "control_text_ar": "عند تقديم الخدمة عبر وكيل ذكاء اصطناعي، يُوضَّح للمتعامل مصادر البيانات التي اعتمد عليها، ويُبيَّن له قبل التنفيذ أيّ بياناته سيستخدمها الوكيل.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.2",
+        "Agentic Guide §03"
+      ],
+      "dubai_ethics": [
+        "Transparency"
+      ],
+      "sdaia": [
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.8.2"
+      ],
+      "nist_ai_rmf": [],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-TRA-09",
+    "theme": "transparency",
+    "title_en": "Clear notice when the AI cannot finish",
+    "title_ar": "إشعار واضح عند تعذّر إكمال الخدمة",
+    "control_text_en": "If the AI cannot complete a service, tell the customer promptly and in plain language what went wrong and what the next steps are, including how to reach a person.",
+    "control_text_ar": "إذا تعذّر على الذكاء الاصطناعي إكمال الخدمة، يُبلَّغ المتعامل فورًا وبلغة غير تقنية بسبب التعذّر وبالخطوات التالية، بما في ذلك طريقة التواصل مع موظف.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [
+        "Code 4.5",
+        "Agentic Guide §03"
+      ],
+      "dubai_ethics": [],
+      "sdaia": [],
+      "iso42001": [],
+      "nist_ai_rmf": [],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": ""
+  },
+  {
     "id": "CTL-DAT-01",
     "theme": "data",
     "title_en": "Data sources and provenance",
@@ -615,6 +845,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Privacy"
       ],
@@ -658,6 +889,9 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.3"
+      ],
       "dubai_ethics": [
         "Fairness"
       ],
@@ -681,7 +915,8 @@
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
@@ -705,6 +940,11 @@
       "uae_charter": [
         "Data privacy"
       ],
+      "uae_gov_code": [
+        "Code 5.2",
+        "Code 5.7",
+        "Data Sharing Policy Art. 5"
+      ],
       "dubai_ethics": [
         "Privacy"
       ],
@@ -724,11 +964,12 @@
       "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
-      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
     ],
     "verified": false,
     "verified_on": null,
-    "notes": "needs-verification: UAE Charter principle name(s) Data privacy (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+    "notes": "needs-verification: UAE Charter principle name(s) Data privacy (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27. Art. 5 of the UAE Government Services Data Sharing Policy (May 2026) confirmed against the policy text; no public URL known, so it is recorded here rather than in source_urls."
   },
   {
     "id": "CTL-DAT-04",
@@ -746,6 +987,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Fairness"
       ],
@@ -791,6 +1033,7 @@
       "uae_charter": [
         "Algorithmic bias"
       ],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Fairness"
       ],
@@ -835,6 +1078,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Privacy"
       ],
@@ -877,6 +1121,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [],
       "sdaia": [
         "Transparency & Explainability"
@@ -904,6 +1149,78 @@
     "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
   },
   {
+    "id": "CTL-DAT-08",
+    "theme": "data",
+    "title_en": "Authoritative sources, no shadow copies",
+    "title_ar": "الاعتماد على المصادر الذهبية دون نسخ موازية",
+    "control_text_en": "Have AI systems fetch government data from the authoritative (golden) source when it is needed and use it only for the authorised purpose. Do not keep copies for reuse or build parallel data stores.",
+    "control_text_ar": "أن تستقي أنظمة الذكاء الاصطناعي البيانات الحكومية من مصادرها الذهبية المعتمدة عند الحاجة إليها، وأن تستخدمها للغرض المصرّح به فقط، دون الاحتفاظ بنسخ منها لإعادة استخدامها أو بناء قواعد بيانات موازية.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.3",
+        "Code 5.7",
+        "Data Sharing Policy Art. 5",
+        "Data Sharing Policy Art. 8"
+      ],
+      "dubai_ethics": [],
+      "sdaia": [],
+      "iso42001": [],
+      "nist_ai_rmf": [],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "Art. 5, Art. 8 of the UAE Government Services Data Sharing Policy (May 2026) confirmed against the policy text; no public URL known, so it is recorded here rather than in source_urls."
+  },
+  {
+    "id": "CTL-DAT-09",
+    "theme": "data",
+    "title_en": "Ask once",
+    "title_ar": "طلب البيانات مرة واحدة",
+    "control_text_en": "Design AI-led services so they never ask the customer for data or documents the government already holds and may use. Retrieve them from the source instead, and ask only for what is genuinely missing, saying why it is needed.",
+    "control_text_ar": "تصميم الخدمات التي يقدّمها الذكاء الاصطناعي بحيث لا تطلب من المتعامل أي بيانات أو مستندات متوفرة لدى الحكومة ومصرّح باستخدامها، بل تسترجعها من مصدرها، ولا تطلب إلا ما هو ناقص فعلًا مع توضيح سبب الحاجة إليه.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "generative",
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [
+        "Code 1.5",
+        "Code 5.4",
+        "Agentic Guide §03",
+        "Agentic Guide §06",
+        "Data Sharing Policy Art. 5",
+        "Data Sharing Policy Art. 8"
+      ],
+      "dubai_ethics": [],
+      "sdaia": [],
+      "iso42001": [],
+      "nist_ai_rmf": [],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "Art. 5, Art. 8 of the UAE Government Services Data Sharing Policy (May 2026) confirmed against the policy text; no public URL known, so it is recorded here rather than in source_urls."
+  },
+  {
     "id": "CTL-HUM-01",
     "theme": "human-oversight",
     "title_en": "Defined human oversight model",
@@ -918,6 +1235,11 @@
     "refs": {
       "uae_charter": [
         "Human oversight"
+      ],
+      "uae_gov_code": [
+        "Code 5.4",
+        "Agentic Guide §05",
+        "Agentic Reference p.7"
       ],
       "dubai_ethics": [
         "Security"
@@ -942,11 +1264,13 @@
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
     ],
     "verified": false,
     "verified_on": null,
-    "notes": "needs-verification: UAE Charter principle name(s) Human oversight (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+    "notes": "needs-verification: UAE Charter principle name(s) Human oversight (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27. p.7 of the UAE Agentic AI National Reference (July 2026) confirmed against the document text; no public URL known, so it is recorded here rather than in source_urls."
   },
   {
     "id": "CTL-HUM-02",
@@ -964,6 +1288,11 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [
+        "Code 2.4",
+        "Agentic Guide §03",
+        "Agentic Guide §06"
+      ],
       "dubai_ethics": [
         "Accountability"
       ],
@@ -982,7 +1311,9 @@
       "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
-      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
@@ -1002,6 +1333,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [],
       "sdaia": [],
       "iso42001": [
@@ -1040,6 +1372,11 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.4",
+        "Agentic Guide §05",
+        "Agentic Reference p.8"
+      ],
       "dubai_ethics": [
         "Security"
       ],
@@ -1062,11 +1399,13 @@
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
-    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A. p.8 of the UAE Agentic AI National Reference (July 2026) confirmed against the document text; no public URL known, so it is recorded here rather than in source_urls."
   },
   {
     "id": "CTL-HUM-05",
@@ -1085,6 +1424,10 @@
     "refs": {
       "uae_charter": [
         "Human oversight"
+      ],
+      "uae_gov_code": [
+        "Code 5.2",
+        "Agentic Guide §03"
       ],
       "dubai_ethics": [
         "Security"
@@ -1108,7 +1451,9 @@
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
     ],
     "verified": false,
     "verified_on": null,
@@ -1130,6 +1475,9 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.5"
+      ],
       "dubai_ethics": [
         "Security"
       ],
@@ -1151,11 +1499,155 @@
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
     "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-HUM-07",
+    "theme": "human-oversight",
+    "title_en": "Specific approval for each agent action",
+    "title_ar": "موافقة محددة لكل إجراء ينفذه الوكيل",
+    "control_text_en": "Before an agent acts for a customer, show a short plan and ask for approval of that specific action, the data it will use and any cost. Never rely on open-ended or blanket permission, and record each approval or refusal.",
+    "control_text_ar": "قبل أن ينفّذ الوكيل أي إجراء نيابةً عن المتعامل، يُعرض عليه مخطط مختصر وتُطلب موافقته على ذلك الإجراء بعينه وعلى البيانات التي سيستخدمها وأي تكلفة مترتبة، دون الاعتماد على تفويض عام مفتوح، مع توثيق كل موافقة أو رفض.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.2",
+        "Agentic Guide §03",
+        "Agentic Guide §06"
+      ],
+      "dubai_ethics": [],
+      "sdaia": [],
+      "iso42001": [],
+      "nist_ai_rmf": [],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": ""
+  },
+  {
+    "id": "CTL-HUM-08",
+    "theme": "human-oversight",
+    "title_en": "One-step revocation of agent permissions",
+    "title_ar": "سحب صلاحيات الوكيل بخطوة واحدة",
+    "control_text_en": "Let customers stop an agent, or withdraw the permissions and consents they gave it, in a single step. Apply the withdrawal immediately and confirm it to them.",
+    "control_text_ar": "تمكين المتعامل من إيقاف الوكيل أو سحب الصلاحيات والموافقات التي منحها له بخطوة واحدة، مع تطبيق السحب فورًا وإرسال تأكيد بذلك.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.2",
+        "Agentic Guide §02",
+        "Agentic Guide §06"
+      ],
+      "dubai_ethics": [],
+      "sdaia": [],
+      "iso42001": [],
+      "nist_ai_rmf": [],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": ""
+  },
+  {
+    "id": "CTL-HUM-09",
+    "theme": "human-oversight",
+    "title_en": "Handover to a person with full context",
+    "title_ar": "التحويل إلى موظف مع كامل السياق",
+    "control_text_en": "Hand the case to a person when the customer asks, or when it is complex, sensitive, beyond what the AI is permitted to do, or failing. Pass on the request, context, actions taken and approvals so the customer never has to repeat their story.",
+    "control_text_ar": "تحويل الحالة إلى موظف عند طلب المتعامل، أو عندما تكون معقدة أو حساسة أو تتجاوز ما يُسمح للذكاء الاصطناعي بتنفيذه أو يتعذّر إكمالها، مع نقل الطلب والسياق والإجراءات المنفذة والموافقات حتى لا يضطر المتعامل إلى إعادة شرح حالته.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "generative",
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [
+        "Code 1.7",
+        "Code 8.2",
+        "Agentic Guide §03",
+        "Agentic Guide §06"
+      ],
+      "dubai_ethics": [],
+      "sdaia": [],
+      "iso42001": [],
+      "nist_ai_rmf": [],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": ""
+  },
+  {
+    "id": "CTL-HUM-10",
+    "theme": "human-oversight",
+    "title_en": "Explicit consent before any payment",
+    "title_ar": "موافقة صريحة قبل أي عملية دفع",
+    "control_text_en": "Before an agent makes a payment, show the fees, items, total, receiving entity and payment method, take the customer's explicit consent, and pay only through approved government payment channels. Follow up on any charge where the service was not completed.",
+    "control_text_ar": "قبل أن يُجري الوكيل أي عملية دفع، تُعرض الرسوم والبنود والمبلغ الإجمالي والجهة المستفيدة ووسيلة الدفع، وتؤخذ موافقة المتعامل الصريحة، ويتم الدفع عبر قنوات الدفع الحكومية المعتمدة فقط، مع متابعة أي مبلغ يُحصَّل دون إتمام الخدمة.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [
+        "Code 1.6",
+        "Code 5.8",
+        "Agentic Guide §03",
+        "Agentic Guide §06"
+      ],
+      "dubai_ethics": [],
+      "sdaia": [],
+      "iso42001": [],
+      "nist_ai_rmf": [],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": ""
   },
   {
     "id": "CTL-SEC-01",
@@ -1172,6 +1664,10 @@
     "refs": {
       "uae_charter": [
         "Safety"
+      ],
+      "uae_gov_code": [
+        "Code 8.8",
+        "Agentic Guide §06"
       ],
       "dubai_ethics": [
         "Security"
@@ -1195,7 +1691,9 @@
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
     ],
     "verified": false,
     "verified_on": null,
@@ -1215,6 +1713,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Security"
       ],
@@ -1258,6 +1757,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Security"
       ],
@@ -1298,6 +1798,10 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.1",
+        "Code 5.7"
+      ],
       "dubai_ethics": [
         "Security"
       ],
@@ -1320,7 +1824,8 @@
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
@@ -1342,6 +1847,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Security"
       ],
@@ -1382,6 +1888,9 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [
+        "Code 8.2"
+      ],
       "dubai_ethics": [],
       "sdaia": [
         "Accountability & Responsibility"
@@ -1398,7 +1907,8 @@
     "source_urls": [
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
@@ -1418,6 +1928,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Security"
       ],
@@ -1446,6 +1957,44 @@
     "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
   },
   {
+    "id": "CTL-SEC-08",
+    "theme": "safety-security",
+    "title_en": "Identity and authority check before each automated action",
+    "title_ar": "التحقق من الهوية والصلاحية قبل كل إجراء مؤتمت",
+    "control_text_en": "Before an agent or other automated process carries out an action, verify the identity of the person it acts for and confirm the action is within approved permissions. Block the action otherwise.",
+    "control_text_ar": "قبل أن ينفّذ الوكيل أو أي عملية مؤتمتة إجراءً ما، يجري التحقق من هوية الشخص الذي يعمل نيابةً عنه والتأكد من أن الإجراء يقع ضمن الصلاحيات المعتمدة، ويُمنع تنفيذه خلاف ذلك.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.1"
+      ],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Privacy & Security"
+      ],
+      "iso42001": [],
+      "nist_ai_rmf": [],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": ""
+  },
+  {
     "id": "CTL-MON-01",
     "theme": "monitoring",
     "title_en": "Performance monitoring with alerts",
@@ -1459,6 +2008,9 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [
+        "Code 2.1"
+      ],
       "dubai_ethics": [],
       "sdaia": [
         "Accountability & Responsibility",
@@ -1480,7 +2032,8 @@
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
@@ -1500,6 +2053,9 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.6"
+      ],
       "dubai_ethics": [
         "Transparency"
       ],
@@ -1522,7 +2078,8 @@
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
@@ -1544,6 +2101,11 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.6",
+        "Agentic Guide §06",
+        "Agentic Reference p.9"
+      ],
       "dubai_ethics": [
         "Transparency"
       ],
@@ -1565,11 +2127,13 @@
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
-    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A. p.9 of the UAE Agentic AI National Reference (July 2026) confirmed against the document text; no public URL known, so it is recorded here rather than in source_urls."
   },
   {
     "id": "CTL-MON-04",
@@ -1585,6 +2149,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [],
       "sdaia": [
         "Transparency & Explainability"
@@ -1624,6 +2189,9 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [
+        "Code 2.1"
+      ],
       "dubai_ethics": [],
       "sdaia": [
         "Reliability & Safety"
@@ -1643,7 +2211,8 @@
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
@@ -1663,6 +2232,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [],
       "sdaia": [
         "Transparency & Explainability"
@@ -1700,6 +2270,7 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [],
       "dubai_ethics": [
         "Security"
       ],
@@ -1738,6 +2309,10 @@
     },
     "refs": {
       "uae_charter": [],
+      "uae_gov_code": [
+        "Code 5.5",
+        "Agentic Reference p.8"
+      ],
       "dubai_ethics": [
         "Security"
       ],
@@ -1757,7 +2332,54 @@
       "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
-      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A. p.8 of the UAE Agentic AI National Reference (July 2026) confirmed against the document text; no public URL known, so it is recorded here rather than in source_urls."
+  },
+  {
+    "id": "CTL-MON-09",
+    "theme": "monitoring",
+    "title_en": "KPIs and a continue/stop decision for each agent",
+    "title_ar": "مؤشرات أداء لكل وكيل وقرار الاستمرار أو الإيقاف",
+    "control_text_en": "Set KPIs for each agent covering decision quality, bias and impact on the service against a pre-launch baseline. Review them on a fixed schedule alongside customer feedback, and record a decision to continue, modify or stop.",
+    "control_text_ar": "تحديد مؤشرات أداء لكل وكيل تشمل جودة القرارات والانحياز والأثر على الخدمة مقارنةً بخط أساس يُحدَّد قبل الإطلاق، ومراجعتها دوريًا مع مؤشرات رضا المتعاملين، وتوثيق قرار الاستمرار أو التعديل أو الإيقاف.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [
+        "Code 2.1",
+        "Code 2.3",
+        "Agentic Guide §05",
+        "Agentic Guide §06"
+      ],
+      "dubai_ethics": [],
+      "sdaia": [
+        "Reliability & Safety"
+      ],
+      "iso42001": [
+        "A.6.2.6"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 2.4",
+        "MANAGE 1.1"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
