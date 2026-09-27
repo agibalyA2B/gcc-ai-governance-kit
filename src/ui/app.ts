@@ -1,0 +1,238 @@
+import { applyLang, initialLang, storeLang, t, type Lang } from '../i18n';
+import { computeTier, topReasons, type Answers } from '../core/scoring';
+import { store } from '../core/store';
+import { blankUseCase, sampleUseCases, newId, type UseCase } from '../core/usecase';
+import { applicableControls } from '../core/controls';
+import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
+import { toCsv, toXlsx, download, type Row } from '../export/tabular';
+import * as V from './views';
+
+const REPO = 'https://github.com/agibalyA2B/gcc-ai-governance-kit';
+let lang: Lang = initialLang();
+let regFilter = '';
+let ctlFw = '';
+let ctlVerifiedOnly = false;
+const showPoints = true;
+
+const app = () => document.getElementById('app')!;
+const route = () => location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+
+function shell(content: string): string {
+  return `<a class="skip" href="#main">${t(lang, 'nav.skip')}</a>
+  <header class="header">
+    <a class="brand" href="#/">${t(lang, 'app.title')}</a>
+    <nav class="nav" aria-label="${t(lang, 'nav.primary')}">
+      <a href="#/scoring">${t(lang, 'nav.scoring')}</a>
+      <a href="#/templates">${t(lang, 'nav.templates')}</a>
+      <a href="#/about">${t(lang, 'nav.about')}</a>
+      <a href="${REPO}" target="_blank" rel="noopener">${t(lang, 'nav.github')}</a>
+      <button type="button" class="lang-toggle" data-testid="lang-toggle" lang="${lang === 'ar' ? 'en' : 'ar'}"
+        aria-label="${t(lang, 'lang.toggle.label')}">${t(lang, 'lang.toggle')}</button>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1">${content}</main>
+  <footer class="site-footer"><p>${t(lang, 'footer.privacy')} · ${t(lang, 'footer.licence')}</p></footer>
+  <div id="print-root"></div>
+  <div class="toast" role="status" aria-live="polite"></div>`;
+}
+
+function toast(msg: string): void {
+  const el = document.querySelector<HTMLElement>('.toast');
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2600);
+}
+
+function stamp(): string { return new Date().toISOString().slice(0, 10); }
+function slug(s: string): string { return (s || 'use-case').toLowerCase().replace(/[^a-z0-9؀-ۿ]+/gi, '-').replace(/^-|-$/g, '').slice(0, 40); }
+
+function controlRows(uc: UseCase, fw: FrameworkId[]): Row[] {
+  const r = computeTier(uc.answers);
+  if (r.tier === 'unacceptable') return [];
+  return applicableControls(r.tier, uc.answers, fw).map((c) => {
+    const row: Row = {
+      [t(lang, 'rep.id')]: c.id,
+      [t(lang, 'rep.theme')]: t(lang, `theme.${c.theme}`),
+      [t(lang, 'rep.control')]: lang === 'ar' ? c.title_ar : c.title_en,
+      [t(lang, 'rep.text')]: lang === 'ar' ? c.control_text_ar : c.control_text_en,
+    };
+    for (const f of FRAMEWORKS.filter((x) => fw.includes(x.id))) row[f.short] = (c.refs[f.id] ?? []).join('; ');
+    row[t(lang, 'rep.status')] = c.verified ? t(lang, 'ctl.verified') : t(lang, 'ctl.needs');
+    row[t(lang, 'ctl.sources')] = c.source_urls.join(' ');
+    return row;
+  });
+}
+
+function registerRows(cases: UseCase[]): Row[] {
+  return cases.map((uc) => {
+    const r = computeTier(uc.answers);
+    return {
+      [t(lang, 'uc.name')]: uc.name, [t(lang, 'uc.owner')]: uc.owner, [t(lang, 'uc.businessUnit')]: uc.businessUnit,
+      [t(lang, 'uc.purpose')]: uc.purpose, [t(lang, 'uc.status')]: t(lang, `status.${uc.status}`),
+      [t(lang, 'reg.type')]: uc.answers.ai_type ? t(lang, `aitype.${uc.answers.ai_type}`) : '',
+      [t(lang, 'reg.tier')]: r.quickComplete ? t(lang, `tier.${r.tier}`) : t(lang, 'tier.pending'),
+      [t(lang, 'tier.points')]: r.points, [t(lang, 'tier.why')]: topReasons(r, lang).join(' | '),
+      [t(lang, 'reg.deep')]: r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo'), [t(lang, 'reg.updated')]: uc.updatedAt.slice(0, 10),
+    };
+  });
+}
+
+function isRegister(x: unknown): x is { format: string; version: number; useCases: UseCase[] } {
+  const o = x as { format?: string; version?: number; useCases?: unknown };
+  return !!o && o.format === 'gcc-ai-governance-kit/register' && o.version === 1 && Array.isArray(o.useCases)
+    && o.useCases.every((u: Partial<UseCase>) => typeof u?.id === 'string' && typeof u?.name === 'string' && typeof u?.owner === 'string'
+      && !!u.answers && typeof u.answers === 'object');
+}
+
+function render(focus = true): void {
+  applyLang(lang);
+  document.title = t(lang, 'app.title');
+  const [page, id, stepRaw] = route();
+  let content = '';
+  let uc: UseCase | undefined;
+
+  if (!page) content = V.registerView(lang, store.list(), store.frameworks(), store.persistent, regFilter);
+  else if (page === 'scoring') content = V.scoringView(lang);
+  else if (page === 'about') content = V.aboutView(lang);
+  else if (page === 'templates') content = V.templatesView(lang, import.meta.env.BASE_URL);
+  else if (page === 'new') {
+    const fresh = blankUseCase();
+    store.save(fresh);
+    location.replace(`#/uc/${fresh.id}/details`);
+    return;
+  } else if (page === 'uc' && id && (uc = store.get1(id))) {
+    const step = (V.STEPS as readonly string[]).includes(stepRaw) ? (stepRaw as V.Step) : 'details';
+    const r = computeTier(uc.answers);
+    const body =
+      step === 'details' ? V.detailsForm(lang, uc)
+      : step === 'quick' ? V.questionsForm(lang, uc, 'quick', showPoints)
+      : !r.quickComplete ? `<p class="notice">${t(lang, 'step.locked')}</p><a class="btn" href="#/uc/${uc.id}/quick">${t(lang, 'step.quick')}</a>`
+      : step === 'tier' ? V.tierView(lang, uc, r)
+      : step === 'deep' ? V.questionsForm(lang, uc, 'deep', showPoints)
+      : step === 'controls' ? V.controlsView(lang, uc, r, store.frameworks(), ctlFw, ctlVerifiedOnly)
+      : V.exportView(lang, uc);
+    content = `<p class="crumb"><a href="#/">${t(lang, 'nav.home')}</a> / ${uc.name ? V.tierBadge(lang, r.quickComplete ? r.tier : null) : ''} <span>${uc.name ? uc.name.replace(/[<>&]/g, '') : t(lang, 'reg.untitled')}</span></p>
+      ${V.stepper(lang, uc, step, r)}${body}`;
+  } else content = `<section class="card"><h1 tabindex="-1">${t(lang, 'nf.title')}</h1><a class="btn" href="#/">${t(lang, 'nav.home')}</a></section>`;
+
+  app().innerHTML = shell(content);
+  if (focus) (document.querySelector<HTMLElement>('main h1, main h2') ?? document.getElementById('main'))?.focus({ preventScroll: false });
+}
+
+function currentUc(): UseCase | undefined { const [page, id] = route(); return page === 'uc' && id ? store.get1(id) : undefined; }
+
+function onClick(e: Event): void {
+  const el = (e.target as HTMLElement).closest<HTMLElement>('[data-action], .lang-toggle');
+  if (!el) return;
+  if (el.classList.contains('lang-toggle')) {
+    lang = lang === 'ar' ? 'en' : 'ar';
+    storeLang(lang);
+    render(false);
+    document.querySelector<HTMLElement>('.lang-toggle')?.focus();
+    return;
+  }
+  const action = el.dataset.action;
+  const uc = currentUc();
+  switch (action) {
+    case 'samples': for (const s of sampleUseCases(lang)) store.save(s); render(); break;
+    case 'duplicate': { const src = store.get1(el.dataset.id!); if (src) { store.save({ ...src, id: newId(), name: `${src.name} (${t(lang, 'reg.copy')})`, createdAt: new Date().toISOString() }); render(false); } break; }
+    case 'delete': if (confirm(t(lang, 'reg.confirm.delete'))) { store.remove(el.dataset.id!); render(false); } break;
+    case 'clear': if (confirm(t(lang, 'reg.confirm.clear'))) { store.clear(); render(); } break;
+    case 'import': document.querySelector<HTMLInputElement>('[data-action="import-file"]')?.click(); break;
+    case 'export-json':
+      download(`ai-register-${stamp()}.json`, JSON.stringify({ format: 'gcc-ai-governance-kit/register', version: 1, useCases: store.list() }, null, 2), 'application/json');
+      break;
+    case 'export-xlsx':
+      download(`ai-register-${stamp()}.xlsx`, toXlsx([{ name: t(lang, 'reg.sheet'), rows: registerRows(store.list()) }], lang === 'ar'), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      break;
+    case 'ctl-csv': if (uc) download(`controls-${slug(uc.name)}-${stamp()}.csv`, toCsv(controlRows(uc, store.frameworks())), 'text/csv;charset=utf-8'); break;
+    case 'ctl-xlsx': if (uc) download(`controls-${slug(uc.name)}-${stamp()}.xlsx`, toXlsx([{ name: t(lang, 'step.controls'), rows: controlRows(uc, store.frameworks()) }], lang === 'ar'), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); break;
+    case 'pdf':
+      if (uc) {
+        document.getElementById('print-root')!.innerHTML = V.reportView(lang, uc, computeTier(uc.answers), store.frameworks());
+        window.print();
+      }
+      break;
+  }
+}
+
+function onChange(e: Event): void {
+  const el = e.target as HTMLInputElement | HTMLSelectElement;
+  if (el.name === 'fw') {
+    const checked = [...document.querySelectorAll<HTMLInputElement>('input[name="fw"]:checked')].map((x) => x.value as FrameworkId);
+    store.setFrameworks(checked);
+    toast(t(lang, 'fw.saved'));
+    return;
+  }
+  if (el.dataset.action === 'filter') { regFilter = el.value; render(false); return; }
+  if (el.dataset.action === 'ctl-fw') { ctlFw = el.value; render(false); return; }
+  if (el.dataset.action === 'ctl-verified') { ctlVerifiedOnly = (el as HTMLInputElement).checked; render(false); return; }
+  if (el.dataset.action === 'import-file') { void importFile((el as HTMLInputElement).files?.[0]); return; }
+  const form = el.closest<HTMLFormElement>('form[data-form]');
+  const uc = currentUc();
+  if (!form || !uc) return;
+  if (form.dataset.form === 'details') {
+    const fd = new FormData(form);
+    store.save({ ...uc, name: String(fd.get('name') ?? '').trim(), owner: String(fd.get('owner') ?? '').trim(), businessUnit: String(fd.get('businessUnit') ?? ''),
+      purpose: String(fd.get('purpose') ?? ''), status: String(fd.get('status') ?? 'idea') as UseCase['status'], notes: String(fd.get('notes') ?? '') });
+  } else if (el.type === 'radio') {
+    const answers: Answers = { ...uc.answers, [el.name]: el.value };
+    store.save({ ...uc, answers });
+    const qs = form.querySelectorAll('fieldset.question');
+    const done = [...qs].filter((f) => f.querySelector('input:checked')).length;
+    const p = form.querySelector('.progress'); if (p) p.textContent = `${done}/${qs.length}`;
+  }
+}
+
+function onSubmit(e: Event): void {
+  const form = e.target as HTMLFormElement;
+  if (!form.dataset.form) return;
+  e.preventDefault();
+  const uc = currentUc();
+  if (!uc) return;
+  if (form.dataset.form === 'details') {
+    let ok = true;
+    for (const k of ['name', 'owner']) {
+      const input = form.querySelector<HTMLInputElement>(`[name="${k}"]`)!;
+      const err = form.querySelector<HTMLElement>(`#err-${k}`)!;
+      const missing = !input.value.trim();
+      err.hidden = !missing; input.setAttribute('aria-invalid', String(missing));
+      if (missing) { input.setAttribute('aria-describedby', `err-${k}`); if (ok) input.focus(); ok = false; }
+    }
+    if (ok) location.hash = `#/uc/${uc.id}/quick`;
+    return;
+  }
+  const level = form.dataset.form as 'quick' | 'deep';
+  const unanswered = [...form.querySelectorAll('fieldset.question')].find((f) => !f.querySelector('input:checked'));
+  if (level === 'quick' && unanswered) { toast(t(lang, 'quick.incomplete')); unanswered.querySelector<HTMLInputElement>('input')?.focus(); return; }
+  location.hash = level === 'quick' ? `#/uc/${uc.id}/tier` : `#/uc/${uc.id}/tier`;
+}
+
+async function importFile(file?: File): Promise<void> {
+  if (!file) return;
+  try {
+    const data = JSON.parse(await file.text());
+    if (!isRegister(data)) throw new Error('schema');
+    const replace = store.list().length ? confirm(t(lang, 'reg.import.replace')) : true;
+    if (replace) store.replaceAll(data.useCases);
+    else {
+      const existing = new Map(store.list().map((u) => [u.id, u]));
+      for (const u of data.useCases) existing.set(u.id, u);
+      store.replaceAll([...existing.values()]);
+    }
+    render();
+    toast(t(lang, 'reg.import.ok').replace('{n}', String(data.useCases.length)));
+  } catch {
+    toast(t(lang, 'reg.import.bad'));
+  }
+}
+
+export function start(): void {
+  document.addEventListener('click', onClick);
+  document.addEventListener('change', onChange);
+  document.addEventListener('submit', onSubmit);
+  window.addEventListener('hashchange', () => render());
+  window.addEventListener('afterprint', () => { const p = document.getElementById('print-root'); if (p) p.innerHTML = ''; });
+  render(false);
+}

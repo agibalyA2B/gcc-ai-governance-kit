@@ -1,0 +1,1766 @@
+[
+  {
+    "id": "CTL-ACC-01",
+    "theme": "accountability",
+    "title_en": "Approved AI policy",
+    "title_ar": "سياسة معتمدة للذكاء الاصطناعي",
+    "control_text_en": "Adopt an AI policy approved by senior leadership that states the organisation's principles, risk appetite and approval rules for AI, and review it at least once a year.",
+    "control_text_ar": "اعتماد سياسة للذكاء الاصطناعي من الإدارة العليا تحدد مبادئ الجهة ومستوى المخاطر المقبول وقواعد الموافقة على الاستخدامات، مع مراجعتها سنويًا على الأقل.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Accountability"
+      ],
+      "sdaia": [
+        "Accountability & Responsibility"
+      ],
+      "iso42001": [
+        "A.2.2",
+        "A.2.4"
+      ],
+      "nist_ai_rmf": [
+        "GOVERN 1.2",
+        "GOVERN 2.3"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-ACC-02",
+    "theme": "accountability",
+    "title_en": "Named accountable owner",
+    "title_ar": "مالك مسؤول محدد بالاسم",
+    "control_text_en": "Assign every AI use case a named business owner who is accountable for its outcomes, and record the technical, data and risk contacts alongside them.",
+    "control_text_ar": "تعيين مالك أعمال محدد بالاسم لكل حالة استخدام يتحمّل المسؤولية عن نتائجها، وتوثيق جهات الاتصال التقنية ومسؤولي البيانات والمخاطر المرتبطين بها.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [
+        "Governance and accountability"
+      ],
+      "dubai_ethics": [
+        "Accountability"
+      ],
+      "sdaia": [
+        "Accountability & Responsibility"
+      ],
+      "iso42001": [
+        "A.3.2"
+      ],
+      "nist_ai_rmf": [
+        "GOVERN 2.1"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": false,
+    "verified_on": null,
+    "notes": "needs-verification: UAE Charter principle name(s) Governance and accountability (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+  },
+  {
+    "id": "CTL-ACC-03",
+    "theme": "accountability",
+    "title_en": "AI use-case register",
+    "title_ar": "سجل حالات استخدام الذكاء الاصطناعي",
+    "control_text_en": "Keep a single register of all AI systems in use or in development, with owner, purpose, data used, risk tier and status, and keep it current.",
+    "control_text_ar": "الاحتفاظ بسجل موحّد لجميع أنظمة الذكاء الاصطناعي المستخدمة أو قيد التطوير، يتضمن المالك والغرض والبيانات المستخدمة ومستوى المخاطر والحالة، وتحديثه باستمرار.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [],
+      "sdaia": [
+        "Accountability & Responsibility"
+      ],
+      "iso42001": [
+        "A.4.2"
+      ],
+      "nist_ai_rmf": [
+        "GOVERN 1.6"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-ACC-04",
+    "theme": "accountability",
+    "title_en": "Impact assessment before approval",
+    "title_ar": "تقييم الأثر قبل الموافقة",
+    "control_text_en": "Before approving a use case, assess its likely impact on individuals, groups and the organisation, record the result, and repeat the assessment when the system changes materially.",
+    "control_text_ar": "إجراء تقييم للأثر المحتمل على الأفراد والفئات والجهة قبل الموافقة على حالة الاستخدام، وتوثيق النتائج، وإعادة التقييم عند حدوث تغيير جوهري في النظام.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Accountability"
+      ],
+      "sdaia": [
+        "Accountability & Responsibility"
+      ],
+      "iso42001": [
+        "A.5.2",
+        "A.5.3",
+        "A.5.4"
+      ],
+      "nist_ai_rmf": [
+        "MAP 1.1",
+        "MAP 5.1"
+      ],
+      "eu_ai_act": [
+        "Art. 9",
+        "Art. 27"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-ACC-05",
+    "theme": "accountability",
+    "title_en": "Go/no-go decision gate",
+    "title_ar": "بوابة قرار الإطلاق",
+    "control_text_en": "Require a documented go/no-go decision by an authorised committee or executive before a high-risk system goes live, based on test results and the residual risk.",
+    "control_text_ar": "اشتراط قرار موثّق بالإطلاق أو عدمه من لجنة أو مسؤول مخوّل قبل تشغيل أي نظام عالي المخاطر، بناءً على نتائج الاختبار والمخاطر المتبقية.",
+    "applies_when": {
+      "min_tier": "high",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [],
+      "sdaia": [
+        "Accountability & Responsibility",
+        "Reliability & Safety"
+      ],
+      "iso42001": [
+        "A.6.2.5"
+      ],
+      "nist_ai_rmf": [
+        "MANAGE 1.1",
+        "GOVERN 2.3"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-ACC-06",
+    "theme": "accountability",
+    "title_en": "Third-party AI due diligence",
+    "title_ar": "العناية الواجبة تجاه موردي الذكاء الاصطناعي",
+    "control_text_en": "Before buying or integrating a third-party model or AI service, check its documentation, data handling and known limitations, and set out responsibilities for oversight, incidents and updates in the contract.",
+    "control_text_ar": "قبل شراء نموذج أو خدمة ذكاء اصطناعي من طرف ثالث أو دمجها، يجب مراجعة توثيقها وطريقة معالجتها للبيانات وحدودها المعروفة، وتحديد مسؤوليات الإشراف والحوادث والتحديثات في العقد.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Accountability"
+      ],
+      "sdaia": [
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.10.2",
+        "A.10.3"
+      ],
+      "nist_ai_rmf": [
+        "GOVERN 6.1",
+        "MANAGE 3.1"
+      ],
+      "eu_ai_act": [
+        "Art. 25"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-ACC-07",
+    "theme": "accountability",
+    "title_en": "AI literacy for staff",
+    "title_ar": "الثقافة المعرفية بالذكاء الاصطناعي للموظفين",
+    "control_text_en": "Train staff who build, operate or rely on AI systems in what the systems can and cannot do and in their own responsibilities, proportionate to their role.",
+    "control_text_ar": "تدريب الموظفين الذين يطوّرون أنظمة الذكاء الاصطناعي أو يشغّلونها أو يعتمدون عليها على قدراتها وحدودها وعلى مسؤولياتهم، بما يتناسب مع أدوارهم.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [
+        "Promoting AI awareness for an inclusive society"
+      ],
+      "dubai_ethics": [],
+      "sdaia": [],
+      "iso42001": [
+        "A.4.6"
+      ],
+      "nist_ai_rmf": [
+        "GOVERN 2.2",
+        "MAP 3.4"
+      ],
+      "eu_ai_act": [
+        "Art. 4"
+      ]
+    },
+    "source_urls": [
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": false,
+    "verified_on": null,
+    "notes": "needs-verification: UAE Charter principle name(s) Promoting AI awareness for an inclusive society (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+  },
+  {
+    "id": "CTL-ACC-08",
+    "theme": "accountability",
+    "title_en": "Agent identity and ownership",
+    "title_ar": "هوية الوكيل الذكي ومسؤوليته",
+    "control_text_en": "Give each AI agent its own identity (not a shared or personal account) and a named human owner, so that every action it takes can be traced to the agent and to the person accountable for it.",
+    "control_text_ar": "منح كل وكيل ذكي هوية مستقلة خاصة به (لا حسابًا مشتركًا أو شخصيًا) ومالكًا بشريًا محددًا بالاسم، بحيث يمكن نسبة كل إجراء يقوم به إلى الوكيل وإلى الشخص المسؤول عنه.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Accountability"
+      ],
+      "sdaia": [
+        "Accountability & Responsibility"
+      ],
+      "iso42001": [
+        "A.3.2"
+      ],
+      "nist_ai_rmf": [
+        "GOVERN 2.1",
+        "GOVERN 3.2"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-TRA-01",
+    "theme": "transparency",
+    "title_en": "Disclose AI interaction",
+    "title_ar": "الإفصاح عن التعامل مع الذكاء الاصطناعي",
+    "control_text_en": "Tell people clearly when they are dealing with an AI system rather than a person, at the start of the interaction.",
+    "control_text_ar": "إبلاغ الأشخاص بوضوح، منذ بداية التفاعل، بأنهم يتعاملون مع نظام ذكاء اصطناعي وليس مع موظف بشري.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [
+        "Transparency"
+      ],
+      "dubai_ethics": [
+        "Transparency"
+      ],
+      "sdaia": [
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.8.2"
+      ],
+      "nist_ai_rmf": [],
+      "eu_ai_act": [
+        "Art. 50"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": false,
+    "verified_on": null,
+    "notes": "needs-verification: UAE Charter principle name(s) Transparency (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+  },
+  {
+    "id": "CTL-TRA-02",
+    "theme": "transparency",
+    "title_en": "Label AI-generated content",
+    "title_ar": "وسم المحتوى المُنشأ بالذكاء الاصطناعي",
+    "control_text_en": "Mark text, images, audio or video produced by generative AI as AI-generated before it is published or sent to the public.",
+    "control_text_ar": "وسم النصوص والصور والمقاطع الصوتية أو المرئية المُنتجة بالذكاء الاصطناعي التوليدي بأنها مُنشأة آليًا قبل نشرها أو إرسالها للجمهور.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [
+        "generative"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.8.2"
+      ],
+      "nist_ai_rmf": [],
+      "eu_ai_act": [
+        "Art. 50"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-TRA-03",
+    "theme": "transparency",
+    "title_en": "Explanation on request",
+    "title_ar": "تقديم التفسير عند الطلب",
+    "control_text_en": "Provide a simple way for a person affected by a significant AI-informed decision to ask for, and receive, a plain-language explanation of the main factors behind it.",
+    "control_text_ar": "توفير وسيلة ميسّرة تتيح للشخص المتأثر بقرار مهم استند إلى الذكاء الاصطناعي طلب تفسير بلغة واضحة للعوامل الرئيسية وراء القرار والحصول عليه.",
+    "applies_when": {
+      "min_tier": "high",
+      "ai_types": [],
+      "data": [
+        "personal"
+      ]
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Explainability"
+      ],
+      "sdaia": [
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.8.2"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 2.9"
+      ],
+      "eu_ai_act": [
+        "Art. 86"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-TRA-04",
+    "theme": "transparency",
+    "title_en": "Notify people of AI-informed decisions",
+    "title_ar": "إخطار الأفراد بالقرارات المدعومة بالذكاء الاصطناعي",
+    "control_text_en": "Inform people when a decision that significantly affects them is made or supported by an AI system, including employees affected by AI used at work.",
+    "control_text_ar": "إخطار الأفراد عندما يُتخذ قرار يؤثر فيهم تأثيرًا مهمًا بواسطة نظام ذكاء اصطناعي أو بدعم منه، بمن فيهم الموظفون المتأثرون باستخدامه في بيئة العمل.",
+    "applies_when": {
+      "min_tier": "high",
+      "ai_types": [],
+      "data": [
+        "personal"
+      ]
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Transparency"
+      ],
+      "sdaia": [
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.8.5"
+      ],
+      "nist_ai_rmf": [],
+      "eu_ai_act": [
+        "Art. 26"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-TRA-05",
+    "theme": "transparency",
+    "title_en": "System documentation",
+    "title_ar": "توثيق النظام",
+    "control_text_en": "Maintain documentation for each system covering its purpose, design, data, model version, test results and known limitations, detailed enough for a reviewer to understand it.",
+    "control_text_ar": "الاحتفاظ بتوثيق لكل نظام يشمل الغرض والتصميم والبيانات وإصدار النموذج ونتائج الاختبار والقيود المعروفة، بدرجة تفصيل تمكّن المراجع من فهمه.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Transparency"
+      ],
+      "sdaia": [
+        "Reliability & Safety",
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.6.2.3",
+        "A.6.2.7"
+      ],
+      "nist_ai_rmf": [
+        "MAP 2.1",
+        "MAP 2.2"
+      ],
+      "eu_ai_act": [
+        "Art. 11"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-TRA-06",
+    "theme": "transparency",
+    "title_en": "Public statement of AI use",
+    "title_ar": "إفصاح عام عن استخدام الذكاء الاصطناعي",
+    "control_text_en": "Publish a plain-language summary of where the organisation uses AI in services to the public, what data it relies on and how to raise a concern.",
+    "control_text_ar": "نشر ملخص بلغة واضحة يبيّن مواضع استخدام الجهة للذكاء الاصطناعي في خدماتها للجمهور، والبيانات التي تعتمد عليها، وطريقة تقديم الملاحظات أو الشكاوى.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Transparency"
+      ],
+      "sdaia": [
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.8.5"
+      ],
+      "nist_ai_rmf": [
+        "GOVERN 4.2"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-TRA-07",
+    "theme": "transparency",
+    "title_en": "Instructions for operators",
+    "title_ar": "تعليمات الاستخدام للمشغّلين",
+    "control_text_en": "Give the people who operate or rely on a system written instructions on its intended use, accuracy, limits and when not to trust its output.",
+    "control_text_ar": "تزويد من يشغّلون النظام أو يعتمدون عليه بتعليمات مكتوبة حول الاستخدام المقصود ومستوى الدقة والقيود والحالات التي لا ينبغي فيها الوثوق بمخرجاته.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [],
+      "sdaia": [
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.8.2"
+      ],
+      "nist_ai_rmf": [
+        "MAP 2.2"
+      ],
+      "eu_ai_act": [
+        "Art. 13"
+      ]
+    },
+    "source_urls": [
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-DAT-01",
+    "theme": "data",
+    "title_en": "Data sources and provenance",
+    "title_ar": "مصادر البيانات ومنشؤها",
+    "control_text_en": "Record where each dataset used to build, tune or run the system comes from, the right to use it, and how it was collected and prepared.",
+    "control_text_ar": "توثيق مصدر كل مجموعة بيانات تُستخدم في بناء النظام أو ضبطه أو تشغيله، والحق في استخدامها، وطريقة جمعها وتجهيزها.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Privacy"
+      ],
+      "sdaia": [
+        "Privacy & Security"
+      ],
+      "iso42001": [
+        "A.7.2",
+        "A.7.3",
+        "A.7.5"
+      ],
+      "nist_ai_rmf": [
+        "MAP 2.3"
+      ],
+      "eu_ai_act": [
+        "Art. 10"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-DAT-02",
+    "theme": "data",
+    "title_en": "Data quality and representativeness",
+    "title_ar": "جودة البيانات وتمثيلها",
+    "control_text_en": "Check that training and input data are accurate, complete and representative of the people the system will affect, and document the checks and any gaps.",
+    "control_text_ar": "التحقق من أن بيانات التدريب والإدخال دقيقة ومكتملة وممثِّلة للفئات التي سيؤثر فيها النظام، وتوثيق عمليات التحقق وأي فجوات.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Fairness"
+      ],
+      "sdaia": [
+        "Fairness",
+        "Accountability & Responsibility"
+      ],
+      "iso42001": [
+        "A.7.4",
+        "A.7.6"
+      ],
+      "nist_ai_rmf": [
+        "MAP 2.3"
+      ],
+      "eu_ai_act": [
+        "Art. 10"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-DAT-03",
+    "theme": "data",
+    "title_en": "Privacy review and data minimisation",
+    "title_ar": "مراجعة الخصوصية وتقليل البيانات",
+    "control_text_en": "Where personal data is involved, complete a privacy review and use only the minimum personal data the purpose needs, in line with the organisation's data protection policy.",
+    "control_text_ar": "عند استخدام بيانات شخصية، يجب إجراء مراجعة للخصوصية والاقتصار على الحد الأدنى من البيانات الشخصية اللازمة للغرض، بما يتوافق مع سياسة حماية البيانات في الجهة.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [],
+      "data": [
+        "personal"
+      ]
+    },
+    "refs": {
+      "uae_charter": [
+        "Data privacy"
+      ],
+      "dubai_ethics": [
+        "Privacy"
+      ],
+      "sdaia": [
+        "Privacy & Security"
+      ],
+      "iso42001": [
+        "A.2.3",
+        "A.7.3"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 2.10"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": false,
+    "verified_on": null,
+    "notes": "needs-verification: UAE Charter principle name(s) Data privacy (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+  },
+  {
+    "id": "CTL-DAT-04",
+    "theme": "data",
+    "title_en": "Sensitive attributes justified",
+    "title_ar": "تبرير استخدام السمات الحساسة",
+    "control_text_en": "Do not use sensitive attributes (or close proxies for them) as model inputs unless there is a documented, approved justification such as bias testing.",
+    "control_text_ar": "عدم استخدام السمات الحساسة أو ما يدل عليها بشكل غير مباشر كمدخلات للنموذج، ما لم يوجد مبرر موثّق ومعتمد مثل اختبار التحيّز.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": [
+        "sensitive"
+      ]
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Fairness"
+      ],
+      "sdaia": [
+        "Fairness"
+      ],
+      "iso42001": [
+        "A.7.4"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 2.11"
+      ],
+      "eu_ai_act": [
+        "Art. 10"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-DAT-05",
+    "theme": "data",
+    "title_en": "Bias and fairness testing",
+    "title_ar": "اختبار التحيّز والإنصاف",
+    "control_text_en": "Test outcomes across relevant groups before launch and after major changes, set an acceptable threshold in advance, and record the results and any mitigations.",
+    "control_text_ar": "اختبار النتائج عبر الفئات ذات الصلة قبل الإطلاق وبعد التغييرات الجوهرية، مع تحديد حدّ مقبول مسبقًا، وتوثيق النتائج وأي إجراءات معالجة.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": [
+        "personal"
+      ]
+    },
+    "refs": {
+      "uae_charter": [
+        "Algorithmic bias"
+      ],
+      "dubai_ethics": [
+        "Fairness"
+      ],
+      "sdaia": [
+        "Fairness"
+      ],
+      "iso42001": [
+        "A.5.4",
+        "A.6.2.4"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 2.11"
+      ],
+      "eu_ai_act": [
+        "Art. 10"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": false,
+    "verified_on": null,
+    "notes": "needs-verification: UAE Charter principle name(s) Algorithmic bias (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+  },
+  {
+    "id": "CTL-DAT-06",
+    "theme": "data",
+    "title_en": "Rules for data in generative AI tools",
+    "title_ar": "ضوابط إدخال البيانات في أدوات الذكاء الاصطناعي التوليدي",
+    "control_text_en": "Set clear rules on what information staff may enter into generative AI tools, and block personal, sensitive or classified data from external services unless explicitly approved.",
+    "control_text_ar": "وضع قواعد واضحة لنوع المعلومات التي يجوز للموظفين إدخالها في أدوات الذكاء الاصطناعي التوليدي، ومنع إدخال البيانات الشخصية أو الحساسة أو المصنّفة في الخدمات الخارجية إلا بموافقة صريحة.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [
+        "generative"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Privacy"
+      ],
+      "sdaia": [
+        "Privacy & Security"
+      ],
+      "iso42001": [
+        "A.2.3",
+        "A.9.2"
+      ],
+      "nist_ai_rmf": [
+        "GOVERN 6.1",
+        "MEASURE 2.10"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-DAT-07",
+    "theme": "data",
+    "title_en": "Rights to training and grounding content",
+    "title_ar": "حقوق استخدام محتوى التدريب والإسناد",
+    "control_text_en": "Confirm the organisation has the right to use the documents and content used to train, fine-tune or ground a model, and keep a record of that check.",
+    "control_text_ar": "التأكد من امتلاك الجهة حق استخدام الوثائق والمحتوى المستخدم في تدريب النموذج أو ضبطه أو إسناد إجاباته، والاحتفاظ بسجل لهذا التحقق.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "generative"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [],
+      "sdaia": [
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.7.3",
+        "A.7.5"
+      ],
+      "nist_ai_rmf": [
+        "MAP 4.1",
+        "GOVERN 6.1"
+      ],
+      "eu_ai_act": [
+        "Art. 53"
+      ]
+    },
+    "source_urls": [
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-HUM-01",
+    "theme": "human-oversight",
+    "title_en": "Defined human oversight model",
+    "title_ar": "نموذج محدد للإشراف البشري",
+    "control_text_en": "Decide and document, for each use case, where humans review, approve or monitor the system's outputs, and assign that role to people with the competence and authority to act.",
+    "control_text_ar": "تحديد وتوثيق مواضع مراجعة البشر لمخرجات النظام أو الموافقة عليها أو مراقبتها لكل حالة استخدام، وإسناد هذا الدور إلى أشخاص يملكون الكفاءة والصلاحية للتدخل.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [
+        "Human oversight"
+      ],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Accountability & Responsibility"
+      ],
+      "iso42001": [
+        "A.6.1.3"
+      ],
+      "nist_ai_rmf": [
+        "MAP 3.5",
+        "GOVERN 3.2"
+      ],
+      "eu_ai_act": [
+        "Art. 14",
+        "Art. 26"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": false,
+    "verified_on": null,
+    "notes": "needs-verification: UAE Charter principle name(s) Human oversight (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+  },
+  {
+    "id": "CTL-HUM-02",
+    "theme": "human-oversight",
+    "title_en": "Right to challenge a decision",
+    "title_ar": "حق الاعتراض على القرار",
+    "control_text_en": "Give people a clear route to challenge a significant AI-informed decision and have it reviewed by a human who can change it.",
+    "control_text_ar": "إتاحة مسار واضح للأفراد للاعتراض على أي قرار مهم استند إلى الذكاء الاصطناعي، ومراجعته من قِبل شخص مخوّل بتعديله.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": [
+        "personal"
+      ]
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Accountability"
+      ],
+      "sdaia": [
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.8.3"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 3.3"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-HUM-03",
+    "theme": "human-oversight",
+    "title_en": "Guard against over-reliance",
+    "title_ar": "الحدّ من الاعتماد المفرط على النظام",
+    "control_text_en": "Train reviewers to question AI outputs rather than rubber-stamp them, and check periodically how often they override the system.",
+    "control_text_ar": "تدريب المراجعين على التحقق من مخرجات الذكاء الاصطناعي بدلًا من اعتمادها تلقائيًا، ومتابعة معدل تجاوزهم لتوصيات النظام بشكل دوري.",
+    "applies_when": {
+      "min_tier": "high",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [],
+      "sdaia": [],
+      "iso42001": [
+        "A.4.6"
+      ],
+      "nist_ai_rmf": [
+        "MAP 3.4",
+        "GOVERN 3.2"
+      ],
+      "eu_ai_act": [
+        "Art. 14"
+      ]
+    },
+    "source_urls": [
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-HUM-04",
+    "theme": "human-oversight",
+    "title_en": "Autonomy limits for agents",
+    "title_ar": "حدود الاستقلالية للوكلاء الأذكياء",
+    "control_text_en": "Document what an agent may do on its own, what it must never do, and the limits it works within (for example amounts, record types or number of actions), and enforce these limits technically.",
+    "control_text_ar": "توثيق ما يُسمح للوكيل الذكي بفعله باستقلالية وما يُحظر عليه تمامًا، والحدود التي يعمل ضمنها (مثل المبالغ أو أنواع السجلات أو عدد الإجراءات)، وفرض هذه الحدود تقنيًا.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Accountability & Responsibility"
+      ],
+      "iso42001": [
+        "A.9.4"
+      ],
+      "nist_ai_rmf": [
+        "MAP 3.3",
+        "GOVERN 3.2"
+      ],
+      "eu_ai_act": [
+        "Art. 14"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-HUM-05",
+    "theme": "human-oversight",
+    "title_en": "Human approval for irreversible actions",
+    "title_ar": "موافقة بشرية على الإجراءات غير القابلة للتراجع",
+    "control_text_en": "Require a named human to approve any agent action that cannot easily be undone or that significantly affects a person, such as payments, deletions, external messages or decisions on entitlements.",
+    "control_text_ar": "اشتراط موافقة شخص محدد على أي إجراء يقوم به الوكيل الذكي ويصعب التراجع عنه أو يؤثر تأثيرًا مهمًا في الأفراد، مثل المدفوعات أو الحذف أو المراسلات الخارجية أو القرارات المتعلقة بالاستحقاقات.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [
+        "Human oversight"
+      ],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Reliability & Safety"
+      ],
+      "iso42001": [
+        "A.6.1.3"
+      ],
+      "nist_ai_rmf": [
+        "MAP 3.5",
+        "GOVERN 3.2"
+      ],
+      "eu_ai_act": [
+        "Art. 14"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": false,
+    "verified_on": null,
+    "notes": "needs-verification: UAE Charter principle name(s) Human oversight (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+  },
+  {
+    "id": "CTL-HUM-06",
+    "theme": "human-oversight",
+    "title_en": "Stop switch and rollback",
+    "title_ar": "آلية الإيقاف والتراجع",
+    "control_text_en": "Provide a tested way for authorised staff to pause or shut down an agent immediately and to reverse or correct the actions it has already taken.",
+    "control_text_ar": "توفير آلية مُختبرة تمكّن الموظفين المخوّلين من إيقاف الوكيل الذكي مؤقتًا أو تعطيله فورًا، ومن عكس الإجراءات التي نفّذها أو تصحيحها.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Accountability & Responsibility"
+      ],
+      "iso42001": [
+        "A.6.2.6"
+      ],
+      "nist_ai_rmf": [
+        "MANAGE 2.4"
+      ],
+      "eu_ai_act": [
+        "Art. 14"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-SEC-01",
+    "theme": "safety-security",
+    "title_en": "Test before deployment",
+    "title_ar": "الاختبار قبل التشغيل",
+    "control_text_en": "Test the system against defined accuracy and safety criteria, including unusual and edge-case inputs, in conditions close to real use before it goes live.",
+    "control_text_ar": "اختبار النظام وفق معايير محددة للدقة والسلامة، بما في ذلك المدخلات غير المعتادة والحالات القصوى، وفي ظروف قريبة من الاستخدام الفعلي قبل تشغيله.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [
+        "Safety"
+      ],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Reliability & Safety"
+      ],
+      "iso42001": [
+        "A.6.2.4"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 2.5",
+        "MEASURE 2.6"
+      ],
+      "eu_ai_act": [
+        "Art. 15"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": false,
+    "verified_on": null,
+    "notes": "needs-verification: UAE Charter principle name(s) Safety (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+  },
+  {
+    "id": "CTL-SEC-02",
+    "theme": "safety-security",
+    "title_en": "AI-specific security assessment",
+    "title_ar": "تقييم أمني خاص بالذكاء الاصطناعي",
+    "control_text_en": "Assess AI-specific threats such as prompt injection, data poisoning and data leakage through outputs, and include the resulting requirements in the system specification.",
+    "control_text_ar": "تقييم التهديدات الخاصة بالذكاء الاصطناعي مثل حقن الأوامر وتسميم البيانات وتسرّب البيانات عبر المخرجات، وتضمين المتطلبات الناتجة في مواصفات النظام.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Privacy & Security"
+      ],
+      "iso42001": [
+        "A.6.2.2"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 2.7"
+      ],
+      "eu_ai_act": [
+        "Art. 15"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-SEC-03",
+    "theme": "safety-security",
+    "title_en": "Safeguards on generated output",
+    "title_ar": "ضوابط على المخرجات المُولَّدة",
+    "control_text_en": "Put checks on generative output (grounding in approved sources, filters for harmful or false content, and human review where it matters) before it reaches customers or decisions.",
+    "control_text_ar": "وضع ضوابط على مخرجات الذكاء الاصطناعي التوليدي (الإسناد إلى مصادر معتمدة، وتصفية المحتوى الضار أو غير الصحيح، والمراجعة البشرية عند الحاجة) قبل وصولها إلى المتعاملين أو استخدامها في القرارات.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "generative"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Reliability & Safety"
+      ],
+      "iso42001": [
+        "A.6.2.4"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 2.6"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-SEC-04",
+    "theme": "safety-security",
+    "title_en": "Least-privilege tools and permissions",
+    "title_ar": "أقل صلاحيات ممكنة للأدوات والأذونات",
+    "control_text_en": "Give an agent access only to the tools, systems and data it needs for its task, with read-only access by default and write access granted case by case.",
+    "control_text_ar": "منح الوكيل الذكي صلاحية الوصول فقط إلى الأدوات والأنظمة والبيانات اللازمة لمهمته، مع جعل الوصول للقراءة فقط افتراضيًا ومنح صلاحية الكتابة لكل حالة على حدة.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Privacy & Security"
+      ],
+      "iso42001": [
+        "A.4.4",
+        "A.6.2.2"
+      ],
+      "nist_ai_rmf": [
+        "MAP 4.2"
+      ],
+      "eu_ai_act": [
+        "Art. 15"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-SEC-05",
+    "theme": "safety-security",
+    "title_en": "Sandbox and staged rollout for agents",
+    "title_ar": "بيئة تجريبية وإطلاق تدريجي للوكلاء",
+    "control_text_en": "Run a new agent in a test or shadow mode, where its proposed actions are recorded but not executed, before giving it live access, and widen its scope in stages.",
+    "control_text_ar": "تشغيل الوكيل الذكي الجديد في بيئة اختبار أو وضع مراقبة تُسجَّل فيه الإجراءات المقترحة دون تنفيذها، قبل منحه وصولًا فعليًا، ثم توسيع نطاقه على مراحل.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Reliability & Safety"
+      ],
+      "iso42001": [
+        "A.6.2.4",
+        "A.6.2.5"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 2.3",
+        "MEASURE 2.6"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-SEC-06",
+    "theme": "safety-security",
+    "title_en": "Fallback and fail-safe",
+    "title_ar": "البديل الاحتياطي والتوقف الآمن",
+    "control_text_en": "Define what happens when the system fails or is switched off, including a manual or non-AI fallback, so the service can continue safely.",
+    "control_text_ar": "تحديد ما يحدث عند تعطل النظام أو إيقافه، بما في ذلك وجود بديل يدوي أو غير معتمد على الذكاء الاصطناعي، لضمان استمرار الخدمة بأمان.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [],
+      "sdaia": [
+        "Accountability & Responsibility"
+      ],
+      "iso42001": [],
+      "nist_ai_rmf": [
+        "MANAGE 2.1",
+        "MEASURE 2.6"
+      ],
+      "eu_ai_act": [
+        "Art. 15"
+      ]
+    },
+    "source_urls": [
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": ""
+  },
+  {
+    "id": "CTL-SEC-07",
+    "theme": "safety-security",
+    "title_en": "Screen for prohibited uses",
+    "title_ar": "فحص الاستخدامات المحظورة",
+    "control_text_en": "Screen every proposed use case against prohibited practices, such as social scoring or manipulating behaviour, and stop any that fall within them.",
+    "control_text_ar": "فحص كل حالة استخدام مقترحة للتأكد من عدم وقوعها ضمن الممارسات المحظورة، مثل التصنيف الاجتماعي أو التلاعب بالسلوك، وإيقاف أي حالة تندرج ضمنها.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Reliability & Safety"
+      ],
+      "iso42001": [
+        "A.9.4"
+      ],
+      "nist_ai_rmf": [
+        "MANAGE 1.1"
+      ],
+      "eu_ai_act": [
+        "Art. 5"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-MON-01",
+    "theme": "monitoring",
+    "title_en": "Performance monitoring with alerts",
+    "title_ar": "مراقبة الأداء مع التنبيهات",
+    "control_text_en": "Monitor the system in production against agreed measures, set alert thresholds in advance, and assign each alert to someone who must respond.",
+    "control_text_ar": "مراقبة أداء النظام أثناء التشغيل وفق مؤشرات متفق عليها، وتحديد حدود التنبيه مسبقًا، وإسناد كل تنبيه إلى شخص مسؤول عن الاستجابة له.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [],
+      "sdaia": [
+        "Accountability & Responsibility",
+        "Reliability & Safety"
+      ],
+      "iso42001": [
+        "A.6.2.6"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 2.4",
+        "MANAGE 4.1"
+      ],
+      "eu_ai_act": [
+        "Art. 26",
+        "Art. 72"
+      ]
+    },
+    "source_urls": [
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-MON-02",
+    "theme": "monitoring",
+    "title_en": "Event logging",
+    "title_ar": "تسجيل الأحداث",
+    "control_text_en": "Log inputs, outputs, model version and key events automatically, and keep the logs long enough to investigate complaints and incidents.",
+    "control_text_ar": "تسجيل المدخلات والمخرجات وإصدار النموذج والأحداث الرئيسية تلقائيًا، والاحتفاظ بالسجلات مدة كافية للتحقيق في الشكاوى والحوادث.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Transparency"
+      ],
+      "sdaia": [
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.6.2.8"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 2.4"
+      ],
+      "eu_ai_act": [
+        "Art. 12",
+        "Art. 26"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-MON-03",
+    "theme": "monitoring",
+    "title_en": "Agent action audit trail",
+    "title_ar": "سجل تدقيق لإجراءات الوكيل",
+    "control_text_en": "Record every tool call and action an agent takes, with its inputs, the reason given, the result and any human approval, in a log the agent itself cannot alter.",
+    "control_text_ar": "تسجيل كل استدعاء لأداة وكل إجراء يقوم به الوكيل الذكي، مع المدخلات والمبرر والنتيجة وأي موافقة بشرية، في سجل لا يستطيع الوكيل نفسه تعديله.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Transparency"
+      ],
+      "sdaia": [
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.6.2.8"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 2.4"
+      ],
+      "eu_ai_act": [
+        "Art. 12"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-MON-04",
+    "theme": "monitoring",
+    "title_en": "AI incident response",
+    "title_ar": "الاستجابة لحوادث الذكاء الاصطناعي",
+    "control_text_en": "Define how AI incidents and serious errors are reported, investigated, fixed and communicated to affected people and, where required, to regulators.",
+    "control_text_ar": "تحديد آلية الإبلاغ عن حوادث الذكاء الاصطناعي والأخطاء الجسيمة والتحقيق فيها ومعالجتها وإبلاغ المتأثرين بها، والجهات التنظيمية عند الاقتضاء.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [],
+      "sdaia": [
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.8.4"
+      ],
+      "nist_ai_rmf": [
+        "MANAGE 4.3",
+        "MANAGE 2.3"
+      ],
+      "eu_ai_act": [
+        "Art. 73"
+      ]
+    },
+    "source_urls": [
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-MON-05",
+    "theme": "monitoring",
+    "title_en": "Periodic review and re-tiering",
+    "title_ar": "المراجعة الدورية وإعادة تصنيف المخاطر",
+    "control_text_en": "Review each system on a set schedule and after significant changes, check for drift and new risks, and update its risk tier and controls.",
+    "control_text_ar": "مراجعة كل نظام وفق جدول زمني محدد وبعد أي تغييرات جوهرية، والتحقق من انحراف الأداء والمخاطر المستجدة، وتحديث مستوى المخاطر والضوابط المطبّقة.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [],
+      "sdaia": [
+        "Reliability & Safety"
+      ],
+      "iso42001": [
+        "A.6.2.6"
+      ],
+      "nist_ai_rmf": [
+        "GOVERN 1.5",
+        "MEASURE 3.1"
+      ],
+      "eu_ai_act": [
+        "Art. 9"
+      ]
+    },
+    "source_urls": [
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-MON-06",
+    "theme": "monitoring",
+    "title_en": "Channel to report concerns",
+    "title_ar": "قناة للإبلاغ عن المخاوف",
+    "control_text_en": "Provide staff and users with a channel to report problems or concerns about an AI system, and track each report to closure.",
+    "control_text_ar": "توفير قناة للموظفين والمستخدمين للإبلاغ عن المشكلات أو المخاوف المتعلقة بنظام الذكاء الاصطناعي، ومتابعة كل بلاغ حتى إغلاقه.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [],
+      "sdaia": [
+        "Transparency & Explainability"
+      ],
+      "iso42001": [
+        "A.3.3",
+        "A.8.3"
+      ],
+      "nist_ai_rmf": [
+        "GOVERN 5.1",
+        "MEASURE 3.3"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-MON-07",
+    "theme": "monitoring",
+    "title_en": "Safe decommissioning",
+    "title_ar": "الإيقاف النهائي الآمن",
+    "control_text_en": "Plan how a system will be retired, including data deletion or archiving, access removal and informing users, and follow the plan when it is withdrawn.",
+    "control_text_ar": "وضع خطة لإيقاف النظام نهائيًا تشمل حذف البيانات أو أرشفتها وإلغاء صلاحيات الوصول وإبلاغ المستخدمين، والالتزام بها عند سحبه من الخدمة.",
+    "applies_when": {
+      "min_tier": "little",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [],
+      "iso42001": [
+        "A.6.2.6"
+      ],
+      "nist_ai_rmf": [
+        "GOVERN 1.7",
+        "MANAGE 2.4"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  },
+  {
+    "id": "CTL-MON-08",
+    "theme": "monitoring",
+    "title_en": "Agent behaviour limits and auto-pause",
+    "title_ar": "مراقبة سلوك الوكيل والإيقاف التلقائي",
+    "control_text_en": "Watch agents for unusual behaviour such as loops, spikes in actions or cost, or attempts to use tools outside their scope, and pause them automatically when limits are hit.",
+    "control_text_ar": "مراقبة الوكلاء الأذكياء لرصد السلوك غير المعتاد مثل التكرار المستمر أو الارتفاع المفاجئ في عدد الإجراءات أو التكلفة أو محاولة استخدام أدوات خارج نطاقهم، وإيقافهم تلقائيًا عند بلوغ الحدود.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Accountability & Responsibility"
+      ],
+      "iso42001": [
+        "A.6.2.6"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 2.4",
+        "MANAGE 2.4"
+      ],
+      "eu_ai_act": []
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-27",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+  }
+]

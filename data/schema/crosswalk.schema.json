@@ -39,6 +39,6 @@
       "notes": { "type": "string" }
     },
     "if": { "properties": { "verified": { "const": true } } },
-    "then": { "properties": { "source_urls": { "minItems": 1 }, "verified_on": { "type": "string" } } }
+    "then": { "properties": { "source_urls": { "type": "array", "minItems": 1 }, "verified_on": { "type": "string" } } }
   }
 }
