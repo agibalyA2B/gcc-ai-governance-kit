@@ -1,14 +1,15 @@
 import { detectLang, t, applyLang } from './index';
 
 describe('detectLang', () => {
-  it('prefers a stored choice', () => {
-    expect(detectLang(['ar-AE'], 'en')).toBe('en');
+  it('uses a stored Arabic choice', () => {
+    expect(detectLang('ar')).toBe('ar');
   });
-  it('follows an Arabic browser', () => {
-    expect(detectLang(['ar-AE', 'en-US'], null)).toBe('ar');
+  it('uses a stored English choice', () => {
+    expect(detectLang('en')).toBe('en');
   });
-  it('defaults to English', () => {
-    expect(detectLang(['fr-FR'], null)).toBe('en');
+  it('defaults to English with no stored choice', () => {
+    expect(detectLang(null)).toBe('en');
+    expect(detectLang('fr')).toBe('en');
   });
 });
 

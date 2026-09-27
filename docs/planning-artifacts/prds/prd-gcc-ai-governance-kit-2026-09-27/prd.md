@@ -173,8 +173,9 @@ CSV and Markdown.
 
 ### 4.7 Bilingual and accessible
 #### FR-14: AR/EN with RTL
-All UI text, questions, controls, exports and templates exist in both languages. On first load the language follows the
-browser (ar* → AR/RTL, otherwise EN), and the toggle choice is remembered.
+All UI text, questions, controls, exports and templates exist in both languages. On first load the interface is in English
+whatever the browser language; the عربي toggle switches to AR/RTL and the choice is remembered (changed in v0.2.1, see
+ADR 005).
 **Consequences:** no untranslated keys ship (a CI check fails on missing keys), and the layout mirrors correctly in RTL.
 
 **Feature-specific NFRs:** WCAG 2.1 AA; the whole flow is usable with the keyboard alone.

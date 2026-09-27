@@ -13,8 +13,9 @@ test('loads in English and toggles to Arabic RTL', async ({ page }) => {
 
 test.describe('Arabic browser', () => {
   test.use({ locale: 'ar-AE' });
-  test('opens in Arabic by default', async ({ page }) => {
+  test('still opens in English until the user picks Arabic', async ({ page }) => {
     await page.goto('./');
-    await expect(page.locator('html')).toHaveAttribute('lang', 'ar');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('html')).toHaveAttribute('dir', 'ltr');
   });
 });

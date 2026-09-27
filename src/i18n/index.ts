@@ -5,9 +5,9 @@ export type Lang = 'en' | 'ar';
 const catalogs: Record<Lang, Record<string, string>> = { en, ar };
 const STORAGE_KEY = 'gaigk.lang';
 
-export function detectLang(navigatorLangs: readonly string[], stored: string | null): Lang {
-  if (stored === 'en' || stored === 'ar') return stored;
-  return navigatorLangs.some((l) => l.toLowerCase().startsWith('ar')) ? 'ar' : 'en';
+// English on first visit whatever the browser language (ADR 005); after that, the remembered toggle choice.
+export function detectLang(stored: string | null): Lang {
+  return stored === 'ar' ? 'ar' : 'en';
 }
 
 export function t(lang: Lang, key: string): string {
@@ -28,5 +28,5 @@ export function applyLang(lang: Lang, root: HTMLElement = document.documentEleme
 }
 
 export function initialLang(): Lang {
-  return detectLang(navigator.languages ?? [navigator.language], readStored());
+  return detectLang(readStored());
 }
