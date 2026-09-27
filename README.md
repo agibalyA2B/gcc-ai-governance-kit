@@ -4,7 +4,7 @@
 
 **Adopt AI governance in one afternoon, in Arabic and English.**
 
-[**Try it live →**](https://agibalya2b.github.io/gcc-ai-governance-kit/) · [Templates](https://agibalya2b.github.io/gcc-ai-governance-kit/#/templates) · [How scoring works](https://agibalya2b.github.io/gcc-ai-governance-kit/#/scoring) · [العربية](#بالعربية)
+[**Try it live →**](https://agibalya2b.github.io/gcc-ai-governance-kit/) · [User guide](https://agibalya2b.github.io/gcc-ai-governance-kit/#/guide) · [Templates](https://agibalya2b.github.io/gcc-ai-governance-kit/#/templates) · [How scoring works](https://agibalya2b.github.io/gcc-ai-governance-kit/#/scoring) · [العربية](#بالعربية)
 
 ![CI](https://github.com/agibalyA2B/gcc-ai-governance-kit/actions/workflows/deploy.yml/badge.svg)
 ![Controls verified](https://img.shields.io/badge/controls%20verified-48%2F56-2e7d5b)
@@ -37,14 +37,16 @@ This kit is that practical layer. It is open, free and bilingual, and it runs en
 | **Recommended autonomy** | Three prioritisation questions (usage, complexity, readiness), from the UAE AI-assistant priority matrix, recommend how much autonomy the AI should have, and warn when a design goes beyond it. |
 | **Honest verification** | Each control shows its sources and whether its references were checked against them: **48 of 56 verified**. See the [content audit](docs/content-audit.md). |
 | **Committee-ready outputs** | A one-to-two-page *AI Use-Case Risk Summary* (print to PDF) with a sign-off block, plus control lists as CSV/XLSX with right-to-left Arabic sheets. |
-| **Templates** | Register, impact assessment and control checklist in Arabic and English (XLSX, CSV, Markdown) for teams that prefer spreadsheets. |
+| **User guide** | An in-app [guide](https://agibalya2b.github.io/gcc-ai-governance-kit/#/guide) in Arabic and English, with screenshots: the three steps, what each tier means, reading controls and badges, exports and backups. Also as PDF: [English](docs/USER-GUIDE.pdf) · [العربية](docs/USER-GUIDE-ar.pdf). |
+| **Templates** | Register, impact assessment and control checklist in Arabic and English (XLSX, CSV, Markdown) for teams that prefer spreadsheets or work offline. You don't need them to use the app. |
 
 ## Try it in 60 seconds
 
 1. Open the **[live site](https://agibalya2b.github.io/gcc-ai-governance-kit/)** and click **Load 2 sample use cases**.
 2. Open *Citizen service triage agent* to see why it is **High risk**.
 3. Click **See applicable controls**, then **Committee PDF**.
-4. Switch to **عربي**: the whole flow, the exports and the report work right-to-left.
+4. Switch to **عربي**: the whole flow, the exports and the report work right-to-left. The site opens in English; your
+   language choice is remembered.
 
 No sign-up, no backend, no API key. Nothing you type leaves the browser; an automated test checks this on every change.
 
@@ -128,6 +130,7 @@ and governance programmes in UAE federal government.
   وقانون الاتحاد الأوروبي، إضافةً إلى كود الإمارات للخدمات الحكومية وتصفير البيروقراطية والدليل الاتحادي للذكاء الاصطناعي المساعد. وتوصي الحقيبة بمستوى الاستقلالية المناسب للذكاء الاصطناعي وفق مصفوفة الأولويات الحكومية.
 
 تعمل بالكامل داخل المتصفح، ولا تغادر بياناتك جهازك.
-[جرّبها الآن](https://agibalya2b.github.io/gcc-ai-governance-kit/)
+تُفتح الواجهة بالإنجليزية؛ اضغط «عربي» في أعلى الصفحة وسيُحفظ اختيارك.
+[جرّبها الآن](https://agibalya2b.github.io/gcc-ai-governance-kit/) · [دليل الاستخدام (PDF)](docs/USER-GUIDE-ar.pdf)
 
 **الترخيص:** الشيفرة بترخيص MIT، والمحتوى والنماذج بترخيص CC BY 4.0. هذه الحقيبة إرشادية وليست استشارة قانونية.

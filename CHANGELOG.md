@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.1 (2026-09-27)
+UX fixes from feedback on 0.2.0.
+- **English by default.** The site now always opens in English; the عربي toggle switches to Arabic and is remembered.
+  See ADR 005.
+- **The questionnaire is the obvious path.** Home shows three steps (add a use case, answer 8 questions, get your
+  tier, controls and PDF) with one *Start your first assessment* button. Backup and restore move into a *Save or
+  restore* menu, and import is now *Restore a saved register (.json)*. The Templates page is reframed as the offline
+  option and says that no upload is needed.
+- **User guide.** A new in-app Guide page in Arabic and English, with screenshots, that prints to A4. It is also
+  available as `docs/USER-GUIDE.pdf` and `docs/USER-GUIDE-ar.pdf`.
+- Fixed: on phones, the register table no longer makes the whole page scroll sideways.
+
 ## 0.2.0 (2026-09-27)
 - New framework: **UAE Code for Government Services and Zero Bureaucracy**, adopted by the UAE Cabinet in April 2026.
   It is cited together with the federal agentic-AI service design guide, the Agentic AI National Reference (July 2026)
