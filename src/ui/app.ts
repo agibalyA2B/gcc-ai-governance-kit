@@ -122,8 +122,13 @@ function render(focus = true): void {
 
 function currentUc(): UseCase | undefined { const [page, id] = route(); return page === 'uc' && id ? store.get1(id) : undefined; }
 
+function closeMenus(when: (m: HTMLDetailsElement) => boolean = () => true): void {
+  for (const m of document.querySelectorAll<HTMLDetailsElement>('details.menu[open]')) if (when(m)) m.open = false;
+}
+
 function onClick(e: Event): void {
   const el = (e.target as HTMLElement).closest<HTMLElement>('[data-action], .lang-toggle');
+  closeMenus((m) => !m.contains(e.target as Node) || !!el);
   if (!el) return;
   if (el.classList.contains('lang-toggle')) {
     lang = lang === 'ar' ? 'en' : 'ar';
@@ -232,6 +237,7 @@ export function start(): void {
   document.addEventListener('click', onClick);
   document.addEventListener('change', onChange);
   document.addEventListener('submit', onSubmit);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenus(); });
   window.addEventListener('hashchange', () => render());
   window.addEventListener('afterprint', () => { const p = document.getElementById('print-root'); if (p) p.innerHTML = ''; });
   render(false);

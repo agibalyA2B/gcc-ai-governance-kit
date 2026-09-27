@@ -69,3 +69,26 @@ test('prioritisation gives a recommended autonomy level and flags over-autonomy'
   await expect(page.locator('.autonomy .auto-level')).toContainText('Level 3');
   await expect(page.locator('.auto-fits')).toBeVisible();
 });
+
+test('home shows the three-step path and keeps backup tools in a secondary menu', async ({ page }) => {
+  await expect(page.locator('.how li')).toHaveCount(3);
+  await expect(page.getByTestId('new-uc')).toHaveText('Start your first assessment');
+  await expect(page.getByRole('button', { name: 'Restore a saved register (.json)' })).toBeHidden();
+  await page.getByTestId('data-menu').locator('summary').click();
+  await expect(page.getByRole('button', { name: 'Restore a saved register (.json)' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Restore a saved register (.json)' })).toBeHidden();
+  await page.getByRole('button', { name: 'Load 2 sample use cases' }).click();
+  await expect(page.getByTestId('new-uc')).toHaveText('Assess another use case');
+  await page.getByTestId('data-menu').locator('summary').click();
+  const [json] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Save a backup (.json)' }).click()]);
+  expect(json.suggestedFilename()).toMatch(/^ai-register-.*\.json$/);
+});
+
+test('templates page says no upload is needed and links back to the app', async ({ page }) => {
+  await page.goto('./#/templates');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Prefer spreadsheets? Work offline');
+  await expect(page.locator('main')).toContainText('nothing to download or upload');
+  await page.getByRole('link', { name: 'Start an assessment in the browser instead' }).click();
+  await expect(page.locator('#f-name')).toBeVisible();
+});

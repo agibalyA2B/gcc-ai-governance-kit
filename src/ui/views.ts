@@ -22,6 +22,13 @@ export function frameworkChips(lang: Lang, selected: FrameworkId[]): string {
     <span>${esc(L(lang, f.en, f.ar))}</span></label>`).join('')}</fieldset>`;
 }
 
+function howItWorks(lang: Lang, hasCases: boolean): string {
+  return `<section class="how" aria-labelledby="how-h"><h2 id="how-h" class="sr-only">${t(lang, 'how.title')}</h2>
+    <ol>${[1, 2, 3].map((n) => `<li><span class="how-num" aria-hidden="true">${n}</span><div><strong>${t(lang, `how.${n}.h`)}</strong><p>${t(lang, `how.${n}.p`)}</p></div></li>`).join('')}</ol>
+    <a class="btn primary btn-lg" href="#/new" data-testid="new-uc"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3v12M3 9h12"/></svg>${t(lang, hasCases ? 'how.cta.more' : 'how.cta.first')}</a>
+  </section>`;
+}
+
 export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId[], persistent: boolean, filter: string): string {
   const rows = cases
     .map((uc) => ({ uc, r: computeTier(uc.answers) }))
@@ -46,8 +53,8 @@ export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId
     : `<div class="empty"><p>${t(lang, 'reg.empty')}</p>
         <button type="button" class="btn" data-action="samples">${t(lang, 'reg.samples')}</button></div>`;
   return `
-    <section class="hero"><div><span class="eyebrow">${t(lang, 'app.eyebrow')}</span><h1>${t(lang, 'app.tagline')}</h1><p>${t(lang, 'app.intro')}</p></div>
-      <a class="btn primary btn-lg" href="#/new" data-testid="new-uc"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3v12M3 9h12"/></svg>${t(lang, 'reg.new')}</a></section>
+    <section class="hero"><div><span class="eyebrow">${t(lang, 'app.eyebrow')}</span><h1>${t(lang, 'app.tagline')}</h1><p>${t(lang, 'app.intro')}</p></div></section>
+    ${howItWorks(lang, cases.length > 0)}
     ${persistent ? '' : `<p class="notice warn" role="alert">${t(lang, 'store.unavailable')}</p>`}
     ${frameworkChips(lang, selected)}
     <div class="toolbar">
@@ -55,9 +62,11 @@ export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId
         <select data-action="filter"><option value="">${t(lang, 'reg.filter.all')}</option>
         ${TIER_ORDER.map((x) => `<option value="${x}" ${filter === x ? 'selected' : ''}>${t(lang, `tier.${x}`)}</option>`).join('')}</select></label>
       <span class="spacer"></span>
-      <button type="button" class="btn" data-action="import">${t(lang, 'reg.import')}</button>
-      <button type="button" class="btn" data-action="export-json" ${cases.length ? '' : 'disabled'}>${t(lang, 'reg.export.json')}</button>
-      <button type="button" class="btn" data-action="export-xlsx" ${cases.length ? '' : 'disabled'}>${t(lang, 'reg.export.xlsx')}</button>
+      <details class="menu" data-testid="data-menu"><summary class="btn">${t(lang, 'data.menu')}</summary>
+        <div class="menu-panel"><p class="small muted">${t(lang, 'data.hint')}</p>
+        <button type="button" class="btn" data-action="export-json" ${cases.length ? '' : 'disabled'}>${t(lang, 'reg.export.json')}</button>
+        <button type="button" class="btn" data-action="export-xlsx" ${cases.length ? '' : 'disabled'}>${t(lang, 'reg.export.xlsx')}</button>
+        <button type="button" class="btn" data-action="import">${t(lang, 'reg.import')}</button></div></details>
       <input type="file" accept="application/json,.json" data-action="import-file" hidden />
     </div>
     ${table}
@@ -259,7 +268,8 @@ export function templatesView(lang: Lang, base: string): string {
   const files = [
     ['register', 'tpl.register'], ['impact-assessment', 'tpl.impact'], ['control-checklist', 'tpl.checklist'],
   ];
-  return `<section class="card"><h1 tabindex="-1">${t(lang, 'nav.templates')}</h1><p>${t(lang, 'tpl.intro')}</p>
+  return `<section class="card"><h1 tabindex="-1">${t(lang, 'tpl.title')}</h1><p>${t(lang, 'tpl.intro')}</p>
+    <p><a class="btn" href="#/new">${t(lang, 'tpl.start')}</a></p>
     <table class="templates"><thead><tr><th scope="col">${t(lang, 'tpl.file')}</th><th scope="col">English</th><th scope="col">العربية</th></tr></thead><tbody>
     ${files.map(([f, k]) => `<tr><th scope="row">${t(lang, k)}</th>${(['en', 'ar'] as const).map((lg) => `<td>${['xlsx', 'csv', 'md']
       .map((ext) => `<a href="${base}templates/${lg}/${f}.${ext}" download>${ext.toUpperCase()}</a>`).join(' · ')}</td>`).join('')}</tr>`).join('')}
