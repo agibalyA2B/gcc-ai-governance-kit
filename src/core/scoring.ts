@@ -5,7 +5,7 @@ export const TIER_ORDER: Tier[] = ['little', 'limited', 'high', 'unacceptable'];
 
 export interface Option { id: string; points: number; en: string; ar: string }
 export interface Question {
-  id: string; level: 'quick' | 'deep' | 'prio'; factor: string;
+  id: string; level: 'intake' | 'quick' | 'deep' | 'prio'; factor: string;
   text_en: string; text_ar: string; help_en: string; help_ar: string; options: Option[];
 }
 export interface Trigger {
@@ -27,6 +27,9 @@ export interface TierResult {
 }
 
 export const QUESTIONS = questionsData as QuestionSet;
+
+/** False only when the owner says the solution uses no AI at runtime; unanswered counts as in scope (older registers). */
+export const aiInScope = (answers: Answers): boolean => answers.runtime_ai !== 'no';
 
 export const maxTier = (a: Tier, b: Tier): Tier =>
   TIER_ORDER.indexOf(a) >= TIER_ORDER.indexOf(b) ? a : b;

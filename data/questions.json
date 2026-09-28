@@ -6,6 +6,29 @@
   },
   "questions": [
     {
+      "id": "runtime_ai",
+      "level": "intake",
+      "factor": "scope",
+      "text_en": "Does the solution use AI when it runs?",
+      "text_ar": "هل يستخدم الحل الذكاء الاصطناعي أثناء تشغيله؟",
+      "help_en": "Choose No if AI was only used to build it (for example an AI coding assistant) and the running product has no AI model or AI service inside.",
+      "help_ar": "اختر «لا» إذا استُخدم الذكاء الاصطناعي في بنائه فقط (مثل مساعد برمجة ذكي)، ولا يتضمن المنتج أثناء تشغيله أي نموذج أو خدمة ذكاء اصطناعي.",
+      "options": [
+        {
+          "id": "yes",
+          "points": 0,
+          "en": "Yes: it uses an AI model or AI service when it runs",
+          "ar": "نعم: يستخدم نموذجاً أو خدمة ذكاء اصطناعي أثناء التشغيل"
+        },
+        {
+          "id": "no",
+          "points": 0,
+          "en": "No: AI was only used to build it, or not at all",
+          "ar": "لا: استُخدم الذكاء الاصطناعي في بنائه فقط، أو لم يُستخدم إطلاقاً"
+        }
+      ]
+    },
+    {
       "id": "impact",
       "level": "quick",
       "factor": "impact",

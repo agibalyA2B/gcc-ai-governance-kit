@@ -20,11 +20,11 @@ export function sampleUseCases(lang: 'en' | 'ar', now = new Date().toISOString()
       owner: ar ? 'إدارة خدمة المتعاملين' : 'Customer Service Dept.', businessUnit: ar ? 'العمليات' : 'Operations',
       purpose: ar ? 'يوجّه الطلبات الواردة تلقائياً، ويراجع موظفٌ حالات الرفض.' : 'Routes incoming requests automatically; staff review refusals.',
       status: 'pilot',
-      answers: { impact: 'recommend-individuals', data: 'personal', affected: 'public', ai_type: 'agentic', autonomy: 'monitored', oversight: 'exceptions', access: 'record', reversibility: 'easy' } },
+      answers: { runtime_ai: 'yes', impact: 'recommend-individuals', data: 'personal', affected: 'public', ai_type: 'agentic', autonomy: 'monitored', oversight: 'exceptions', access: 'record', reversibility: 'easy' } },
     { ...blankUseCase(now), name: ar ? 'روبوت محادثة للأسئلة الشائعة' : 'Website FAQ chatbot',
       owner: ar ? 'القنوات الرقمية' : 'Digital Channels', businessUnit: ar ? 'تجربة المتعاملين' : 'Customer Experience',
       purpose: ar ? 'يجيب عن الأسئلة العامة ويحيل إلى موظف عند الحاجة.' : 'Answers general questions and hands over to a person when needed.',
       status: 'production',
-      answers: { impact: 'public-info', data: 'none', affected: 'public', ai_type: 'generative', autonomy: 'monitored', oversight: 'exceptions', access: 'none', reversibility: 'easy' } },
+      answers: { runtime_ai: 'yes', impact: 'public-info', data: 'none', affected: 'public', ai_type: 'generative', autonomy: 'monitored', oversight: 'exceptions', access: 'none', reversibility: 'easy' } },
   ];
 }

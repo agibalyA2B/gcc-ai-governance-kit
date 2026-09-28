@@ -6,6 +6,7 @@ Licensed under CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
 
 | Section | Question | Options (points) | Answer | Evidence / notes |
 | --- | --- | --- | --- | --- |
+| Scope | Does the solution use AI when it runs? | Yes: it uses an AI model or AI service when it runs; No: AI was only used to build it, or not at all |  |  |
 | Quick check | What does the AI's output influence? | Internal productivity only (drafts, summaries, search) (0); Information given to the public or customers (5); Recommendations to staff about specific people (15); Decisions about people's rights, benefits, access to services or money (25); Social scoring, manipulation, or real-time biometric surveillance of the public (0) |  |  |
 | Quick check | What data does it use? | No data about people, or public data only (0); Internal business data, no personal data (3); Personal data (10); Sensitive personal data (18) |  |  |
 | Quick check | Who could be affected? | Employees only (3); Customers or the public (8); Vulnerable groups (children, elderly, people with disabilities) (15) |  |  |

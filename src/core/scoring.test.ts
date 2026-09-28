@@ -1,4 +1,4 @@
-import { computeTier, topReasons, tierFromPoints, QUESTIONS, type Answers } from './scoring';
+import { computeTier, topReasons, tierFromPoints, aiInScope, QUESTIONS, type Answers } from './scoring';
 
 // Calibration fixtures (FR-8a). Expected tiers were confirmed by the product owner on 27 Sep 2026.
 // Changing weights or triggers must not change these results without updating ADR 002.
@@ -60,6 +60,24 @@ describe('computeTier', () => {
     expect(tierFromPoints(t.limited - 1, t)).toBe('little');
     expect(tierFromPoints(t.limited, t)).toBe('limited');
     expect(tierFromPoints(t.high, t)).toBe('high');
+  });
+});
+
+describe('AI-at-runtime scope', () => {
+  it('asks first whether the solution uses AI when it runs', () => {
+    const q = QUESTIONS.questions[0];
+    expect(q).toMatchObject({ id: 'runtime_ai', level: 'intake' });
+    expect(q.options.map((o) => o.id)).toEqual(['yes', 'no']);
+    expect(q.options.every((o) => o.points === 0)).toBe(true);
+  });
+  it('treats an unanswered scope question as in scope, so older registers keep their tier', () => {
+    expect(aiInScope({})).toBe(true);
+    expect(aiInScope({ runtime_ai: 'yes' })).toBe(true);
+    expect(aiInScope({ runtime_ai: 'no' })).toBe(false);
+  });
+  it('never changes the tier or the points', () => {
+    const base = fixtures[0].answers;
+    expect(computeTier({ ...base, runtime_ai: 'yes' })).toEqual(computeTier(base));
   });
 });
 

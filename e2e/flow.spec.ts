@@ -32,6 +32,9 @@ test('new use case: validation, quick check and tier', async ({ page }) => {
   await page.getByLabel('Accountable owner').fill('Retail Credit');
   await page.getByRole('button', { name: 'Continue' }).click();
   const pick = async (q: string, v: string) => page.locator(`input[name="${q}"][value="${v}"]`).check();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await expect(page.locator('.toast')).toContainText('uses AI when it runs');
+  await pick('runtime_ai', 'yes');
   await pick('impact', 'decide-individuals'); await pick('data', 'sensitive'); await pick('affected', 'public');
   await pick('ai_type', 'predictive'); await pick('autonomy', 'approval'); await pick('oversight', 'every');
   await pick('access', 'none'); await pick('reversibility', 'effort');
@@ -43,6 +46,23 @@ test('new use case: validation, quick check and tier', async ({ page }) => {
   await page.getByRole('link', { name: 'Start the deep-dive' }).click();
   await expect(page.locator('.badge-optional')).toHaveCount(2);
   await expect(page.locator('.prio-note')).toContainText('These are not risk questions');
+});
+
+test('a solution with no AI at runtime gets pointers instead of a tier', async ({ page }) => {
+  await page.getByTestId('new-uc').click();
+  await page.getByLabel('Name').fill('Invoice portal built with AI coding tools');
+  await page.getByLabel('Accountable owner').fill('Finance IT');
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await expect(page.locator('fieldset.question')).toHaveCount(8);
+  await page.locator('input[name="runtime_ai"][value="no"]').check();
+  await expect(page.locator('.scope-none h3')).toHaveText("AI governance controls don't apply");
+  await expect(page.locator('fieldset.question')).toHaveCount(0);
+  await expect(page.locator('.stepper li').nth(2).locator('.disabled')).toBeVisible();
+  await page.locator('.actions').getByRole('link', { name: 'Register' }).click();
+  await expect(page.locator('table.register tbody tr')).toContainText('No AI at runtime');
+  await page.getByRole('link', { name: 'Invoice portal built with AI coding tools' }).click();
+  await page.locator('input[name="runtime_ai"][value="yes"]').check();
+  await expect(page.locator('fieldset.question')).toHaveCount(8);
 });
 
 test('Arabic mode renders RTL register and tier', async ({ page }) => {

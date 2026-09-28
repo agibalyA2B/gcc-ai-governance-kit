@@ -1,5 +1,5 @@
 import { t, type Lang } from '../i18n';
-import { QUESTIONS, computeTier, topReasons, TIER_ORDER, type Tier, type TierResult } from '../core/scoring';
+import { QUESTIONS, computeTier, topReasons, aiInScope, TIER_ORDER, type Tier, type TierResult } from '../core/scoring';
 import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
 import { applicableControls, verifiedShare, THEMES, CROSSWALK, type Control } from '../core/controls';
 import type { UseCase } from '../core/usecase';
@@ -16,6 +16,12 @@ export function tierBadge(lang: Lang, tier: Tier | null, size: 'sm' | 'lg' = 'sm
   return `<span class="tier-badge tier-${tier} ${size === 'lg' ? 'tier-lg' : ''}"><span aria-hidden="true">${tierIcon[tier]}</span> ${t(lang, `tier.${tier}`)}</span>`;
 }
 
+export const scopeBadge = (lang: Lang) => `<span class="tier-badge tier-none scope-badge">${t(lang, 'scope.badge')}</span>`;
+
+/** Badge for a use case anywhere in the app: out of scope, not assessed yet, or its tier. */
+export const caseBadge = (lang: Lang, uc: UseCase, r: TierResult) =>
+  !aiInScope(uc.answers) ? scopeBadge(lang) : tierBadge(lang, r.quickComplete ? r.tier : null);
+
 export function frameworkChips(lang: Lang, selected: FrameworkId[]): string {
   return `<fieldset class="chips"><legend>${t(lang, 'fw.legend')}</legend>${FRAMEWORKS.map((f) => `
     <label class="chip"><input type="checkbox" name="fw" value="${f.id}" ${selected.includes(f.id) ? 'checked' : ''}/>
@@ -29,11 +35,14 @@ function howItWorks(lang: Lang, hasCases: boolean): string {
   </section>`;
 }
 
+const rank = (uc: UseCase, r: TierResult) => (aiInScope(uc.answers) ? TIER_ORDER.indexOf(r.tier) : -1);
+const caseLink = (uc: UseCase, r: TierResult) => `#/uc/${esc(uc.id)}/${!aiInScope(uc.answers) ? 'quick' : r.quickComplete ? 'tier' : 'details'}`;
+
 export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId[], persistent: boolean, filter: string): string {
   const rows = cases
     .map((uc) => ({ uc, r: computeTier(uc.answers) }))
-    .filter(({ r }) => !filter || (r.quickComplete && r.tier === filter))
-    .sort((a, b) => TIER_ORDER.indexOf(b.r.tier) - TIER_ORDER.indexOf(a.r.tier) || b.uc.updatedAt.localeCompare(a.uc.updatedAt));
+    .filter(({ uc, r }) => !filter || (aiInScope(uc.answers) && r.quickComplete && r.tier === filter))
+    .sort((a, b) => rank(b.uc, b.r) - rank(a.uc, a.r) || b.uc.updatedAt.localeCompare(a.uc.updatedAt));
   const table = cases.length
     ? `<div class="table-wrap"><table class="register">
         <caption class="sr-only">${t(lang, 'reg.caption')}</caption>
@@ -41,10 +50,10 @@ export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId
         <th scope="col">${t(lang, 'reg.type')}</th><th scope="col">${t(lang, 'reg.tier')}</th>
         <th scope="col">${t(lang, 'reg.deep')}</th><th scope="col">${t(lang, 'reg.updated')}</th><th scope="col"><span class="sr-only">${t(lang, 'reg.actions')}</span></th></tr></thead>
         <tbody>${rows.map(({ uc, r }) => `<tr>
-          <td><a href="#/uc/${esc(uc.id)}/${r.quickComplete ? 'tier' : 'details'}">${esc(uc.name || t(lang, 'reg.untitled'))}</a></td>
+          <td><a href="${caseLink(uc, r)}">${esc(uc.name || t(lang, 'reg.untitled'))}</a></td>
           <td>${esc(uc.owner)}</td>
           <td>${uc.answers.ai_type ? t(lang, `aitype.${uc.answers.ai_type}`) : '—'}</td>
-          <td>${tierBadge(lang, r.quickComplete ? r.tier : null)}</td>
+          <td>${caseBadge(lang, uc, r)}</td>
           <td>${r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo')}</td>
           <td>${esc(uc.updatedAt.slice(0, 10))}</td>
           <td><div class="row-actions"><button type="button" class="link" data-action="duplicate" data-id="${esc(uc.id)}">${t(lang, 'reg.duplicate')}</button>
@@ -74,8 +83,10 @@ export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId
 }
 
 export function stepper(lang: Lang, uc: UseCase, step: Step, r: TierResult): string {
-  const enabled = (s: Step) => s === 'details' || (s === 'quick' ? !!uc.name && !!uc.owner : r.quickComplete);
-  const done = (s: Step) => s === 'details' ? !!uc.name && !!uc.owner : s === 'quick' || s === 'tier' ? r.quickComplete : s === 'deep' ? r.deepComplete : false;
+  const inScope = aiInScope(uc.answers);
+  const enabled = (s: Step) => s === 'details' || (s === 'quick' ? !!uc.name && !!uc.owner : inScope && r.quickComplete);
+  const done = (s: Step) => s === 'details' ? !!uc.name && !!uc.owner : !inScope ? s === 'quick'
+    : s === 'quick' || s === 'tier' ? r.quickComplete : s === 'deep' ? r.deepComplete : false;
   return `<nav class="stepper" aria-label="${t(lang, 'step.nav')}"><ol>${STEPS.map((s, i) => `
     <li class="${s === step ? 'current' : done(s) ? 'done' : ''}">${enabled(s)
       ? `<a href="#/uc/${esc(uc.id)}/${s}" ${s === step ? 'aria-current="step"' : ''}><span class="num">${s !== step && done(s) ? '✓' : i + 1}</span> ${t(lang, `step.${s}`)}</a>`
@@ -108,12 +119,31 @@ function questionBlock(lang: Lang, uc: UseCase, qs: typeof QUESTIONS.questions, 
 
 const optionalBadge = (lang: Lang) => ` <span class="badge-optional">${t(lang, 'badge.optional')}</span>`;
 
+function scopeNone(lang: Lang): string {
+  return `<section class="scope-none notice" aria-live="polite"><h3>${t(lang, 'scope.none.h')}</h3><p>${t(lang, 'scope.none.p')}</p>
+    <ul>${[1, 2, 3, 4].map((n) => `<li>${t(lang, `scope.none.${n}`)}</li>`).join('')}</ul>
+    <p class="small">${t(lang, 'scope.none.ref')} <a href="https://csrc.nist.gov/pubs/sp/800/218/final" target="_blank" rel="noopener">NIST SP 800-218</a></p>
+    <p class="small muted">${t(lang, 'scope.none.again')}</p></section>`;
+}
+
+function intakeBlock(lang: Lang, uc: UseCase): string {
+  const q = QUESTIONS.questions.find((x) => x.level === 'intake')!;
+  return `<fieldset class="intake"><legend>${esc(L(lang, q.text_en, q.text_ar))}</legend>
+    <p class="help">${esc(L(lang, q.help_en, q.help_ar))}</p>
+    ${q.options.map((o) => `<label class="option"><input type="radio" name="${q.id}" value="${o.id}" ${uc.answers[q.id] === o.id ? 'checked' : ''}/>
+      <span>${esc(L(lang, o.en, o.ar))}</span></label>`).join('')}</fieldset>`;
+}
+
 export function questionsForm(lang: Lang, uc: UseCase, level: 'quick' | 'deep', showPoints: boolean): string {
+  if (level === 'quick' && !aiInScope(uc.answers))
+    return `<form class="card" data-form="quick"><h2 tabindex="-1">${t(lang, 'step.quick')}</h2>${intakeBlock(lang, uc)}${scopeNone(lang)}
+      <div class="actions"><a class="btn primary" href="#/">${t(lang, 'nav.home')}</a></div></form>`;
   const qs = QUESTIONS.questions.filter((q) => q.level === level);
   const answered = qs.filter((q) => uc.answers[q.id]).length;
   const prio = level === 'deep' ? QUESTIONS.questions.filter((q) => q.level === 'prio') : [];
   return `<form class="card" data-form="${level}">
     <h2 tabindex="-1">${t(lang, `step.${level}`)}${level === 'deep' ? optionalBadge(lang) : ''}</h2>
+    ${level === 'quick' ? intakeBlock(lang, uc) : ''}
     <p class="muted">${t(lang, `${level}.intro`)} <span class="progress" aria-live="polite">${answered}/${qs.length}</span></p>
     ${questionBlock(lang, uc, qs, showPoints)}
     ${prio.length ? `<section class="prio-block"><h3>${t(lang, 'prio.title')}${optionalBadge(lang)}</h3><p class="muted">${t(lang, 'prio.intro')}</p><p class="notice prio-note">${t(lang, 'prio.notrisk')}</p>${questionBlock(lang, uc, prio, false)}</section>` : ''}
