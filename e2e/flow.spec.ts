@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+import * as XLSX from 'xlsx';
 
 test.beforeEach(async ({ page }) => {
   await page.goto('./');
@@ -63,6 +65,48 @@ test('a solution with no AI at runtime gets pointers instead of a tier', async (
   await page.getByRole('link', { name: 'Invoice portal built with AI coding tools' }).click();
   await page.locator('input[name="runtime_ai"][value="yes"]').check();
   await expect(page.locator('fieldset.question')).toHaveCount(8);
+});
+
+test('control-evidence map is saved per use case and exported', async ({ page }) => {
+  await page.getByRole('button', { name: 'Load 2 sample use cases' }).click();
+  await page.getByRole('link', { name: 'Citizen service triage agent' }).click();
+  await page.getByRole('link', { name: 'See applicable controls' }).click();
+  const first = page.locator('li.control').first();
+  await first.locator('select[data-action="ev-status"]').selectOption('met');
+  await first.locator('textarea[data-action="ev-note"]').fill('AI policy v2, approved 12 Mar');
+  await page.locator('li.control').nth(1).locator('select[data-action="ev-status"]').selectOption('gap');
+  await expect(page.getByTestId('ev-summary')).toContainText('1 Met');
+  await expect(page.getByTestId('ev-summary')).toContainText('1 Gap');
+  await expect(first).toHaveAttribute('data-status', 'met');
+  await page.reload();
+  await expect(page.locator('li.control').first().locator('textarea[data-action="ev-note"]')).toHaveValue('AI policy v2, approved 12 Mar');
+  await page.getByRole('link', { name: 'Export' }).last().click();
+  const [csv] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Controls (CSV)' }).click()]);
+  const text = readFileSync((await csv.path())!, 'utf8');
+  expect(text).toContain('Evidence status');
+  expect(text).toContain('AI policy v2, approved 12 Mar');
+  const [xlsx] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Controls (XLSX)' }).click()]);
+  const rows = XLSX.utils.sheet_to_json<Record<string, string>>(Object.values(XLSX.read(readFileSync((await xlsx.path())!)).Sheets)[0]);
+  expect(rows[0]['Evidence status']).toBe('Met');
+  expect(rows[1]['Evidence status']).toBe('Gap');
+  expect(rows[2]['Evidence status']).toBe('Not reviewed');
+  // The backup keeps the evidence, and restoring it brings the evidence back.
+  await page.goto('./');
+  await page.getByTestId('data-menu').locator('summary').click();
+  const [backup] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Save a backup (.json)' }).click()]);
+  const saved = JSON.parse(readFileSync((await backup.path())!, 'utf8'));
+  expect(Object.values(saved.useCases.find((u: { name: string }) => u.name === 'Citizen service triage agent').evidence)).toContainEqual({ status: 'met', note: 'AI policy v2, approved 12 Mar' });
+});
+
+test('a register saved before evidence existed still restores', async ({ page }) => {
+  const old = { format: 'gcc-ai-governance-kit/register', version: 1, useCases: [{ id: 'old-1', name: 'Legacy chatbot', owner: 'Digital', businessUnit: '', purpose: '', status: 'pilot', notes: '',
+    answers: { impact: 'public-info', data: 'none', affected: 'public', ai_type: 'generative', autonomy: 'monitored', oversight: 'exceptions', access: 'none', reversibility: 'easy' }, createdAt: '2026-09-01', updatedAt: '2026-09-01' }] };
+  await page.locator('input[data-action="import-file"]').setInputFiles({ name: 'old.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(old)) });
+  await expect(page.locator('table.register tbody tr')).toHaveCount(1);
+  await page.getByRole('link', { name: 'Legacy chatbot' }).click();
+  await expect(page.locator('.tier-result .tier-badge')).toContainText('Limited');
+  await page.getByRole('link', { name: 'See applicable controls' }).click();
+  await expect(page.getByTestId('ev-summary')).toContainText('0 Met');
 });
 
 test('Arabic mode renders RTL register and tier', async ({ page }) => {

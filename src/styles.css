@@ -156,6 +156,19 @@ thead th { font-size: 0.85rem; color: var(--color-text-muted); background: #fbfa
 .control { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); }
 .control p { margin: var(--space-2) 0; }
 .control-head { display: flex; justify-content: space-between; gap: var(--space-3); align-items: start; }
+.control { border-inline-start-width: 4px; }
+.control[data-status='met'] { border-inline-start-color: var(--tier-little); }
+.control[data-status='partly'] { border-inline-start-color: var(--tier-limited); }
+.control[data-status='gap'] { border-inline-start-color: var(--tier-high); }
+.control[data-status='na'] { border-inline-start-color: var(--color-text-muted); }
+.evidence { display: grid; grid-template-columns: minmax(150px, 200px) 1fr; gap: var(--space-3); margin-block-start: var(--space-3); padding-block-start: var(--space-3); border-top: 1px dashed var(--color-border); }
+.evidence label { display: flex; flex-direction: column; gap: var(--space-1); font-size: 0.85rem; font-weight: 600; color: var(--color-text-muted); }
+.evidence select, .evidence textarea { font: inherit; font-weight: 400; color: var(--color-text); padding: 6px 8px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); }
+.evidence textarea { resize: vertical; min-height: 2.6em; }
+@media (max-width: 640px) { .evidence { grid-template-columns: 1fr; } }
+.ev-summary { font-size: 0.9rem; }
+.ev-count { white-space: nowrap; }
+.ev-gap { color: #8a2d08; font-weight: 600; }
 .refs { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .ref-chip { font-size: 0.8rem; padding: 2px 8px; border-radius: var(--radius-sm); background: var(--color-surface-muted); border: 1px solid var(--color-border); unicode-bidi: plaintext; }
 .vbadge { font-size: 0.8rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
@@ -192,6 +205,7 @@ html[lang='ar'] .badge-optional { font-family: var(--font-arabic); }
   .report th, .report td { padding: 4pt 6pt; font-size: 9.5pt; }
   .report .kv th { width: 30%; }
   .report .checklist tr { break-inside: avoid; }
+  .report .ev-cell { white-space: pre-wrap; min-width: 90pt; }
   .report .signoff td { height: 22pt; min-width: 120pt; border: 1px solid #999; }
   .report .tier-badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   #print-root .guide { border: 0; box-shadow: none; padding: 0; max-width: none; }
