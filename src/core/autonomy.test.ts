@@ -40,9 +40,12 @@ describe('recommendAutonomy', () => {
   it('unacceptable tier -> level 4', () => {
     expect(recommendAutonomy(base, 'unacceptable')).toMatchObject({ recommended: 4, capReasons: ['tier-unacceptable'], notSuitable: [] });
   });
-  it('maps the designed autonomy onto the same scale', () => {
+  it('maps the designed autonomy onto the same scale; a person approving each output is AI assistance', () => {
     const lvl = (autonomy: string) => recommendAutonomy({ ...base, autonomy }, 'limited').actual;
-    expect([lvl('suggests'), lvl('approval'), lvl('monitored'), lvl('full')]).toEqual([3, 2, 2, 1]);
+    expect([lvl('suggests'), lvl('approval'), lvl('monitored'), lvl('full')]).toEqual([3, 3, 2, 1]);
+  });
+  it('an approve-each-output design fits a level-3 recommendation', () => {
+    expect(recommendAutonomy({ ...base, readiness: 'low', autonomy: 'approval' }, 'limited')).toMatchObject({ recommended: 3, actual: 3, exceeds: false });
   });
   it('flags when the design is more autonomous (a lower number) than recommended', () => {
     const r = recommendAutonomy({ ...base, complexity: 'medium' }, 'limited');

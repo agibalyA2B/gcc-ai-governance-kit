@@ -20,7 +20,7 @@ export interface AutonomyResult {
   notSuitable: NotSuitableFactor[];
 }
 
-const ACTUAL: Record<string, AutonomyLevel> = { suggests: 3, approval: 2, monitored: 2, full: 1 };
+const ACTUAL: Record<string, AutonomyLevel> = { suggests: 3, approval: 3, monitored: 2, full: 1 };
 
 export function recommendAutonomy(answers: Answers, tier: Tier): AutonomyResult {
   const { usage, complexity, readiness } = answers;

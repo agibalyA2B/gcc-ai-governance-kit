@@ -14,10 +14,9 @@ miss.
 - A company-to-company impact option (claims, contracts, commercial or credit decisions on firms) scores 20.
 - Tier = max(points tier, highest trigger).
 - Quick check: 8 questions. Deep-dive: 10, and it can only raise the tier.
-- Eight calibration fixtures are locked as tests.
+- Eight owner-confirmed calibration fixtures (the two B2B cases on 28 Sep 2026) are locked as tests.
 
-**Alternatives.** Points only; decision tree; weighted matrix per framework. All were rejected as less explainable or
-less robust.
+**Alternatives.** Points only; decision tree; weighted matrix per framework. All less explainable or less robust.
 
-**Consequences.** Changing weights or triggers requires the fixtures to pass and this ADR to be updated. The in-app "How
-scoring works" page renders the same data, so the published logic and the code cannot drift apart.
+**Consequences.** Changing weights or triggers requires passing fixtures and an update here. The "How scoring
+works" page renders the same data, so published logic and code cannot drift apart.

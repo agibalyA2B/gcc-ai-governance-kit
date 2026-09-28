@@ -1,7 +1,7 @@
 import { computeTier, topReasons, tierFromPoints, aiInScope, QUESTIONS, type Answers } from './scoring';
 
 // Calibration fixtures (FR-8a). The first six were confirmed by the product owner on 27 Sep 2026; the two
-// company-to-company (B2B) fixtures were added in 0.2.2.
+// company-to-company (B2B) fixtures on 28 Sep 2026.
 // Changing weights or triggers must not change these results without updating ADR 002.
 const fixtures: { name: string; answers: Answers; tier: string; trigger?: string }[] = [
   { name: 'Website FAQ chatbot', tier: 'limited',
