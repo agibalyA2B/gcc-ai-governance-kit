@@ -44,3 +44,15 @@ export function recommendAutonomy(answers: Answers, tier: Tier): AutonomyResult 
 
   return { complete: true, recommended: level, actual, exceeds: actual !== null && actual < level, capReasons, notSuitable };
 }
+
+export type NextStep = 'simplify' | 'volume' | 'data' | 'owner' | 'reassess';
+
+/** Concrete steps to take before applying AI when the matrix says "not suitable yet" (level 4). */
+export function nextSteps(a: AutonomyResult, answers: Answers): NextStep[] {
+  if (a.recommended !== 4 || !a.notSuitable.length) return [];
+  const steps: NextStep[] = [];
+  if (a.notSuitable.includes('complexity')) steps.push('simplify');
+  if (a.notSuitable.includes('usage')) steps.push('volume');
+  if (answers.readiness !== 'high') steps.push('data');
+  return [...steps, 'owner', 'reassess'];
+}

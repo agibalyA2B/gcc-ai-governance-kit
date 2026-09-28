@@ -94,6 +94,24 @@ test('prioritisation gives a recommended autonomy level and flags over-autonomy'
   await expect(page.locator('.auto-fits')).toBeVisible();
 });
 
+test('"not suitable yet" lists concrete steps instead of only a warning', async ({ page }) => {
+  await page.getByRole('button', { name: 'Load 2 sample use cases' }).click();
+  await page.getByRole('link', { name: 'Website FAQ chatbot' }).click();
+  await page.getByRole('link', { name: 'Answer them now' }).click();
+  for (const q of ['usage', 'complexity', 'readiness']) await page.locator(`input[name="${q}"][value="low"]`).check();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await expect(page.locator('.autonomy .auto-level')).toContainText('Level 4');
+  await expect(page.locator('.auto-exceeds')).toContainText('not suitable for AI yet');
+  await expect(page.locator('.auto-steps li')).toHaveCount(4);
+  await expect(page.locator('.auto-steps')).toContainText('accountable owner');  await page.getByRole('link', { name: 'Details' }).click();
+  await page.getByRole('link', { name: 'Quick check' }).click();
+  await page.locator('input[name="impact"][value="prohibited"]').check();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await expect(page.locator('.autonomy')).toContainText('prohibited');
+  await expect(page.locator('.autonomy')).not.toContainText('Usage is low');
+  await expect(page.locator('.auto-steps')).toHaveCount(0);
+});
+
 test('home shows the three-step path and keeps backup tools in a secondary menu', async ({ page }) => {
   await expect(page.locator('.how li')).toHaveCount(3);
   await expect(page.getByTestId('new-uc')).toHaveText('Start your first assessment');

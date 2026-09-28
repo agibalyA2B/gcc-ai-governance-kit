@@ -1,4 +1,4 @@
-import { recommendAutonomy } from './autonomy';
+import { recommendAutonomy, nextSteps } from './autonomy';
 
 // Levels follow the official UAE AI-assistant priority matrix (ADR 006):
 // 1 = full autonomous execution, 2 = supervised autonomy, 3 = AI assistance, 4 = not suitable yet.
@@ -53,5 +53,27 @@ describe('recommendAutonomy', () => {
   it('all-"low" answers (the tester case) -> not suitable yet, and even a suggest-only design is flagged', () => {
     const r = recommendAutonomy({ usage: 'low', complexity: 'low', readiness: 'low', autonomy: 'suggests' }, 'limited');
     expect(r).toMatchObject({ recommended: 4, actual: 3, exceeds: true, notSuitable: ['usage'] });
+  });
+});
+
+describe('nextSteps (level 4, not suitable yet)', () => {
+  const steps = (answers: Record<string, string>, tier: 'limited' | 'unacceptable' = 'limited') =>
+    nextSteps(recommendAutonomy({ autonomy: 'suggests', ...answers }, tier), answers);
+
+  it('gives no steps unless the recommendation is level 4', () => {
+    expect(steps({ usage: 'high', complexity: 'low', readiness: 'low' })).toEqual([]);
+    expect(steps({ usage: 'high', complexity: 'low' })).toEqual([]);
+  });
+  it('a prohibited use gets no readiness steps', () => {
+    expect(steps({ usage: 'high', complexity: 'low', readiness: 'high' }, 'unacceptable')).toEqual([]);
+  });
+  it('high complexity -> simplify and standardise the process first', () => {
+    expect(steps({ usage: 'high', complexity: 'high', readiness: 'high' })).toEqual(['simplify', 'owner', 'reassess']);
+  });
+  it('low usage -> check the case for AI', () => {
+    expect(steps({ usage: 'low', complexity: 'low', readiness: 'high' })).toEqual(['volume', 'owner', 'reassess']);
+  });
+  it('readiness below high adds data and systems work', () => {
+    expect(steps({ usage: 'low', complexity: 'high', readiness: 'low' })).toEqual(['simplify', 'volume', 'data', 'owner', 'reassess']);
   });
 });

@@ -4,7 +4,7 @@ import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
 import { applicableControls, verifiedShare, THEMES, CROSSWALK, type Control } from '../core/controls';
 import type { UseCase } from '../core/usecase';
 import { esc, tierIcon } from './html';
-import { recommendAutonomy, type AutonomyResult } from '../core/autonomy';
+import { recommendAutonomy, nextSteps, type AutonomyResult } from '../core/autonomy';
 
 export const STEPS = ['details', 'quick', 'tier', 'deep', 'controls', 'export'] as const;
 export type Step = (typeof STEPS)[number];
@@ -155,15 +155,21 @@ function autonomyVerdict(lang: Lang, a: AutonomyResult): string {
   return t(lang, key).replace('{n}', String(a.actual));
 }
 
+function stepsList(lang: Lang, a: AutonomyResult, uc: UseCase): string {
+  const steps = nextSteps(a, uc.answers);
+  return steps.length ? `<div class="auto-steps"><h4>${t(lang, 'auto.steps.h')}</h4><ol>${steps.map((s) => `<li>${t(lang, `auto.step.${s}`)}</li>`).join('')}</ol></div>` : '';
+}
+
 export function autonomyCard(lang: Lang, uc: UseCase, r: TierResult): string {
   const a = recommendAutonomy(uc.answers, r.tier);
   if (!a.complete) return `<div class="autonomy pending"><h3>${t(lang, 'auto.title')}</h3><p class="muted">${t(lang, 'auto.pending')}</p>
     <a class="link" href="#/uc/${esc(uc.id)}/deep">${t(lang, 'auto.answer')}</a></div>`;
   return `<div class="autonomy ${a.exceeds ? 'warn' : 'ok'}"><h3>${t(lang, 'auto.title')}</h3>
     <p class="auto-level"><strong>${t(lang, 'auto.level')} ${a.recommended}</strong>: ${t(lang, `auto.l${a.recommended}`)}</p>
-    <p class="muted">${t(lang, `auto.l${a.recommended}.desc`)}</p>
+    ${a.capReasons.includes('tier-unacceptable') ? '' : `<p class="muted">${t(lang, `auto.l${a.recommended}.desc`)}</p>`}
     ${a.capReasons.length ? `<p class="small">${t(lang, `auto.cap.${a.capReasons[0]}`)}</p>` : ''}
     ${a.actual ? `<p class="${a.exceeds ? 'auto-exceeds' : 'auto-fits'}">${autonomyVerdict(lang, a)}</p>` : ''}
+    ${stepsList(lang, a, uc)}
     <p class="small muted">${t(lang, 'auto.scale')}</p>
   </div>`;
 }
@@ -252,7 +258,7 @@ export function reportView(lang: Lang, uc: UseCase, r: TierResult, frameworks: F
       <tr><th>${t(lang, 'uc.status')}</th><td>${t(lang, `status.${uc.status}`)}</td></tr>
       <tr><th>${t(lang, 'reg.tier')}</th><td>${tierBadge(lang, r.tier)} (${r.points} ${t(lang, 'tier.points')}; ${r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo')})</td></tr>
       <tr><th>${t(lang, 'fw.legend')}</th><td>${esc(fwNames)}</td></tr>
-      ${(() => { const a = recommendAutonomy(uc.answers, r.tier); return a.complete ? `<tr><th>${t(lang, 'auto.title')}</th><td>${t(lang, 'auto.level')} ${a.recommended}: ${t(lang, `auto.l${a.recommended}`)}${a.exceeds ? ` — ${autonomyVerdict(lang, a)}` : ''}</td></tr>` : ''; })()}</tbody></table>
+      ${(() => { const a = recommendAutonomy(uc.answers, r.tier); return a.complete ? `<tr><th>${t(lang, 'auto.title')}</th><td>${t(lang, 'auto.level')} ${a.recommended}: ${t(lang, `auto.l${a.recommended}`)}${a.exceeds ? ` — ${autonomyVerdict(lang, a)}` : ''}${stepsList(lang, a, uc)}</td></tr>` : ''; })()}</tbody></table>
     <h2>${t(lang, 'tier.why')}</h2><ul>${topReasons(r, lang).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
     <h2>${t(lang, 'rep.controls')}</h2>
     ${r.tier === 'unacceptable' ? `<p>${t(lang, 'ctl.unacceptable')}</p>` : `<table class="checklist"><thead><tr><th>☐</th><th>${t(lang, 'rep.control')}</th><th>${t(lang, 'rep.refs')}</th><th>${t(lang, 'rep.status')}</th></tr></thead>
