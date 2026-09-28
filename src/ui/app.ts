@@ -1,5 +1,5 @@
 import { applyLang, initialLang, storeLang, t, type Lang } from '../i18n';
-import { computeTier, topReasons, type Answers } from '../core/scoring';
+import { computeTier, topReasons, aiInScope, type Answers } from '../core/scoring';
 import { store } from '../core/store';
 import { blankUseCase, sampleUseCases, newId, type UseCase } from '../core/usecase';
 import { applicableControls } from '../core/controls';
@@ -72,7 +72,7 @@ function registerRows(cases: UseCase[]): Row[] {
       [t(lang, 'uc.name')]: uc.name, [t(lang, 'uc.owner')]: uc.owner, [t(lang, 'uc.businessUnit')]: uc.businessUnit,
       [t(lang, 'uc.purpose')]: uc.purpose, [t(lang, 'uc.status')]: t(lang, `status.${uc.status}`),
       [t(lang, 'reg.type')]: uc.answers.ai_type ? t(lang, `aitype.${uc.answers.ai_type}`) : '',
-      [t(lang, 'reg.tier')]: r.quickComplete ? t(lang, `tier.${r.tier}`) : t(lang, 'tier.pending'),
+      [t(lang, 'reg.tier')]: !aiInScope(uc.answers) ? t(lang, 'scope.badge') : r.quickComplete ? t(lang, `tier.${r.tier}`) : t(lang, 'tier.pending'),
       [t(lang, 'tier.points')]: r.points, [t(lang, 'tier.why')]: topReasons(r, lang).join(' | '),
       [t(lang, 'reg.deep')]: r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo'), [t(lang, 'reg.updated')]: uc.updatedAt.slice(0, 10),
     };
@@ -104,7 +104,8 @@ function render(focus = true): void {
     location.replace(`#/uc/${fresh.id}/details`);
     return;
   } else if (page === 'uc' && id && (uc = store.get1(id))) {
-    const step = (V.STEPS as readonly string[]).includes(stepRaw) ? (stepRaw as V.Step) : 'details';
+    let step = (V.STEPS as readonly string[]).includes(stepRaw) ? (stepRaw as V.Step) : 'details';
+    if (!aiInScope(uc.answers) && step !== 'details') step = 'quick';
     const r = computeTier(uc.answers);
     const body =
       step === 'details' ? V.detailsForm(lang, uc)
@@ -114,7 +115,7 @@ function render(focus = true): void {
       : step === 'deep' ? V.questionsForm(lang, uc, 'deep', showPoints)
       : step === 'controls' ? V.controlsView(lang, uc, r, store.frameworks(), ctlFw, ctlVerifiedOnly)
       : V.exportView(lang, uc);
-    content = `<p class="crumb"><a href="#/">${t(lang, 'nav.home')}</a> / ${uc.name ? V.tierBadge(lang, r.quickComplete ? r.tier : null) : ''} <span>${uc.name ? uc.name.replace(/[<>&]/g, '') : t(lang, 'reg.untitled')}</span></p>
+    content = `<p class="crumb"><a href="#/">${t(lang, 'nav.home')}</a> / ${uc.name ? V.caseBadge(lang, uc, r) : ''} <span>${uc.name ? uc.name.replace(/[<>&]/g, '') : t(lang, 'reg.untitled')}</span></p>
       ${V.stepper(lang, uc, step, r)}${body}`;
   } else content = `<section class="card"><h1 tabindex="-1">${t(lang, 'nf.title')}</h1><a class="btn" href="#/">${t(lang, 'nav.home')}</a></section>`;
 
@@ -192,6 +193,11 @@ function onChange(e: Event): void {
   } else if (el.type === 'radio') {
     const answers: Answers = { ...uc.answers, [el.name]: el.value };
     store.save({ ...uc, answers });
+    if (el.name === 'runtime_ai') {
+      render(false);
+      document.querySelector<HTMLInputElement>(`input[name="runtime_ai"][value="${el.value}"]`)?.focus();
+      return;
+    }
     const qs = form.querySelectorAll('fieldset.question');
     const done = [...qs].filter((f) => f.querySelector('input:checked')).length;
     const p = form.querySelector('.progress'); if (p) p.textContent = `${done}/${qs.length}`;
@@ -217,6 +223,11 @@ function onSubmit(e: Event): void {
     return;
   }
   const level = form.dataset.form as 'quick' | 'deep';
+  if (level === 'quick' && !uc.answers.runtime_ai) {
+    toast(t(lang, 'intake.required'));
+    form.querySelector<HTMLInputElement>('input[name="runtime_ai"]')?.focus();
+    return;
+  }
   const unanswered = [...form.querySelectorAll('fieldset.question')].find((f) => !f.querySelector('input:checked'));
   if (level === 'quick' && unanswered) { toast(t(lang, 'quick.incomplete')); unanswered.querySelector<HTMLInputElement>('input')?.focus(); return; }
   location.hash = level === 'quick' ? `#/uc/${uc.id}/tier` : `#/uc/${uc.id}/tier`;

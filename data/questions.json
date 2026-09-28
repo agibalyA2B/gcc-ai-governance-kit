@@ -6,6 +6,29 @@
   },
   "questions": [
     {
+      "id": "runtime_ai",
+      "level": "intake",
+      "factor": "scope",
+      "text_en": "Does the solution use AI when it runs?",
+      "text_ar": "هل يستخدم الحل الذكاء الاصطناعي أثناء تشغيله؟",
+      "help_en": "Choose No if AI was only used to build it (for example an AI coding assistant) and the running product has no AI model or AI service inside.",
+      "help_ar": "اختر «لا» إذا استُخدم الذكاء الاصطناعي في بنائه فقط (مثل مساعد برمجة ذكي)، ولا يتضمن المنتج أثناء تشغيله أي نموذج أو خدمة ذكاء اصطناعي.",
+      "options": [
+        {
+          "id": "yes",
+          "points": 0,
+          "en": "Yes: it uses an AI model or AI service when it runs",
+          "ar": "نعم: يستخدم نموذجاً أو خدمة ذكاء اصطناعي أثناء التشغيل"
+        },
+        {
+          "id": "no",
+          "points": 0,
+          "en": "No: AI was only used to build it, or not at all",
+          "ar": "لا: استُخدم الذكاء الاصطناعي في بنائه فقط، أو لم يُستخدم إطلاقاً"
+        }
+      ]
+    },
+    {
       "id": "impact",
       "level": "quick",
       "factor": "impact",
@@ -37,6 +60,12 @@
           "points": 25,
           "en": "Decisions about people's rights, benefits, access to services or money",
           "ar": "قرارات تمس حقوق الأفراد أو مستحقاتهم أو وصولهم إلى الخدمات أو أموالهم"
+        },
+        {
+          "id": "decide-organisations",
+          "points": 20,
+          "en": "High-stakes decisions or positions about other companies (claims, contract positions, commercial or credit decisions on firms)",
+          "ar": "قرارات أو مواقف عالية الأثر تخص شركات أخرى (المطالبات، والمواقف التعاقدية، والقرارات التجارية أو الائتمانية بشأن المنشآت)"
         },
         {
           "id": "prohibited",
@@ -555,22 +584,22 @@
       "help_ar": "حجم المعاملات وتكرارها، والعبء التشغيلي على الجهة.",
       "options": [
         {
-          "id": "low",
+          "id": "high",
           "points": 0,
-          "en": "Low: limited use, infrequent transactions",
-          "ar": "منخفضة: استخدام محدود ومعاملات غير متكررة"
+          "en": "Heavy: wide use, repeated transactions",
+          "ar": "كثيفة: استخدام واسع ومعاملات متكررة"
         },
         {
           "id": "medium",
           "points": 0,
-          "en": "Medium",
-          "ar": "متوسطة"
+          "en": "Moderate",
+          "ar": "معتدلة"
         },
         {
-          "id": "high",
+          "id": "low",
           "points": 0,
-          "en": "High: wide use, repeated transactions",
-          "ar": "مرتفعة: استخدام واسع ومعاملات متكررة"
+          "en": "Light: limited use, infrequent transactions",
+          "ar": "محدودة: استخدام محدود ومعاملات غير متكررة"
         }
       ]
     },
@@ -586,20 +615,20 @@
         {
           "id": "low",
           "points": 0,
-          "en": "Low: simple, standard, repeatable",
-          "ar": "منخفض: بسيط وموحّد وقابل للتكرار"
+          "en": "Simple: standard, repeatable",
+          "ar": "بسيط: موحّد وقابل للتكرار"
         },
         {
           "id": "medium",
           "points": 0,
-          "en": "Medium",
-          "ar": "متوسط"
+          "en": "Moderately complex",
+          "ar": "معقّد إلى حدٍّ ما"
         },
         {
           "id": "high",
           "points": 0,
-          "en": "High: multi-entity, variable, heavily governed",
-          "ar": "مرتفع: متعدد الجهات ومتغيّر وخاضع لحوكمة مشددة"
+          "en": "Very complex: multi-entity, variable, heavily governed",
+          "ar": "شديد التعقيد: متعدد الجهات ومتغيّر وخاضع لحوكمة مشددة"
         }
       ]
     },
@@ -613,22 +642,22 @@
       "help_ar": "توفر البيانات وجودتها، ونضج الرقمنة، والتكامل بين الجهات، ووضوح الإجراءات وتوحيدها، والجاهزية التشريعية والحوكمة.",
       "options": [
         {
-          "id": "low",
+          "id": "high",
           "points": 0,
-          "en": "Low: manual, fragmented, unclear",
-          "ar": "منخفضة: يدوية ومجزأة وغير واضحة"
+          "en": "Ready (digital, integrated)",
+          "ar": "جاهزة (رقمية ومتكاملة)"
         },
         {
           "id": "medium",
           "points": 0,
-          "en": "Medium",
-          "ar": "متوسطة"
+          "en": "Partly ready",
+          "ar": "جاهزة جزئياً"
         },
         {
-          "id": "high",
+          "id": "low",
           "points": 0,
-          "en": "High: structured, digital, integrated",
-          "ar": "مرتفعة: منظّمة ورقمية ومتكاملة"
+          "en": "Not ready (manual, fragmented)",
+          "ar": "غير جاهزة (يدوية ومجزأة)"
         }
       ]
     }
@@ -668,6 +697,27 @@
       ],
       "reason_en": "It makes decisions about people without a person approving each one.",
       "reason_ar": "يتخذ قرارات تخص الأفراد دون موافقة بشرية على كل قرار."
+    },
+    {
+      "id": "T-AUTONOMOUS-B2B-DECISIONS",
+      "min_tier": "high",
+      "when": [
+        {
+          "q": "impact",
+          "in": [
+            "decide-organisations"
+          ]
+        },
+        {
+          "q": "autonomy",
+          "in": [
+            "monitored",
+            "full"
+          ]
+        }
+      ],
+      "reason_en": "It makes high-stakes decisions about other companies without a person approving each one.",
+      "reason_ar": "يتخذ قرارات عالية الأثر تخص شركات أخرى دون موافقة بشرية على كل قرار."
     },
     {
       "id": "T-SENSITIVE-DECISIONS",

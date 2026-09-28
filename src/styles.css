@@ -127,8 +127,14 @@ thead th { font-size: 0.85rem; color: var(--color-text-muted); background: #fbfa
 [aria-invalid='true'] { border-color: var(--tier-unacceptable) !important; }
 .actions { display: flex; gap: var(--space-2); justify-content: flex-end; margin-block-start: var(--space-6); }
 
-.question { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); margin: 0 0 var(--space-4); }
-.question legend { font-weight: 600; padding-inline: var(--space-2); }
+.question, .intake { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); margin: 0 0 var(--space-4); }
+.question legend, .intake legend { font-weight: 600; padding-inline: var(--space-2); }
+.intake { border-color: var(--color-accent); background: var(--color-surface-muted); }
+.scope-none h3 { margin-block-start: 0; }
+.auto-steps h4 { margin: var(--space-3) 0 var(--space-2); }
+.auto-steps ol { margin: 0; padding-inline-start: 1.4em; }
+.auto-steps li { margin-block-end: var(--space-1, 4px); }
+.scope-none ul { padding-inline-start: 1.2em; }
 .qnum { color: var(--color-accent); }
 .help { color: var(--color-text-muted); margin: 0 0 var(--space-3); font-size: 0.925rem; }
 .option { display: flex; align-items: center; gap: var(--space-3); padding: 8px 10px; border-radius: var(--radius-sm); cursor: pointer; }
@@ -155,6 +161,9 @@ thead th { font-size: 0.85rem; color: var(--color-text-muted); background: #fbfa
 .vbadge { font-size: 0.8rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
 .vbadge.verified { background: #e3f3eb; color: #1f5e43; }
 .vbadge.pending { background: #fbf0dc; color: #7a4f0e; }
+.badge-optional { display: inline-block; vertical-align: middle; margin-inline-start: var(--space-2); font-family: var(--font-latin); font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--color-border); color: var(--color-text-muted); }
+html[lang='ar'] .badge-optional { font-family: var(--font-arabic); }
+.tier-source { margin-block: var(--space-3); color: var(--color-text-muted); }
 .sources { font-size: 0.85rem; color: var(--color-text-muted); }
 .export-bar { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .weights th { width: 45%; font-weight: 500; }

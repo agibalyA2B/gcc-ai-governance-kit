@@ -1,10 +1,10 @@
 import { t, type Lang } from '../i18n';
-import { QUESTIONS, computeTier, topReasons, TIER_ORDER, type Tier, type TierResult } from '../core/scoring';
+import { QUESTIONS, computeTier, topReasons, aiInScope, TIER_ORDER, type Tier, type TierResult } from '../core/scoring';
 import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
 import { applicableControls, verifiedShare, THEMES, CROSSWALK, type Control } from '../core/controls';
 import type { UseCase } from '../core/usecase';
 import { esc, tierIcon } from './html';
-import { recommendAutonomy } from '../core/autonomy';
+import { recommendAutonomy, nextSteps, type AutonomyResult } from '../core/autonomy';
 
 export const STEPS = ['details', 'quick', 'tier', 'deep', 'controls', 'export'] as const;
 export type Step = (typeof STEPS)[number];
@@ -15,6 +15,12 @@ export function tierBadge(lang: Lang, tier: Tier | null, size: 'sm' | 'lg' = 'sm
   if (!tier) return `<span class="tier-badge tier-none">${t(lang, 'tier.pending')}</span>`;
   return `<span class="tier-badge tier-${tier} ${size === 'lg' ? 'tier-lg' : ''}"><span aria-hidden="true">${tierIcon[tier]}</span> ${t(lang, `tier.${tier}`)}</span>`;
 }
+
+export const scopeBadge = (lang: Lang) => `<span class="tier-badge tier-none scope-badge">${t(lang, 'scope.badge')}</span>`;
+
+/** Badge for a use case anywhere in the app: out of scope, not assessed yet, or its tier. */
+export const caseBadge = (lang: Lang, uc: UseCase, r: TierResult) =>
+  !aiInScope(uc.answers) ? scopeBadge(lang) : tierBadge(lang, r.quickComplete ? r.tier : null);
 
 export function frameworkChips(lang: Lang, selected: FrameworkId[]): string {
   return `<fieldset class="chips"><legend>${t(lang, 'fw.legend')}</legend>${FRAMEWORKS.map((f) => `
@@ -29,11 +35,14 @@ function howItWorks(lang: Lang, hasCases: boolean): string {
   </section>`;
 }
 
+const rank = (uc: UseCase, r: TierResult) => (aiInScope(uc.answers) ? TIER_ORDER.indexOf(r.tier) : -1);
+const caseLink = (uc: UseCase, r: TierResult) => `#/uc/${esc(uc.id)}/${!aiInScope(uc.answers) ? 'quick' : r.quickComplete ? 'tier' : 'details'}`;
+
 export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId[], persistent: boolean, filter: string): string {
   const rows = cases
     .map((uc) => ({ uc, r: computeTier(uc.answers) }))
-    .filter(({ r }) => !filter || (r.quickComplete && r.tier === filter))
-    .sort((a, b) => TIER_ORDER.indexOf(b.r.tier) - TIER_ORDER.indexOf(a.r.tier) || b.uc.updatedAt.localeCompare(a.uc.updatedAt));
+    .filter(({ uc, r }) => !filter || (aiInScope(uc.answers) && r.quickComplete && r.tier === filter))
+    .sort((a, b) => rank(b.uc, b.r) - rank(a.uc, a.r) || b.uc.updatedAt.localeCompare(a.uc.updatedAt));
   const table = cases.length
     ? `<div class="table-wrap"><table class="register">
         <caption class="sr-only">${t(lang, 'reg.caption')}</caption>
@@ -41,10 +50,10 @@ export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId
         <th scope="col">${t(lang, 'reg.type')}</th><th scope="col">${t(lang, 'reg.tier')}</th>
         <th scope="col">${t(lang, 'reg.deep')}</th><th scope="col">${t(lang, 'reg.updated')}</th><th scope="col"><span class="sr-only">${t(lang, 'reg.actions')}</span></th></tr></thead>
         <tbody>${rows.map(({ uc, r }) => `<tr>
-          <td><a href="#/uc/${esc(uc.id)}/${r.quickComplete ? 'tier' : 'details'}">${esc(uc.name || t(lang, 'reg.untitled'))}</a></td>
+          <td><a href="${caseLink(uc, r)}">${esc(uc.name || t(lang, 'reg.untitled'))}</a></td>
           <td>${esc(uc.owner)}</td>
           <td>${uc.answers.ai_type ? t(lang, `aitype.${uc.answers.ai_type}`) : '—'}</td>
-          <td>${tierBadge(lang, r.quickComplete ? r.tier : null)}</td>
+          <td>${caseBadge(lang, uc, r)}</td>
           <td>${r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo')}</td>
           <td>${esc(uc.updatedAt.slice(0, 10))}</td>
           <td><div class="row-actions"><button type="button" class="link" data-action="duplicate" data-id="${esc(uc.id)}">${t(lang, 'reg.duplicate')}</button>
@@ -74,8 +83,10 @@ export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId
 }
 
 export function stepper(lang: Lang, uc: UseCase, step: Step, r: TierResult): string {
-  const enabled = (s: Step) => s === 'details' || (s === 'quick' ? !!uc.name && !!uc.owner : r.quickComplete);
-  const done = (s: Step) => s === 'details' ? !!uc.name && !!uc.owner : s === 'quick' || s === 'tier' ? r.quickComplete : s === 'deep' ? r.deepComplete : false;
+  const inScope = aiInScope(uc.answers);
+  const enabled = (s: Step) => s === 'details' || (s === 'quick' ? !!uc.name && !!uc.owner : inScope && r.quickComplete);
+  const done = (s: Step) => s === 'details' ? !!uc.name && !!uc.owner : !inScope ? s === 'quick'
+    : s === 'quick' || s === 'tier' ? r.quickComplete : s === 'deep' ? r.deepComplete : false;
   return `<nav class="stepper" aria-label="${t(lang, 'step.nav')}"><ol>${STEPS.map((s, i) => `
     <li class="${s === step ? 'current' : done(s) ? 'done' : ''}">${enabled(s)
       ? `<a href="#/uc/${esc(uc.id)}/${s}" ${s === step ? 'aria-current="step"' : ''}><span class="num">${s !== step && done(s) ? '✓' : i + 1}</span> ${t(lang, `step.${s}`)}</a>`
@@ -106,16 +117,47 @@ function questionBlock(lang: Lang, uc: UseCase, qs: typeof QUESTIONS.questions, 
     </fieldset>`).join('');
 }
 
+const optionalBadge = (lang: Lang) => ` <span class="badge-optional">${t(lang, 'badge.optional')}</span>`;
+
+function scopeNone(lang: Lang): string {
+  return `<section class="scope-none notice" aria-live="polite"><h3>${t(lang, 'scope.none.h')}</h3><p>${t(lang, 'scope.none.p')}</p>
+    <ul>${[1, 2, 3, 4].map((n) => `<li>${t(lang, `scope.none.${n}`)}</li>`).join('')}</ul>
+    <p class="small">${t(lang, 'scope.none.ref')} <a href="https://csrc.nist.gov/pubs/sp/800/218/final" target="_blank" rel="noopener">NIST SP 800-218</a></p>
+    <p class="small muted">${t(lang, 'scope.none.again')}</p></section>`;
+}
+
+function intakeBlock(lang: Lang, uc: UseCase): string {
+  const q = QUESTIONS.questions.find((x) => x.level === 'intake')!;
+  return `<fieldset class="intake"><legend>${esc(L(lang, q.text_en, q.text_ar))}</legend>
+    <p class="help">${esc(L(lang, q.help_en, q.help_ar))}</p>
+    ${q.options.map((o) => `<label class="option"><input type="radio" name="${q.id}" value="${o.id}" ${uc.answers[q.id] === o.id ? 'checked' : ''}/>
+      <span>${esc(L(lang, o.en, o.ar))}</span></label>`).join('')}</fieldset>`;
+}
+
 export function questionsForm(lang: Lang, uc: UseCase, level: 'quick' | 'deep', showPoints: boolean): string {
+  if (level === 'quick' && !aiInScope(uc.answers))
+    return `<form class="card" data-form="quick"><h2 tabindex="-1">${t(lang, 'step.quick')}</h2>${intakeBlock(lang, uc)}${scopeNone(lang)}
+      <div class="actions"><a class="btn primary" href="#/">${t(lang, 'nav.home')}</a></div></form>`;
   const qs = QUESTIONS.questions.filter((q) => q.level === level);
   const answered = qs.filter((q) => uc.answers[q.id]).length;
   const prio = level === 'deep' ? QUESTIONS.questions.filter((q) => q.level === 'prio') : [];
   return `<form class="card" data-form="${level}">
-    <h2 tabindex="-1">${t(lang, `step.${level}`)}</h2>
+    <h2 tabindex="-1">${t(lang, `step.${level}`)}${level === 'deep' ? optionalBadge(lang) : ''}</h2>
+    ${level === 'quick' ? intakeBlock(lang, uc) : ''}
     <p class="muted">${t(lang, `${level}.intro`)} <span class="progress" aria-live="polite">${answered}/${qs.length}</span></p>
     ${questionBlock(lang, uc, qs, showPoints)}
-    ${prio.length ? `<section class="prio-block"><h3>${t(lang, 'prio.title')}</h3><p class="muted">${t(lang, 'prio.intro')}</p>${questionBlock(lang, uc, prio, false)}</section>` : ''}
+    ${prio.length ? `<section class="prio-block"><h3>${t(lang, 'prio.title')}${optionalBadge(lang)}</h3><p class="muted">${t(lang, 'prio.intro')}</p><p class="notice prio-note">${t(lang, 'prio.notrisk')}</p>${questionBlock(lang, uc, prio, false)}</section>` : ''}
     <div class="actions"><button class="btn primary" type="submit">${t(lang, 'nav.next')}</button></div></form>`;
+}
+
+function autonomyVerdict(lang: Lang, a: AutonomyResult): string {
+  const key = !a.exceeds ? 'auto.fits' : a.recommended === 4 ? 'auto.exceeds.l4' : 'auto.exceeds';
+  return t(lang, key).replace('{n}', String(a.actual));
+}
+
+function stepsList(lang: Lang, a: AutonomyResult, uc: UseCase): string {
+  const steps = nextSteps(a, uc.answers);
+  return steps.length ? `<div class="auto-steps"><h4>${t(lang, 'auto.steps.h')}</h4><ol>${steps.map((s) => `<li>${t(lang, `auto.step.${s}`)}</li>`).join('')}</ol></div>` : '';
 }
 
 export function autonomyCard(lang: Lang, uc: UseCase, r: TierResult): string {
@@ -124,9 +166,11 @@ export function autonomyCard(lang: Lang, uc: UseCase, r: TierResult): string {
     <a class="link" href="#/uc/${esc(uc.id)}/deep">${t(lang, 'auto.answer')}</a></div>`;
   return `<div class="autonomy ${a.exceeds ? 'warn' : 'ok'}"><h3>${t(lang, 'auto.title')}</h3>
     <p class="auto-level"><strong>${t(lang, 'auto.level')} ${a.recommended}</strong>: ${t(lang, `auto.l${a.recommended}`)}</p>
-    <p class="muted">${t(lang, `auto.l${a.recommended}.desc`)}</p>
+    ${a.capReasons.includes('tier-unacceptable') ? '' : `<p class="muted">${t(lang, `auto.l${a.recommended}.desc`)}</p>`}
     ${a.capReasons.length ? `<p class="small">${t(lang, `auto.cap.${a.capReasons[0]}`)}</p>` : ''}
-    ${a.actual ? `<p class="${a.exceeds ? 'auto-exceeds' : 'auto-fits'}">${t(lang, a.exceeds ? 'auto.exceeds' : 'auto.fits').replace('{n}', String(a.actual))}</p>` : ''}
+    ${a.actual ? `<p class="${a.exceeds ? 'auto-exceeds' : 'auto-fits'}">${autonomyVerdict(lang, a)}</p>` : ''}
+    ${stepsList(lang, a, uc)}
+    <p class="small muted">${t(lang, 'auto.scale')}</p>
   </div>`;
 }
 
@@ -137,6 +181,7 @@ export function tierView(lang: Lang, uc: UseCase, r: TierResult): string {
     <h2 tabindex="-1">${t(lang, 'tier.title')}</h2>
     <div class="tier-result">${tierBadge(lang, r.tier, 'lg')}
       ${r.quickTier && r.quickTier !== r.tier ? `<p class="muted">${t(lang, 'tier.raised')} ${tierBadge(lang, r.quickTier)}</p>` : ''}</div>
+    <p class="tier-source small">${t(lang, 'tier.source')}</p>
     <h3>${t(lang, 'tier.why')}</h3>
     <ul class="reasons">${reasons.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
     ${r.firedTriggers.length ? `<p class="trigger"><strong>${t(lang, 'tier.trigger')}</strong> ${r.firedTriggers.map((x) => esc(x.id)).join(', ')}</p>` : ''}
@@ -213,7 +258,7 @@ export function reportView(lang: Lang, uc: UseCase, r: TierResult, frameworks: F
       <tr><th>${t(lang, 'uc.status')}</th><td>${t(lang, `status.${uc.status}`)}</td></tr>
       <tr><th>${t(lang, 'reg.tier')}</th><td>${tierBadge(lang, r.tier)} (${r.points} ${t(lang, 'tier.points')}; ${r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo')})</td></tr>
       <tr><th>${t(lang, 'fw.legend')}</th><td>${esc(fwNames)}</td></tr>
-      ${(() => { const a = recommendAutonomy(uc.answers, r.tier); return a.complete ? `<tr><th>${t(lang, 'auto.title')}</th><td>${t(lang, 'auto.level')} ${a.recommended}: ${t(lang, `auto.l${a.recommended}`)}${a.exceeds ? ` — ${t(lang, 'auto.exceeds').replace('{n}', String(a.actual))}` : ''}</td></tr>` : ''; })()}</tbody></table>
+      ${(() => { const a = recommendAutonomy(uc.answers, r.tier); return a.complete ? `<tr><th>${t(lang, 'auto.title')}</th><td>${t(lang, 'auto.level')} ${a.recommended}: ${t(lang, `auto.l${a.recommended}`)}${a.exceeds ? ` — ${autonomyVerdict(lang, a)}` : ''}${stepsList(lang, a, uc)}</td></tr>` : ''; })()}</tbody></table>
     <h2>${t(lang, 'tier.why')}</h2><ul>${topReasons(r, lang).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
     <h2>${t(lang, 'rep.controls')}</h2>
     ${r.tier === 'unacceptable' ? `<p>${t(lang, 'ctl.unacceptable')}</p>` : `<table class="checklist"><thead><tr><th>☐</th><th>${t(lang, 'rep.control')}</th><th>${t(lang, 'rep.refs')}</th><th>${t(lang, 'rep.status')}</th></tr></thead>
@@ -239,7 +284,7 @@ export function scoringView(lang: Lang): string {
     <h2>${t(lang, 'step.deep')}</h2><table class="weights"><tbody>${section('deep')}</tbody></table>
     <p class="muted">${t(lang, 'sc.deep.rule')}</p>
     <h2>${t(lang, 'auto.title')}</h2><p>${t(lang, 'sc.auto')}</p>
-    <ul>${[4, 3, 2, 1].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}: ${t(lang, `auto.l${n}`)}</strong> — ${t(lang, `auto.l${n}.desc`)}</li>`).join('')}</ul></section>`;
+    <ul>${[1, 2, 3, 4].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}: ${t(lang, `auto.l${n}`)}</strong> — ${t(lang, `auto.l${n}.desc`)}</li>`).join('')}</ul></section>`;
 }
 
 export function aboutView(lang: Lang): string {
@@ -293,7 +338,7 @@ export function guideView(lang: Lang, base: string): string {
       <ul class="badges"><li><span class="vbadge verified"><span aria-hidden="true">✓</span> ${t(lang, 'ctl.verified')}</span> ${t(lang, 'gd.s3.v')}</li>
       <li><span class="vbadge pending"><span aria-hidden="true">⏱</span> ${t(lang, 'ctl.needs')}</span> ${t(lang, 'gd.s3.n')}</li></ul>
       <p>${t(lang, 'gd.s3.filter')}</p>${fig('controls', 'gd.fig.controls')}`)}
-    ${sec('s4', `<p>${t(lang, 'gd.s4.p1')}</p><ul>${[4, 3, 2, 1].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}:</strong> ${t(lang, `auto.l${n}`)}</li>`).join('')}</ul><p>${t(lang, 'gd.s4.p2')}</p>`)}
+    ${sec('s4', `<p>${t(lang, 'gd.s4.p1')}</p><ul>${[1, 2, 3, 4].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}:</strong> ${t(lang, `auto.l${n}`)}</li>`).join('')}</ul><p>${t(lang, 'gd.s4.p2')}</p>`)}
     ${sec('s5', `<ul class="plain"><li>${t(lang, 'gd.s5.pdf')}</li><li>${t(lang, 'gd.s5.ctl')}</li></ul>${fig('export', 'gd.fig.export')}
       <ul class="plain"><li>${t(lang, 'gd.s5.backup')}</li><li>${t(lang, 'gd.s5.share')}</li><li>${t(lang, 'gd.s5.tpl')}</li></ul>`)}
     ${sec('s6', `<p>${t(lang, 'gd.s6.p')}</p><p>${t(lang, 'gd.s6.clear')}</p>`)}

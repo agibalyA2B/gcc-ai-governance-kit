@@ -32,6 +32,9 @@ test('new use case: validation, quick check and tier', async ({ page }) => {
   await page.getByLabel('Accountable owner').fill('Retail Credit');
   await page.getByRole('button', { name: 'Continue' }).click();
   const pick = async (q: string, v: string) => page.locator(`input[name="${q}"][value="${v}"]`).check();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await expect(page.locator('.toast')).toContainText('uses AI when it runs');
+  await pick('runtime_ai', 'yes');
   await pick('impact', 'decide-individuals'); await pick('data', 'sensitive'); await pick('affected', 'public');
   await pick('ai_type', 'predictive'); await pick('autonomy', 'approval'); await pick('oversight', 'every');
   await pick('access', 'none'); await pick('reversibility', 'effort');
@@ -39,6 +42,27 @@ test('new use case: validation, quick check and tier', async ({ page }) => {
   await expect(page.locator('.tier-result .tier-badge')).toContainText('High risk');
   await expect(page.locator('.trigger')).toContainText('T-SENSITIVE-DECISIONS');
   await expect(page.locator('.prompt.strong')).toBeVisible();
+  await expect(page.locator('.tier-source')).toContainText('Your tier comes from the 8 quick-check questions');
+  await page.getByRole('link', { name: 'Start the deep-dive' }).click();
+  await expect(page.locator('.badge-optional')).toHaveCount(2);
+  await expect(page.locator('.prio-note')).toContainText('These are not risk questions');
+});
+
+test('a solution with no AI at runtime gets pointers instead of a tier', async ({ page }) => {
+  await page.getByTestId('new-uc').click();
+  await page.getByLabel('Name').fill('Invoice portal built with AI coding tools');
+  await page.getByLabel('Accountable owner').fill('Finance IT');
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await expect(page.locator('fieldset.question')).toHaveCount(8);
+  await page.locator('input[name="runtime_ai"][value="no"]').check();
+  await expect(page.locator('.scope-none h3')).toHaveText("AI governance controls don't apply");
+  await expect(page.locator('fieldset.question')).toHaveCount(0);
+  await expect(page.locator('.stepper li').nth(2).locator('.disabled')).toBeVisible();
+  await page.locator('.actions').getByRole('link', { name: 'Register' }).click();
+  await expect(page.locator('table.register tbody tr')).toContainText('No AI at runtime');
+  await page.getByRole('link', { name: 'Invoice portal built with AI coding tools' }).click();
+  await page.locator('input[name="runtime_ai"][value="yes"]').check();
+  await expect(page.locator('fieldset.question')).toHaveCount(8);
 });
 
 test('Arabic mode renders RTL register and tier', async ({ page }) => {
@@ -66,8 +90,26 @@ test('prioritisation gives a recommended autonomy level and flags over-autonomy'
   for (const [q, v] of [['usage', 'high'], ['complexity', 'medium'], ['readiness', 'medium']] as const)
     await page.locator(`input[name="${q}"][value="${v}"]`).check();
   await page.getByRole('button', { name: 'Continue' }).click();
-  await expect(page.locator('.autonomy .auto-level')).toContainText('Level 3');
+  await expect(page.locator('.autonomy .auto-level')).toContainText('Level 2');
   await expect(page.locator('.auto-fits')).toBeVisible();
+});
+
+test('"not suitable yet" lists concrete steps instead of only a warning', async ({ page }) => {
+  await page.getByRole('button', { name: 'Load 2 sample use cases' }).click();
+  await page.getByRole('link', { name: 'Website FAQ chatbot' }).click();
+  await page.getByRole('link', { name: 'Answer them now' }).click();
+  for (const q of ['usage', 'complexity', 'readiness']) await page.locator(`input[name="${q}"][value="low"]`).check();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await expect(page.locator('.autonomy .auto-level')).toContainText('Level 4');
+  await expect(page.locator('.auto-exceeds')).toContainText('not suitable for AI yet');
+  await expect(page.locator('.auto-steps li')).toHaveCount(4);
+  await expect(page.locator('.auto-steps')).toContainText('accountable owner');  await page.getByRole('link', { name: 'Details' }).click();
+  await page.getByRole('link', { name: 'Quick check' }).click();
+  await page.locator('input[name="impact"][value="prohibited"]').check();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await expect(page.locator('.autonomy')).toContainText('prohibited');
+  await expect(page.locator('.autonomy')).not.toContainText('Usage is low');
+  await expect(page.locator('.auto-steps')).toHaveCount(0);
 });
 
 test('home shows the three-step path and keeps backup tools in a secondary menu', async ({ page }) => {

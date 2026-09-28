@@ -1,6 +1,6 @@
 # ADR 004: Recommended autonomy level from the UAE AI-assistant priority matrix
 
-**Status:** accepted, 2026-09-27
+**Status:** superseded by ADR 006 (2026-09-28). The level numbers below run in reverse of the official matrix.
 
 **Context.** Risk tiering asks how dangerous a use case is. Agentic adoption also asks a second question: how much should
 the AI be allowed to do on its own? The UAE government's AI-assistant priority matrix answers it from three factors

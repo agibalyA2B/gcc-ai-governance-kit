@@ -44,6 +44,7 @@
         "properties": {
           "level": {
             "enum": [
+              "intake",
               "quick",
               "deep",
               "prio"

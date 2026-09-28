@@ -1,6 +1,7 @@
-import { computeTier, topReasons, tierFromPoints, QUESTIONS, type Answers } from './scoring';
+import { computeTier, topReasons, tierFromPoints, aiInScope, QUESTIONS, type Answers } from './scoring';
 
-// Calibration fixtures (FR-8a). Expected tiers were confirmed by the product owner on 27 Sep 2026.
+// Calibration fixtures (FR-8a). The first six were confirmed by the product owner on 27 Sep 2026; the two
+// company-to-company (B2B) fixtures on 28 Sep 2026.
 // Changing weights or triggers must not change these results without updating ADR 002.
 const fixtures: { name: string; answers: Answers; tier: string; trigger?: string }[] = [
   { name: 'Website FAQ chatbot', tier: 'limited',
@@ -15,6 +16,10 @@ const fixtures: { name: string; answers: Answers; tier: string; trigger?: string
     answers: { impact: 'decide-individuals', data: 'sensitive', affected: 'public', ai_type: 'agentic', autonomy: 'full', oversight: 'none', access: 'record', reversibility: 'hard' } },
   { name: 'Social scoring of citizens', tier: 'unacceptable', trigger: 'T-PROHIBITED',
     answers: { impact: 'prohibited', data: 'personal', affected: 'public', ai_type: 'predictive', autonomy: 'monitored', oversight: 'none', access: 'record', reversibility: 'hard' } },
+  { name: 'B2B claim-pack drafter, a person reviews every output', tier: 'limited',
+    answers: { impact: 'decide-organisations', data: 'internal', affected: 'public', ai_type: 'generative', autonomy: 'suggests', oversight: 'every', access: 'none', reversibility: 'effort' } },
+  { name: 'Autonomous supplier credit-limit agent', tier: 'high', trigger: 'T-AUTONOMOUS-B2B-DECISIONS',
+    answers: { impact: 'decide-organisations', data: 'internal', affected: 'public', ai_type: 'agentic', autonomy: 'monitored', oversight: 'exceptions', access: 'record', reversibility: 'effort' } },
 ];
 
 describe('calibration fixtures', () => {
@@ -55,11 +60,36 @@ describe('computeTier', () => {
     expect(deep.quickTier).toBe('limited');
   });
 
+  it('autonomous high-stakes decisions about companies are High even below the points threshold', () => {
+    const r = computeTier({ impact: 'decide-organisations', data: 'none', affected: 'staff', ai_type: 'predictive', autonomy: 'monitored', oversight: 'every', access: 'none', reversibility: 'easy' });
+    expect(r.pointsTier).toBe('limited');
+    expect(r.tier).toBe('high');
+    expect(r.firedTriggers.map((t) => t.id)).toEqual(['T-AUTONOMOUS-B2B-DECISIONS']);
+  });
+
   it('applies the thresholds', () => {
     const t = QUESTIONS.thresholds;
     expect(tierFromPoints(t.limited - 1, t)).toBe('little');
     expect(tierFromPoints(t.limited, t)).toBe('limited');
     expect(tierFromPoints(t.high, t)).toBe('high');
+  });
+});
+
+describe('AI-at-runtime scope', () => {
+  it('asks first whether the solution uses AI when it runs', () => {
+    const q = QUESTIONS.questions[0];
+    expect(q).toMatchObject({ id: 'runtime_ai', level: 'intake' });
+    expect(q.options.map((o) => o.id)).toEqual(['yes', 'no']);
+    expect(q.options.every((o) => o.points === 0)).toBe(true);
+  });
+  it('treats an unanswered scope question as in scope, so older registers keep their tier', () => {
+    expect(aiInScope({})).toBe(true);
+    expect(aiInScope({ runtime_ai: 'yes' })).toBe(true);
+    expect(aiInScope({ runtime_ai: 'no' })).toBe(false);
+  });
+  it('never changes the tier or the points', () => {
+    const base = fixtures[0].answers;
+    expect(computeTier({ ...base, runtime_ai: 'yes' })).toEqual(computeTier(base));
   });
 });
 
@@ -82,6 +112,18 @@ describe('question data', () => {
   });
   it('has about 10 deep-dive questions', () => {
     expect(QUESTIONS.questions.filter((q) => q.level === 'deep').length).toBeGreaterThanOrEqual(9);
+  });
+  it('prioritisation answers describe the service, not a risk level', () => {
+    const prio = QUESTIONS.questions.filter((q) => q.level === 'prio');
+    expect(prio.map((q) => q.id)).toEqual(['usage', 'complexity', 'readiness']);
+    for (const q of prio)
+      for (const o of q.options) {
+        expect(o.en, `${q.id}:${o.id}`).not.toMatch(/\b(low|medium|high)\b/i);
+        expect(o.ar, `${q.id}:${o.id}`).not.toMatch(/منخفض|متوسط[ةه]?$|مرتفع/);
+      }
+    const readiness = prio.find((q) => q.id === 'readiness')!;
+    expect(readiness.options.map((o) => o.id)).toEqual(['high', 'medium', 'low']);
+    expect(readiness.options.map((o) => o.en)).toEqual(['Ready (digital, integrated)', 'Partly ready', 'Not ready (manual, fragmented)']);
   });
   it('every trigger references real questions and options', () => {
     for (const tr of QUESTIONS.triggers)

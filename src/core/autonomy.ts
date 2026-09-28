@@ -1,37 +1,58 @@
 import type { Answers, Tier } from './scoring';
 
 /**
- * Indicative autonomy level from a UAE government AI-assistant priority matrix
- * (usage intensity x complexity x readiness). Level 4 = full autonomous execution,
- * 3 = supervised autonomy, 2 = AI assistance (human decides), 1 = not suitable yet.
- * The cut-offs are this kit's interpretation of the matrix descriptions (ADR 004).
+ * Indicative autonomy level from the UAE government AI-assistant priority matrix
+ * (usage intensity x complexity x readiness), numbered as the matrix numbers them:
+ * 1 = full autonomous execution, 2 = supervised autonomy, 3 = AI assistance (a person decides),
+ * 4 = not suitable yet. A lower number means more autonomy (ADR 006).
  */
 export type AutonomyLevel = 1 | 2 | 3 | 4;
+export type NotSuitableFactor = 'usage' | 'complexity';
 
 export interface AutonomyResult {
   complete: boolean;
   recommended: AutonomyLevel | null;
   actual: AutonomyLevel | null;
+  /** The design is more autonomous than recommended (its level number is lower). */
   exceeds: boolean;
   capReasons: string[];
+  /** Matrix factors that put the service at level 4. */
+  notSuitable: NotSuitableFactor[];
 }
 
-const ACTUAL: Record<string, AutonomyLevel> = { suggests: 2, approval: 3, monitored: 3, full: 4 };
+const ACTUAL: Record<string, AutonomyLevel> = { suggests: 3, approval: 3, monitored: 2, full: 1 };
 
 export function recommendAutonomy(answers: Answers, tier: Tier): AutonomyResult {
   const { usage, complexity, readiness } = answers;
   const actual = ACTUAL[answers.autonomy] ?? null;
-  if (!usage || !complexity || !readiness) return { complete: false, recommended: null, actual, exceeds: false, capReasons: [] };
+  if (!usage || !complexity || !readiness)
+    return { complete: false, recommended: null, actual, exceeds: false, capReasons: [], notSuitable: [] };
+
+  const notSuitable: NotSuitableFactor[] = [];
+  if (usage === 'low') notSuitable.push('usage');
+  if (complexity === 'high') notSuitable.push('complexity');
 
   const capReasons: string[] = [];
   let level: AutonomyLevel;
-  if (readiness === 'low') level = 1;
-  else if (complexity === 'high') level = readiness === 'high' ? 2 : 1;
-  else if (complexity === 'medium') level = 3;
-  else level = readiness === 'high' && usage === 'high' ? 4 : 3;
+  if (notSuitable.length) level = 4;
+  else if (readiness === 'high') level = usage === 'high' && complexity === 'low' ? 1 : 2;
+  else if (readiness === 'medium') level = 2;
+  else level = 3;
 
-  if (tier === 'unacceptable') { level = 1; capReasons.push('tier-unacceptable'); }
-  else if (level === 4 && (tier === 'high' || answers.regulated === 'yes')) { level = 3; capReasons.push(tier === 'high' ? 'tier-high' : 'regulated'); }
+  if (tier === 'unacceptable') { level = 4; notSuitable.length = 0; capReasons.push('tier-unacceptable'); }
+  else if (level === 1 && (tier === 'high' || answers.regulated === 'yes')) { level = 2; capReasons.push(tier === 'high' ? 'tier-high' : 'regulated'); }
 
-  return { complete: true, recommended: level, actual, exceeds: actual !== null && actual > level, capReasons };
+  return { complete: true, recommended: level, actual, exceeds: actual !== null && actual < level, capReasons, notSuitable };
+}
+
+export type NextStep = 'simplify' | 'volume' | 'data' | 'owner' | 'reassess';
+
+/** Concrete steps to take before applying AI when the matrix says "not suitable yet" (level 4). */
+export function nextSteps(a: AutonomyResult, answers: Answers): NextStep[] {
+  if (a.recommended !== 4 || !a.notSuitable.length) return [];
+  const steps: NextStep[] = [];
+  if (a.notSuitable.includes('complexity')) steps.push('simplify');
+  if (a.notSuitable.includes('usage')) steps.push('volume');
+  if (answers.readiness !== 'high') steps.push('data');
+  return [...steps, 'owner', 'reassess'];
 }

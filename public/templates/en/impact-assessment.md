@@ -6,7 +6,8 @@ Licensed under CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
 
 | Section | Question | Options (points) | Answer | Evidence / notes |
 | --- | --- | --- | --- | --- |
-| Quick check | What does the AI's output influence? | Internal productivity only (drafts, summaries, search) (0); Information given to the public or customers (5); Recommendations to staff about specific people (15); Decisions about people's rights, benefits, access to services or money (25); Social scoring, manipulation, or real-time biometric surveillance of the public (0) |  |  |
+| Scope | Does the solution use AI when it runs? | Yes: it uses an AI model or AI service when it runs; No: AI was only used to build it, or not at all |  |  |
+| Quick check | What does the AI's output influence? | Internal productivity only (drafts, summaries, search) (0); Information given to the public or customers (5); Recommendations to staff about specific people (15); Decisions about people's rights, benefits, access to services or money (25); High-stakes decisions or positions about other companies (claims, contract positions, commercial or credit decisions on firms) (20); Social scoring, manipulation, or real-time biometric surveillance of the public (0) |  |  |
 | Quick check | What data does it use? | No data about people, or public data only (0); Internal business data, no personal data (3); Personal data (10); Sensitive personal data (18) |  |  |
 | Quick check | Who could be affected? | Employees only (3); Customers or the public (8); Vulnerable groups (children, elderly, people with disabilities) (15) |  |  |
 | Quick check | What kind of AI is it? | Predictive (scores, classifies, forecasts) (5); Generative (writes text, images or answers) (5); Agentic (plans and takes actions) (10) |  |  |
@@ -24,9 +25,9 @@ Licensed under CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
 | Deep-dive | Is there a way to stop it and handle incidents? | Yes, documented and tested (0); Partly (4); No (8) |  |  |
 | Deep-dive | Is it used in a regulated domain? | No (0); Yes (6) |  |  |
 | Deep-dive | Are people told they are dealing with AI? | Yes, clearly (0); No (5) |  |  |
-| Prioritisation for AI (optional) | How heavily is the service used? | Low: limited use, infrequent transactions; Medium; High: wide use, repeated transactions |  |  |
-| Prioritisation for AI (optional) | How complex is the service to deliver or transform? | Low: simple, standard, repeatable; Medium; High: multi-entity, variable, heavily governed |  |  |
-| Prioritisation for AI (optional) | How ready is the service for AI? | Low: manual, fragmented, unclear; Medium; High: structured, digital, integrated |  |  |
+| Prioritisation for AI | How heavily is the service used? | Heavy: wide use, repeated transactions; Moderate; Light: limited use, infrequent transactions |  |  |
+| Prioritisation for AI | How complex is the service to deliver or transform? | Simple: standard, repeatable; Moderately complex; Very complex: multi-entity, variable, heavily governed |  |  |
+| Prioritisation for AI | How ready is the service for AI? | Ready (digital, integrated); Partly ready; Not ready (manual, fragmented) |  |  |
 
 ## Sign-off
 

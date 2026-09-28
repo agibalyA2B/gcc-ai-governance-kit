@@ -98,6 +98,7 @@ const REGISTER_FIELDS = [
   ['businessUnit', (lang) => T('uc.businessUnit', lang)],
   ['purpose', (lang) => T('uc.purpose', lang)],
   ['status', (lang) => T('uc.status', lang)],
+  ['runtime_ai', (lang) => qText('runtime_ai', lang)],
   ['ai_type', (lang) => T('reg.type', lang)],
   ['impact', (lang) => qText('impact', lang)],
   ['data', (lang) => qText('data', lang)],
@@ -115,13 +116,13 @@ const REGISTER_EXAMPLES = {
   en: [
     {
       id: 'uc-example-chatbot', name: 'Website FAQ chatbot', owner: 'Digital Channels', businessUnit: 'Customer Experience',
-      purpose: 'Answers general questions and hands over to a person when needed.', status: 'production', ai_type: 'generative',
+      purpose: 'Answers general questions and hands over to a person when needed.', status: 'production', runtime_ai: 'yes', ai_type: 'generative',
       impact: 'public-info', data: 'none', affected: 'public', autonomy: 'monitored', oversight: 'exceptions', access: 'none',
       reversibility: 'easy', tier: 'limited', deep_dive_complete: 'false', updatedAt: '2026-01-15',
     },
     {
       id: 'uc-example-triage', name: 'Citizen service triage agent', owner: 'Customer Service Dept.', businessUnit: 'Operations',
-      purpose: 'Routes incoming requests automatically; staff review refusals.', status: 'pilot', ai_type: 'agentic',
+      purpose: 'Routes incoming requests automatically; staff review refusals.', status: 'pilot', runtime_ai: 'yes', ai_type: 'agentic',
       impact: 'recommend-individuals', data: 'personal', affected: 'public', autonomy: 'monitored', oversight: 'exceptions',
       access: 'record', reversibility: 'easy', tier: 'high', deep_dive_complete: 'false', updatedAt: '2026-01-15',
     },
@@ -129,13 +130,13 @@ const REGISTER_EXAMPLES = {
   ar: [
     {
       id: 'uc-example-chatbot', name: 'روبوت محادثة للأسئلة الشائعة', owner: 'القنوات الرقمية', businessUnit: 'تجربة المتعاملين',
-      purpose: 'يجيب عن الأسئلة العامة ويحيل إلى موظف عند الحاجة.', status: 'production', ai_type: 'generative',
+      purpose: 'يجيب عن الأسئلة العامة ويحيل إلى موظف عند الحاجة.', status: 'production', runtime_ai: 'yes', ai_type: 'generative',
       impact: 'public-info', data: 'none', affected: 'public', autonomy: 'monitored', oversight: 'exceptions', access: 'none',
       reversibility: 'easy', tier: 'limited', deep_dive_complete: 'false', updatedAt: '2026-01-15',
     },
     {
       id: 'uc-example-triage', name: 'وكيل فرز طلبات خدمات المتعاملين', owner: 'إدارة خدمة المتعاملين', businessUnit: 'العمليات',
-      purpose: 'يوجّه الطلبات الواردة تلقائياً، ويراجع موظفٌ حالات الرفض.', status: 'pilot', ai_type: 'agentic',
+      purpose: 'يوجّه الطلبات الواردة تلقائياً، ويراجع موظفٌ حالات الرفض.', status: 'pilot', runtime_ai: 'yes', ai_type: 'agentic',
       impact: 'recommend-individuals', data: 'personal', affected: 'public', autonomy: 'monitored', oversight: 'exceptions',
       access: 'record', reversibility: 'easy', tier: 'high', deep_dive_complete: 'false', updatedAt: '2026-01-15',
     },
@@ -161,9 +162,9 @@ function buildImpactAssessment(lang) {
   const machineHeader = IMPACT_FIELDS;
   const humanHeader = impactHumanHeader(lang);
   const questionRows = questionsData.questions.map((qq) => [
-    qq.level === 'quick' ? T('step.quick', lang) : qq.level === 'deep' ? T('step.deep', lang) : T('prio.title', lang),
+    qq.level === 'intake' ? T('intake.label', lang) : qq.level === 'quick' ? T('step.quick', lang) : qq.level === 'deep' ? T('step.deep', lang) : T('prio.title', lang),
     qq[`text_${lang}`],
-    qq.options.map((o) => (qq.level === 'prio' ? o[lang] : `${o[lang]} (${o.points})`)).join('; '),
+    qq.options.map((o) => (qq.level === 'prio' || qq.level === 'intake' ? o[lang] : `${o[lang]} (${o.points})`)).join('; '),
     '',
     '',
   ]);

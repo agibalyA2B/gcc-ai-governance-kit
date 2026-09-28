@@ -63,14 +63,14 @@ No sign-up, no backend, no API key. Nothing you type leaves the browser; an auto
 - Each answer carries visible points. The bands are Little/No < 20 ≤ Limited < 45 ≤ High.
 - Rules set a minimum tier:
   - prohibited uses (social scoring, manipulation, real-time biometric surveillance) → **Unacceptable**;
-  - autonomous decisions about people, decisions based on sensitive data, or autonomous irreversible actions on the
-    public → **High**.
-- Six reference cases are locked as tests, so a change to the weights cannot silently shift real outcomes. They range
+  - autonomous decisions about people or about other companies, decisions based on sensitive data, or autonomous
+    irreversible actions on the public → **High**.
+- Eight reference cases are locked as tests, so a change to the weights cannot silently shift real outcomes. They range
   from a website FAQ chatbot (Limited) to citizen social scoring (Unacceptable).
 
 The reasoning behind these choices is recorded in [ADR 002](docs/decisions/002-risk-tier-scoring.md).
 
-**Recommended autonomy** is separate from risk. The UAE priority matrix combines usage intensity, complexity and readiness into four levels: full autonomous execution, supervised autonomy, AI assistance, and not suitable yet. A High tier or a regulated domain caps the result at supervised. See [ADR 004](docs/decisions/004-recommended-autonomy-level.md).
+**Recommended autonomy** is separate from risk. The UAE priority matrix combines usage intensity, complexity and readiness into four levels, numbered as the matrix numbers them: 1 full autonomous execution, 2 supervised autonomy, 3 AI assistance, and 4 not suitable yet. A High tier or a regulated domain never allows level 1. See [ADR 006](docs/decisions/006-autonomy-levels-follow-official-numbering.md).
 
 ## Adopting it in your organisation
 
