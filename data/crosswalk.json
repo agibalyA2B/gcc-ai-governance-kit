@@ -1724,6 +1724,7 @@
         "A.6.2.2"
       ],
       "nist_ai_rmf": [
+        "MAP 1.6",
         "MEASURE 2.7"
       ],
       "eu_ai_act": [
@@ -1738,8 +1739,8 @@
       "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
     ],
     "verified": true,
-    "verified_on": "2026-09-27",
-    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+    "verified_on": "2026-09-28",
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A. Red-team and jailbreak testing (CTL-SEC-09) and model supply chain security (CTL-SEC-10) were split out on 28 Sep 2026 (ADR 010). NIST MAP 1.6 (system requirements elicited, design decisions address AI risks) added on 28 Sep 2026: it is the crosswalk's route to ISO/IEC 42001 A.6.2.2, which MEASURE 2.7 alone does not map to. Text checked in NIST.AI.100-1."
   },
   {
     "id": "CTL-SEC-03",
@@ -1993,6 +1994,101 @@
     "verified": true,
     "verified_on": "2026-09-27",
     "notes": ""
+  },
+  {
+    "id": "CTL-SEC-09",
+    "theme": "safety-security",
+    "title_en": "Red-team and jailbreak testing",
+    "title_ar": "اختبار الفريق الأحمر ومحاولات كسر القيود",
+    "control_text_en": "Before launch and after major changes, have people who did not build the system try to make it misbehave: jailbreaks, direct and indirect prompt injection (including through documents, emails or web pages it reads), extraction of confidential data, and misuse of its tools. Record what is found, fix it and test again.",
+    "control_text_ar": "قبل الإطلاق وبعد كل تغيير جوهري، يُكلَّف أشخاص لم يشاركوا في بناء النظام بمحاولة دفعه إلى سلوك غير مقصود: محاولات كسر القيود، وحقن الأوامر المباشر وغير المباشر (بما في ذلك عبر المستندات أو الرسائل أو صفحات الويب التي يقرؤها)، واستخراج البيانات السرية، وإساءة استخدام أدواته. وتُوثَّق النتائج وتُعالَج ثم يُعاد الاختبار.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [
+        "generative",
+        "agentic"
+      ],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Privacy & Security"
+      ],
+      "iso42001": [
+        "A.6.2.4"
+      ],
+      "nist_ai_rmf": [
+        "MEASURE 1.3",
+        "MEASURE 2.6",
+        "MEASURE 2.7"
+      ],
+      "eu_ai_act": [
+        "Art. 15",
+        "Art. 55"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-28",
+    "notes": "Split from CTL-SEC-02 (ADR 010). NIST AI RMF text checked in NIST.AI.100-1: MEASURE 1.3 (assessors who were not front-line developers), MEASURE 2.6 (safety, operating beyond limits), MEASURE 2.7 (security and resilience); the NIST Generative AI Profile (NIST.AI.600-1) action MS-2.7-007 calls for AI red-teaming, including against prompt injection. ISO/IEC 42001 A.6.2.4 via the NIST-hosted crosswalk (MEASURE 2.6). EU AI Act checked in the Official Journal text: Art. 15(5) adversarial examples and model evasion for high-risk systems; Art. 55(1)(a) adversarial testing binds providers of general-purpose AI models with systemic risk, so deployers should ask for that evidence. Dubai and SDAIA principle names as confirmed for CTL-SEC-02."
+  },
+  {
+    "id": "CTL-SEC-10",
+    "theme": "safety-security",
+    "title_en": "Model supply chain security",
+    "title_ar": "أمن سلسلة توريد النماذج",
+    "control_text_en": "Keep a list of the models, datasets and AI libraries the system depends on, with their source, version and licence. Take them only from trusted sources, check their integrity before use, pin versions, and track vulnerabilities and upstream changes, so that a tampered or silently updated component cannot reach production.",
+    "control_text_ar": "الاحتفاظ بقائمة بالنماذج ومجموعات البيانات ومكتبات الذكاء الاصطناعي التي يعتمد عليها النظام، مع مصدر كل منها وإصداره وترخيصه. وعدم الحصول عليها إلا من مصادر موثوقة، والتحقق من سلامتها قبل الاستخدام، وتثبيت إصداراتها، ومتابعة ثغراتها وتحديثاتها من المصدر، حتى لا يصل إلى بيئة التشغيل مكوّن جرى العبث به أو تحديثه دون علم.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [],
+      "uae_gov_code": [],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Privacy & Security"
+      ],
+      "iso42001": [
+        "A.4.4",
+        "A.10.3"
+      ],
+      "nist_ai_rmf": [
+        "GOVERN 6.1",
+        "MAP 4.1",
+        "MANAGE 3.2"
+      ],
+      "eu_ai_act": [
+        "Art. 15",
+        "Art. 25"
+      ]
+    },
+    "source_urls": [
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-09-28",
+    "notes": "Split from CTL-SEC-02 (ADR 010); complements CTL-ACC-06 (supplier due diligence). NIST AI RMF text checked in NIST.AI.100-1: GOVERN 6.1 (third-party risks), MAP 4.1 (risks of components, including third-party data or software), MANAGE 3.2 (pre-trained models are monitored). ISO/IEC 42001 via the NIST-hosted crosswalk: A.10.3 (from GOVERN 6.1 and MAP 4.1) and A.4.4 (from MANAGE 3.2). EU AI Act checked in the Official Journal text: Art. 15(5) data poisoning and model poisoning of pre-trained components; Art. 25(4) written agreements with suppliers of components for high-risk systems. Dubai and SDAIA principle names as confirmed for CTL-SEC-02."
   },
   {
     "id": "CTL-MON-01",
