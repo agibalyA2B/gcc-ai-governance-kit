@@ -1,9 +1,12 @@
 import type { Answers } from './scoring';
+import { normaliseEvidence, type EvidenceMap } from './evidence';
 
 export type Status = 'idea' | 'pilot' | 'production' | 'retired';
 export interface UseCase {
   id: string; name: string; owner: string; businessUnit: string; purpose: string;
   status: Status; notes: string; answers: Answers; createdAt: string; updatedAt: string;
+  /** Control-evidence map; optional so registers saved before 0.3.0 still load. */
+  evidence?: EvidenceMap;
 }
 
 export const newId = (): string =>
@@ -27,4 +30,15 @@ export function sampleUseCases(lang: 'en' | 'ar', now = new Date().toISOString()
       status: 'production',
       answers: { runtime_ai: 'yes', impact: 'public-info', data: 'none', affected: 'public', ai_type: 'generative', autonomy: 'monitored', oversight: 'exceptions', access: 'none', reversibility: 'easy' } },
   ];
+}
+
+export const REGISTER_FORMAT = 'gcc-ai-governance-kit/register';
+
+/** Validates an imported register file and returns its use cases with evidence cleaned, or null if it is not one. */
+export function parseRegister(x: unknown): UseCase[] | null {
+  const o = x as { format?: string; version?: number; useCases?: unknown };
+  if (!o || o.format !== REGISTER_FORMAT || o.version !== 1 || !Array.isArray(o.useCases)) return null;
+  const ok = o.useCases.every((u: Partial<UseCase>) => typeof u?.id === 'string' && typeof u?.name === 'string'
+    && typeof u?.owner === 'string' && !!u.answers && typeof u.answers === 'object');
+  return ok ? (o.useCases as UseCase[]).map((u) => ({ ...u, evidence: normaliseEvidence(u.evidence) })) : null;
 }

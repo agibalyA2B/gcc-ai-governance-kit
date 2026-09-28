@@ -2,26 +2,100 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AI use-case register export",
   "type": "object",
-  "required": ["format", "version", "useCases"],
+  "required": [
+    "format",
+    "version",
+    "useCases"
+  ],
   "properties": {
-    "format": { "const": "gcc-ai-governance-kit/register" },
-    "version": { "const": 1 },
+    "format": {
+      "const": "gcc-ai-governance-kit/register"
+    },
+    "version": {
+      "const": 1
+    },
     "useCases": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "name", "owner", "answers", "createdAt", "updatedAt"],
+        "required": [
+          "id",
+          "name",
+          "owner",
+          "answers",
+          "createdAt",
+          "updatedAt"
+        ],
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string", "minLength": 1 },
-          "owner": { "type": "string", "minLength": 1 },
-          "businessUnit": { "type": "string" },
-          "purpose": { "type": "string" },
-          "status": { "enum": ["idea", "pilot", "production", "retired"] },
-          "notes": { "type": "string" },
-          "answers": { "type": "object", "additionalProperties": { "type": "string" } },
-          "createdAt": { "type": "string" },
-          "updatedAt": { "type": "string" }
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "owner": {
+            "type": "string",
+            "minLength": 1
+          },
+          "businessUnit": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "idea",
+              "pilot",
+              "production",
+              "retired"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          },
+          "answers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "object",
+            "description": "Control-evidence map keyed by control id (optional; added in 0.3.0).",
+            "propertyNames": {
+              "pattern": "^CTL-[A-Z]{2,4}-[0-9]{2}$"
+            },
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "status",
+                "note"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "",
+                    "met",
+                    "partly",
+                    "gap",
+                    "na"
+                  ]
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 4000
+                }
+              }
+            }
+          }
         }
       }
     }

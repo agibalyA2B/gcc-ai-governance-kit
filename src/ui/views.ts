@@ -3,6 +3,7 @@ import { QUESTIONS, computeTier, topReasons, aiInScope, TIER_ORDER, type Tier, t
 import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
 import { applicableControls, verifiedShare, THEMES, CROSSWALK, type Control } from '../core/controls';
 import type { UseCase } from '../core/usecase';
+import { EVIDENCE_STATUSES, evidenceSummary, type EvidenceMap } from '../core/evidence';
 import { esc, tierIcon } from './html';
 import { recommendAutonomy, nextSteps, type AutonomyResult } from '../core/autonomy';
 
@@ -209,6 +210,21 @@ export function verificationBadge(lang: Lang, c: Control): string {
     : `<span class="vbadge pending" title="${esc(c.notes)}"><span aria-hidden="true">⏱</span> ${t(lang, 'ctl.needs')}</span>`;
 }
 
+/** One-line tally of evidence statuses over the applicable controls (updated in place as the user edits). */
+export function evidenceSummaryText(lang: Lang, ids: string[], ev: EvidenceMap = {}): string {
+  const sum = evidenceSummary(ids, ev);
+  return `${t(lang, 'ev.summary')} ${[...EVIDENCE_STATUSES, 'unset' as const].map((k) => `<span class="ev-count ev-${k}">${sum[k]} ${t(lang, `ev.${k}`)}</span>`).join(' · ')}`;
+}
+
+function evidenceFields(lang: Lang, c: Control, ev: EvidenceMap = {}): string {
+  const e = ev[c.id];
+  return `<div class="evidence"><label>${t(lang, 'ev.status')}
+      <select data-action="ev-status" data-ctl="${c.id}"><option value="">${t(lang, 'ev.unset')}</option>
+      ${EVIDENCE_STATUSES.map((st) => `<option value="${st}" ${e?.status === st ? 'selected' : ''}>${t(lang, `ev.${st}`)}</option>`).join('')}</select></label>
+    <label class="ev-note">${t(lang, 'ev.note')}
+      <textarea data-action="ev-note" data-ctl="${c.id}" rows="2" maxlength="4000" placeholder="${t(lang, 'ev.note.ph')}">${esc(e?.note ?? '')}</textarea></label></div>`;
+}
+
 export function controlsView(lang: Lang, uc: UseCase, r: TierResult, frameworks: FrameworkId[], fwFilter: string, verifiedOnly: boolean): string {
   if (r.tier === 'unacceptable')
     return `<section class="card"><h2 tabindex="-1">${t(lang, 'step.controls')}</h2><p class="notice danger-note">${t(lang, 'ctl.unacceptable')}</p></section>`;
@@ -216,20 +232,24 @@ export function controlsView(lang: Lang, uc: UseCase, r: TierResult, frameworks:
   let list = applicableControls(r.tier, uc.answers, frameworks);
   if (fwFilter) list = list.filter((c) => (c.refs[fwFilter as FrameworkId] ?? []).length);
   if (verifiedOnly) list = list.filter((c) => c.verified);
-  const share = verifiedShare(applicableControls(r.tier, uc.answers, frameworks));
+  const all = applicableControls(r.tier, uc.answers, frameworks);
+  const share = verifiedShare(all);
   return `<section class="card">
     <h2 tabindex="-1">${t(lang, 'step.controls')}</h2>
     <p class="muted">${t(lang, 'ctl.intro')} <strong>${share.verified}/${share.total}</strong> ${t(lang, 'ctl.verified.share')}</p>
+    <p class="muted small">${t(lang, 'ev.intro')}</p>
+    <p class="ev-summary" data-testid="ev-summary" aria-live="polite">${evidenceSummaryText(lang, all.map((c) => c.id), uc.evidence)}</p>
     <div class="toolbar"><label class="filter">${t(lang, 'ctl.filter.fw')}<select data-action="ctl-fw"><option value="">${t(lang, 'reg.filter.all')}</option>
       ${FRAMEWORKS.filter((f) => frameworks.includes(f.id)).map((f) => `<option value="${f.id}" ${fwFilter === f.id ? 'selected' : ''}>${esc(L(lang, f.en, f.ar))}</option>`).join('')}</select></label>
       <label class="filter"><input type="checkbox" data-action="ctl-verified" ${verifiedOnly ? 'checked' : ''}/> ${t(lang, 'ctl.filter.verified')}</label></div>
     ${list.length ? THEMES.map((th) => {
       const items = list.filter((c) => c.theme === th);
-      return items.length ? `<h3>${t(lang, `theme.${th}`)}</h3><ul class="controls">${items.map((c) => `<li class="control">
+      return items.length ? `<h3>${t(lang, `theme.${th}`)}</h3><ul class="controls">${items.map((c) => `<li class="control" data-status="${uc.evidence?.[c.id]?.status ?? ''}">
         <div class="control-head"><strong>${esc(L(lang, c.title_en, c.title_ar))}</strong>${verificationBadge(lang, c)}</div>
         <p>${esc(L(lang, c.control_text_en, c.control_text_ar))}</p>
         <div class="refs">${refChips(c, frameworks)}</div>
         ${c.source_urls.length ? `<p class="sources">${t(lang, 'ctl.sources')} ${c.source_urls.map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener">[${i + 1}]</a>`).join(' ')}</p>` : ''}
+        ${evidenceFields(lang, c, uc.evidence)}
       </li>`).join('')}</ul>` : '';
     }).join('') : `<p class="notice">${t(lang, 'ctl.none')}</p>`}
     <div class="actions"><a class="btn primary" href="#/uc/${esc(uc.id)}/export">${t(lang, 'step.export')}</a></div>
@@ -261,10 +281,12 @@ export function reportView(lang: Lang, uc: UseCase, r: TierResult, frameworks: F
       ${(() => { const a = recommendAutonomy(uc.answers, r.tier); return a.complete ? `<tr><th>${t(lang, 'auto.title')}</th><td>${t(lang, 'auto.level')} ${a.recommended}: ${t(lang, `auto.l${a.recommended}`)}${a.exceeds ? ` — ${autonomyVerdict(lang, a)}` : ''}${stepsList(lang, a, uc)}</td></tr>` : ''; })()}</tbody></table>
     <h2>${t(lang, 'tier.why')}</h2><ul>${topReasons(r, lang).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
     <h2>${t(lang, 'rep.controls')}</h2>
-    ${r.tier === 'unacceptable' ? `<p>${t(lang, 'ctl.unacceptable')}</p>` : `<table class="checklist"><thead><tr><th>☐</th><th>${t(lang, 'rep.control')}</th><th>${t(lang, 'rep.refs')}</th><th>${t(lang, 'rep.status')}</th></tr></thead>
-    <tbody>${list.map((c) => `<tr><td>☐</td><td><strong>${esc(L(lang, c.title_en, c.title_ar))}</strong><br/>${esc(L(lang, c.control_text_en, c.control_text_ar))}</td>
+    ${r.tier === 'unacceptable' ? `<p>${t(lang, 'ctl.unacceptable')}</p>` : `<p class="small">${evidenceSummaryText(lang, list.map((c) => c.id), uc.evidence)}</p>
+    <table class="checklist"><thead><tr><th>${t(lang, 'ev.status')}</th><th>${t(lang, 'rep.control')}</th><th>${t(lang, 'rep.refs')}</th><th>${t(lang, 'ev.note')}</th><th>${t(lang, 'rep.status')}</th></tr></thead>
+    <tbody>${list.map((c) => { const e = uc.evidence?.[c.id]; return `<tr><td>${e?.status ? t(lang, `ev.${e.status}`) : '☐'}</td><td><strong>${esc(L(lang, c.title_en, c.title_ar))}</strong><br/>${esc(L(lang, c.control_text_en, c.control_text_ar))}</td>
       <td>${FRAMEWORKS.filter((f) => frameworks.includes(f.id) && (c.refs[f.id] ?? []).length).map((f) => `${esc(f.short)}: ${esc(c.refs[f.id].join(', '))}`).join('<br/>')}</td>
-      <td>${c.verified ? t(lang, 'ctl.verified') : t(lang, 'ctl.needs')}</td></tr>`).join('')}</tbody></table>
+      <td class="ev-cell">${esc(e?.note ?? '')}</td>
+      <td>${c.verified ? t(lang, 'ctl.verified') : t(lang, 'ctl.needs')}</td></tr>`; }).join('')}</tbody></table>
     <p class="small">${t(lang, 'rep.verification')} ${share.verified}/${share.total}.</p>`}
     <h2>${t(lang, 'rep.signoff')}</h2>
     <table class="signoff"><tbody><tr><th>${t(lang, 'rep.prepared')}</th><td></td><th>${t(lang, 'rep.date')}</th><td></td></tr>
@@ -337,7 +359,7 @@ export function guideView(lang: Lang, base: string): string {
     ${sec('s3', `<p>${t(lang, 'gd.s3.p1')}</p><p>${t(lang, 'gd.s3.p2')}</p><p>${t(lang, 'gd.s3.badges')}</p>
       <ul class="badges"><li><span class="vbadge verified"><span aria-hidden="true">✓</span> ${t(lang, 'ctl.verified')}</span> ${t(lang, 'gd.s3.v')}</li>
       <li><span class="vbadge pending"><span aria-hidden="true">⏱</span> ${t(lang, 'ctl.needs')}</span> ${t(lang, 'gd.s3.n')}</li></ul>
-      <p>${t(lang, 'gd.s3.filter')}</p>${fig('controls', 'gd.fig.controls')}`)}
+      <p>${t(lang, 'gd.s3.filter')}</p><p>${t(lang, 'gd.s3.evidence')}</p>${fig('controls', 'gd.fig.controls')}`)}
     ${sec('s4', `<p>${t(lang, 'gd.s4.p1')}</p><ul>${[1, 2, 3, 4].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}:</strong> ${t(lang, `auto.l${n}`)}</li>`).join('')}</ul><p>${t(lang, 'gd.s4.p2')}</p>`)}
     ${sec('s5', `<ul class="plain"><li>${t(lang, 'gd.s5.pdf')}</li><li>${t(lang, 'gd.s5.ctl')}</li></ul>${fig('export', 'gd.fig.export')}
       <ul class="plain"><li>${t(lang, 'gd.s5.backup')}</li><li>${t(lang, 'gd.s5.share')}</li><li>${t(lang, 'gd.s5.tpl')}</li></ul>`)}
