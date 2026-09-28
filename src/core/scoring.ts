@@ -7,6 +7,8 @@ export interface Option { id: string; points: number; en: string; ar: string }
 export interface Question {
   id: string; level: 'intake' | 'quick' | 'deep' | 'prio'; factor: string;
   text_en: string; text_ar: string; help_en: string; help_ar: string; options: Option[];
+  /** Operational (fixable without redesign) questions name the option that closes the gap. */
+  fix?: string;
 }
 export interface Trigger {
   id: string; min_tier: Tier; when: { q: string; in: string[] }[]; reason_en: string; reason_ar: string;

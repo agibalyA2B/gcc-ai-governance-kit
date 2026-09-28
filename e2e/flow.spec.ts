@@ -109,6 +109,21 @@ test('a register saved before evidence existed still restores', async ({ page })
   await expect(page.getByTestId('ev-summary')).toContainText('0 Met');
 });
 
+test('sensitivity view shows the tier once operational gaps are fixed', async ({ page }) => {
+  await page.getByRole('button', { name: 'Load 2 sample use cases' }).click();
+  await page.getByRole('link', { name: 'Website FAQ chatbot' }).click();
+  await expect(page.getByTestId('sensitivity')).toHaveCount(0);
+  await expect(page.locator('.sensitivity')).toContainText('Complete the deep-dive');
+  await page.getByRole('link', { name: 'Start the deep-dive' }).click();
+  for (const [q, v] of [['security_tested', 'no'], ['monitoring', 'no']] as const) await page.locator(`input[name="${q}"][value="${v}"]`).check();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await expect(page.locator('.tier-result .tier-lg')).toContainText('High risk');
+  const card = page.getByTestId('sensitivity');
+  await expect(card).toContainText('bring the tier down to');
+  await expect(card.locator('.tier-badge')).toContainText('Limited');
+  await expect(card.locator('li')).toHaveCount(2);
+});
+
 test('Arabic mode renders RTL register and tier', async ({ page }) => {
   await page.getByTestId('lang-toggle').click();
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
