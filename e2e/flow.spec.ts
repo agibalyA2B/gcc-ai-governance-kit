@@ -39,6 +39,10 @@ test('new use case: validation, quick check and tier', async ({ page }) => {
   await expect(page.locator('.tier-result .tier-badge')).toContainText('High risk');
   await expect(page.locator('.trigger')).toContainText('T-SENSITIVE-DECISIONS');
   await expect(page.locator('.prompt.strong')).toBeVisible();
+  await expect(page.locator('.tier-source')).toContainText('Your tier comes from the 8 quick-check questions');
+  await page.getByRole('link', { name: 'Start the deep-dive' }).click();
+  await expect(page.locator('.badge-optional')).toHaveCount(2);
+  await expect(page.locator('.prio-note')).toContainText('These are not risk questions');
 });
 
 test('Arabic mode renders RTL register and tier', async ({ page }) => {

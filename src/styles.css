@@ -155,6 +155,9 @@ thead th { font-size: 0.85rem; color: var(--color-text-muted); background: #fbfa
 .vbadge { font-size: 0.8rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
 .vbadge.verified { background: #e3f3eb; color: #1f5e43; }
 .vbadge.pending { background: #fbf0dc; color: #7a4f0e; }
+.badge-optional { display: inline-block; vertical-align: middle; margin-inline-start: var(--space-2); font-family: var(--font-latin); font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--color-border); color: var(--color-text-muted); }
+html[lang='ar'] .badge-optional { font-family: var(--font-arabic); }
+.tier-source { margin-block: var(--space-3); color: var(--color-text-muted); }
 .sources { font-size: 0.85rem; color: var(--color-text-muted); }
 .export-bar { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .weights th { width: 45%; font-weight: 500; }

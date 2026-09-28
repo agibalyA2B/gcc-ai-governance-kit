@@ -106,15 +106,17 @@ function questionBlock(lang: Lang, uc: UseCase, qs: typeof QUESTIONS.questions, 
     </fieldset>`).join('');
 }
 
+const optionalBadge = (lang: Lang) => ` <span class="badge-optional">${t(lang, 'badge.optional')}</span>`;
+
 export function questionsForm(lang: Lang, uc: UseCase, level: 'quick' | 'deep', showPoints: boolean): string {
   const qs = QUESTIONS.questions.filter((q) => q.level === level);
   const answered = qs.filter((q) => uc.answers[q.id]).length;
   const prio = level === 'deep' ? QUESTIONS.questions.filter((q) => q.level === 'prio') : [];
   return `<form class="card" data-form="${level}">
-    <h2 tabindex="-1">${t(lang, `step.${level}`)}</h2>
+    <h2 tabindex="-1">${t(lang, `step.${level}`)}${level === 'deep' ? optionalBadge(lang) : ''}</h2>
     <p class="muted">${t(lang, `${level}.intro`)} <span class="progress" aria-live="polite">${answered}/${qs.length}</span></p>
     ${questionBlock(lang, uc, qs, showPoints)}
-    ${prio.length ? `<section class="prio-block"><h3>${t(lang, 'prio.title')}</h3><p class="muted">${t(lang, 'prio.intro')}</p><p class="notice prio-note">${t(lang, 'prio.notrisk')}</p>${questionBlock(lang, uc, prio, false)}</section>` : ''}
+    ${prio.length ? `<section class="prio-block"><h3>${t(lang, 'prio.title')}${optionalBadge(lang)}</h3><p class="muted">${t(lang, 'prio.intro')}</p><p class="notice prio-note">${t(lang, 'prio.notrisk')}</p>${questionBlock(lang, uc, prio, false)}</section>` : ''}
     <div class="actions"><button class="btn primary" type="submit">${t(lang, 'nav.next')}</button></div></form>`;
 }
 
@@ -143,6 +145,7 @@ export function tierView(lang: Lang, uc: UseCase, r: TierResult): string {
     <h2 tabindex="-1">${t(lang, 'tier.title')}</h2>
     <div class="tier-result">${tierBadge(lang, r.tier, 'lg')}
       ${r.quickTier && r.quickTier !== r.tier ? `<p class="muted">${t(lang, 'tier.raised')} ${tierBadge(lang, r.quickTier)}</p>` : ''}</div>
+    <p class="tier-source small">${t(lang, 'tier.source')}</p>
     <h3>${t(lang, 'tier.why')}</h3>
     <ul class="reasons">${reasons.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
     ${r.firedTriggers.length ? `<p class="trigger"><strong>${t(lang, 'tier.trigger')}</strong> ${r.firedTriggers.map((x) => esc(x.id)).join(', ')}</p>` : ''}
