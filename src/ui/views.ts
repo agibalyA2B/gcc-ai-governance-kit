@@ -71,7 +71,8 @@ export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId
           <span class="product-name">${esc(g.product)}</span> · ${t(lang, 'reg.deployments').replace('{n}', String(g.cases.length))}
           ${g.highest ? ` · ${t(lang, 'reg.highest')} ${tierBadge(lang, g.highest)}` : ''}</th></tr>` : '') + g.rows.map(row).join('')).join('')}</tbody></table></div>`
     : `<div class="empty"><p>${t(lang, 'reg.empty')}</p>
-        <button type="button" class="btn" data-action="samples">${t(lang, 'reg.samples')}</button></div>`;
+        <button type="button" class="btn" data-action="samples">${t(lang, 'reg.samples')}</button>
+        <button type="button" class="btn" data-action="samples-private">${t(lang, 'reg.samples.private')}</button></div>`;
   return `
     <section class="hero"><div><span class="eyebrow">${t(lang, 'app.eyebrow')}</span><h1>${t(lang, 'app.tagline')}</h1><p>${t(lang, 'app.intro')}</p></div></section>
     ${howItWorks(lang, cases.length > 0)}
@@ -87,7 +88,8 @@ export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId
         <button type="button" class="btn" data-action="export-json" ${cases.length ? '' : 'disabled'}>${t(lang, 'reg.export.json')}</button>
         <button type="button" class="btn" data-action="export-xlsx" ${cases.length ? '' : 'disabled'}>${t(lang, 'reg.export.xlsx')}</button>
         <button type="button" class="btn" data-action="import">${t(lang, 'reg.import')}</button>
-        <button type="button" class="btn" data-action="import-table">${t(lang, 'reg.import.table')}</button></div></details>
+        <button type="button" class="btn" data-action="import-table">${t(lang, 'reg.import.table')}</button>
+        <button type="button" class="btn" data-action="samples-private">${t(lang, 'reg.samples.private')}</button></div></details>
       <input type="file" accept="application/json,.json" data-action="import-file" hidden />
       <input type="file" accept=".xlsx,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" data-action="import-table-file" hidden />
     </div>

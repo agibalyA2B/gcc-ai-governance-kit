@@ -4,6 +4,7 @@ import { store } from '../core/store';
 import { blankUseCase, sampleUseCases, newId, parseRegister, REGISTER_FORMAT, type UseCase } from '../core/usecase';
 import { setEvidence, type EvidenceStatus } from '../core/evidence';
 import { newDeployment } from '../core/products';
+import { privateSectorExamples } from '../core/samples';
 import { applicableControls } from '../core/controls';
 import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
 import { toCsv, toXlsx, download, readTable, type Row } from '../export/tabular';
@@ -144,6 +145,7 @@ function onClick(e: Event): void {
   const uc = currentUc();
   switch (action) {
     case 'samples': for (const s of sampleUseCases(lang)) store.save(s); render(); break;
+    case 'samples-private': for (const s of privateSectorExamples(lang)) store.save(s); render(); break;
     case 'duplicate': { const src = store.get1(el.dataset.id!); if (src) { store.save({ ...src, id: newId(), name: `${src.name} (${t(lang, 'reg.copy')})`, createdAt: new Date().toISOString() }); render(false); } break; }
     case 'add-deployment': {
       const src = store.get1(el.dataset.id!);
