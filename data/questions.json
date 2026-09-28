@@ -62,6 +62,12 @@
           "ar": "قرارات تمس حقوق الأفراد أو مستحقاتهم أو وصولهم إلى الخدمات أو أموالهم"
         },
         {
+          "id": "decide-organisations",
+          "points": 20,
+          "en": "High-stakes decisions or positions about other companies (claims, contract positions, commercial or credit decisions on firms)",
+          "ar": "قرارات أو مواقف عالية الأثر تخص شركات أخرى (المطالبات، والمواقف التعاقدية، والقرارات التجارية أو الائتمانية بشأن المنشآت)"
+        },
+        {
           "id": "prohibited",
           "points": 0,
           "en": "Social scoring, manipulation, or real-time biometric surveillance of the public",
@@ -691,6 +697,27 @@
       ],
       "reason_en": "It makes decisions about people without a person approving each one.",
       "reason_ar": "يتخذ قرارات تخص الأفراد دون موافقة بشرية على كل قرار."
+    },
+    {
+      "id": "T-AUTONOMOUS-B2B-DECISIONS",
+      "min_tier": "high",
+      "when": [
+        {
+          "q": "impact",
+          "in": [
+            "decide-organisations"
+          ]
+        },
+        {
+          "q": "autonomy",
+          "in": [
+            "monitored",
+            "full"
+          ]
+        }
+      ],
+      "reason_en": "It makes high-stakes decisions about other companies without a person approving each one.",
+      "reason_ar": "يتخذ قرارات عالية الأثر تخص شركات أخرى دون موافقة بشرية على كل قرار."
     },
     {
       "id": "T-SENSITIVE-DECISIONS",

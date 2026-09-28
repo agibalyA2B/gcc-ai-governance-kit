@@ -1,6 +1,7 @@
 import { computeTier, topReasons, tierFromPoints, aiInScope, QUESTIONS, type Answers } from './scoring';
 
-// Calibration fixtures (FR-8a). Expected tiers were confirmed by the product owner on 27 Sep 2026.
+// Calibration fixtures (FR-8a). The first six were confirmed by the product owner on 27 Sep 2026; the two
+// company-to-company (B2B) fixtures were added in 0.2.2.
 // Changing weights or triggers must not change these results without updating ADR 002.
 const fixtures: { name: string; answers: Answers; tier: string; trigger?: string }[] = [
   { name: 'Website FAQ chatbot', tier: 'limited',
@@ -15,6 +16,10 @@ const fixtures: { name: string; answers: Answers; tier: string; trigger?: string
     answers: { impact: 'decide-individuals', data: 'sensitive', affected: 'public', ai_type: 'agentic', autonomy: 'full', oversight: 'none', access: 'record', reversibility: 'hard' } },
   { name: 'Social scoring of citizens', tier: 'unacceptable', trigger: 'T-PROHIBITED',
     answers: { impact: 'prohibited', data: 'personal', affected: 'public', ai_type: 'predictive', autonomy: 'monitored', oversight: 'none', access: 'record', reversibility: 'hard' } },
+  { name: 'B2B claim-pack drafter, a person reviews every output', tier: 'limited',
+    answers: { impact: 'decide-organisations', data: 'internal', affected: 'public', ai_type: 'generative', autonomy: 'suggests', oversight: 'every', access: 'none', reversibility: 'effort' } },
+  { name: 'Autonomous supplier credit-limit agent', tier: 'high', trigger: 'T-AUTONOMOUS-B2B-DECISIONS',
+    answers: { impact: 'decide-organisations', data: 'internal', affected: 'public', ai_type: 'agentic', autonomy: 'monitored', oversight: 'exceptions', access: 'record', reversibility: 'effort' } },
 ];
 
 describe('calibration fixtures', () => {
@@ -53,6 +58,13 @@ describe('computeTier', () => {
     const deep = computeTier({ ...base, scale: 'large', explain: 'no', third_party: 'external', bias_tested: 'no' });
     expect(deep.tier).toBe('high');
     expect(deep.quickTier).toBe('limited');
+  });
+
+  it('autonomous high-stakes decisions about companies are High even below the points threshold', () => {
+    const r = computeTier({ impact: 'decide-organisations', data: 'none', affected: 'staff', ai_type: 'predictive', autonomy: 'monitored', oversight: 'every', access: 'none', reversibility: 'easy' });
+    expect(r.pointsTier).toBe('limited');
+    expect(r.tier).toBe('high');
+    expect(r.firedTriggers.map((t) => t.id)).toEqual(['T-AUTONOMOUS-B2B-DECISIONS']);
   });
 
   it('applies the thresholds', () => {
