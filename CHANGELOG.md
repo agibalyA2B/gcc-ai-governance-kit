@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.0 (2026-09-28)
+Features requested by community testers of 0.2.x.
+- **Control-evidence map.** Each applicable control now takes a status (Met, Partly met, Gap or N/A) and an evidence
+  note, with a running tally. Evidence is saved per use case, kept in backups, and printed in the committee report and
+  the XLSX and CSV exports. Registers saved by earlier versions still load. See ADR 008.
+- **What would lower your tier.** The tier card shows the tier you would reach by closing operational gaps (hosting,
+  cross-border data, bias and security testing, monitoring, incident handling, disclosure), with the points each fix
+  saves. When the tier would not move, it explains that the cause is structural. The committee report shows the tier
+  after operational fixes. Scoring is unchanged. See ADR 009.
+- **Two new security controls**, split out of CTL-SEC-02: CTL-SEC-09 red-team and jailbreak testing, and CTL-SEC-10
+  model supply chain security. Both are verified against NIST AI 100-1, the NIST-hosted ISO/IEC 42001 crosswalk and
+  the EU AI Act. The totals are now 58 controls, 50 verified. See ADR 010.
+- **Three new templates** in Arabic and English (XLSX, CSV, Markdown): a vendor AI risk assessment that extends
+  CTL-ACC-06, an AI governance committee charter, and a RACI matrix.
+- **Answer notes for commercial and B2B tools** under the relevant questions, adapted from answer-mapping notes by
+  **Syed Hasan**, with thanks.
+
 ## 0.2.2 (2026-09-28)
 Accuracy and clarity fixes from community testing of 0.2.1.
 - **Corrected: autonomy levels now use the official numbering.** Earlier releases numbered recommended autonomy in

@@ -34,11 +34,13 @@ This kit is that practical layer. It is open, free and bilingual, and it runs en
 | **Two-level risk questionnaire** | An 8-question *Quick check* (including four agentic-AI factors) gives a first tier in about 2 minutes; a 10-question *Deep-dive* can only raise it. |
 | **Explainable tier** | Four tiers aligned to SDAIA's risk levels. Every weight is visible, rules that set a minimum tier are named, and the top reasons are in plain language. |
 | **Framework-filtered controls** | 58 controls across six themes, mapped to the UAE AI Charter, the **UAE Code for Government Services and Zero Bureaucracy** (with the federal agentic-AI guide, national reference and data-sharing policy), Dubai AI Ethics, SDAIA, ISO/IEC 42001 (clause numbers only), NIST AI RMF and the EU AI Act. Pick the frameworks you follow. |
+| **What would lower your tier** | Separates operational gaps (testing, monitoring, incident handling, hosting, disclosure) from structural causes, and shows the tier once the operational gaps are closed. |
 | **Recommended autonomy** | Three prioritisation questions (usage, complexity, readiness), from the UAE AI-assistant priority matrix, recommend how much autonomy the AI should have, and warn when a design goes beyond it. |
 | **Honest verification** | Each control shows its sources and whether its references were checked against them: **50 of 58 verified**. See the [content audit](docs/content-audit.md). |
-| **Committee-ready outputs** | A one-to-two-page *AI Use-Case Risk Summary* (print to PDF) with a sign-off block, plus control lists as CSV/XLSX with right-to-left Arabic sheets. |
+| **Control-evidence map** | Record Met / Partly met / Gap / N/A and the evidence for each applicable control; it is saved with the use case and flows into every export. |
+| **Committee-ready outputs** | A one-to-two-page *AI Use-Case Risk Summary* (print to PDF) with evidence status and a sign-off block, plus control lists as CSV/XLSX with right-to-left Arabic sheets. |
 | **User guide** | An in-app [guide](https://agibalya2b.github.io/gcc-ai-governance-kit/#/guide) in Arabic and English, with screenshots: the three steps, what each tier means, reading controls and badges, exports and backups. Also as PDF: [English](docs/USER-GUIDE.pdf) · [العربية](docs/USER-GUIDE-ar.pdf). |
-| **Templates** | Register, impact assessment and control checklist in Arabic and English (XLSX, CSV, Markdown) for teams that prefer spreadsheets or work offline. You don't need them to use the app. |
+| **Templates** | Register, impact assessment, control checklist, vendor AI risk assessment, committee charter and RACI in Arabic and English (XLSX, CSV, Markdown) for teams that prefer spreadsheets or work offline. You don't need them to use the app. |
 
 ## Try it in 60 seconds
 
