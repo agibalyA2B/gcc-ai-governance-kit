@@ -19,6 +19,17 @@ export function toXlsx(sheets: { name: string; rows: Row[] }[], rtl: boolean): A
   return XLSX.write(wb, { type: 'array', bookType: 'xlsx' }) as ArrayBuffer;
 }
 
+/** Reads the first sheet of an XLSX or CSV file into rows of strings. CSV is decoded as UTF-8 (a BOM is ignored). */
+export function readTable(data: ArrayBuffer): string[][] {
+  const bytes = new Uint8Array(data);
+  const isZip = bytes[0] === 0x50 && bytes[1] === 0x4b; // "PK": an XLSX package
+  const wb = isZip
+    ? XLSX.read(bytes, { type: 'array' })
+    : XLSX.read(new TextDecoder('utf-8').decode(bytes).replace(/^\uFEFF/, ''), { type: 'string', raw: true });
+  const sheet = wb.Sheets[wb.SheetNames[0]];
+  return XLSX.utils.sheet_to_json<string[]>(sheet, { header: 1, raw: false, defval: '' });
+}
+
 export function download(filename: string, data: BlobPart, mime: string): void {
   const url = URL.createObjectURL(new Blob([data], { type: mime }));
   const a = Object.assign(document.createElement('a'), { href: url, download: filename });

@@ -86,8 +86,10 @@ export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId
         <div class="menu-panel"><p class="small muted">${t(lang, 'data.hint')}</p>
         <button type="button" class="btn" data-action="export-json" ${cases.length ? '' : 'disabled'}>${t(lang, 'reg.export.json')}</button>
         <button type="button" class="btn" data-action="export-xlsx" ${cases.length ? '' : 'disabled'}>${t(lang, 'reg.export.xlsx')}</button>
-        <button type="button" class="btn" data-action="import">${t(lang, 'reg.import')}</button></div></details>
+        <button type="button" class="btn" data-action="import">${t(lang, 'reg.import')}</button>
+        <button type="button" class="btn" data-action="import-table">${t(lang, 'reg.import.table')}</button></div></details>
       <input type="file" accept="application/json,.json" data-action="import-file" hidden />
+      <input type="file" accept=".xlsx,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" data-action="import-table-file" hidden />
     </div>
     ${table}
     ${cases.length ? `<p class="muted"><button type="button" class="link danger" data-action="clear">${t(lang, 'reg.clear')}</button></p>` : ''}`;
