@@ -10,8 +10,10 @@ permissions:
   pages: write
   id-token: write
 
+# Each pull request gets its own group, so parallel (stacked) PRs no longer cancel each other's runs; a new push to
+# the same PR still replaces its older run. Pushes to main share the "pages" group, so the newest deploy wins.
 concurrency:
-  group: pages
+  group: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'pages' }}
   cancel-in-progress: true
 
 jobs:
