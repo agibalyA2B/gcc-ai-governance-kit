@@ -16,7 +16,7 @@ test('demo', async ({ page }) => {
   await page.getByLabel('Accountable owner').pressSequentially('Social Services', { delay: 35 });
   await page.getByRole('button', { name: 'Continue' }).click();
   await pause(600);
-  const answers: [string, string][] = [['impact', 'decide-individuals'], ['data', 'sensitive'], ['affected', 'vulnerable'], ['ai_type', 'agentic'],
+  const answers: [string, string][] = [['runtime_ai', 'yes'], ['impact', 'decide-individuals'], ['data', 'sensitive'], ['affected', 'vulnerable'], ['ai_type', 'agentic'],
     ['autonomy', 'full'], ['oversight', 'complaints'], ['access', 'record'], ['reversibility', 'effort']];
   for (const [q, v] of answers) {
     const input = page.locator(`input[name="${q}"][value="${v}"]`);

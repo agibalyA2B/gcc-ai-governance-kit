@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.2.2 (2026-09-28)
+Accuracy and clarity fixes from community testing of 0.2.1.
+- **Corrected: autonomy levels now use the official numbering.** Earlier releases numbered recommended autonomy in
+  reverse of the UAE AI-assistant priority matrix. The matrix, and now the kit, say level 1 is full autonomous
+  execution, 2 supervised autonomy, 3 AI assistance and 4 not suitable yet. The cut-offs now follow the matrix grid:
+  low usage or high complexity gives level 4, and otherwise readiness decides. If you noted a level from 0.2.1 or
+  earlier, or built on the old numbering, please reassess. See ADR 006, which supersedes ADR 004.
+- **Prioritisation answers no longer read as risk.** Low/Medium/High become descriptive labels (for example Ready,
+  Partly ready, Not ready), and a note says these are not risk questions.
+- **Clearer tier card.** It says the tier comes from the 8 quick-check questions and that skipping the optional
+  sections never raises it. The deep-dive and prioritisation headers carry an Optional badge.
+- **New scope question:** "Does the solution use AI when it runs?" If not, the kit shows that AI governance controls
+  don't apply and gives general software quality and security pointers instead of a tier. See ADR 007.
+- **New impact option for company-to-company decisions** (claims, contract positions, commercial or credit decisions
+  on firms), with a rule that makes such decisions High when no person approves each one. Two new calibration cases
+  are locked as tests. ADR 002 is amended.
+- **Actionable level 4.** When a service is not suitable for AI yet, the card and the committee report list concrete
+  steps: simplify the process, check the case for AI, improve data and systems, name an owner, then reassess.
+- The register template gains a `runtime_ai` column; the guide, screenshots and PDFs are refreshed.
+
 ## 0.2.1 (2026-09-27)
 UX fixes from feedback on 0.2.0.
 - **English by default.** The site now always opens in English; the عربي toggle switches to Arabic and is remembered.

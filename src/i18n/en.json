@@ -220,7 +220,7 @@
   "gd.toc": "On this page",
   "gd.s1.h": "1. Assess a use case in three steps",
   "gd.s1.1": "<strong>Add a use case.</strong> On the home page, choose <em>Start your first assessment</em>. Give the use case a name and an accountable owner; the other details are optional.",
-  "gd.s1.2": "<strong>Answer the quick check.</strong> Eight multiple-choice questions about impact, data, who is affected, the type of AI, autonomy, oversight, access and reversibility. Each answer shows the points it adds.",
+  "gd.s1.2": "<strong>Answer the quick check.</strong> It opens by asking whether the solution uses AI when it runs; if it doesn't (for example, it was only built with AI coding tools), AI governance controls don't apply and the kit gives general software pointers instead. Then come eight multiple-choice questions about impact, data, who is affected, the type of AI, autonomy, oversight, access and reversibility. Each answer shows the points it adds, and these eight questions alone set the tier.",
   "gd.s1.3": "<strong>Read the result.</strong> You get a risk tier with the reasons behind it, then the controls that apply under the frameworks you selected, then the exports.",
   "gd.s1.deep": "For a fuller picture, complete the deep-dive: ten more questions plus three optional prioritisation questions. The deep-dive can raise the tier but never lower it. Complete it before any High-risk use case goes to committee.",
   "gd.s1.fw": "Choose the frameworks you follow on the home page. The control list and the exports only show references to those frameworks.",
