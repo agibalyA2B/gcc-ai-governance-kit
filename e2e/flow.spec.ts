@@ -66,7 +66,7 @@ test('prioritisation gives a recommended autonomy level and flags over-autonomy'
   for (const [q, v] of [['usage', 'high'], ['complexity', 'medium'], ['readiness', 'medium']] as const)
     await page.locator(`input[name="${q}"][value="${v}"]`).check();
   await page.getByRole('button', { name: 'Continue' }).click();
-  await expect(page.locator('.autonomy .auto-level')).toContainText('Level 3');
+  await expect(page.locator('.autonomy .auto-level')).toContainText('Level 2');
   await expect(page.locator('.auto-fits')).toBeVisible();
 });
 

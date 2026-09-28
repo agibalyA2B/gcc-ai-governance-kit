@@ -4,7 +4,7 @@ import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
 import { applicableControls, verifiedShare, THEMES, CROSSWALK, type Control } from '../core/controls';
 import type { UseCase } from '../core/usecase';
 import { esc, tierIcon } from './html';
-import { recommendAutonomy } from '../core/autonomy';
+import { recommendAutonomy, type AutonomyResult } from '../core/autonomy';
 
 export const STEPS = ['details', 'quick', 'tier', 'deep', 'controls', 'export'] as const;
 export type Step = (typeof STEPS)[number];
@@ -118,6 +118,11 @@ export function questionsForm(lang: Lang, uc: UseCase, level: 'quick' | 'deep', 
     <div class="actions"><button class="btn primary" type="submit">${t(lang, 'nav.next')}</button></div></form>`;
 }
 
+function autonomyVerdict(lang: Lang, a: AutonomyResult): string {
+  const key = !a.exceeds ? 'auto.fits' : a.recommended === 4 ? 'auto.exceeds.l4' : 'auto.exceeds';
+  return t(lang, key).replace('{n}', String(a.actual));
+}
+
 export function autonomyCard(lang: Lang, uc: UseCase, r: TierResult): string {
   const a = recommendAutonomy(uc.answers, r.tier);
   if (!a.complete) return `<div class="autonomy pending"><h3>${t(lang, 'auto.title')}</h3><p class="muted">${t(lang, 'auto.pending')}</p>
@@ -126,7 +131,8 @@ export function autonomyCard(lang: Lang, uc: UseCase, r: TierResult): string {
     <p class="auto-level"><strong>${t(lang, 'auto.level')} ${a.recommended}</strong>: ${t(lang, `auto.l${a.recommended}`)}</p>
     <p class="muted">${t(lang, `auto.l${a.recommended}.desc`)}</p>
     ${a.capReasons.length ? `<p class="small">${t(lang, `auto.cap.${a.capReasons[0]}`)}</p>` : ''}
-    ${a.actual ? `<p class="${a.exceeds ? 'auto-exceeds' : 'auto-fits'}">${t(lang, a.exceeds ? 'auto.exceeds' : 'auto.fits').replace('{n}', String(a.actual))}</p>` : ''}
+    ${a.actual ? `<p class="${a.exceeds ? 'auto-exceeds' : 'auto-fits'}">${autonomyVerdict(lang, a)}</p>` : ''}
+    <p class="small muted">${t(lang, 'auto.scale')}</p>
   </div>`;
 }
 
@@ -213,7 +219,7 @@ export function reportView(lang: Lang, uc: UseCase, r: TierResult, frameworks: F
       <tr><th>${t(lang, 'uc.status')}</th><td>${t(lang, `status.${uc.status}`)}</td></tr>
       <tr><th>${t(lang, 'reg.tier')}</th><td>${tierBadge(lang, r.tier)} (${r.points} ${t(lang, 'tier.points')}; ${r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo')})</td></tr>
       <tr><th>${t(lang, 'fw.legend')}</th><td>${esc(fwNames)}</td></tr>
-      ${(() => { const a = recommendAutonomy(uc.answers, r.tier); return a.complete ? `<tr><th>${t(lang, 'auto.title')}</th><td>${t(lang, 'auto.level')} ${a.recommended}: ${t(lang, `auto.l${a.recommended}`)}${a.exceeds ? ` — ${t(lang, 'auto.exceeds').replace('{n}', String(a.actual))}` : ''}</td></tr>` : ''; })()}</tbody></table>
+      ${(() => { const a = recommendAutonomy(uc.answers, r.tier); return a.complete ? `<tr><th>${t(lang, 'auto.title')}</th><td>${t(lang, 'auto.level')} ${a.recommended}: ${t(lang, `auto.l${a.recommended}`)}${a.exceeds ? ` — ${autonomyVerdict(lang, a)}` : ''}</td></tr>` : ''; })()}</tbody></table>
     <h2>${t(lang, 'tier.why')}</h2><ul>${topReasons(r, lang).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
     <h2>${t(lang, 'rep.controls')}</h2>
     ${r.tier === 'unacceptable' ? `<p>${t(lang, 'ctl.unacceptable')}</p>` : `<table class="checklist"><thead><tr><th>☐</th><th>${t(lang, 'rep.control')}</th><th>${t(lang, 'rep.refs')}</th><th>${t(lang, 'rep.status')}</th></tr></thead>
@@ -239,7 +245,7 @@ export function scoringView(lang: Lang): string {
     <h2>${t(lang, 'step.deep')}</h2><table class="weights"><tbody>${section('deep')}</tbody></table>
     <p class="muted">${t(lang, 'sc.deep.rule')}</p>
     <h2>${t(lang, 'auto.title')}</h2><p>${t(lang, 'sc.auto')}</p>
-    <ul>${[4, 3, 2, 1].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}: ${t(lang, `auto.l${n}`)}</strong> — ${t(lang, `auto.l${n}.desc`)}</li>`).join('')}</ul></section>`;
+    <ul>${[1, 2, 3, 4].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}: ${t(lang, `auto.l${n}`)}</strong> — ${t(lang, `auto.l${n}.desc`)}</li>`).join('')}</ul></section>`;
 }
 
 export function aboutView(lang: Lang): string {
@@ -293,7 +299,7 @@ export function guideView(lang: Lang, base: string): string {
       <ul class="badges"><li><span class="vbadge verified"><span aria-hidden="true">✓</span> ${t(lang, 'ctl.verified')}</span> ${t(lang, 'gd.s3.v')}</li>
       <li><span class="vbadge pending"><span aria-hidden="true">⏱</span> ${t(lang, 'ctl.needs')}</span> ${t(lang, 'gd.s3.n')}</li></ul>
       <p>${t(lang, 'gd.s3.filter')}</p>${fig('controls', 'gd.fig.controls')}`)}
-    ${sec('s4', `<p>${t(lang, 'gd.s4.p1')}</p><ul>${[4, 3, 2, 1].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}:</strong> ${t(lang, `auto.l${n}`)}</li>`).join('')}</ul><p>${t(lang, 'gd.s4.p2')}</p>`)}
+    ${sec('s4', `<p>${t(lang, 'gd.s4.p1')}</p><ul>${[1, 2, 3, 4].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}:</strong> ${t(lang, `auto.l${n}`)}</li>`).join('')}</ul><p>${t(lang, 'gd.s4.p2')}</p>`)}
     ${sec('s5', `<ul class="plain"><li>${t(lang, 'gd.s5.pdf')}</li><li>${t(lang, 'gd.s5.ctl')}</li></ul>${fig('export', 'gd.fig.export')}
       <ul class="plain"><li>${t(lang, 'gd.s5.backup')}</li><li>${t(lang, 'gd.s5.share')}</li><li>${t(lang, 'gd.s5.tpl')}</li></ul>`)}
     ${sec('s6', `<p>${t(lang, 'gd.s6.p')}</p><p>${t(lang, 'gd.s6.clear')}</p>`)}
