@@ -159,6 +159,7 @@
   "ab.src.agenticref": "Agentic AI National Reference: definitions and classification criteria (UAE Government, July 2026)",
   "prio.title": "Prioritisation for AI (optional)",
   "prio.intro": "Three questions from the UAE government's AI-assistant priority matrix. They don't change the risk tier; they recommend how much autonomy the AI should have.",
+  "prio.notrisk": "These are not risk questions. Describe the service as it is today; there is no safe or unsafe answer.",
   "auto.title": "Recommended autonomy",
   "auto.pending": "Answer the three prioritisation questions in the deep-dive to get a recommended autonomy level.",
   "auto.answer": "Answer them now",

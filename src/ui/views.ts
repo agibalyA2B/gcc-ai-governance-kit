@@ -114,7 +114,7 @@ export function questionsForm(lang: Lang, uc: UseCase, level: 'quick' | 'deep', 
     <h2 tabindex="-1">${t(lang, `step.${level}`)}</h2>
     <p class="muted">${t(lang, `${level}.intro`)} <span class="progress" aria-live="polite">${answered}/${qs.length}</span></p>
     ${questionBlock(lang, uc, qs, showPoints)}
-    ${prio.length ? `<section class="prio-block"><h3>${t(lang, 'prio.title')}</h3><p class="muted">${t(lang, 'prio.intro')}</p>${questionBlock(lang, uc, prio, false)}</section>` : ''}
+    ${prio.length ? `<section class="prio-block"><h3>${t(lang, 'prio.title')}</h3><p class="muted">${t(lang, 'prio.intro')}</p><p class="notice prio-note">${t(lang, 'prio.notrisk')}</p>${questionBlock(lang, uc, prio, false)}</section>` : ''}
     <div class="actions"><button class="btn primary" type="submit">${t(lang, 'nav.next')}</button></div></form>`;
 }
 

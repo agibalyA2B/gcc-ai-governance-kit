@@ -555,22 +555,22 @@
       "help_ar": "حجم المعاملات وتكرارها، والعبء التشغيلي على الجهة.",
       "options": [
         {
-          "id": "low",
+          "id": "high",
           "points": 0,
-          "en": "Low: limited use, infrequent transactions",
-          "ar": "منخفضة: استخدام محدود ومعاملات غير متكررة"
+          "en": "Heavy: wide use, repeated transactions",
+          "ar": "كثيفة: استخدام واسع ومعاملات متكررة"
         },
         {
           "id": "medium",
           "points": 0,
-          "en": "Medium",
-          "ar": "متوسطة"
+          "en": "Moderate",
+          "ar": "معتدلة"
         },
         {
-          "id": "high",
+          "id": "low",
           "points": 0,
-          "en": "High: wide use, repeated transactions",
-          "ar": "مرتفعة: استخدام واسع ومعاملات متكررة"
+          "en": "Light: limited use, infrequent transactions",
+          "ar": "محدودة: استخدام محدود ومعاملات غير متكررة"
         }
       ]
     },
@@ -586,20 +586,20 @@
         {
           "id": "low",
           "points": 0,
-          "en": "Low: simple, standard, repeatable",
-          "ar": "منخفض: بسيط وموحّد وقابل للتكرار"
+          "en": "Simple: standard, repeatable",
+          "ar": "بسيط: موحّد وقابل للتكرار"
         },
         {
           "id": "medium",
           "points": 0,
-          "en": "Medium",
-          "ar": "متوسط"
+          "en": "Moderately complex",
+          "ar": "معقّد إلى حدٍّ ما"
         },
         {
           "id": "high",
           "points": 0,
-          "en": "High: multi-entity, variable, heavily governed",
-          "ar": "مرتفع: متعدد الجهات ومتغيّر وخاضع لحوكمة مشددة"
+          "en": "Very complex: multi-entity, variable, heavily governed",
+          "ar": "شديد التعقيد: متعدد الجهات ومتغيّر وخاضع لحوكمة مشددة"
         }
       ]
     },
@@ -613,22 +613,22 @@
       "help_ar": "توفر البيانات وجودتها، ونضج الرقمنة، والتكامل بين الجهات، ووضوح الإجراءات وتوحيدها، والجاهزية التشريعية والحوكمة.",
       "options": [
         {
-          "id": "low",
+          "id": "high",
           "points": 0,
-          "en": "Low: manual, fragmented, unclear",
-          "ar": "منخفضة: يدوية ومجزأة وغير واضحة"
+          "en": "Ready (digital, integrated)",
+          "ar": "جاهزة (رقمية ومتكاملة)"
         },
         {
           "id": "medium",
           "points": 0,
-          "en": "Medium",
-          "ar": "متوسطة"
+          "en": "Partly ready",
+          "ar": "جاهزة جزئياً"
         },
         {
-          "id": "high",
+          "id": "low",
           "points": 0,
-          "en": "High: structured, digital, integrated",
-          "ar": "مرتفعة: منظّمة ورقمية ومتكاملة"
+          "en": "Not ready (manual, fragmented)",
+          "ar": "غير جاهزة (يدوية ومجزأة)"
         }
       ]
     }

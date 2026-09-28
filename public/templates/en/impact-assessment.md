@@ -24,9 +24,9 @@ Licensed under CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
 | Deep-dive | Is there a way to stop it and handle incidents? | Yes, documented and tested (0); Partly (4); No (8) |  |  |
 | Deep-dive | Is it used in a regulated domain? | No (0); Yes (6) |  |  |
 | Deep-dive | Are people told they are dealing with AI? | Yes, clearly (0); No (5) |  |  |
-| Prioritisation for AI (optional) | How heavily is the service used? | Low: limited use, infrequent transactions; Medium; High: wide use, repeated transactions |  |  |
-| Prioritisation for AI (optional) | How complex is the service to deliver or transform? | Low: simple, standard, repeatable; Medium; High: multi-entity, variable, heavily governed |  |  |
-| Prioritisation for AI (optional) | How ready is the service for AI? | Low: manual, fragmented, unclear; Medium; High: structured, digital, integrated |  |  |
+| Prioritisation for AI (optional) | How heavily is the service used? | Heavy: wide use, repeated transactions; Moderate; Light: limited use, infrequent transactions |  |  |
+| Prioritisation for AI (optional) | How complex is the service to deliver or transform? | Simple: standard, repeatable; Moderately complex; Very complex: multi-entity, variable, heavily governed |  |  |
+| Prioritisation for AI (optional) | How ready is the service for AI? | Ready (digital, integrated); Partly ready; Not ready (manual, fragmented) |  |  |
 
 ## Sign-off
 

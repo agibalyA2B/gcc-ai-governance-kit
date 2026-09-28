@@ -83,6 +83,18 @@ describe('question data', () => {
   it('has about 10 deep-dive questions', () => {
     expect(QUESTIONS.questions.filter((q) => q.level === 'deep').length).toBeGreaterThanOrEqual(9);
   });
+  it('prioritisation answers describe the service, not a risk level', () => {
+    const prio = QUESTIONS.questions.filter((q) => q.level === 'prio');
+    expect(prio.map((q) => q.id)).toEqual(['usage', 'complexity', 'readiness']);
+    for (const q of prio)
+      for (const o of q.options) {
+        expect(o.en, `${q.id}:${o.id}`).not.toMatch(/\b(low|medium|high)\b/i);
+        expect(o.ar, `${q.id}:${o.id}`).not.toMatch(/منخفض|متوسط[ةه]?$|مرتفع/);
+      }
+    const readiness = prio.find((q) => q.id === 'readiness')!;
+    expect(readiness.options.map((o) => o.id)).toEqual(['high', 'medium', 'low']);
+    expect(readiness.options.map((o) => o.en)).toEqual(['Ready (digital, integrated)', 'Partly ready', 'Not ready (manual, fragmented)']);
+  });
   it('every trigger references real questions and options', () => {
     for (const tr of QUESTIONS.triggers)
       for (const c of tr.when) {
