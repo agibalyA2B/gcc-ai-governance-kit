@@ -3,6 +3,7 @@ import { QUESTIONS, computeTier, topReasons, aiInScope, TIER_ORDER, type Tier, t
 import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
 import { applicableControls, verifiedShare, THEMES, CROSSWALK, type Control } from '../core/controls';
 import type { UseCase } from '../core/usecase';
+import { groupByProduct } from '../core/products';
 import { EVIDENCE_STATUSES, evidenceSummary, type EvidenceMap } from '../core/evidence';
 import { esc, tierIcon } from './html';
 import { recommendAutonomy, nextSteps, type AutonomyResult } from '../core/autonomy';
@@ -41,26 +42,34 @@ const rank = (uc: UseCase, r: TierResult) => (aiInScope(uc.answers) ? TIER_ORDER
 const caseLink = (uc: UseCase, r: TierResult) => `#/uc/${esc(uc.id)}/${!aiInScope(uc.answers) ? 'quick' : r.quickComplete ? 'tier' : 'details'}`;
 
 export function registerView(lang: Lang, cases: UseCase[], selected: FrameworkId[], persistent: boolean, filter: string): string {
-  const rows = cases
-    .map((uc) => ({ uc, r: computeTier(uc.answers) }))
-    .filter(({ uc, r }) => !filter || (aiInScope(uc.answers) && r.quickComplete && r.tier === filter))
-    .sort((a, b) => rank(b.uc, b.r) - rank(a.uc, a.r) || b.uc.updatedAt.localeCompare(a.uc.updatedAt));
-  const table = cases.length
-    ? `<div class="table-wrap"><table class="register">
-        <caption class="sr-only">${t(lang, 'reg.caption')}</caption>
-        <thead><tr><th scope="col">${t(lang, 'reg.name')}</th><th scope="col">${t(lang, 'reg.owner')}</th>
-        <th scope="col">${t(lang, 'reg.type')}</th><th scope="col">${t(lang, 'reg.tier')}</th>
-        <th scope="col">${t(lang, 'reg.deep')}</th><th scope="col">${t(lang, 'reg.updated')}</th><th scope="col"><span class="sr-only">${t(lang, 'reg.actions')}</span></th></tr></thead>
-        <tbody>${rows.map(({ uc, r }) => `<tr>
-          <td><a href="${caseLink(uc, r)}">${esc(uc.name || t(lang, 'reg.untitled'))}</a></td>
+  const shown = (uc: UseCase, r: TierResult) => !filter || (aiInScope(uc.answers) && r.quickComplete && r.tier === filter);
+  const byRank = (a: { uc: UseCase; r: TierResult }, b: { uc: UseCase; r: TierResult }) =>
+    rank(b.uc, b.r) - rank(a.uc, a.r) || b.uc.updatedAt.localeCompare(a.uc.updatedAt);
+  // Deployments of one product sit together under a product row; products and standalone use cases sort by highest tier.
+  const groups = groupByProduct(cases)
+    .map((g) => ({ ...g, rows: g.cases.map((uc) => ({ uc, r: computeTier(uc.answers) })).filter(({ uc, r }) => shown(uc, r)).sort(byRank) }))
+    .filter((g) => g.rows.length)
+    .sort((a, b) => byRank(a.rows[0], b.rows[0]));
+  const row = ({ uc, r }: { uc: UseCase; r: TierResult }) => `<tr${uc.product ? ' class="deployment-row"' : ''}>
+          <td><a href="${caseLink(uc, r)}">${esc(uc.name || t(lang, 'reg.untitled'))}</a>${uc.deployment ? ` <span class="deploy-chip">${esc(uc.deployment)}</span>` : ''}</td>
           <td>${esc(uc.owner)}</td>
           <td>${uc.answers.ai_type ? t(lang, `aitype.${uc.answers.ai_type}`) : '—'}</td>
           <td>${caseBadge(lang, uc, r)}</td>
           <td>${r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo')}</td>
           <td>${esc(uc.updatedAt.slice(0, 10))}</td>
           <td><div class="row-actions"><button type="button" class="link" data-action="duplicate" data-id="${esc(uc.id)}">${t(lang, 'reg.duplicate')}</button>
+          <button type="button" class="link" data-action="add-deployment" data-id="${esc(uc.id)}">${t(lang, 'reg.adddeploy')}</button>
           <button type="button" class="link danger" data-action="delete" data-id="${esc(uc.id)}">${t(lang, 'reg.delete')}</button></div></td>
-        </tr>`).join('')}</tbody></table></div>`
+        </tr>`;
+  const table = cases.length
+    ? `<div class="table-wrap"><table class="register">
+        <caption class="sr-only">${t(lang, 'reg.caption')}</caption>
+        <thead><tr><th scope="col">${t(lang, 'reg.name')}</th><th scope="col">${t(lang, 'reg.owner')}</th>
+        <th scope="col">${t(lang, 'reg.type')}</th><th scope="col">${t(lang, 'reg.tier')}</th>
+        <th scope="col">${t(lang, 'reg.deep')}</th><th scope="col">${t(lang, 'reg.updated')}</th><th scope="col"><span class="sr-only">${t(lang, 'reg.actions')}</span></th></tr></thead>
+        <tbody>${groups.map((g) => (g.product ? `<tr class="product-row" data-testid="product-row"><th scope="rowgroup" colspan="7">
+          <span class="product-name">${esc(g.product)}</span> · ${t(lang, 'reg.deployments').replace('{n}', String(g.cases.length))}
+          ${g.highest ? ` · ${t(lang, 'reg.highest')} ${tierBadge(lang, g.highest)}` : ''}</th></tr>` : '') + g.rows.map(row).join('')).join('')}</tbody></table></div>`
     : `<div class="empty"><p>${t(lang, 'reg.empty')}</p>
         <button type="button" class="btn" data-action="samples">${t(lang, 'reg.samples')}</button></div>`;
   return `
@@ -105,6 +114,8 @@ export function detailsForm(lang: Lang, uc: UseCase): string {
   return `<form class="card" data-form="details" novalidate>
     <h2 tabindex="-1">${t(lang, 'step.details')}</h2>
     ${field('name', true)}${field('owner', true)}${field('businessUnit')}${field('purpose', false, true)}
+    <fieldset class="deploy-fields"><legend>${t(lang, 'uc.profile')}</legend><p class="help">${t(lang, 'uc.profile.hint')}</p>
+    ${field('product')}${field('deployment')}</fieldset>
     <div class="field"><label for="f-status">${t(lang, 'uc.status')}</label><select id="f-status" name="status">
       ${(['idea', 'pilot', 'production', 'retired'] as const).map((s) => `<option value="${s}" ${uc.status === s ? 'selected' : ''}>${t(lang, `status.${s}`)}</option>`).join('')}</select></div>
     ${field('notes', false, true)}
@@ -305,6 +316,7 @@ export function reportView(lang: Lang, uc: UseCase, r: TierResult, frameworks: F
       <tr><th>${t(lang, 'uc.name')}</th><td>${esc(uc.name)}</td></tr><tr><th>${t(lang, 'uc.owner')}</th><td>${esc(uc.owner)}</td></tr>
       <tr><th>${t(lang, 'uc.businessUnit')}</th><td>${esc(uc.businessUnit)}</td></tr><tr><th>${t(lang, 'uc.purpose')}</th><td>${esc(uc.purpose)}</td></tr>
       <tr><th>${t(lang, 'uc.status')}</th><td>${t(lang, `status.${uc.status}`)}</td></tr>
+      ${uc.product ? `<tr><th>${t(lang, 'reg.product')}</th><td>${esc(uc.product)}${uc.deployment ? ` · ${esc(uc.deployment)}` : ''}</td></tr>` : ''}
       <tr><th>${t(lang, 'reg.tier')}</th><td>${tierBadge(lang, r.tier)} (${r.points} ${t(lang, 'tier.points')}; ${r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo')})</td></tr>
       ${(() => { const s = sensitivity(uc.answers); return s.changes.length && r.tier !== 'unacceptable' ? `<tr><th>${t(lang, 'rep.sens')}</th><td>${tierBadge(lang, s.fixed.tier)} (${s.fixed.points} ${t(lang, 'tier.points')})</td></tr>` : ''; })()}
       <tr><th>${t(lang, 'fw.legend')}</th><td>${esc(fwNames)}</td></tr>

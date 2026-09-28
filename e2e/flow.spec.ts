@@ -124,6 +124,29 @@ test('sensitivity view shows the tier once operational gaps are fixed', async ({
   await expect(card.locator('li')).toHaveCount(2);
 });
 
+test('a product can have several deployment profiles, grouped in the register', async ({ page }) => {
+  await page.getByRole('button', { name: 'Load 2 sample use cases' }).click();
+  const faq = page.locator('tr', { has: page.getByRole('link', { name: 'Website FAQ chatbot' }) });
+  await faq.getByRole('button', { name: 'Add deployment' }).click();
+  await expect(page.locator('#f-product')).toHaveValue('Website FAQ chatbot');
+  await page.locator('#f-name').fill('Website FAQ chatbot (agent)');
+  await page.locator('#f-deployment').fill('Agent');
+  await page.locator('#f-deployment').blur();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await page.locator('input[name="autonomy"][value="full"]').check();
+  await page.locator('input[name="reversibility"][value="hard"]').check();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await expect(page.locator('.tier-result .tier-lg')).toContainText('High risk');
+  await page.goto('./');
+  const product = page.getByTestId('product-row');
+  await expect(product).toHaveCount(1);
+  await expect(product).toContainText('Website FAQ chatbot');
+  await expect(product).toContainText('2 deployments');
+  await expect(product.locator('.tier-badge')).toContainText('High risk');
+  await expect(page.locator('tr.deployment-row')).toHaveCount(2);
+  await expect(page.locator('.deploy-chip')).toHaveText('Agent');
+});
+
 test('Arabic mode renders RTL register and tier', async ({ page }) => {
   await page.getByTestId('lang-toggle').click();
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');

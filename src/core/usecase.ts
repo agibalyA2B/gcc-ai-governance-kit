@@ -7,6 +7,9 @@ export interface UseCase {
   status: Status; notes: string; answers: Answers; createdAt: string; updatedAt: string;
   /** Control-evidence map; optional so registers saved before 0.3.0 still load. */
   evidence?: EvidenceMap;
+  /** Per-deployment profiles: the product this use case is one deployment of, and a label for it (ADR 011). */
+  product?: string;
+  deployment?: string;
 }
 
 export const newId = (): string =>
@@ -40,5 +43,6 @@ export function parseRegister(x: unknown): UseCase[] | null {
   if (!o || o.format !== REGISTER_FORMAT || o.version !== 1 || !Array.isArray(o.useCases)) return null;
   const ok = o.useCases.every((u: Partial<UseCase>) => typeof u?.id === 'string' && typeof u?.name === 'string'
     && typeof u?.owner === 'string' && !!u.answers && typeof u.answers === 'object');
-  return ok ? (o.useCases as UseCase[]).map((u) => ({ ...u, evidence: normaliseEvidence(u.evidence) })) : null;
+  const str = (v: unknown) => (typeof v === 'string' ? v : undefined);
+  return ok ? (o.useCases as UseCase[]).map((u) => ({ ...u, evidence: normaliseEvidence(u.evidence), product: str(u.product), deployment: str(u.deployment) })) : null;
 }
