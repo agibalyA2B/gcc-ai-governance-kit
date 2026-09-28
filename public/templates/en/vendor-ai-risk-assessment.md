@@ -1,0 +1,41 @@
+# Vendor AI Risk Assessment
+
+Use this questionnaire when buying or integrating a third-party AI model or service — it extends control CTL-ACC-06, "Third-party AI due diligence", from the crosswalk. Send the questions to the vendor, record their answer and any supporting evidence, then have a reviewer set a rating of Acceptable / Needs follow-up / Unacceptable for each item and add notes.
+
+Licensed under CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
+
+| Section | Question | Vendor answer | Evidence | Reviewer rating | Notes |
+| --- | --- | --- | --- | --- | --- |
+| Model and provenance | Who developed and trains the underlying model — an in-house team, a licensed foundation model, or an open-source model? |  |  |  |  |
+| Model and provenance | Which model name and version is being proposed, and how will we be notified when it changes? |  |  |  |  |
+| Model and provenance | What is the model's training-data cut-off date, and what are its general training-data sources (to the extent disclosed)? |  |  |  |  |
+| Model and provenance | How often is the model retrained or updated, and can an update change its behaviour without prior notice? |  |  |  |  |
+| Model and provenance | Is a model card or an equivalent technical summary available for our review? |  |  |  |  |
+| Data handling and residency | In which countries or regions is our data processed and stored? |  |  |  |  |
+| Data handling and residency | Can data residency be restricted to a specific region or jurisdiction on request? |  |  |  |  |
+| Data handling and residency | How long is our data retained, and can we request that it be deleted earlier? |  |  |  |  |
+| Data handling and residency | Is our data used to train or fine-tune the vendor's models, and is there an opt-out? |  |  |  |  |
+| Data handling and residency | Which sub-processors or downstream providers have access to our data, and is a current list available? |  |  |  |  |
+| Data handling and residency | What encryption is applied to our data in transit and at rest? |  |  |  |  |
+| Security testing | Has the model or service been tested for prompt-injection vulnerabilities, and what were the results? |  |  |  |  |
+| Security testing | Has independent red-team or adversarial testing — including jailbreak attempts — been carried out? |  |  |  |  |
+| Security testing | Is there a documented, accessible process for reporting security vulnerabilities to the vendor? |  |  |  |  |
+| Security testing | What is the vendor's typical time to acknowledge and remediate a reported vulnerability? |  |  |  |  |
+| Security testing | Does the vendor hold relevant security certifications, such as ISO/IEC 27001 or SOC 2? |  |  |  |  |
+| Documentation and known limitations | Is there documentation of the model's intended use cases and of uses it is not designed or approved for? |  |  |  |  |
+| Documentation and known limitations | Are known failure modes, limitations and edge cases disclosed? |  |  |  |  |
+| Documentation and known limitations | Is guidance provided on how to correctly interpret the model's outputs or confidence scores? |  |  |  |  |
+| Performance and bias evaluation evidence | What evidence is available of performance testing on data relevant to our use case or user population? |  |  |  |  |
+| Performance and bias evaluation evidence | Has the model been evaluated for bias or for uneven performance across different demographic groups? |  |  |  |  |
+| Performance and bias evaluation evidence | Are accuracy, error-rate or other relevant performance metrics shared, and under what test conditions were they measured? |  |  |  |  |
+| Incident and change notification | What is the vendor's process and timeline for notifying us of a security or data-privacy incident? |  |  |  |  |
+| Incident and change notification | Will we be notified in advance of material changes to the model, pricing or contract terms? |  |  |  |  |
+| Incident and change notification | Is there a status page or notification channel for service outages or degraded performance? |  |  |  |  |
+| Human oversight support | Does the service provide logs sufficient to review or audit individual outputs or decisions? |  |  |  |  |
+| Human oversight support | Can a human reviewer override, correct or reject an output before it takes effect? |  |  |  |  |
+| Human oversight support | Can we disable or stop the service quickly if a serious problem is discovered? |  |  |  |  |
+| Contract terms and exit/portability | Does the contract clearly define each party's responsibilities for oversight, monitoring and incident response? |  |  |  |  |
+| Contract terms and exit/portability | Do we have audit rights over the vendor's controls, directly or through an independent report? |  |  |  |  |
+| Contract terms and exit/portability | What are the liability and indemnity terms if the AI causes harm or loss? |  |  |  |  |
+| Contract terms and exit/portability | Can we export our data and configuration in a usable format if we end the contract? |  |  |  |  |
+| Contract terms and exit/portability | What is the notice period and transition support for moving to another vendor? |  |  |  |  |

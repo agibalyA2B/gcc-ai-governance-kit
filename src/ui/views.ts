@@ -361,6 +361,7 @@ export function aboutView(lang: Lang): string {
 export function templatesView(lang: Lang, base: string): string {
   const files = [
     ['register', 'tpl.register'], ['impact-assessment', 'tpl.impact'], ['control-checklist', 'tpl.checklist'],
+    ['vendor-ai-risk-assessment', 'tpl.vendor'], ['committee-charter', 'tpl.charter'], ['raci', 'tpl.raci'],
   ];
   return `<section class="card"><h1 tabindex="-1">${t(lang, 'tpl.title')}</h1><p>${t(lang, 'tpl.intro')}</p>
     <p><a class="btn" href="#/new">${t(lang, 'tpl.start')}</a></p>
