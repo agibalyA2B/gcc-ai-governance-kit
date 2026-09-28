@@ -6,6 +6,7 @@ import type { UseCase } from '../core/usecase';
 import { EVIDENCE_STATUSES, evidenceSummary, type EvidenceMap } from '../core/evidence';
 import { esc, tierIcon } from './html';
 import { recommendAutonomy, nextSteps, type AutonomyResult } from '../core/autonomy';
+import { sensitivity } from '../core/sensitivity';
 
 export const STEPS = ['details', 'quick', 'tier', 'deep', 'controls', 'export'] as const;
 export type Step = (typeof STEPS)[number];
@@ -175,6 +176,28 @@ export function autonomyCard(lang: Lang, uc: UseCase, r: TierResult): string {
   </div>`;
 }
 
+const optLabel = (lang: Lang, qid: string, oid: string) => {
+  const q = QUESTIONS.questions.find((x) => x.id === qid)!; const o = q.options.find((x) => x.id === oid)!;
+  return { q: L(lang, q.text_en, q.text_ar), o: L(lang, o.en, o.ar) };
+};
+
+/** "What would lower your tier": the tier once every operational gap is closed (ADR 009). */
+export function sensitivityCard(lang: Lang, uc: UseCase, r: TierResult): string {
+  if (r.tier === 'little' || r.tier === 'unacceptable') return '';
+  const s = sensitivity(uc.answers);
+  const head = `<h3>${t(lang, 'sens.title')}</h3>`;
+  if (!s.changes.length) return r.deepComplete ? '' : `<div class="sensitivity">${head}<p class="muted">${t(lang, 'sens.needdeep')}</p></div>`;
+  const saved = s.current.points - s.fixed.points;
+  const lead = s.lowers
+    ? t(lang, 'sens.lowers').replace('{tier}', tierBadge(lang, s.fixed.tier)).replace('{n}', String(s.fixed.points)).replace('{m}', String(s.current.points))
+    : t(lang, 'sens.stays').replace('{k}', String(saved)).replace('{tier}', tierBadge(lang, s.fixed.tier));
+  return `<div class="sensitivity ${s.lowers ? 'lowers' : 'stays'}" data-testid="sensitivity">${head}<p>${lead}</p>
+    <ul>${s.changes.map((c) => { const a = optLabel(lang, c.questionId, c.from); const b = optLabel(lang, c.questionId, c.to);
+      return `<li>${esc(a.q)} <span class="muted">${esc(a.o)} ${lang === 'ar' ? '←' : '→'} <strong>${esc(b.o)}</strong> (−${c.pointsSaved})</span></li>`; }).join('')}</ul>
+    ${s.lowers ? '' : `<p class="small">${t(lang, 'sens.structural')}${s.structural.length ? ` <strong>${t(lang, 'tier.trigger')}</strong> ${s.structural.map((x) => esc(x.id)).join(', ')}` : ''}</p>`}
+  </div>`;
+}
+
 export function tierView(lang: Lang, uc: UseCase, r: TierResult): string {
   const reasons = topReasons(r, lang);
   const qText = (id: string) => { const q = QUESTIONS.questions.find((x) => x.id === id)!; return L(lang, q.text_en, q.text_ar); };
@@ -191,6 +214,7 @@ export function tierView(lang: Lang, uc: UseCase, r: TierResult): string {
       <tbody>${r.factors.map((f) => `<tr><td>${esc(qText(f.questionId))}</td><td>${f.points}</td></tr>`).join('')}</tbody></table>
       <p class="muted">${t(lang, 'tier.thresholds')} ${QUESTIONS.thresholds.limited} / ${QUESTIONS.thresholds.high}. <a href="#/scoring">${t(lang, 'nav.scoring')}</a></p>
     </details>
+    ${sensitivityCard(lang, uc, r)}
     ${autonomyCard(lang, uc, r)}
     ${!r.deepComplete ? `<div class="prompt ${r.tier === 'high' || r.tier === 'unacceptable' ? 'strong' : ''}">
       <p>${t(lang, r.tier === 'high' || r.tier === 'unacceptable' ? 'tier.deep.strong' : 'tier.deep.offer')}</p>
@@ -277,6 +301,7 @@ export function reportView(lang: Lang, uc: UseCase, r: TierResult, frameworks: F
       <tr><th>${t(lang, 'uc.businessUnit')}</th><td>${esc(uc.businessUnit)}</td></tr><tr><th>${t(lang, 'uc.purpose')}</th><td>${esc(uc.purpose)}</td></tr>
       <tr><th>${t(lang, 'uc.status')}</th><td>${t(lang, `status.${uc.status}`)}</td></tr>
       <tr><th>${t(lang, 'reg.tier')}</th><td>${tierBadge(lang, r.tier)} (${r.points} ${t(lang, 'tier.points')}; ${r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo')})</td></tr>
+      ${(() => { const s = sensitivity(uc.answers); return s.changes.length && r.tier !== 'unacceptable' ? `<tr><th>${t(lang, 'rep.sens')}</th><td>${tierBadge(lang, s.fixed.tier)} (${s.fixed.points} ${t(lang, 'tier.points')})</td></tr>` : ''; })()}
       <tr><th>${t(lang, 'fw.legend')}</th><td>${esc(fwNames)}</td></tr>
       ${(() => { const a = recommendAutonomy(uc.answers, r.tier); return a.complete ? `<tr><th>${t(lang, 'auto.title')}</th><td>${t(lang, 'auto.level')} ${a.recommended}: ${t(lang, `auto.l${a.recommended}`)}${a.exceeds ? ` — ${autonomyVerdict(lang, a)}` : ''}${stepsList(lang, a, uc)}</td></tr>` : ''; })()}</tbody></table>
     <h2>${t(lang, 'tier.why')}</h2><ul>${topReasons(r, lang).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
@@ -305,6 +330,8 @@ export function scoringView(lang: Lang): string {
     <h2>${t(lang, 'step.quick')}</h2><table class="weights"><tbody>${section('quick')}</tbody></table>
     <h2>${t(lang, 'step.deep')}</h2><table class="weights"><tbody>${section('deep')}</tbody></table>
     <p class="muted">${t(lang, 'sc.deep.rule')}</p>
+    <h2>${t(lang, 'sens.title')}</h2><p>${t(lang, 'sc.sens')}</p>
+    <ul>${QUESTIONS.questions.filter((q) => q.fix).map((q) => `<li>${esc(L(lang, q.text_en, q.text_ar))} ${lang === 'ar' ? '←' : '→'} <strong>${esc(optLabel(lang, q.id, q.fix!).o)}</strong></li>`).join('')}</ul>
     <h2>${t(lang, 'auto.title')}</h2><p>${t(lang, 'sc.auto')}</p>
     <ul>${[1, 2, 3, 4].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}: ${t(lang, `auto.l${n}`)}</strong> — ${t(lang, `auto.l${n}.desc`)}</li>`).join('')}</ul></section>`;
 }

@@ -42,6 +42,10 @@
           "options"
         ],
         "properties": {
+          "fix": {
+            "type": "string",
+            "description": "Operational question: the option that closes the gap, used by the sensitivity view."
+          },
           "level": {
             "enum": [
               "intake",
