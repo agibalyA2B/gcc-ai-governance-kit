@@ -150,6 +150,7 @@ function intakeBlock(lang: Lang, uc: UseCase): string {
   const q = QUESTIONS.questions.find((x) => x.level === 'intake')!;
   return `<fieldset class="intake"><legend>${esc(L(lang, q.text_en, q.text_ar))}</legend>
     <p class="help">${esc(L(lang, q.help_en, q.help_ar))}</p>
+    ${q.b2b_en && q.b2b_ar ? `<details class="b2b-note"><summary>${t(lang, 'q.b2b.label')}</summary><p>${esc(L(lang, q.b2b_en, q.b2b_ar))}</p></details>` : ''}
     ${q.options.map((o) => `<label class="option"><input type="radio" name="${q.id}" value="${o.id}" ${uc.answers[q.id] === o.id ? 'checked' : ''}/>
       <span>${esc(L(lang, o.en, o.ar))}</span></label>`).join('')}</fieldset>`;
 }
