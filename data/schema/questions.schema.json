@@ -54,6 +54,12 @@
               "prio"
             ]
           },
+          "b2b_en": {
+            "type": "string"
+          },
+          "b2b_ar": {
+            "type": "string"
+          },
           "options": {
             "type": "array",
             "minItems": 2,

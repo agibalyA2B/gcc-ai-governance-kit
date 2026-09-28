@@ -111,9 +111,12 @@ export function detailsForm(lang: Lang, uc: UseCase): string {
     <div class="actions"><button class="btn primary" type="submit">${t(lang, 'nav.next')}</button></div></form>`;
 }
 
+const hasB2bNotes = (qs: typeof QUESTIONS.questions): boolean => qs.some((q) => q.b2b_en && q.b2b_ar);
+
 function questionBlock(lang: Lang, uc: UseCase, qs: typeof QUESTIONS.questions, showPoints: boolean): string {
   return qs.map((q, i) => `<fieldset class="question"><legend><span class="qnum">${i + 1}.</span> ${esc(L(lang, q.text_en, q.text_ar))}</legend>
       <p class="help">${esc(L(lang, q.help_en, q.help_ar))}</p>
+      ${q.b2b_en && q.b2b_ar ? `<details class="b2b-note"><summary>${t(lang, 'q.b2b.label')}</summary><p>${esc(L(lang, q.b2b_en, q.b2b_ar))}</p></details>` : ''}
       ${q.options.map((o) => `<label class="option"><input type="radio" name="${q.id}" value="${o.id}" ${uc.answers[q.id] === o.id ? 'checked' : ''}/>
         <span>${esc(L(lang, o.en, o.ar))}</span>${showPoints && q.level !== 'prio' ? `<span class="pts">+${o.points}</span>` : ''}</label>`).join('')}
     </fieldset>`).join('');
@@ -143,12 +146,14 @@ export function questionsForm(lang: Lang, uc: UseCase, level: 'quick' | 'deep', 
   const qs = QUESTIONS.questions.filter((q) => q.level === level);
   const answered = qs.filter((q) => uc.answers[q.id]).length;
   const prio = level === 'deep' ? QUESTIONS.questions.filter((q) => q.level === 'prio') : [];
+  const showCredit = hasB2bNotes(qs) || hasB2bNotes(prio);
   return `<form class="card" data-form="${level}">
     <h2 tabindex="-1">${t(lang, `step.${level}`)}${level === 'deep' ? optionalBadge(lang) : ''}</h2>
     ${level === 'quick' ? intakeBlock(lang, uc) : ''}
     <p class="muted">${t(lang, `${level}.intro`)} <span class="progress" aria-live="polite">${answered}/${qs.length}</span></p>
     ${questionBlock(lang, uc, qs, showPoints)}
     ${prio.length ? `<section class="prio-block"><h3>${t(lang, 'prio.title')}${optionalBadge(lang)}</h3><p class="muted">${t(lang, 'prio.intro')}</p><p class="notice prio-note">${t(lang, 'prio.notrisk')}</p>${questionBlock(lang, uc, prio, false)}</section>` : ''}
+    ${showCredit ? `<p class="small muted b2b-credit">${t(lang, 'q.b2b.credit')}</p>` : ''}
     <div class="actions"><button class="btn primary" type="submit">${t(lang, 'nav.next')}</button></div></form>`;
 }
 

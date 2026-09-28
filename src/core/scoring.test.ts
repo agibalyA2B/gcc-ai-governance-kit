@@ -133,4 +133,18 @@ describe('question data', () => {
         for (const v of c.in) expect(q!.options.map((o) => o.id)).toContain(v);
       }
   });
+  it('commercial/B2B notes exist in both languages and reflect the current scales', () => {
+    const withNotes = QUESTIONS.questions.filter((q) => q.b2b_en || q.b2b_ar);
+    expect(withNotes.map((q) => q.id).sort()).toEqual(
+      ['access', 'affected', 'ai_type', 'bias_tested', 'complexity', 'cross_border', 'data', 'impact', 'reversibility', 'security_tested', 'third_party'].sort(),
+    );
+    for (const q of withNotes) {
+      expect(q.b2b_en, `${q.id}: missing b2b_en`).toBeTruthy();
+      expect(q.b2b_ar, `${q.id}: missing b2b_ar`).toBeTruthy();
+      expect(q.b2b_en, `${q.id}: old reversed autonomy scale`).not.toMatch(/\bL1\b|\bL2\b/);
+      expect(q.b2b_ar, `${q.id}: old reversed autonomy scale`).not.toMatch(/\bL1\b|\bL2\b/);
+    }
+    const impact = QUESTIONS.questions.find((q) => q.id === 'impact')!;
+    expect(impact.b2b_en).toMatch(/other companies/i);
+  });
 });

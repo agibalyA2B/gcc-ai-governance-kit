@@ -36,6 +36,8 @@
       "text_ar": "على ماذا تؤثر مخرجات نظام الذكاء الاصطناعي؟",
       "help_en": "Think about the most serious thing the output can lead to, not the usual case.",
       "help_ar": "فكّر في أخطر ما قد تؤدي إليه المخرجات، لا في الحالة المعتادة.",
+      "b2b_en": "For a commercial or B2B tool, use \"High-stakes decisions or positions about other companies\" for claims, contract positions or credit decisions about other firms. Choose \"Information given to the public or customers\" for ordinary client deliverables such as reports or drafts, and \"Internal productivity only\" for tools used only by your own staff.",
+      "b2b_ar": "في الأدوات التجارية أو بين الشركات، استخدم خيار «قرارات أو مواقف عالية الأثر تخص شركات أخرى» للمطالبات أو المواقف التعاقدية أو القرارات الائتمانية بشأن شركات أخرى. اختر «معلومات تُقدَّم للجمهور أو المتعاملين» للمخرجات الاعتيادية المقدَّمة للعملاء مثل التقارير أو المسودات، واختر «الإنتاجية الداخلية فقط» للأدوات التي يستخدمها موظفوك فقط.",
       "options": [
         {
           "id": "internal",
@@ -83,6 +85,8 @@
       "text_ar": "ما البيانات التي يستخدمها؟",
       "help_en": "Sensitive data includes health, biometric, financial, criminal-record, religious and children's data.",
       "help_ar": "تشمل البيانات الحساسة البيانات الصحية والبيومترية والمالية والسوابق الجنائية والمعتقد الديني وبيانات الأطفال.",
+      "b2b_en": "Contracts, correspondence and site records almost always include names, emails, signatures or phone numbers, so choose \"Personal data\" rather than \"Internal business data, no personal data\". Reserve \"Sensitive personal data\" for health, biometric, religious, criminal-record or financial-account details.",
+      "b2b_ar": "تتضمن العقود والمراسلات وسجلات المواقع غالباً أسماءً أو بريداً إلكترونياً أو توقيعات أو أرقام هواتف، لذا اختر «بيانات شخصية» بدلاً من «بيانات عمل داخلية دون بيانات شخصية». اقتصر على خيار «بيانات شخصية حساسة» للبيانات الصحية أو البيومترية أو الدينية أو السوابق الجنائية أو البيانات المالية الحساسة.",
       "options": [
         {
           "id": "none",
@@ -118,6 +122,8 @@
       "text_ar": "من قد يتأثر؟",
       "help_en": "Choose the most exposed group.",
       "help_ar": "اختر الفئة الأكثر عرضة للتأثر.",
+      "b2b_en": "Choose \"Employees only\" for an internal tool and \"Customers or the public\" for a client-facing product. There is no separate option for counterparty companies; note them in the use case summary instead.",
+      "b2b_ar": "اختر «الموظفون فقط» للأداة الداخلية، و«المتعاملون أو الجمهور» للمنتج الموجَّه للعملاء. لا يوجد خيار مستقل للشركات الطرف المقابل؛ اذكرها بدلاً من ذلك في ملخص حالة الاستخدام.",
       "options": [
         {
           "id": "staff",
@@ -147,6 +153,8 @@
       "text_ar": "ما نوع الذكاء الاصطناعي المستخدم؟",
       "help_en": "Per the UAE national reference, a system is agentic only if it works towards a goal, uses external tools or systems, keeps its working state, and runs its own step-by-step loop. Chatbots that only answer questions and fixed-script automation are not agentic.",
       "help_ar": "وفق الدليل التعريفي الوطني، لا يُعدّ النظام مساعداً (وكيلياً) إلا إذا عمل نحو هدف، واستخدم أدوات أو أنظمة خارجية، واحتفظ بحالة التشغيل، ونفّذ خطواته بشكل تكراري ذاتي. أما روبوتات المحادثة التي تكتفي بالإجابة والأتمتة ذات الخطوات الثابتة فليست كذلك.",
+      "b2b_en": "Multi-step tools that draft, extract or calculate but take no external action are \"Generative (writes text, images or answers)\". Move to \"Agentic (plans and takes actions)\" once the system itself sends messages, files documents or writes to a system of record, and re-score whenever an integration adds such an action.",
+      "b2b_ar": "الأدوات متعددة الخطوات التي تُعِدّ مسودات أو تستخرج بيانات أو تُجري حسابات دون اتخاذ إجراء خارجي تُصنَّف «توليدي (يُنتج نصوصاً أو صوراً أو إجابات)». وتنتقل إلى «وكيلي (يخطط وينفّذ إجراءات)» بمجرد أن يرسل النظام رسائل أو يقدّم مستندات أو يكتب في نظام سجل من تلقاء نفسه، مع إعادة التقييم كلما أضاف أي تكامل جديد إجراءً من هذا النوع.",
       "options": [
         {
           "id": "predictive",
@@ -246,6 +254,8 @@
       "text_ar": "ما الذي يمكنه تغييره في الأنظمة الأخرى؟",
       "help_en": "A system of record is where official data lives (cases, accounts, payments, records).",
       "help_ar": "نظام السجل هو المكان الذي تُحفظ فيه البيانات الرسمية (الطلبات، الحسابات، المدفوعات، السجلات).",
+      "b2b_en": "Writing drafts or files only in its own workspace is usually \"Writes to internal, non-critical tools\". Sending an email, notice or submission, or writing to an ERP, CDE or document-control system, is \"Writes to systems of record, makes payments, or sends external messages\".",
+      "b2b_ar": "كتابة المسودات أو الملفات داخل مساحة عمله الخاصة فقط يُصنَّف عادةً «يكتب في أدوات داخلية غير حرجة». أما إرسال بريد إلكتروني أو إشعار أو تقديم طلب، أو الكتابة في نظام تخطيط موارد المؤسسة أو إدارة المستندات، فيُصنَّف «يكتب في أنظمة السجل، أو يجري مدفوعات، أو يرسل رسائل خارجية».",
       "options": [
         {
           "id": "none",
@@ -275,6 +285,8 @@
       "text_ar": "إذا أخطأ، هل يمكن التراجع عن النتيجة؟",
       "help_en": "Consider the effect on the person, not only the data.",
       "help_ar": "انظر إلى الأثر على الشخص، لا على البيانات فقط.",
+      "b2b_en": "A contractual notice, claim submission or anything with a time-bar consequence is \"No, or only with lasting harm\" once it has been sent, even if the underlying document could technically be corrected afterwards.",
+      "b2b_ar": "الإشعار التعاقدي أو تقديم مطالبة أو أي إجراء له أثر يتعلق بمدة قانونية يُصنَّف «لا، أو فقط مع ضرر دائم» بمجرد إرساله، حتى لو أمكن تقنياً تصحيح المستند لاحقاً.",
       "options": [
         {
           "id": "easy",
@@ -363,6 +375,8 @@
       "text_ar": "هل يعتمد على نموذج أو خدمة من طرف ثالث؟",
       "help_en": "Include foundation models used through an API.",
       "help_ar": "يشمل ذلك النماذج الأساسية المستخدمة عبر واجهات برمجية.",
+      "b2b_en": "Calling a hosted model through an API counts as \"Yes, an external service outside our control\", unless it is contractually hosted in-country under your organisation's control, which is \"Yes, hosted in-country under our control\".",
+      "b2b_ar": "استدعاء نموذج مستضاف عبر واجهة برمجية يُعدّ «نعم، خدمة خارجية خارج سيطرتنا»، إلا إذا كان مستضافاً تعاقدياً داخل الدولة وتحت سيطرة مؤسستك، فيكون حينها «نعم، مستضاف داخل الدولة وتحت سيطرتنا».",
       "options": [
         {
           "id": "no",
@@ -393,6 +407,8 @@
       "text_ar": "هل تنتقل البيانات خارج الدولة؟",
       "help_en": "Check where the model provider processes and stores data.",
       "help_ar": "تحقّق من مكان معالجة مزوّد النموذج للبيانات وتخزينها.",
+      "b2b_en": "If the model provider processes data outside the country, answer \"Yes\". If you cannot confirm where processing happens, answer \"Not sure\" rather than guessing.",
+      "b2b_ar": "إذا كان مزوّد النموذج يعالج البيانات خارج الدولة، أجب بـ «نعم». وإذا تعذّر التأكد من مكان المعالجة، أجب بـ «غير متأكد» بدلاً من التخمين.",
       "options": [
         {
           "id": "no",
@@ -423,6 +439,8 @@
       "text_ar": "هل اختُبر للتأكد من عدم تحيّز نتائجه بين الفئات المختلفة؟",
       "help_en": "For example by nationality, gender, age or language.",
       "help_ar": "مثلاً حسب الجنسية أو الجنس أو العمر أو اللغة.",
+      "b2b_en": "For a tool that does not rank people, reinterpret this as partiality testing: does it systematically favour whichever party commissioned it? Document the method used, or answer \"Planned, not done yet\" or \"No\" if none exists.",
+      "b2b_ar": "بالنسبة للأداة التي لا تُصنِّف الأشخاص، أعد تفسير هذا السؤال كاختبار للتحيّز لصالح أحد الأطراف: هل يميل النظام بشكل منهجي لصالح الجهة التي كلّفت بتطويره؟ وثِّق المنهجية المتبعة، أو أجب بـ «مخطط له ولم يُنفَّذ بعد» أو «لا» إن لم يوجد اختبار.",
       "options": [
         {
           "id": "yes",
@@ -453,6 +471,8 @@
       "text_ar": "هل اختُبر ضد إساءة الاستخدام والهجمات (مثل حقن التعليمات)؟",
       "help_en": "Agentic systems with tool access need this most.",
       "help_ar": "الأنظمة الوكيلية التي تملك صلاحيات على الأدوات هي الأحوج لذلك.",
+      "b2b_en": "For a tool that ingests third-party documents, this means testing against indirect prompt injection hidden in those documents. Treat a counterparty's letters or submissions as adversarial input, not as trusted content.",
+      "b2b_ar": "بالنسبة للأداة التي تعالج مستندات من طرف ثالث، يعني هذا السؤال اختبارها ضد حقن التعليمات غير المباشر المخفي داخل تلك المستندات. تعامل مع خطابات أو مستندات الطرف المقابل بوصفها مُدخلات معادية محتملة لا محتوى موثوقاً.",
       "options": [
         {
           "id": "yes",
@@ -618,6 +638,8 @@
       "text_ar": "ما مستوى تعقيد تنفيذ الخدمة أو تحويلها؟",
       "help_en": "Steps, entities and approvals involved; exceptions; ambiguity in decisions; regulatory and integration demands.",
       "help_ar": "عدد الخطوات والجهات والاعتمادات، والاستثناءات، وغموض القرار، والمتطلبات التنظيمية ومتطلبات التكامل.",
+      "b2b_en": "Specialist professional tools (legal, construction, technical) often score \"Very complex: multi-entity, variable, heavily governed\", which on its own points toward autonomy level 4 (not suitable yet). If the tool is in fact ready, that readiness should be evidenced by approval gates, test results and reviewer sign-off, and reported alongside the recommendation rather than asserted instead of it.",
+      "b2b_ar": "غالباً ما تُصنَّف الأدوات المهنية المتخصصة (القانونية أو الإنشائية أو التقنية) بأنها «شديد التعقيد: متعدد الجهات ومتغيّر وخاضع لحوكمة مشددة»، وهو ما يوجّه بمفرده نحو المستوى الرابع للاستقلالية (غير مناسب حالياً). وإذا كانت الأداة جاهزة بالفعل، فينبغي إثبات ذلك عبر بوابات الاعتماد ونتائج الاختبارات وتوقيع المراجع، وذِكر ذلك إلى جانب التوصية لا بدلاً منها.",
       "options": [
         {
           "id": "low",

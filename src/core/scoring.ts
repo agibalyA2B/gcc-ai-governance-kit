@@ -9,6 +9,7 @@ export interface Question {
   text_en: string; text_ar: string; help_en: string; help_ar: string; options: Option[];
   /** Operational (fixable without redesign) questions name the option that closes the gap. */
   fix?: string;
+  b2b_en?: string; b2b_ar?: string;
 }
 export interface Trigger {
   id: string; min_tier: Tier; when: { q: string; in: string[] }[]; reason_en: string; reason_ar: string;
