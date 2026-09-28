@@ -7,7 +7,7 @@
 [**Try it live →**](https://agibalya2b.github.io/gcc-ai-governance-kit/) · [User guide](https://agibalya2b.github.io/gcc-ai-governance-kit/#/guide) · [Templates](https://agibalya2b.github.io/gcc-ai-governance-kit/#/templates) · [How scoring works](https://agibalya2b.github.io/gcc-ai-governance-kit/#/scoring) · [العربية](#بالعربية)
 
 ![CI](https://github.com/agibalyA2B/gcc-ai-governance-kit/actions/workflows/deploy.yml/badge.svg)
-![Controls verified](https://img.shields.io/badge/controls%20verified-48%2F56-2e7d5b)
+![Controls verified](https://img.shields.io/badge/controls%20verified-50%2F58-2e7d5b)
 ![Languages](https://img.shields.io/badge/languages-AR%20%7C%20EN-0f5257)
 ![Code: MIT](https://img.shields.io/badge/code-MIT-blue) ![Content: CC BY 4.0](https://img.shields.io/badge/content-CC%20BY%204.0-lightgrey)
 
@@ -33,9 +33,9 @@ This kit is that practical layer. It is open, free and bilingual, and it runs en
 | **Use-case register** | Record AI use cases with owner, purpose and status. Saved only in your browser; export and import as JSON or XLSX. |
 | **Two-level risk questionnaire** | An 8-question *Quick check* (including four agentic-AI factors) gives a first tier in about 2 minutes; a 10-question *Deep-dive* can only raise it. |
 | **Explainable tier** | Four tiers aligned to SDAIA's risk levels. Every weight is visible, rules that set a minimum tier are named, and the top reasons are in plain language. |
-| **Framework-filtered controls** | 56 controls across six themes, mapped to the UAE AI Charter, the **UAE Code for Government Services and Zero Bureaucracy** (with the federal agentic-AI guide, national reference and data-sharing policy), Dubai AI Ethics, SDAIA, ISO/IEC 42001 (clause numbers only), NIST AI RMF and the EU AI Act. Pick the frameworks you follow. |
+| **Framework-filtered controls** | 58 controls across six themes, mapped to the UAE AI Charter, the **UAE Code for Government Services and Zero Bureaucracy** (with the federal agentic-AI guide, national reference and data-sharing policy), Dubai AI Ethics, SDAIA, ISO/IEC 42001 (clause numbers only), NIST AI RMF and the EU AI Act. Pick the frameworks you follow. |
 | **Recommended autonomy** | Three prioritisation questions (usage, complexity, readiness), from the UAE AI-assistant priority matrix, recommend how much autonomy the AI should have, and warn when a design goes beyond it. |
-| **Honest verification** | Each control shows its sources and whether its references were checked against them: **48 of 56 verified**. See the [content audit](docs/content-audit.md). |
+| **Honest verification** | Each control shows its sources and whether its references were checked against them: **50 of 58 verified**. See the [content audit](docs/content-audit.md). |
 | **Committee-ready outputs** | A one-to-two-page *AI Use-Case Risk Summary* (print to PDF) with a sign-off block, plus control lists as CSV/XLSX with right-to-left Arabic sheets. |
 | **User guide** | An in-app [guide](https://agibalya2b.github.io/gcc-ai-governance-kit/#/guide) in Arabic and English, with screenshots: the three steps, what each tier means, reading controls and badges, exports and backups. Also as PDF: [English](docs/USER-GUIDE.pdf) · [العربية](docs/USER-GUIDE-ar.pdf). |
 | **Templates** | Register, impact assessment and control checklist in Arabic and English (XLSX, CSV, Markdown) for teams that prefer spreadsheets or work offline. You don't need them to use the app. |
