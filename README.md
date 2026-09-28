@@ -30,7 +30,7 @@ This kit is that practical layer. It is open, free and bilingual, and it runs en
 
 | | |
 |---|---|
-| **Use-case register** | Record AI use cases with owner, purpose and status. Saved only in your browser; export and import as JSON or XLSX. |
+| **Use-case register** | Record AI use cases with owner, purpose and status, and group several deployments of one product. Saved only in your browser; export as JSON or XLSX, and import a backup or a filled register template (XLSX/CSV). Includes government and private-sector examples. |
 | **Two-level risk questionnaire** | An 8-question *Quick check* (including four agentic-AI factors) gives a first tier in about 2 minutes; a 10-question *Deep-dive* can only raise it. |
 | **Explainable tier** | Four tiers aligned to SDAIA's risk levels. Every weight is visible, rules that set a minimum tier are named, and the top reasons are in plain language. |
 | **Framework-filtered controls** | 58 controls across six themes, mapped to the UAE AI Charter, the **UAE Code for Government Services and Zero Bureaucracy** (with the federal agentic-AI guide, national reference and data-sharing policy), Dubai AI Ethics, SDAIA, ISO/IEC 42001 (clause numbers only), NIST AI RMF and the EU AI Act. Pick the frameworks you follow. |

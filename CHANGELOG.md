@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.1 (2026-09-28)
+More features requested by community testers.
+- **Per-deployment profiles.** One product can have several deployments (for example internal, SaaS and agent), each
+  assessed separately. The register groups them under the product and shows its highest tier. "Add deployment" copies
+  a use case as a new deployment. See ADR 011.
+- **Import a filled register (.xlsx or .csv).** Teams that fill the register template in Excel can bring it into the
+  app. Columns are matched by field name, answers can be option ids or their English or Arabic labels, unrecognised
+  values are counted rather than guessed, and tiers are always recomputed. The register template gains `product` and
+  `deployment` columns. See ADR 012.
+- **Private-sector examples.** Six illustrative use cases load in one click: HR, Marketing, Sales, Finance, Supply
+  chain and construction claims.
+- **Level 4 explained.** Wherever the matrix's "not suitable yet" appears, the kit adds: "Not ready for autonomy yet.
+  This is about readiness, not whether AI can help."
+- **Updated answer notes for commercial tools**, from **Syed Hasan**'s revised notes, with thanks: when a solution has
+  no AI at runtime, the rule for unapproved company decisions, personal-data minimisation as a real lever, and not
+  softening the complexity answer.
+
 ## 0.3.0 (2026-09-28)
 Features requested by community testers of 0.2.x.
 - **Control-evidence map.** Each applicable control now takes a status (Met, Partly met, Gap or N/A) and an evidence
