@@ -25,3 +25,15 @@ describe('committee report evidence', () => {
     expect(reportView('en', uc, r, [...ALL_FRAMEWORKS])).toContain('<td>☐</td>');
   });
 });
+
+describe('level 4 clarifier', () => {
+  it('appears next to the official level-4 term in both languages, and only for level 4', async () => {
+    const { scoringView } = await import('./views');
+    for (const [lang, term, clar] of [['en', 'Not suitable for AI yet', 'Not ready for autonomy yet'], ['ar', 'غير مناسب للذكاء الاصطناعي حالياً', 'غير جاهز للاستقلالية بعد']] as const) {
+      const html = scoringView(lang);
+      expect(html).toContain(term);
+      expect(html.match(/class="l4-clarify"/g)).toHaveLength(1);
+      expect(html).toContain(clar);
+    }
+  });
+});

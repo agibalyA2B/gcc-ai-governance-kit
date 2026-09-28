@@ -207,6 +207,7 @@ test('"not suitable yet" lists concrete steps instead of only a warning', async 
   for (const q of ['usage', 'complexity', 'readiness']) await page.locator(`input[name="${q}"][value="low"]`).check();
   await page.getByRole('button', { name: 'Continue' }).click();
   await expect(page.locator('.autonomy .auto-level')).toContainText('Level 4');
+  await expect(page.locator('.autonomy .l4-clarify')).toHaveText('(Not ready for autonomy yet. This is about readiness, not whether AI can help.)');
   await expect(page.locator('.auto-exceeds')).toContainText('not suitable for AI yet');
   await expect(page.locator('.auto-steps li')).toHaveCount(4);
   await expect(page.locator('.auto-steps')).toContainText('accountable owner');  await page.getByRole('link', { name: 'Details' }).click();
