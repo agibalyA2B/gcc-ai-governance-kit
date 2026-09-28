@@ -388,7 +388,7 @@ export function guideView(lang: Lang, base: string): string {
     <nav class="guide-toc no-print" aria-label="${t(lang, 'gd.toc')}"><ol>${GUIDE_SECTIONS.map((id) => `<li><button type="button" class="link" data-action="goto" data-target="gd-${id}">${t(lang, `gd.${id}.h`).replace(/^\d+\.\s*/, '')}</button></li>`).join('')}</ol></nav>
     ${sec('s1', `<ol class="steps"><li>${t(lang, 'gd.s1.1')}</li><li>${t(lang, 'gd.s1.2')}</li><li>${t(lang, 'gd.s1.3')}</li></ol>
       ${fig('home', 'gd.fig.home')}<p>${t(lang, 'gd.s1.fw')}</p>${fig('quick', 'gd.fig.quick')}<p>${t(lang, 'gd.s1.deep')}</p>${fig('tier', 'gd.fig.tier')}`)}
-    ${sec('s2', `<p>${t(lang, 'gd.s2.intro')}</p><dl class="tiers">${TIER_ORDER.map((x) => `<dt>${tierBadge(lang, x)}</dt><dd>${t(lang, `gd.t.${x}`)}</dd>`).join('')}</dl>`)}
+    ${sec('s2', `<p>${t(lang, 'gd.s2.intro')}</p><p>${t(lang, 'gd.s2.sens')}</p><dl class="tiers">${TIER_ORDER.map((x) => `<dt>${tierBadge(lang, x)}</dt><dd>${t(lang, `gd.t.${x}`)}</dd>`).join('')}</dl>`)}
     ${sec('s3', `<p>${t(lang, 'gd.s3.p1')}</p><p>${t(lang, 'gd.s3.p2')}</p><p>${t(lang, 'gd.s3.badges')}</p>
       <ul class="badges"><li><span class="vbadge verified"><span aria-hidden="true">✓</span> ${t(lang, 'ctl.verified')}</span> ${t(lang, 'gd.s3.v')}</li>
       <li><span class="vbadge pending"><span aria-hidden="true">⏱</span> ${t(lang, 'ctl.needs')}</span> ${t(lang, 'gd.s3.n')}</li></ul>
