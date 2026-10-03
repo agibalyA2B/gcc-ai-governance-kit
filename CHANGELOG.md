@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.1 (2026-09-28)
+## 0.3.1 (2026-10-03)
 More features requested by community testers.
 - **Per-deployment profiles.** One product can have several deployments (for example internal, SaaS and agent), each
   assessed separately. The register groups them under the product and shows its highest tier. "Add deployment" copies
@@ -16,6 +16,13 @@ More features requested by community testers.
 - **Updated answer notes for commercial tools**, from **Syed Hasan**'s revised notes, with thanks: when a solution has
   no AI at runtime, the rule for unapproved company decisions, personal-data minimisation as a real lever, and not
   softening the complexity answer.
+- **Worked example: Causa Claims.** A founder assessed his construction-claims AI product in three deployment
+  profiles; the example shows why personal-data minimisation was the lever and why the autonomous-notice agent was
+  never shipped. Contributed and reviewed by **Syed Hasan**, founder of Causa Claims, with thanks. See
+  `docs/worked-examples/causa-claims.md`.
+- **Sector note: AI use and disclosure in arbitration.** What the Ciarb *Guideline on the Use of AI in Arbitration
+  (2025)* means for AI tools that prepare claims and submissions, and what to record per matter. Paraphrased with
+  article references only. Reviewed for accuracy by **Syed Hasan**. See `docs/sector-notes/arbitration-ai-disclosure.md`.
 
 ## 0.3.0 (2026-09-28)
 Features requested by community testers of 0.2.x.
