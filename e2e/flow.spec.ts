@@ -147,6 +147,22 @@ test('a product can have several deployment profiles, grouped in the register', 
   await expect(page.locator('.deploy-chip')).toHaveText('Agent');
 });
 
+test('a filled register template (CSV or XLSX) imports into the app', async ({ page }) => {
+  await page.getByTestId('data-menu').locator('summary').click();
+  await expect(page.getByRole('button', { name: 'Import a filled register (.xlsx or .csv)' })).toBeVisible();
+  await page.locator('input[data-action="import-table-file"]').setInputFiles('public/templates/en/register.csv');
+  await expect(page.locator('table.register tbody tr')).toHaveCount(2);
+  await expect(page.locator('.toast')).toContainText('Imported 2 use cases');
+  await page.getByRole('link', { name: 'Citizen service triage agent' }).click();
+  await expect(page.locator('.tier-result .tier-lg')).toContainText('High risk');
+  await page.goto('./');
+  await page.evaluate(() => { localStorage.clear(); localStorage.setItem('gaigk.lang', 'ar'); });
+  await page.reload();
+  await page.locator('input[data-action="import-table-file"]').setInputFiles('public/templates/ar/register.xlsx');
+  await expect(page.locator('table.register tbody tr')).toHaveCount(2);
+  await expect(page.getByRole('link', { name: 'روبوت محادثة للأسئلة الشائعة' })).toBeVisible();
+});
+
 test('Arabic mode renders RTL register and tier', async ({ page }) => {
   await page.getByTestId('lang-toggle').click();
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');

@@ -6,7 +6,8 @@ import { setEvidence, type EvidenceStatus } from '../core/evidence';
 import { newDeployment } from '../core/products';
 import { applicableControls } from '../core/controls';
 import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
-import { toCsv, toXlsx, download, type Row } from '../export/tabular';
+import { toCsv, toXlsx, download, readTable, type Row } from '../export/tabular';
+import { casesFromRows } from '../core/importTable';
 import * as V from './views';
 
 const REPO = 'https://github.com/agibalyA2B/gcc-ai-governance-kit';
@@ -157,6 +158,7 @@ function onClick(e: Event): void {
     case 'delete': if (confirm(t(lang, 'reg.confirm.delete'))) { store.remove(el.dataset.id!); render(false); } break;
     case 'clear': if (confirm(t(lang, 'reg.confirm.clear'))) { store.clear(); render(); } break;
     case 'import': document.querySelector<HTMLInputElement>('[data-action="import-file"]')?.click(); break;
+    case 'import-table': document.querySelector<HTMLInputElement>('[data-action="import-table-file"]')?.click(); break;
     case 'export-json':
       download(`ai-register-${stamp()}.json`, JSON.stringify({ format: REGISTER_FORMAT, version: 1, useCases: store.list() }, null, 2), 'application/json');
       break;
@@ -192,6 +194,7 @@ function onChange(e: Event): void {
   if (el.dataset.action === 'ctl-fw') { ctlFw = el.value; render(false); return; }
   if (el.dataset.action === 'ctl-verified') { ctlVerifiedOnly = (el as HTMLInputElement).checked; render(false); return; }
   if (el.dataset.action === 'import-file') { void importFile((el as HTMLInputElement).files?.[0]); return; }
+  if (el.dataset.action === 'import-table-file') { void importTableFile((el as HTMLInputElement).files?.[0]); return; }
   if (el.dataset.action === 'ev-status' || el.dataset.action === 'ev-note') { saveEvidence(el); return; }
   const form = el.closest<HTMLFormElement>('form[data-form]');
   const uc = currentUc();
@@ -260,19 +263,36 @@ function onSubmit(e: Event): void {
   location.hash = level === 'quick' ? `#/uc/${uc.id}/tier` : `#/uc/${uc.id}/tier`;
 }
 
+/** Adds imported use cases, asking whether to replace the current register (same rule as a JSON restore). */
+function addImported(cases: UseCase[]): void {
+  const replace = store.list().length ? confirm(t(lang, 'reg.import.replace')) : true;
+  if (replace) store.replaceAll(cases);
+  else {
+    const existing = new Map(store.list().map((u) => [u.id, u]));
+    for (const u of cases) existing.set(u.id, u);
+    store.replaceAll([...existing.values()]);
+  }
+  render();
+}
+
+async function importTableFile(file?: File): Promise<void> {
+  if (!file) return;
+  try {
+    const res = casesFromRows(readTable(await file.arrayBuffer()));
+    if (!res || !res.cases.length) throw new Error('empty');
+    addImported(res.cases);
+    toast(t(lang, 'reg.import.table.ok').replace('{n}', String(res.cases.length)).replace('{s}', String(res.skipped.length)).replace('{w}', String(res.warnings.length)));
+  } catch {
+    toast(t(lang, 'reg.import.table.bad'));
+  }
+}
+
 async function importFile(file?: File): Promise<void> {
   if (!file) return;
   try {
     const cases = parseRegister(JSON.parse(await file.text()));
     if (!cases) throw new Error('schema');
-    const replace = store.list().length ? confirm(t(lang, 'reg.import.replace')) : true;
-    if (replace) store.replaceAll(cases);
-    else {
-      const existing = new Map(store.list().map((u) => [u.id, u]));
-      for (const u of cases) existing.set(u.id, u);
-      store.replaceAll([...existing.values()]);
-    }
-    render();
+    addImported(cases);
     toast(t(lang, 'reg.import.ok').replace('{n}', String(cases.length)));
   } catch {
     toast(t(lang, 'reg.import.bad'));
