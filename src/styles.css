@@ -262,3 +262,9 @@ html[lang='ar'] .badge-optional { font-family: var(--font-arabic); }
 .b2b-note summary { cursor: pointer; color: var(--color-accent-text); }
 .b2b-note p { margin-block: var(--space-1) 0 0; padding-inline-start: var(--space-3); }
 .b2b-credit { margin-block-start: var(--space-4); }
+.product-row th { text-align: start; background: var(--color-surface-muted); font-weight: 400; padding-block: var(--space-2); }
+.product-name { font-weight: 700; color: var(--color-primary); }
+.deployment-row td:first-child { padding-inline-start: var(--space-6); }
+.deploy-chip { display: inline-block; font-size: 0.75rem; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--color-border); color: var(--color-text-muted); }
+.deploy-fields { border: 1px dashed var(--color-border); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); margin-block: var(--space-4); }
+.deploy-fields legend { font-weight: 600; padding-inline: var(--space-2); }

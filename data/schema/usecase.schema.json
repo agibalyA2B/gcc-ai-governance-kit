@@ -95,6 +95,16 @@
                 }
               }
             }
+          },
+          "product": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Per-deployment profiles: product this use case is a deployment of (optional; 0.3.1)."
+          },
+          "deployment": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Label for this deployment, e.g. Internal, SaaS, Agent (optional; 0.3.1)."
           }
         }
       }

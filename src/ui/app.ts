@@ -3,6 +3,7 @@ import { computeTier, topReasons, aiInScope, type Answers } from '../core/scorin
 import { store } from '../core/store';
 import { blankUseCase, sampleUseCases, newId, parseRegister, REGISTER_FORMAT, type UseCase } from '../core/usecase';
 import { setEvidence, type EvidenceStatus } from '../core/evidence';
+import { newDeployment } from '../core/products';
 import { applicableControls } from '../core/controls';
 import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
 import { toCsv, toXlsx, download, type Row } from '../export/tabular';
@@ -75,6 +76,7 @@ function registerRows(cases: UseCase[]): Row[] {
     return {
       [t(lang, 'uc.name')]: uc.name, [t(lang, 'uc.owner')]: uc.owner, [t(lang, 'uc.businessUnit')]: uc.businessUnit,
       [t(lang, 'uc.purpose')]: uc.purpose, [t(lang, 'uc.status')]: t(lang, `status.${uc.status}`),
+      [t(lang, 'reg.product')]: uc.product ?? '', [t(lang, 'uc.deployment')]: uc.deployment ?? '',
       [t(lang, 'reg.type')]: uc.answers.ai_type ? t(lang, `aitype.${uc.answers.ai_type}`) : '',
       [t(lang, 'reg.tier')]: !aiInScope(uc.answers) ? t(lang, 'scope.badge') : r.quickComplete ? t(lang, `tier.${r.tier}`) : t(lang, 'tier.pending'),
       [t(lang, 'tier.points')]: r.points, [t(lang, 'tier.why')]: topReasons(r, lang).join(' | '),
@@ -142,6 +144,16 @@ function onClick(e: Event): void {
   switch (action) {
     case 'samples': for (const s of sampleUseCases(lang)) store.save(s); render(); break;
     case 'duplicate': { const src = store.get1(el.dataset.id!); if (src) { store.save({ ...src, id: newId(), name: `${src.name} (${t(lang, 'reg.copy')})`, createdAt: new Date().toISOString() }); render(false); } break; }
+    case 'add-deployment': {
+      const src = store.get1(el.dataset.id!);
+      if (src) {
+        if (!src.product) store.save({ ...src, product: src.name });
+        const d = newDeployment(src);
+        store.save(d);
+        location.hash = `#/uc/${d.id}/details`;
+      }
+      break;
+    }
     case 'delete': if (confirm(t(lang, 'reg.confirm.delete'))) { store.remove(el.dataset.id!); render(false); } break;
     case 'clear': if (confirm(t(lang, 'reg.confirm.clear'))) { store.clear(); render(); } break;
     case 'import': document.querySelector<HTMLInputElement>('[data-action="import-file"]')?.click(); break;
@@ -187,7 +199,8 @@ function onChange(e: Event): void {
   if (form.dataset.form === 'details') {
     const fd = new FormData(form);
     store.save({ ...uc, name: String(fd.get('name') ?? '').trim(), owner: String(fd.get('owner') ?? '').trim(), businessUnit: String(fd.get('businessUnit') ?? ''),
-      purpose: String(fd.get('purpose') ?? ''), status: String(fd.get('status') ?? 'idea') as UseCase['status'], notes: String(fd.get('notes') ?? '') });
+      purpose: String(fd.get('purpose') ?? ''), status: String(fd.get('status') ?? 'idea') as UseCase['status'], notes: String(fd.get('notes') ?? ''),
+      product: String(fd.get('product') ?? '').trim() || undefined, deployment: String(fd.get('deployment') ?? '').trim() || undefined });
   } else if (el.type === 'radio') {
     const answers: Answers = { ...uc.answers, [el.name]: el.value };
     store.save({ ...uc, answers });
