@@ -215,6 +215,7 @@
   "auto.l2": "Supervised autonomy",
   "auto.l3": "AI assistance, a person decides",
   "auto.l4": "Not suitable for AI yet",
+  "auto.l4.clarify": "Not ready for autonomy yet. This is about readiness, not whether AI can help.",
   "auto.l1.desc": "The AI runs the service end to end, with little routine human involvement. Suits high-usage, low-complexity services with high readiness.",
   "auto.l2.desc": "The AI carries out most steps; people handle exceptions and approvals. Suits medium-complexity services, or services whose readiness is not yet high.",
   "auto.l3.desc": "The AI recommends or prepares the work, and people keep every decision. Suits low-readiness settings and early adoption.",

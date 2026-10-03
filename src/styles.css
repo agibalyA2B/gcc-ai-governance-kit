@@ -268,3 +268,4 @@ html[lang='ar'] .badge-optional { font-family: var(--font-arabic); }
 .deploy-chip { display: inline-block; font-size: 0.75rem; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--color-border); color: var(--color-text-muted); }
 .deploy-fields { border: 1px dashed var(--color-border); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); margin-block: var(--space-4); }
 .deploy-fields legend { font-weight: 600; padding-inline: var(--space-2); }
+.l4-clarify { font-weight: 400; font-size: 0.9em; color: var(--color-text-muted); }

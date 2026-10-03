@@ -172,6 +172,11 @@ export function questionsForm(lang: Lang, uc: UseCase, level: 'quick' | 'deep', 
     <div class="actions"><button class="btn primary" type="submit">${t(lang, 'nav.next')}</button></div></form>`;
 }
 
+/** Level name as the official matrix words it; level 4 also carries a plain clarifier (readiness, not capability). */
+function levelLabel(lang: Lang, n: number): string {
+  return `${t(lang, `auto.l${n}`)}${n === 4 ? ` <span class="l4-clarify">(${t(lang, 'auto.l4.clarify')})</span>` : ''}`;
+}
+
 function autonomyVerdict(lang: Lang, a: AutonomyResult): string {
   const key = !a.exceeds ? 'auto.fits' : a.recommended === 4 ? 'auto.exceeds.l4' : 'auto.exceeds';
   return t(lang, key).replace('{n}', String(a.actual));
@@ -187,7 +192,7 @@ export function autonomyCard(lang: Lang, uc: UseCase, r: TierResult): string {
   if (!a.complete) return `<div class="autonomy pending"><h3>${t(lang, 'auto.title')}</h3><p class="muted">${t(lang, 'auto.pending')}</p>
     <a class="link" href="#/uc/${esc(uc.id)}/deep">${t(lang, 'auto.answer')}</a></div>`;
   return `<div class="autonomy ${a.exceeds ? 'warn' : 'ok'}"><h3>${t(lang, 'auto.title')}</h3>
-    <p class="auto-level"><strong>${t(lang, 'auto.level')} ${a.recommended}</strong>: ${t(lang, `auto.l${a.recommended}`)}</p>
+    <p class="auto-level"><strong>${t(lang, 'auto.level')} ${a.recommended}</strong>: ${levelLabel(lang, a.recommended!)}</p>
     ${a.capReasons.includes('tier-unacceptable') ? '' : `<p class="muted">${t(lang, `auto.l${a.recommended}.desc`)}</p>`}
     ${a.capReasons.length ? `<p class="small">${t(lang, `auto.cap.${a.capReasons[0]}`)}</p>` : ''}
     ${a.actual ? `<p class="${a.exceeds ? 'auto-exceeds' : 'auto-fits'}">${autonomyVerdict(lang, a)}</p>` : ''}
@@ -324,7 +329,7 @@ export function reportView(lang: Lang, uc: UseCase, r: TierResult, frameworks: F
       <tr><th>${t(lang, 'reg.tier')}</th><td>${tierBadge(lang, r.tier)} (${r.points} ${t(lang, 'tier.points')}; ${r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo')})</td></tr>
       ${(() => { const s = sensitivity(uc.answers); return s.changes.length && r.tier !== 'unacceptable' ? `<tr><th>${t(lang, 'rep.sens')}</th><td>${tierBadge(lang, s.fixed.tier)} (${s.fixed.points} ${t(lang, 'tier.points')})</td></tr>` : ''; })()}
       <tr><th>${t(lang, 'fw.legend')}</th><td>${esc(fwNames)}</td></tr>
-      ${(() => { const a = recommendAutonomy(uc.answers, r.tier); return a.complete ? `<tr><th>${t(lang, 'auto.title')}</th><td>${t(lang, 'auto.level')} ${a.recommended}: ${t(lang, `auto.l${a.recommended}`)}${a.exceeds ? ` — ${autonomyVerdict(lang, a)}` : ''}${stepsList(lang, a, uc)}</td></tr>` : ''; })()}</tbody></table>
+      ${(() => { const a = recommendAutonomy(uc.answers, r.tier); return a.complete ? `<tr><th>${t(lang, 'auto.title')}</th><td>${t(lang, 'auto.level')} ${a.recommended}: ${levelLabel(lang, a.recommended!)}${a.exceeds ? ` — ${autonomyVerdict(lang, a)}` : ''}${stepsList(lang, a, uc)}</td></tr>` : ''; })()}</tbody></table>
     <h2>${t(lang, 'tier.why')}</h2><ul>${topReasons(r, lang).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
     <h2>${t(lang, 'rep.controls')}</h2>
     ${r.tier === 'unacceptable' ? `<p>${t(lang, 'ctl.unacceptable')}</p>` : `<p class="small">${evidenceSummaryText(lang, list.map((c) => c.id), uc.evidence)}</p>
@@ -354,7 +359,7 @@ export function scoringView(lang: Lang): string {
     <h2>${t(lang, 'sens.title')}</h2><p>${t(lang, 'sc.sens')}</p>
     <ul>${QUESTIONS.questions.filter((q) => q.fix).map((q) => `<li>${esc(L(lang, q.text_en, q.text_ar))} ${lang === 'ar' ? '←' : '→'} <strong>${esc(optLabel(lang, q.id, q.fix!).o)}</strong></li>`).join('')}</ul>
     <h2>${t(lang, 'auto.title')}</h2><p>${t(lang, 'sc.auto')}</p>
-    <ul>${[1, 2, 3, 4].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}: ${t(lang, `auto.l${n}`)}</strong> — ${t(lang, `auto.l${n}.desc`)}</li>`).join('')}</ul></section>`;
+    <ul>${[1, 2, 3, 4].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}: ${levelLabel(lang, n)}</strong> — ${t(lang, `auto.l${n}.desc`)}</li>`).join('')}</ul></section>`;
 }
 
 export function aboutView(lang: Lang): string {
@@ -409,7 +414,7 @@ export function guideView(lang: Lang, base: string): string {
       <ul class="badges"><li><span class="vbadge verified"><span aria-hidden="true">✓</span> ${t(lang, 'ctl.verified')}</span> ${t(lang, 'gd.s3.v')}</li>
       <li><span class="vbadge pending"><span aria-hidden="true">⏱</span> ${t(lang, 'ctl.needs')}</span> ${t(lang, 'gd.s3.n')}</li></ul>
       <p>${t(lang, 'gd.s3.filter')}</p><p>${t(lang, 'gd.s3.evidence')}</p>${fig('controls', 'gd.fig.controls')}`)}
-    ${sec('s4', `<p>${t(lang, 'gd.s4.p1')}</p><ul>${[1, 2, 3, 4].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}:</strong> ${t(lang, `auto.l${n}`)}</li>`).join('')}</ul><p>${t(lang, 'gd.s4.p2')}</p>`)}
+    ${sec('s4', `<p>${t(lang, 'gd.s4.p1')}</p><ul>${[1, 2, 3, 4].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}:</strong> ${levelLabel(lang, n)}</li>`).join('')}</ul><p>${t(lang, 'gd.s4.p2')}</p>`)}
     ${sec('s5', `<ul class="plain"><li>${t(lang, 'gd.s5.pdf')}</li><li>${t(lang, 'gd.s5.ctl')}</li></ul>${fig('export', 'gd.fig.export')}
       <ul class="plain"><li>${t(lang, 'gd.s5.backup')}</li><li>${t(lang, 'gd.s5.share')}</li><li>${t(lang, 'gd.s5.tpl')}</li></ul>`)}
     ${sec('s6', `<p>${t(lang, 'gd.s6.p')}</p><p>${t(lang, 'gd.s6.clear')}</p>`)}
