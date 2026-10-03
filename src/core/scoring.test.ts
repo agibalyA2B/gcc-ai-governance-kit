@@ -136,7 +136,7 @@ describe('question data', () => {
   it('commercial/B2B notes exist in both languages and reflect the current scales', () => {
     const withNotes = QUESTIONS.questions.filter((q) => q.b2b_en || q.b2b_ar);
     expect(withNotes.map((q) => q.id).sort()).toEqual(
-      ['access', 'affected', 'ai_type', 'bias_tested', 'complexity', 'cross_border', 'data', 'impact', 'reversibility', 'security_tested', 'third_party'].sort(),
+      ['access', 'affected', 'ai_type', 'bias_tested', 'complexity', 'cross_border', 'data', 'impact', 'reversibility', 'runtime_ai', 'security_tested', 'third_party'].sort(),
     );
     for (const q of withNotes) {
       expect(q.b2b_en, `${q.id}: missing b2b_en`).toBeTruthy();
@@ -146,5 +146,9 @@ describe('question data', () => {
     }
     const impact = QUESTIONS.questions.find((q) => q.id === 'impact')!;
     expect(impact.b2b_en).toMatch(/other companies/i);
+    // Points added from the founder's updated notes (v0.2.2 edition).
+    expect(impact.b2b_en).toMatch(/T-AUTONOMOUS-B2B-DECISIONS/);
+    expect(QUESTIONS.questions.find((q) => q.id === 'data')!.b2b_en).toMatch(/CTL-DAT-03/);
+    expect(QUESTIONS.questions.find((q) => q.id === 'complexity')!.b2b_en).toMatch(/do not soften/i);
   });
 });

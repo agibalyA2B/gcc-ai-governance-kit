@@ -13,6 +13,8 @@
       "text_ar": "هل يستخدم الحل الذكاء الاصطناعي أثناء تشغيله؟",
       "help_en": "Choose No if AI was only used to build it (for example an AI coding assistant) and the running product has no AI model or AI service inside.",
       "help_ar": "اختر «لا» إذا استُخدم الذكاء الاصطناعي في بنائه فقط (مثل مساعد برمجة ذكي)، ولا يتضمن المنتج أثناء تشغيله أي نموذج أو خدمة ذكاء اصطناعي.",
+      "b2b_en": "Answer \"No\" only when no AI model or AI service runs in production, for example when AI coding tools were used just to build it. Such a solution is out of scope for AI risk tiers. If a hosted model is called anywhere at run time, answer \"Yes\".",
+      "b2b_ar": "أجب بـ «لا» فقط إذا لم يعمل أي نموذج أو خدمة ذكاء اصطناعي في بيئة التشغيل، كأن تكون أدوات البرمجة الذكية قد استُخدمت في بنائه فقط؛ فيكون الحل حينها خارج نطاق مستويات مخاطر الذكاء الاصطناعي. وإذا استُدعي نموذج مستضاف في أي مرحلة أثناء التشغيل، فأجب بـ «نعم».",
       "options": [
         {
           "id": "yes",
@@ -36,8 +38,8 @@
       "text_ar": "على ماذا تؤثر مخرجات نظام الذكاء الاصطناعي؟",
       "help_en": "Think about the most serious thing the output can lead to, not the usual case.",
       "help_ar": "فكّر في أخطر ما قد تؤدي إليه المخرجات، لا في الحالة المعتادة.",
-      "b2b_en": "For a commercial or B2B tool, use \"High-stakes decisions or positions about other companies\" for claims, contract positions or credit decisions about other firms. Choose \"Information given to the public or customers\" for ordinary client deliverables such as reports or drafts, and \"Internal productivity only\" for tools used only by your own staff.",
-      "b2b_ar": "في الأدوات التجارية أو بين الشركات، استخدم خيار «قرارات أو مواقف عالية الأثر تخص شركات أخرى» للمطالبات أو المواقف التعاقدية أو القرارات الائتمانية بشأن شركات أخرى. اختر «معلومات تُقدَّم للجمهور أو المتعاملين» للمخرجات الاعتيادية المقدَّمة للعملاء مثل التقارير أو المسودات، واختر «الإنتاجية الداخلية فقط» للأدوات التي يستخدمها موظفوك فقط.",
+      "b2b_en": "For a commercial or B2B tool, use \"High-stakes decisions or positions about other companies\" for claims, contract positions or credit decisions about other firms. Choose \"Information given to the public or customers\" for ordinary client deliverables such as reports or drafts, and \"Internal productivity only\" for tools used only by your own staff. If no person approves each of those decisions, the rule T-AUTONOMOUS-B2B-DECISIONS makes the tier High. Keep \"Decisions about people's rights, benefits, access to services or money\" for outputs that decide about a natural person.",
+      "b2b_ar": "في الأدوات التجارية أو بين الشركات، استخدم خيار «قرارات أو مواقف عالية الأثر تخص شركات أخرى» للمطالبات أو المواقف التعاقدية أو القرارات الائتمانية بشأن شركات أخرى. اختر «معلومات تُقدَّم للجمهور أو المتعاملين» للمخرجات الاعتيادية المقدَّمة للعملاء مثل التقارير أو المسودات، واختر «الإنتاجية الداخلية فقط» للأدوات التي يستخدمها موظفوك فقط. وإذا لم يوافق شخص على كل قرار من هذه القرارات، فإن القاعدة T-AUTONOMOUS-B2B-DECISIONS تجعل المستوى مرتفعاً. واحتفظ بخيار «قرارات تمس حقوق الأفراد أو مستحقاتهم أو وصولهم إلى الخدمات أو أموالهم» للمخرجات التي تقرر بشأن شخص طبيعي.",
       "options": [
         {
           "id": "internal",
@@ -85,8 +87,8 @@
       "text_ar": "ما البيانات التي يستخدمها؟",
       "help_en": "Sensitive data includes health, biometric, financial, criminal-record, religious and children's data.",
       "help_ar": "تشمل البيانات الحساسة البيانات الصحية والبيومترية والمالية والسوابق الجنائية والمعتقد الديني وبيانات الأطفال.",
-      "b2b_en": "Contracts, correspondence and site records almost always include names, emails, signatures or phone numbers, so choose \"Personal data\" rather than \"Internal business data, no personal data\". Reserve \"Sensitive personal data\" for health, biometric, religious, criminal-record or financial-account details.",
-      "b2b_ar": "تتضمن العقود والمراسلات وسجلات المواقع غالباً أسماءً أو بريداً إلكترونياً أو توقيعات أو أرقام هواتف، لذا اختر «بيانات شخصية» بدلاً من «بيانات عمل داخلية دون بيانات شخصية». اقتصر على خيار «بيانات شخصية حساسة» للبيانات الصحية أو البيومترية أو الدينية أو السوابق الجنائية أو البيانات المالية الحساسة.",
+      "b2b_en": "Contracts, correspondence and site records almost always include names, emails, signatures or phone numbers, so choose \"Personal data\" rather than \"Internal business data, no personal data\". Reserve \"Sensitive personal data\" for health, biometric, religious, criminal-record or financial-account details. Minimisation is a real lever: redacting personal data the task does not need (CTL-DAT-03) often moves a tool from High to Limited. Answer \"Internal business data, no personal data\" only once redaction is actually in place.",
+      "b2b_ar": "تتضمن العقود والمراسلات وسجلات المواقع غالباً أسماءً أو بريداً إلكترونياً أو توقيعات أو أرقام هواتف، لذا اختر «بيانات شخصية» بدلاً من «بيانات عمل داخلية دون بيانات شخصية». اقتصر على خيار «بيانات شخصية حساسة» للبيانات الصحية أو البيومترية أو الدينية أو السوابق الجنائية أو البيانات المالية الحساسة. وتقليل البيانات وسيلة فعلية للتأثير: فحجب البيانات الشخصية التي لا تحتاج إليها المهمة (CTL-DAT-03) كثيراً ما ينقل الأداة من مستوى مرتفع إلى محدود. ولا تُجب بـ «بيانات عمل داخلية دون بيانات شخصية» إلا بعد تطبيق الحجب فعلاً.",
       "options": [
         {
           "id": "none",
@@ -638,8 +640,8 @@
       "text_ar": "ما مستوى تعقيد تنفيذ الخدمة أو تحويلها؟",
       "help_en": "Steps, entities and approvals involved; exceptions; ambiguity in decisions; regulatory and integration demands.",
       "help_ar": "عدد الخطوات والجهات والاعتمادات، والاستثناءات، وغموض القرار، والمتطلبات التنظيمية ومتطلبات التكامل.",
-      "b2b_en": "Specialist professional tools (legal, construction, technical) often score \"Very complex: multi-entity, variable, heavily governed\", which on its own points toward autonomy level 4 (not suitable yet). If the tool is in fact ready, that readiness should be evidenced by approval gates, test results and reviewer sign-off, and reported alongside the recommendation rather than asserted instead of it.",
-      "b2b_ar": "غالباً ما تُصنَّف الأدوات المهنية المتخصصة (القانونية أو الإنشائية أو التقنية) بأنها «شديد التعقيد: متعدد الجهات ومتغيّر وخاضع لحوكمة مشددة»، وهو ما يوجّه بمفرده نحو المستوى الرابع للاستقلالية (غير مناسب حالياً). وإذا كانت الأداة جاهزة بالفعل، فينبغي إثبات ذلك عبر بوابات الاعتماد ونتائج الاختبارات وتوقيع المراجع، وذِكر ذلك إلى جانب التوصية لا بدلاً منها.",
+      "b2b_en": "Specialist professional tools (legal, construction, technical) often score \"Very complex: multi-entity, variable, heavily governed\", which gives autonomy level 4 whatever the readiness: not ready for autonomy yet. For an assist-only design (level 3, a person decides every output), report the flag honestly and say that level 4 concerns readiness for autonomy, not whether AI can help. Do not soften the complexity answer to avoid level 4; readiness is shown with approval gates, test results and reviewer sign-off.",
+      "b2b_ar": "غالباً ما تُصنَّف الأدوات المهنية المتخصصة (القانونية أو الإنشائية أو التقنية) بأنها «شديد التعقيد: متعدد الجهات ومتغيّر وخاضع لحوكمة مشددة»، وهو ما يعطي المستوى 4 للاستقلالية أياً كانت الجاهزية، أي أنها غير جاهزة للاستقلالية بعد. وفي التصميم المساعد فقط (المستوى 3، حيث يقرر شخص في كل مُخرج) اذكر التنبيه بصراحة، ووضّح أن المستوى 4 يتعلق بالجاهزية للاستقلالية لا بقدرة الذكاء الاصطناعي على المساعدة. ولا تُخفّف إجابة التعقيد لتجنّب المستوى 4؛ فالجاهزية تُثبَت ببوابات الاعتماد ونتائج الاختبارات وتوقيع المراجع.",
       "options": [
         {
           "id": "low",

@@ -206,7 +206,7 @@
   "prio.intro": "Three questions from the UAE government's AI-assistant priority matrix. They don't change the risk tier; they recommend how much autonomy the AI should have.",
   "prio.notrisk": "These are not risk questions. Describe the service as it is today; there is no safe or unsafe answer.",
   "q.b2b.label": "Commercial or B2B tool? How to answer",
-  "q.b2b.credit": "Notes for commercial tools adapted from Syed Hasan's answer-mapping notes, with thanks.",
+  "q.b2b.credit": "Notes for commercial tools adapted from Syed Hasan's answer-mapping notes, with thanks. Record your interpretation in the use case notes so a reviewer can challenge it.",
   "auto.title": "Recommended autonomy",
   "auto.pending": "Answer the three prioritisation questions in the deep-dive to get a recommended autonomy level.",
   "auto.answer": "Answer them now",
