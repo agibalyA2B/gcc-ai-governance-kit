@@ -42,6 +42,13 @@ This kit is that practical layer. It is open, free and bilingual, and it runs en
 | **User guide** | An in-app [guide](https://agibalya2b.github.io/gcc-ai-governance-kit/#/guide) in Arabic and English, with screenshots: the three steps, what each tier means, reading controls and badges, exports and backups. Also as PDF: [English](docs/USER-GUIDE.pdf) · [العربية](docs/USER-GUIDE-ar.pdf). |
 | **Templates** | Register, impact assessment, control checklist, vendor AI risk assessment, committee charter and RACI in Arabic and English (XLSX, CSV, Markdown) for teams that prefer spreadsheets or work offline. You don't need them to use the app. |
 
+## Worked example and sector notes
+
+- **[Causa Claims](docs/worked-examples/causa-claims.md):** a founder assessed his construction-claims AI product in
+  three deployment profiles, and the result changed what he shipped.
+- **[AI use and disclosure in arbitration](docs/sector-notes/arbitration-ai-disclosure.md):** what the Ciarb guideline
+  means for AI tools that prepare claims and submissions.
+
 ## Try it in 60 seconds
 
 1. Open the **[live site](https://agibalya2b.github.io/gcc-ai-governance-kit/)** and click **Load 2 sample use cases**.
