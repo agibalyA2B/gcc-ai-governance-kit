@@ -38,6 +38,7 @@
   "reg.copy": "copy",
   "reg.empty": "Your register is empty. Add your first AI use case, or load two examples to see how it works.",
   "reg.samples": "Load 2 sample use cases",
+  "reg.samples.private": "Load 6 private-sector examples",
   "reg.filter": "Show",
   "reg.filter.all": "All",
   "reg.import": "Restore a saved register (.json)",

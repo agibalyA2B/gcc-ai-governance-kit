@@ -163,6 +163,14 @@ test('a filled register template (CSV or XLSX) imports into the app', async ({ p
   await expect(page.getByRole('link', { name: 'روبوت محادثة للأسئلة الشائعة' })).toBeVisible();
 });
 
+test('private-sector examples load with a spread of tiers', async ({ page }) => {
+  await page.getByRole('button', { name: 'Load 6 private-sector examples' }).click();
+  await expect(page.locator('table.register tbody tr')).toHaveCount(6);
+  await page.locator('select[data-action="filter"]').selectOption('high');
+  await expect(page.locator('table.register tbody tr')).toHaveCount(3);
+  await expect(page.getByRole('link', { name: 'Construction claims drafting assistant' })).toBeVisible();
+});
+
 test('Arabic mode renders RTL register and tier', async ({ page }) => {
   await page.getByTestId('lang-toggle').click();
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
