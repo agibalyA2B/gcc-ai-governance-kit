@@ -41,17 +41,19 @@ action in the register.
 
 | Stage | Question it answers | AI authority | Exit gate |
 |---|---|---|---|
-| 1. Historical replay | Does it handle known cases correctly? | None | Baseline quality and critical-failure tests passed |
-| 2. Live shadow | Does it hold up in the real environment? | None (outputs logged, never used) | Pre-agreed quality, coverage and safety thresholds met |
-| 3. Assisted (level 3) | Does human + AI beat human alone? | Suggests; a person decides | Better outcomes with demonstrated real oversight |
-| 4. Bounded autonomy (level 2) | Can it act safely within limits? | Acts on approved actions, with monitoring and escalation | Documented risk acceptance and operational readiness |
-| 5. Controlled expansion (level 1 where allowed) | Does it stay safe as conditions change? | Widened one action or segment at a time | Ongoing evidence, never a permanent approval |
+| Replay | Does it handle known cases correctly? | None | Baseline quality and critical-failure tests passed |
+| Shadow | Does it hold up in the real environment? | None (outputs logged, never used) | Pre-agreed quality, coverage and safety thresholds met |
+| Assisted (level 3) | Does human + AI beat human alone? | Suggests; a person decides | Better outcomes with demonstrated real oversight |
+| Bounded (level 2) | Can it act safely within limits? | Acts on approved actions, with monitoring and escalation | Documented risk acceptance and operational readiness |
+| Expansion (level 1 where allowed) | Does it stay safe as conditions change? | Widened one action or segment at a time | Ongoing evidence, never a permanent approval |
+
+Stages have names, not numbers, so they are never confused with the autonomy levels.
 
 The ladder is not one-way. A model, prompt, tool, data-source or policy change, or a serious incident, can send an
 action back to an earlier stage. Different actions of the same system can sit on different stages at the same time.
 The kit's rule still applies: a High tier or regulated domain never reaches level 1.
 
-### Stage 1: historical replay
+### Replay: historical cases
 
 Cheap, and it catches obvious failures early. Make it time-correct:
 
@@ -61,9 +63,11 @@ Cheap, and it catches obvious failures early. Make it time-correct:
 - add a curated set of edge cases, rare exceptions and deliberately injected failures, because history under-samples
   the cases that matter most.
 
-Past decisions are not ground truth. They contain human errors too.
+Past decisions are not ground truth. They contain human errors too, and archives hold only the cases that were
+formally submitted, with the final verdict but rarely the verbal context or the exceptions made along the way.
+Benchmark against a re-adjudicated sample, not against past decisions alone.
 
-### Stage 2: live shadow
+### Shadow: live cases, nothing committed
 
 The system sees real cases as they arrive, but its output changes nothing. Run two kinds:
 
@@ -73,7 +77,7 @@ The system sees real cases as they arrive, but its output changes nothing. Run t
 
 Shadow mode must never be a reason to expose more personal data or to grant broader access than production.
 
-### Stage 3: assisted (level 3)
+### Assisted (level 3)
 
 Shadow mode cannot measure automation bias, because staff never see the AI's output. The assisted stage exists to
 test the human and the AI together. Design it so the numbers mean something:
@@ -89,11 +93,12 @@ test the human and the AI together. Design it so the numbers mean something:
 Staff must keep real authority and enough time to review. Do not run experiments on citizens' rights to measure
 bias; use controlled studies and independent review for high-stakes cases.
 
-### Stage 4: bounded autonomy (level 2)
+### Bounded autonomy (level 2)
 
 Start with reversible, low-impact actions. Before any action runs without a person deciding:
 
-- **least privilege:** only the permissions that action needs;
+- **least privilege:** only the permissions that action needs. Many back-end systems only offer broad service
+  accounts; then the narrowing has to happen in a policy layer or API gateway in front of them;
 - **limits:** caps on the number, value or impact of actions without further approval;
 - **approval gates** for anything irreversible or legally consequential;
 - **idempotency:** no duplicate submissions or repeated actions;
@@ -101,10 +106,19 @@ Start with reversible, low-impact actions. Before any action runs without a pers
 - **remediation:** how affected people are identified, informed where appropriate, and given a route to correction or
   appeal. Rollback restores software, not a notice already sent.
 
-### Stage 5: controlled expansion
+### Controlled expansion
 
 Widen one action or segment at a time. Keep independent sampling after release, watch for drift in inputs and
 outcomes, and name the owner of the "is it still safe?" decision.
+
+### Suspension and recovery
+
+Decide before release, per action:
+
+- who can withdraw the authority, and how fast;
+- which actions stop, and what the safe state is (usually: back to Assisted, a person decides);
+- how cases in flight are handled and who reviews them;
+- what must be shown before the authority is restored. Restoration is a new release decision, not a switch back on.
 
 ## How to measure
 
@@ -140,7 +154,7 @@ data collection starts, so the goalposts cannot move.
 
 ## The release contract
 
-Agree it in writing before stage 1, per action:
+Agree it in writing before replay starts, per action:
 
 | Dimension | Evidence required |
 |---|---|
@@ -152,6 +166,8 @@ Agree it in writing before stage 1, per action:
 | Security and authority | Verified permissions, action limits, audit logs, access control |
 | Legal and procedural basis | Approval of the delegated role and the accountability arrangements |
 | Ongoing control | Monitoring, drift detection, incident handling, suspension and recovery |
+
+A pass means the evidence is sufficient for this bounded authorisation. It never means the system is proved safe.
 
 Four outcomes are possible: **pass** (for the specific level requested), **conditional pass** (narrower boundaries,
 extra controls), **fail**, and **not yet demonstrated** (too little evidence, which is neither a pass nor a failure).
