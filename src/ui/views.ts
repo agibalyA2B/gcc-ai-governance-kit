@@ -8,6 +8,7 @@ import { EVIDENCE_STATUSES, evidenceSummary, type EvidenceMap } from '../core/ev
 import { esc, tierIcon } from './html';
 import { recommendAutonomy, nextSteps, type AutonomyResult } from '../core/autonomy';
 import { sensitivity } from '../core/sensitivity';
+import { actionMatrix, looser, PERMISSIONS, type ActionRow } from '../core/actions';
 
 export const STEPS = ['details', 'quick', 'tier', 'deep', 'controls', 'export'] as const;
 export type Step = (typeof STEPS)[number];
@@ -202,6 +203,33 @@ export function autonomyCard(lang: Lang, uc: UseCase, r: TierResult): string {
   </div>`;
 }
 
+const permBadge = (lang: Lang, p: string) => `<span class="perm perm-${p}">${t(lang, `perm.${p}`)}</span>`;
+
+function actionRowHtml(lang: Lang, r: ActionRow): string {
+  const id = `act-${r.id}`;
+  return `<tr data-act="${r.id}" data-ceiling="${r.ceiling}"><th scope="row" id="${id}">${t(lang, `act.${r.id}`)}</th>
+    <td>${permBadge(lang, r.ceiling)}${r.capReasons.length ? `<br/><span class="small muted">${r.capReasons.map((c) => t(lang, `act.cap.${c}`)).join('; ')}</span>` : ''}</td>
+    <td><select data-action="act-perm" data-act="${r.id}" aria-labelledby="${id} act-h-setting">${PERMISSIONS.map((p) => `<option value="${p}" ${r.permission === p ? 'selected' : ''}>${t(lang, `perm.${p}`)}${looser(p, r.ceiling) ? ` (${t(lang, 'act.above')})` : ''}</option>`).join('')}</select>
+      ${r.loosened ? `<p class="small auto-exceeds" role="note">${t(lang, 'act.loosened')}</p>` : ''}</td>
+    <td><input data-action="act-text" data-field="limits" data-act="${r.id}" value="${esc(r.limits)}" maxlength="500" placeholder="${t(lang, 'act.limits.ph')}" aria-labelledby="${id} act-h-limits" ${r.permission === 'blocked' ? 'disabled' : ''}/></td>
+    <td><select data-action="act-rev" data-act="${r.id}" aria-labelledby="${id} act-h-rev">${(['', 'yes', 'no'] as const).map((v) => `<option value="${v}" ${r.reversible === v ? 'selected' : ''}>${t(lang, `act.rev.${v || 'unset'}`)}</option>`).join('')}</select></td>
+    <td><input data-action="act-text" data-field="approver" data-act="${r.id}" value="${esc(r.approver)}" maxlength="500" placeholder="${t(lang, 'act.approver.ph')}" aria-labelledby="${id} act-h-approver" ${r.permission === 'approval' ? '' : 'disabled'}/></td></tr>`;
+}
+
+/** The action matrix (ADR 014): six actions, pre-filled ceilings, tighten-only settings. */
+export function actionMatrixCard(lang: Lang, uc: UseCase, r: TierResult): string {
+  const m = actionMatrix(uc.answers, r.tier, uc.actions);
+  const head = `<h3 id="act-h">${t(lang, 'act.title')}</h3>`;
+  if (r.tier === 'unacceptable') return `<div class="actions-matrix" data-testid="action-matrix">${head}<p class="notice danger-note">${t(lang, 'act.unacceptable')}</p></div>`;
+  const cols = ['action', 'rec', 'setting', 'limits', 'rev', 'approver'];
+  return `<div class="actions-matrix" data-testid="action-matrix">${head}<p class="muted small">${t(lang, 'act.intro')}</p>
+    ${m.provisional ? `<p class="notice small">${t(lang, 'act.provisional')}</p>` : ''}
+    ${m.level === 4 ? `<p class="small">${t(lang, 'act.l4')}</p>` : ''}
+    <div class="table-wrap"><table class="matrix" aria-labelledby="act-h"><thead><tr>${cols.map((c) => `<th scope="col" id="act-h-${c}">${t(lang, `act.col.${c}`)}</th>`).join('')}</tr></thead>
+    <tbody>${m.rows.map((row) => actionRowHtml(lang, row)).join('')}</tbody></table></div>
+    ${uc.answers.ai_type === 'agentic' ? `<p class="small muted">${t(lang, 'act.multi')}</p>` : ''}</div>`;
+}
+
 const optLabel = (lang: Lang, qid: string, oid: string) => {
   const q = QUESTIONS.questions.find((x) => x.id === qid)!; const o = q.options.find((x) => x.id === oid)!;
   return { q: L(lang, q.text_en, q.text_ar), o: L(lang, o.en, o.ar) };
@@ -242,6 +270,7 @@ export function tierView(lang: Lang, uc: UseCase, r: TierResult): string {
     </details>
     ${sensitivityCard(lang, uc, r)}
     ${autonomyCard(lang, uc, r)}
+    ${actionMatrixCard(lang, uc, r)}
     ${!r.deepComplete ? `<div class="prompt ${r.tier === 'high' || r.tier === 'unacceptable' ? 'strong' : ''}">
       <p>${t(lang, r.tier === 'high' || r.tier === 'unacceptable' ? 'tier.deep.strong' : 'tier.deep.offer')}</p>
       <a class="btn" href="#/uc/${esc(uc.id)}/deep">${t(lang, 'tier.deep.cta')}</a></div>` : ''}

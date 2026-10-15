@@ -3,6 +3,7 @@ import { computeTier, topReasons, aiInScope, type Answers } from '../core/scorin
 import { store } from '../core/store';
 import { blankUseCase, sampleUseCases, newId, parseRegister, REGISTER_FORMAT, type UseCase } from '../core/usecase';
 import { setEvidence, type EvidenceStatus } from '../core/evidence';
+import { actionMatrix, setAction, type ActionId, type Permission, type Reversible } from '../core/actions';
 import { newDeployment } from '../core/products';
 import { privateSectorExamples } from '../core/samples';
 import { applicableControls } from '../core/controls';
@@ -72,6 +73,26 @@ function controlRows(uc: UseCase, fw: FrameworkId[]): Row[] {
   });
 }
 
+/** One-line summary of the action matrix for the register sheet, grouped by permission. */
+function actionSummary(uc: UseCase): string {
+  const r = computeTier(uc.answers);
+  if (!aiInScope(uc.answers) || !r.quickComplete) return '';
+  const rows = actionMatrix(uc.answers, r.tier, uc.actions).rows;
+  return (['allowed', 'approval', 'blocked'] as const).map((p) => {
+    const ids = rows.filter((x) => x.permission === p).map((x) => t(lang, `act.${x.id}`));
+    return ids.length ? `${t(lang, `perm.${p}`)}: ${ids.join('; ')}` : '';
+  }).filter(Boolean).join(' | ');
+}
+
+function actionRows(uc: UseCase): Row[] {
+  const r = computeTier(uc.answers);
+  return actionMatrix(uc.answers, r.tier, uc.actions).rows.map((x) => ({
+    [t(lang, 'act.col.action')]: t(lang, `act.${x.id}`), [t(lang, 'act.col.rec')]: t(lang, `perm.${x.ceiling}`),
+    [t(lang, 'act.col.setting')]: t(lang, `perm.${x.permission}`), [t(lang, 'act.col.limits')]: x.limits,
+    [t(lang, 'act.col.rev')]: t(lang, `act.rev.${x.reversible || 'unset'}`), [t(lang, 'act.col.approver')]: x.approver,
+  }));
+}
+
 function registerRows(cases: UseCase[]): Row[] {
   return cases.map((uc) => {
     const r = computeTier(uc.answers);
@@ -82,7 +103,8 @@ function registerRows(cases: UseCase[]): Row[] {
       [t(lang, 'reg.type')]: uc.answers.ai_type ? t(lang, `aitype.${uc.answers.ai_type}`) : '',
       [t(lang, 'reg.tier')]: !aiInScope(uc.answers) ? t(lang, 'scope.badge') : r.quickComplete ? t(lang, `tier.${r.tier}`) : t(lang, 'tier.pending'),
       [t(lang, 'tier.points')]: r.points, [t(lang, 'tier.why')]: topReasons(r, lang).join(' | '),
-      [t(lang, 'reg.deep')]: r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo'), [t(lang, 'reg.updated')]: uc.updatedAt.slice(0, 10),
+      [t(lang, 'reg.deep')]: r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo'), [t(lang, 'act.summary')]: actionSummary(uc),
+      [t(lang, 'reg.updated')]: uc.updatedAt.slice(0, 10),
     };
   });
 }
@@ -162,13 +184,13 @@ function onClick(e: Event): void {
     case 'import': document.querySelector<HTMLInputElement>('[data-action="import-file"]')?.click(); break;
     case 'import-table': document.querySelector<HTMLInputElement>('[data-action="import-table-file"]')?.click(); break;
     case 'export-json':
-      download(`ai-register-${stamp()}.json`, JSON.stringify({ format: REGISTER_FORMAT, version: 1, useCases: store.list() }, null, 2), 'application/json');
+      download(`ai-register-${stamp()}.json`, JSON.stringify({ format: REGISTER_FORMAT, version: 1, kitVersion: __KIT_VERSION__, exportedAt: new Date().toISOString(), useCases: store.list() }, null, 2), 'application/json');
       break;
     case 'export-xlsx':
       download(`ai-register-${stamp()}.xlsx`, toXlsx([{ name: t(lang, 'reg.sheet'), rows: registerRows(store.list()) }], lang === 'ar'), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       break;
     case 'ctl-csv': if (uc) download(`controls-${slug(uc.name)}-${stamp()}.csv`, toCsv(controlRows(uc, store.frameworks())), 'text/csv;charset=utf-8'); break;
-    case 'ctl-xlsx': if (uc) download(`controls-${slug(uc.name)}-${stamp()}.xlsx`, toXlsx([{ name: t(lang, 'step.controls'), rows: controlRows(uc, store.frameworks()) }], lang === 'ar'), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); break;
+    case 'ctl-xlsx': if (uc) download(`controls-${slug(uc.name)}-${stamp()}.xlsx`, toXlsx([{ name: t(lang, 'step.controls'), rows: controlRows(uc, store.frameworks()) }, { name: t(lang, 'act.sheet'), rows: actionRows(uc) }], lang === 'ar'), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); break;
     case 'goto': document.getElementById(el.dataset.target!)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); break;
     case 'print-guide': {
       const g = document.querySelector('.guide');
@@ -198,6 +220,7 @@ function onChange(e: Event): void {
   if (el.dataset.action === 'import-file') { void importFile((el as HTMLInputElement).files?.[0]); return; }
   if (el.dataset.action === 'import-table-file') { void importTableFile((el as HTMLInputElement).files?.[0]); return; }
   if (el.dataset.action === 'ev-status' || el.dataset.action === 'ev-note') { saveEvidence(el); return; }
+  if (el.dataset.action === 'act-perm' || el.dataset.action === 'act-rev') { saveAction(el); return; }
   const form = el.closest<HTMLFormElement>('form[data-form]');
   const uc = currentUc();
   if (!form || !uc) return;
@@ -234,6 +257,29 @@ function saveEvidence(el: HTMLInputElement | HTMLSelectElement | HTMLTextAreaEle
   const ids = applicableControls(r.tier, next.answers, store.frameworks()).map((c) => c.id);
   const sum = document.querySelector<HTMLElement>('[data-testid="ev-summary"]');
   if (sum) sum.innerHTML = V.evidenceSummaryText(lang, ids, next.evidence);
+}
+
+/** Saves one action-matrix edit. A looser permission is refused with a warning; the select goes back to what applies. */
+function saveAction(el: HTMLInputElement | HTMLSelectElement): void {
+  const uc = currentUc();
+  const id = el.dataset.act as ActionId | undefined;
+  if (!uc || !id) return;
+  const r = computeTier(uc.answers);
+  const row = actionMatrix(uc.answers, r.tier, uc.actions).rows.find((x) => x.id === id)!;
+  const patch = el.dataset.action === 'act-perm' ? { permission: el.value as Permission }
+    : el.dataset.action === 'act-rev' ? { reversible: el.value as Reversible }
+    : { [el.dataset.field === 'approver' ? 'approver' : 'limits']: el.value };
+  const next = setAction(uc.actions, id, patch, row.ceiling);
+  if (!next) {
+    el.value = row.permission;
+    toast(t(lang, 'act.loosen.warn').replace('{rec}', t(lang, `perm.${row.ceiling}`)));
+    return;
+  }
+  store.save({ ...uc, actions: Object.keys(next).length ? next : undefined });
+  if (el.dataset.action === 'act-perm') {
+    render(false);
+    document.querySelector<HTMLSelectElement>(`select[data-action="act-perm"][data-act="${id}"]`)?.focus();
+  }
 }
 
 function onSubmit(e: Event): void {
@@ -306,7 +352,11 @@ export function start(): void {
   document.addEventListener('change', onChange);
   document.addEventListener('submit', onSubmit);
   // Evidence notes save as the user types, so closing the tab never loses them.
-  document.addEventListener('input', (e) => { const el = e.target as HTMLTextAreaElement; if (el.dataset?.action === 'ev-note') saveEvidence(el); });
+  document.addEventListener('input', (e) => {
+    const el = e.target as HTMLTextAreaElement;
+    if (el.dataset?.action === 'ev-note') saveEvidence(el);
+    if (el.dataset?.action === 'act-text') saveAction(el as unknown as HTMLInputElement);
+  });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenus(); });
   window.addEventListener('hashchange', () => render());
   window.addEventListener('afterprint', () => { const p = document.getElementById('print-root'); if (p) p.innerHTML = ''; });
