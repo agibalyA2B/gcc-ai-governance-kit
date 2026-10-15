@@ -349,7 +349,13 @@ function briefBody(b: Brief, lang: Lang): string {
     ${bl.items.length ? `<ul>${bl.items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
     ${bl.table ? tableHtml(bl.table) : ''}
     ${bl.afterTitle ? `<h4>${esc(bl.afterTitle)}</h4>` : ''}
-    ${bl.after?.length ? `<ul class="${bl.afterTitle ? '' : 'principles'}">${bl.after.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}</section>`).join('');
+    ${bl.after?.length ? `<ul class="${bl.afterTitle ? '' : 'principles'}">${bl.after.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}</section>`).join('') + warningsHtml(b, lang);
+}
+
+function warningsHtml(b: Brief, lang: Lang): string {
+  return `<section class="brief-block warnings" data-testid="brief-warnings"><h3>${t(lang, 'wr.h')}</h3><p class="muted small">${t(lang, 'wr.intro')}</p>
+    ${b.warnings.length ? b.warnings.map((w) => `<details class="warning-card sev-${w.severity}" data-warning="${w.id}"><summary><span class="sev">${t(lang, `wr.sev.${w.severity}`)}</span>${w.gcc ? ` <span class="sev gcc">${t(lang, 'wr.gcc')}</span>` : ''} ${esc(w.title)}</summary>
+      <dl>${w.fields.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl></details>`).join('') : `<p>${t(lang, 'wr.none')}</p>`}</section>`;
 }
 
 /** The agent brief screen (ADR 015): one extra step after the controls, two outputs, copy or download. */

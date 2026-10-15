@@ -88,7 +88,7 @@ describe('Markdown outputs', () => {
   it('carry the not-an-enforcement-mechanism notice and all six headings, in both languages', () => {
     for (const lang of ['en', 'ar'] as const) {
       const md = briefMarkdown(buildBrief(uc({ ...agent, ...prio[2] }), lang, fw), lang, '2026-10-15');
-      expect(md.match(/^## /gm)!.length).toBe(7); // six blocks + sign-off
+      expect(md.match(/^## /gm)!.length).toBe(8); // six blocks, warnings, sign-off
       expect(md).not.toMatch(/\b(br|act|perm)\.[a-z]/); // no untranslated keys
       expect(md).not.toContain('undefined');
     }

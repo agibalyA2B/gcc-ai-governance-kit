@@ -291,14 +291,18 @@ test('agent brief: one extra step, two outputs, copy and download, in English an
   await page.locator('.actions').getByRole('link', { name: 'Agent brief' }).click();
   const brief = page.getByTestId('brief');
   await expect(brief.locator('.brief-notice')).toContainText('not an enforcement mechanism');
-  await expect(brief.locator('.brief-block')).toHaveCount(6);
+  await expect(brief.locator('.brief-block[data-block]')).toHaveCount(6);
   await expect(brief.locator('[data-block="authority"] tbody tr')).toHaveCount(6);
   await expect(brief.locator('[data-block="evidence"]')).toContainText('Each consequential action');
+  // Selective warnings: the public-facing agent gets the dialect warning and a critical one listed first.
+  await expect(brief.locator('[data-warning="dialect"]')).toContainText('Arabic dialect asymmetry');
+  await expect(brief.locator('.warning-card').first()).toHaveClass(/sev-critical/);
   await brief.getByRole('button', { name: 'Copy as Markdown' }).click();
   await expect(page.locator('.toast')).toContainText('Brief copied');
   const copied = await page.evaluate(() => navigator.clipboard.readText());
   expect(copied).toContain('# Agent brief: Citizen service triage agent');
   expect(copied).toContain('## Sign-off');
+  expect(copied).toContain('## Warnings for this use case');
   await brief.getByRole('radio', { name: 'Engineering handover spec' }).check();
   await expect(page.getByTestId('brief').locator('[data-block="authority"]')).toContainText('Enforce these limits in the platform');
   const [md] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Download (.md)' }).click()]);
@@ -312,7 +316,7 @@ test('agent brief: one extra step, two outputs, copy and download, in English an
   const ar = page.getByTestId('brief');
   await expect(ar.locator('h2')).toHaveText('موجز التفويض');
   await expect(ar.locator('.brief-notice')).toContainText('ليس آلية إنفاذ');
-  await expect(ar.locator('.brief-block')).toHaveCount(6);
+  await expect(ar.locator('.brief-block[data-block]')).toHaveCount(6);
   expect(await ar.innerText()).not.toMatch(/\b(br|act|perm)\.[a-z]/);
   const [arMd] = await Promise.all([page.waitForEvent('download'), ar.getByRole('button', { name: 'تنزيل (.md)' }).click()]);
   expect(readFileSync((await arMd.path())!, 'utf8')).toContain('## 4. الصلاحيات');

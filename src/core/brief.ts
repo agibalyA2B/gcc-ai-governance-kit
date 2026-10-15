@@ -5,6 +5,7 @@ import { actionMatrix, type ActionRow } from './actions';
 import { applicableControls, type Control } from './controls';
 import type { FrameworkId } from './frameworks';
 import type { UseCase } from './usecase';
+import { warningsFor, WARNING_FIELDS, type Severity } from './warnings';
 
 /**
  * Agent brief (ADR 015): a rule-based delegation brief assembled from the assessment, with no AI at runtime.
@@ -15,6 +16,7 @@ export type BlockId = (typeof BLOCKS)[number];
 export type Audience = 'annex' | 'handover';
 export interface Table { head: string[]; rows: string[][] }
 export interface Block { id: BlockId; title: string; items: string[]; table?: Table; afterTitle?: string; after?: string[] }
+export interface WarningCard { id: string; severity: Severity; gcc: boolean; title: string; fields: [string, string][] }
 export interface Brief {
   kind: 'brief' | 'readiness' | 'prohibited';
   audience: Audience;
@@ -25,6 +27,8 @@ export interface Brief {
   blocks: Block[];
   /** Level 4 only: why there is no brief, and what to do first. */
   readiness: string[];
+  /** Selective bad-practice warnings (plan §4): only those whose trigger fires here. */
+  warnings: WarningCard[];
 }
 
 /** The four records (Hasbini & Seow, 2026) as references to existing controls: no second register (plan §1). */
@@ -129,13 +133,19 @@ export function buildBrief(uc: UseCase, lang: Lang, frameworks: FrameworkId[], a
   const r = computeTier(uc.answers);
   const a = recommendAutonomy(uc.answers, r.tier);
   const m = actionMatrix(uc.answers, r.tier, uc.actions);
-  const base = { audience, title: t(lang, `br.${audience}`), name: uc.name, level: m.level, provisional: m.provisional, blocks: [] as Block[], readiness: [] as string[] };
+  const base = { audience, title: t(lang, `br.${audience}`), name: uc.name, level: m.level, provisional: m.provisional, blocks: [] as Block[], readiness: [] as string[], warnings: [] as WarningCard[] };
   if (r.tier === 'unacceptable') return { ...base, kind: 'prohibited', readiness: [t(lang, 'br.x')] };
   if (m.level === 4)
     return { ...base, kind: 'readiness', readiness: [fill(t(lang, 'br.r.p'), { clarify: t(lang, 'auto.l4.clarify') }), ...nextSteps(a, uc.answers).map((s) => t(lang, `auto.step.${s}`)), t(lang, 'br.r.allowed')] };
   const applicable = applicableControls(r.tier, uc.answers, frameworks);
+  const T = (k: string) => t(lang, k);
+  const warnings = warningsFor({ answers: uc.answers, tier: r.tier, level: m.level, rows: m.rows, evidence: uc.evidence ?? {}, applicable: new Set(applicable.map((c) => c.id)) })
+    .map((w): WarningCard => ({
+      id: w.id, severity: w.severity, gcc: !!w.gcc, title: T(`wr.${w.id}.title`),
+      fields: [...WARNING_FIELDS.map((f): [string, string] => [T(`wr.f.${f}`), T(`wr.${w.id}.${f}`)]), [T('wr.f.owner'), T(`wr.role.${w.owner}`)]],
+    }));
   return {
-    ...base, kind: 'brief',
+    ...base, kind: 'brief', warnings,
     blocks: [
       intent(lang, uc, m.level), context(lang, uc, r.tier, r.points, m.level, m.provisional), constraints(lang, uc, r.tier),
       authority(lang, m.rows, audience), evidence(lang, uc, applicable, audience), done(lang, m.level),
@@ -161,6 +171,8 @@ export function briefMarkdown(b: Brief, lang: Lang, date = new Date().toISOStrin
       if (bl.after?.length) out.push('', ...bl.after.map((x) => `- ${x}`));
       out.push('');
     }
+    out.push(`## ${T('wr.h')}`, '', ...(b.warnings.length ? [] : [T('wr.none'), '']));
+    for (const w of b.warnings) out.push(`### ${w.title} (${T(`wr.sev.${w.severity}`)}${w.gcc ? `${T('br.comma')}${T('wr.gcc')}` : ''})`, '', ...w.fields.map(([k, v]) => `- **${k}:** ${v}`), '');
     if (b.audience === 'annex') out.push(`## ${T('rep.signoff')}`, '', mdTable({ head: [T('rep.prepared'), T('rep.reviewed'), T('rep.decision')], rows: [['', '', `☐ ${T('rep.approve')} ☐ ${T('rep.conditions')} ☐ ${T('rep.reject')}`]] }), '');
   }
   out.push('', `*${T('rep.disclaimer')}*`, '');
