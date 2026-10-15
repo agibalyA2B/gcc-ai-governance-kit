@@ -11,6 +11,7 @@ import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
 import { toCsv, toXlsx, download, readTable, type Row } from '../export/tabular';
 import { casesFromRows } from '../core/importTable';
 import { buildBrief, briefMarkdown, type Audience } from '../core/brief';
+import { isStage } from '../core/stage';
 import * as V from './views';
 
 const REPO = 'https://github.com/agibalyA2B/gcc-ai-governance-kit';
@@ -106,6 +107,7 @@ function registerRows(cases: UseCase[]): Row[] {
       [t(lang, 'reg.tier')]: !aiInScope(uc.answers) ? t(lang, 'scope.badge') : r.quickComplete ? t(lang, `tier.${r.tier}`) : t(lang, 'tier.pending'),
       [t(lang, 'tier.points')]: r.points, [t(lang, 'tier.why')]: topReasons(r, lang).join(' | '),
       [t(lang, 'reg.deep')]: r.deepComplete ? t(lang, 'reg.deep.done') : t(lang, 'reg.deep.todo'), [t(lang, 'act.summary')]: actionSummary(uc),
+      [t(lang, 'stage.col')]: uc.releaseStage ? t(lang, `stage.${uc.releaseStage}`) : '', [t(lang, 'stage.col.date')]: uc.stageDate ?? '',
       [t(lang, 'reg.updated')]: uc.updatedAt.slice(0, 10),
     };
   });
@@ -142,7 +144,7 @@ function render(focus = true): void {
       : step === 'brief' ? V.briefView(lang, uc, store.frameworks(), briefAudience)
       : V.exportView(lang, uc);
     content = `<p class="crumb"><a href="#/">${t(lang, 'nav.home')}</a> / ${uc.name ? V.caseBadge(lang, uc, r) : ''} <span>${uc.name ? uc.name.replace(/[<>&]/g, '') : t(lang, 'reg.untitled')}</span></p>
-      ${V.stepper(lang, uc, step, r)}${body}`;
+      ${V.stepper(lang, uc, step, r)}${aiInScope(uc.answers) && r.quickComplete ? V.stageBanner(lang, uc, r, store.frameworks()) : ''}${body}`;
   } else content = `<section class="card"><h1 tabindex="-1">${t(lang, 'nf.title')}</h1><a class="btn" href="#/">${t(lang, 'nav.home')}</a></section>`;
 
   app().innerHTML = shell(content);
@@ -243,7 +245,8 @@ function onChange(e: Event): void {
     const fd = new FormData(form);
     store.save({ ...uc, name: String(fd.get('name') ?? '').trim(), owner: String(fd.get('owner') ?? '').trim(), businessUnit: String(fd.get('businessUnit') ?? ''),
       purpose: String(fd.get('purpose') ?? ''), status: String(fd.get('status') ?? 'idea') as UseCase['status'], notes: String(fd.get('notes') ?? ''),
-      product: String(fd.get('product') ?? '').trim() || undefined, deployment: String(fd.get('deployment') ?? '').trim() || undefined });
+      product: String(fd.get('product') ?? '').trim() || undefined, deployment: String(fd.get('deployment') ?? '').trim() || undefined,
+      ...stageFields(uc, String(fd.get('releaseStage') ?? '')) });
   } else if (el.type === 'radio') {
     const answers: Answers = { ...uc.answers, [el.name]: el.value };
     store.save({ ...uc, answers });
@@ -256,6 +259,13 @@ function onChange(e: Event): void {
     const done = [...qs].filter((f) => f.querySelector('input:checked')).length;
     const p = form.querySelector('.progress'); if (p) p.textContent = `${done}/${qs.length}`;
   }
+}
+
+/** The release stage and its date: the date moves only when the stage changes. */
+function stageFields(uc: UseCase, raw: string): Pick<UseCase, 'releaseStage' | 'stageDate'> {
+  const releaseStage = isStage(raw) ? raw : undefined;
+  if (releaseStage === uc.releaseStage) return { releaseStage, stageDate: uc.stageDate };
+  return { releaseStage, stageDate: releaseStage ? stamp() : undefined };
 }
 
 /** Saves one control's evidence and refreshes the tally in place, so focus and scroll stay where the user is. */

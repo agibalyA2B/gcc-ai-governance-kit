@@ -9,7 +9,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const LANGS = ['en', 'ar'] as const;
 const FILES = [
   'register', 'impact-assessment', 'control-checklist',
-  'vendor-ai-risk-assessment', 'committee-charter', 'raci',
+  'vendor-ai-risk-assessment', 'committee-charter', 'raci', 'release-contract',
 ] as const;
 const EXTS = ['xlsx', 'csv', 'md'] as const;
 
@@ -18,7 +18,7 @@ const EXTS = ['xlsx', 'csv', 'md'] as const;
 execFileSync('node', ['scripts/build-templates.mjs'], { cwd: ROOT, stdio: 'pipe' });
 
 describe('templates pack', () => {
-  it('writes all 36 template files', () => {
+  it('writes all 42 template files', () => {
     for (const lang of LANGS) {
       for (const file of FILES) {
         for (const ext of EXTS) {
@@ -74,5 +74,19 @@ describe('templates pack', () => {
       const wb = XLSX.read(buf, { type: 'buffer' });
       expect(wb.Workbook?.Views?.[0]?.RTL, file).toBe(true);
     }
+  });
+});
+
+describe('release contract template', () => {
+  it('has the eight evidence dimensions and the four outcomes, in English and Arabic, RTL in Arabic', () => {
+    for (const lang of LANGS) {
+      const wb = XLSX.read(readFileSync(join(ROOT, 'public/templates', lang, 'release-contract.xlsx')), { type: 'buffer' });
+      expect(!!wb.Workbook?.Views?.[0]?.RTL).toBe(lang === 'ar');
+      const rows = XLSX.utils.sheet_to_json<string[]>(wb.Sheets[wb.SheetNames[0]], { header: 1 });
+      expect(rows[0]).toEqual(['section', 'item', 'evidence_required', 'threshold', 'evidence_ref', 'result']);
+      expect(rows.filter((r) => r[0] === rows[8][0])).toHaveLength(8);
+    }
+    expect(readFileSync(join(ROOT, 'public/templates/en/release-contract.md'), 'utf8')).toContain('Pass / Conditional pass / Fail / Not yet demonstrated');
+    expect(readFileSync(join(ROOT, 'public/templates/ar/release-contract.md'), 'utf8')).toContain('لم يثبت بعد');
   });
 });

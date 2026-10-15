@@ -321,3 +321,24 @@ test('agent brief: one extra step, two outputs, copy and download, in English an
   const [arMd] = await Promise.all([page.waitForEvent('download'), ar.getByRole('button', { name: 'تنزيل (.md)' }).click()]);
   expect(readFileSync((await arMd.path())!, 'utf8')).toContain('## 4. الصلاحيات');
 });
+
+test('release stage: saved with a date, banner when Bounded runs with a Gap in the basics', async ({ page }) => {
+  await page.getByRole('button', { name: 'Load 2 sample use cases' }).click();
+  await page.getByRole('link', { name: 'Citizen service triage agent' }).click();
+  await page.locator('.stepper').getByRole('link', { name: 'Details' }).click();
+  await page.getByLabel('Release stage').selectOption('bounded');
+  await expect(page.locator('#stage-hint a')).toHaveAttribute('href', /autonomy-release-ladder\.md$/);
+  await page.locator('.stepper').getByRole('link', { name: 'Controls' }).click();
+  await expect(page.getByTestId('stage-banner')).toHaveCount(0);
+  await page.locator('li.control', { hasText: 'Stop switch and rollback' }).locator('select[data-action="ev-status"]').selectOption('gap');
+  await page.reload();
+  await expect(page.getByTestId('stage-banner')).toContainText('CTL-HUM-06');
+  await page.locator('.stepper').getByRole('link', { name: 'Agent brief' }).click();
+  await expect(page.getByTestId('stage-banner')).toBeVisible();
+  await expect(page.getByTestId('brief')).toContainText('Release stage: Bounded autonomy (since ');
+  // Moving back to Assisted clears the banner.
+  await page.locator('.stepper').getByRole('link', { name: 'Details' }).click();
+  await page.getByLabel('Release stage').selectOption('assisted');
+  await page.locator('.stepper').getByRole('link', { name: 'Agent brief' }).click();
+  await expect(page.getByTestId('stage-banner')).toHaveCount(0);
+});

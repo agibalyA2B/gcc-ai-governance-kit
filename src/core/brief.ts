@@ -70,6 +70,7 @@ function context(lang: Lang, uc: UseCase, tier: Tier, points: number, level: Aut
       `${T('auto.title')}: ${T('auto.level')} ${level}${T('br.comma')}${T(`auto.l${level}`)}${provisional ? ` (${T('br.c.provisional')})` : ''}`,
       ...(uc.product ? [`${T('reg.product')}: ${uc.product}${uc.deployment ? ` · ${uc.deployment}` : ''}`] : []),
       `${T('uc.status')}: ${T(`status.${uc.status}`)}`,
+      ...(uc.releaseStage ? [`${T('uc.releaseStage')}: ${T(`stage.${uc.releaseStage}`)}${uc.stageDate ? ` (${T('stage.since').replace('{date}', uc.stageDate)})` : ''}`] : []),
       ...['ai_type', 'data', 'affected', 'access', 'reversibility'].map((q) => answerLabel(lang, q, a[q])).filter(Boolean),
     ],
   };

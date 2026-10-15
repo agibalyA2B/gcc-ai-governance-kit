@@ -490,5 +490,21 @@
   "wr.holiday.risk": "The approval gate is switched off to clear an Eid, weekend or night backlog and never switched back on.",
   "wr.holiday.platform": "Gate changes are logged, need a named approver, and expire automatically.",
   "wr.holiday.manual": "Plan cover rosters for holidays; any temporary change is written down with an end date and checked after the holiday.",
-  "wr.holiday.evidence": "Gate change log with approver and expiry (CTL-HUM-07, CTL-MON-02)."
+  "wr.holiday.evidence": "Gate change log with approver and expiry (CTL-HUM-07, CTL-MON-02).",
+  "uc.releaseStage": "Release stage",
+  "stage.hint": "Where this deployment is on the release ladder. The ladder sets the pace; the recommended level is the ceiling.",
+  "stage.unset": "Not set",
+  "stage.pre-pilot": "Pre-pilot",
+  "stage.replay": "Replay (historical cases)",
+  "stage.shadow": "Shadow (live, nothing committed)",
+  "stage.assisted": "Assisted (a person decides)",
+  "stage.bounded": "Bounded autonomy",
+  "stage.expansion": "Controlled expansion",
+  "stage.since": "since {date}",
+  "stage.guide": "Read the release-ladder guide",
+  "stage.banner.h": "Acting stage with gaps in the basics",
+  "stage.banner": "This deployment is at {stage}, but these controls are marked Gap: {ids}. An AI that acts without a person deciding each case needs a working stop switch, logging and real oversight first. Close the gaps or move back to Assisted.",
+  "stage.col": "Release stage",
+  "stage.col.date": "Stage set on",
+  "tpl.contract": "Release contract (one page)"
 }

@@ -305,3 +305,5 @@ table.matrix input:disabled { background: var(--color-surface-muted); }
 .warning-card dt { font-weight: 600; color: var(--color-text-muted); }
 .warning-card dd { margin: 0; }
 @media (max-width: 640px) { .warning-card dl { grid-template-columns: 1fr; } }
+.stage-banner { margin-block: var(--space-4); border-inline-start-color: var(--tier-high); background: #fff4ec; }
+.stage-banner p { margin-block: var(--space-1) var(--space-2); }

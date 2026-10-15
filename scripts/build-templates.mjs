@@ -422,6 +422,68 @@ function buildRaci(lang) {
 
 // ---------- assembling + writing per language ----------
 
+// ---------- release contract (ADR 016; from docs/guides/autonomy-release-ladder.md) ----------
+
+const B = (en, ar) => ({ en, ar });
+const CONTRACT_SECTIONS = {
+  scope: B('Scope', 'النطاق'),
+  dimension: B('Evidence dimensions', 'أبعاد الأدلة'),
+  gate: B('Release gate question', 'سؤال بوابة الإطلاق'),
+  outcome: B('Outcome', 'النتيجة'),
+  signoff: B('Sign-off', 'الاعتماد'),
+};
+const CONTRACT_SCOPE = [
+  B('Use case and deployment', 'حالة الاستخدام وطريقة النشر'),
+  B('Action or actions covered (from the action matrix)', 'الإجراء أو الإجراءات المشمولة (من مصفوفة الإجراءات)'),
+  B('Stage requested: Replay / Shadow / Assisted / Bounded autonomy / Controlled expansion', 'المرحلة المطلوبة: إعادة التشغيل / التشغيل الظلّي / المساعدة / استقلالية محدودة / توسّع مضبوط'),
+  B('Recommended autonomy level (the ceiling)', 'مستوى الاستقلالية الموصى به (السقف)'),
+  B('Accountable owner', 'المسؤول المساءَل'),
+  B('Date agreed (before data collection starts)', 'تاريخ الاتفاق (قبل بدء جمع البيانات)'),
+];
+const CONTRACT_DIMENSIONS = [
+  [B('Decision quality', 'جودة القرار'), B('Accuracy against independently adjudicated reference outcomes', 'الدقة مقارنة بنتائج مرجعية فُصل فيها بشكل مستقل')],
+  [B('Critical failures', 'الإخفاقات الحرجة'), B('No unresolved failure mode classed as unacceptable', 'لا نمط إخفاق مصنّف غير مقبول دون معالجة')],
+  [B('Coverage', 'التغطية'), B('Enough evidence across case types, edge cases and relevant groups', 'أدلة كافية عبر أنواع الحالات والحالات الطرفية والفئات المعنية')],
+  [B('Operational reliability', 'الموثوقية التشغيلية'), B('Acceptable behaviour under tool failures, missing data, timeouts and retries', 'سلوك مقبول عند تعطل الأدوات ونقص البيانات وانتهاء المهلة وإعادة المحاولة')],
+  [B('Human oversight', 'الإشراف البشري'), B('Staff can detect and correct errors where oversight is required', 'يستطيع الموظفون اكتشاف الأخطاء وتصحيحها حيثما يلزم الإشراف')],
+  [B('Security and authority', 'الأمن والصلاحيات'), B('Verified permissions, action limits, audit logs, access control', 'صلاحيات متحقق منها، وحدود للإجراءات، وسجلات تدقيق، وضبط للوصول')],
+  [B('Legal and procedural basis', 'الأساس القانوني والإجرائي'), B('Approval of the delegated role and the accountability arrangements', 'اعتماد الدور المفوَّض وترتيبات المساءلة')],
+  [B('Ongoing control', 'الضبط المستمر'), B('Monitoring, drift detection, incident handling, suspension and recovery', 'المراقبة، واكتشاف الانحراف، ومعالجة الحوادث، والتعليق والاستعادة')],
+];
+const CONTRACT_GATES = [
+  B('What exactly is the system authorised to decide or do?', 'ما الذي يُخوَّل النظام تحديداً أن يقرره أو يفعله؟'),
+  B('What evidence shows it performs adequately?', 'ما الأدلة التي تُظهر أن أداءه كافٍ؟'),
+  B('Which failures are unacceptable regardless of average performance?', 'ما الإخفاقات غير المقبولة مهما كان متوسط الأداء؟'),
+  B('Which cases must always be escalated to a person?', 'ما الحالات التي يجب أن تُحال دائماً إلى إنسان؟'),
+  B('Who accepts the residual risk and approves the release?', 'من يقبل المخاطر المتبقية ويعتمد الإطلاق؟'),
+  B('What evidence would suspend or revoke the autonomy?', 'ما الأدلة التي تستوجب تعليق الاستقلالية أو سحبها؟'),
+];
+const CONTRACT_OUTCOME = [
+  B('Result: Pass / Conditional pass / Fail / Not yet demonstrated', 'النتيجة: نجاح / نجاح مشروط / إخفاق / لم يثبت بعد'),
+  B('Conditions or narrower boundaries (if conditional)', 'الشروط أو الحدود الأضيق (عند النجاح المشروط)'),
+  B('Who can suspend, the safe state, and what restores it', 'من يحق له التعليق، والحالة الآمنة، وما الذي يعيد التفعيل'),
+  B('Next review date', 'تاريخ المراجعة التالية'),
+];
+const CONTRACT_SIGNOFF = [B('Prepared by', 'أعدّه'), B('Reviewed by (risk and compliance)', 'راجعه (المخاطر والامتثال)'), B('Approved by (accountable owner)', 'اعتمده (المسؤول المساءَل)'), B('Date', 'التاريخ')];
+const CONTRACT_COLS = {
+  item: B('Item', 'البند'), evidence: B('Evidence required', 'الأدلة المطلوبة'), threshold: B('Threshold agreed', 'الحدّ المتفق عليه'),
+  ref: B('Evidence reference', 'مرجع الدليل'), result: B('Result', 'النتيجة'),
+};
+
+function buildReleaseContract(lang) {
+  const machineHeader = ['section', 'item', 'evidence_required', 'threshold', 'evidence_ref', 'result'];
+  const humanHeader = [X.section[lang], ...Object.values(CONTRACT_COLS).map((c) => c[lang])];
+  const row = (sec, item, evidence = '') => [CONTRACT_SECTIONS[sec][lang], item[lang], evidence, '', '', ''];
+  const dataRows = [
+    ...CONTRACT_SCOPE.map((x) => row('scope', x)),
+    ...CONTRACT_DIMENSIONS.map(([d, e]) => row('dimension', d, e[lang])),
+    ...CONTRACT_GATES.map((x) => row('gate', x)),
+    ...CONTRACT_OUTCOME.map((x) => row('outcome', x)),
+    ...CONTRACT_SIGNOFF.map((x) => row('signoff', x)),
+  ];
+  return { machineHeader, humanHeader, dataRows };
+}
+
 const HOW_TO = {
   register: {
     en: 'List every AI use case here — one row per use case — using the same field names as the app (row 1) so a completed register can be re-imported later; row 2 gives the human-readable label for each column. The two example rows show a low-risk chatbot and a high-risk agent scored with the option ids from data/questions.json.',
@@ -443,6 +505,10 @@ const HOW_TO = {
     en: 'Adapt this charter for your organisation: replace the bracketed placeholders, confirm the membership roles and quorum against your own structure, and have it approved using the same decision rights the committee itself uses (Approve / Approve with conditions / Reject).',
     ar: 'عدّل هذا الميثاق ليلائم مؤسستك: استبدل العناصر النائبة الموضوعة بين قوسين، وتحقق من أدوار العضوية والنصاب بما يتوافق مع هيكل مؤسستك، واعتمده وفق صلاحيات القرار نفسها التي تستخدمها اللجنة (اعتماد / اعتماد بشروط / رفض).',
   },
+  contract: {
+    en: 'Agree this contract in writing before replay starts, one per action or group of actions, so the goalposts cannot move. Set a threshold for each evidence dimension, then record the evidence and the result. A pass means the evidence is sufficient for this bounded authorisation; it never means the system is proved safe. See the autonomy release-ladder guide.',
+    ar: 'اتفق على هذا العقد كتابياً قبل بدء إعادة التشغيل، عقداً لكل إجراء أو مجموعة إجراءات، حتى لا تتغير المعايير لاحقاً. حدّد حدّاً لكل بُعد من أبعاد الأدلة، ثم سجّل الأدلة والنتيجة. النجاح يعني أن الأدلة كافية لهذا التفويض المحدود، ولا يعني أبداً أن النظام ثبتت سلامته. راجع دليل سلّم الإطلاق.',
+  },
   raci: {
     en: 'R = Responsible (does the work), A = Accountable (owns the outcome and signs it off — exactly one per row), C = Consulted (gives input beforehand), I = Informed (kept up to date afterwards). Adjust role names to match your own organisation structure.',
     ar: 'R = منفِّذ (يقوم بالعمل)، A = مسؤول (يملك النتيجة ويعتمدها — دور واحد فقط في كل صف)، C = مُستشار (يُستشار قبل التنفيذ)، I = يُبلَّغ (يُطلَع على النتيجة لاحقاً). عدّل أسماء الأدوار بما يلائم هيكل مؤسستك.',
@@ -455,6 +521,7 @@ const TITLES = {
   checklist: { en: 'AI Control Checklist', ar: 'قائمة التحقق من ضوابط الذكاء الاصطناعي' },
   vendor: { en: 'Vendor AI Risk Assessment', ar: 'تقييم مخاطر موردي الذكاء الاصطناعي' },
   charter: { en: 'AI Governance Committee Charter', ar: 'ميثاق لجنة حوكمة الذكاء الاصطناعي' },
+  contract: { en: 'AI Release Contract', ar: 'عقد إطلاق الذكاء الاصطناعي' },
   raci: { en: 'AI Governance RACI Matrix', ar: 'مصفوفة المسؤوليات (RACI) لحوكمة الذكاء الاصطناعي' },
 };
 
@@ -568,6 +635,28 @@ function buildForLang(lang) {
   }
 }
 
-for (const lang of LANGS) buildForLang(lang);
+function buildContractForLang(lang) {
+  const dir = outDir(lang);
+  const { machineHeader, humanHeader, dataRows } = buildReleaseContract(lang);
+  const matrix = [machineHeader, humanHeader, ...dataRows];
+  writeXlsxFile(join(dir, 'release-contract.xlsx'), matrix, { rtl: lang === 'ar', sheetName: 'Release contract', colWidths: [20, 50, 50, 22, 24, 16] });
+  writeCsvFile(join(dir, 'release-contract.csv'), matrix);
+  const part = (sec, rows) => [`## ${CONTRACT_SECTIONS[sec][lang]}`, '', mdTable(rows[0], rows.slice(1))];
+  const fill = (list) => [[CONTRACT_COLS.item[lang], X.answer[lang]], ...list.map((x) => [x[lang], ''])];
+  writeMdFile(join(dir, 'release-contract.md'), {
+    title: TITLES.contract[lang],
+    intro: HOW_TO.contract[lang],
+    sections: [
+      part('scope', fill(CONTRACT_SCOPE)),
+      part('dimension', [[CONTRACT_SECTIONS.dimension[lang], CONTRACT_COLS.evidence[lang], CONTRACT_COLS.threshold[lang], CONTRACT_COLS.ref[lang], CONTRACT_COLS.result[lang]],
+        ...CONTRACT_DIMENSIONS.map(([d, e]) => [d[lang], e[lang], '', '', ''])]),
+      part('gate', fill(CONTRACT_GATES)),
+      part('outcome', fill(CONTRACT_OUTCOME)),
+      part('signoff', fill(CONTRACT_SIGNOFF)),
+    ],
+  });
+}
 
-console.log(`Wrote 36 template files to public/templates/{${LANGS.join(',')}}/`);
+for (const lang of LANGS) { buildForLang(lang); buildContractForLang(lang); }
+
+console.log(`Wrote 42 template files to public/templates/{${LANGS.join(',')}}/`);
