@@ -138,7 +138,7 @@ export function detailsForm(lang: Lang, uc: UseCase): string {
       <p class="help" id="stage-hint">${t(lang, 'stage.hint')}${uc.stageDate ? ` (${t(lang, 'stage.since').replace('{date}', esc(uc.stageDate))})` : ''} <a href="${LADDER_GUIDE}" target="_blank" rel="noopener">${t(lang, 'stage.guide')}</a></p></div></fieldset>
     <div class="field"><label for="f-status">${t(lang, 'uc.status')}</label><select id="f-status" name="status">
       ${(['idea', 'pilot', 'production', 'retired'] as const).map((s) => `<option value="${s}" ${uc.status === s ? 'selected' : ''}>${t(lang, `status.${s}`)}</option>`).join('')}</select></div>
-    <fieldset class="eu-fields"><legend>${t(lang, 'eu.legend')}</legend><p class="help">${t(lang, 'eu.help')}</p>
+    <fieldset class="deploy-fields eu-fields"><legend>${t(lang, 'eu.legend')}</legend><p class="help">${t(lang, 'eu.help')}</p>
       ${EU_EXPOSURE.map((v) => `<label class="option inline"><input type="radio" name="euExposure" value="${v}" ${uc.euExposure === v ? 'checked' : ''}/> <span>${t(lang, `eu.${v}`)}</span></label>`).join('')}</fieldset>
     ${euNote(lang, uc)}
     ${field('notes', false, true)}
@@ -513,8 +513,8 @@ export function guideView(lang: Lang, base: string): string {
       <ul class="badges"><li><span class="vbadge verified"><span aria-hidden="true">✓</span> ${t(lang, 'ctl.verified')}</span> ${t(lang, 'gd.s3.v')}</li>
       <li><span class="vbadge pending"><span aria-hidden="true">⏱</span> ${t(lang, 'ctl.needs')}</span> ${t(lang, 'gd.s3.n')}</li></ul>
       <p>${t(lang, 'gd.s3.filter')}</p><p>${t(lang, 'gd.s3.evidence')}</p>${fig('controls', 'gd.fig.controls')}`)}
-    ${sec('s4', `<p>${t(lang, 'gd.s4.p1')}</p><ul>${[1, 2, 3, 4].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}:</strong> ${levelLabel(lang, n)}</li>`).join('')}</ul><p>${t(lang, 'gd.s4.p2')}</p>`)}
-    ${sec('s5', `<ul class="plain"><li>${t(lang, 'gd.s5.pdf')}</li><li>${t(lang, 'gd.s5.ctl')}</li></ul>${fig('export', 'gd.fig.export')}
+    ${sec('s4', `<p>${t(lang, 'gd.s4.p1')}</p><ul>${[1, 2, 3, 4].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}:</strong> ${levelLabel(lang, n)}</li>`).join('')}</ul><p>${t(lang, 'gd.s4.p2')}</p><p>${t(lang, 'gd.s4.matrix')}</p><p>${t(lang, 'gd.s4.stage')}</p>`)}
+    ${sec('s5', `<ul class="plain"><li>${t(lang, 'gd.s5.brief')}</li><li>${t(lang, 'gd.s5.pdf')}</li><li>${t(lang, 'gd.s5.ctl')}</li></ul>${fig('export', 'gd.fig.export')}
       <ul class="plain"><li>${t(lang, 'gd.s5.backup')}</li><li>${t(lang, 'gd.s5.share')}</li><li>${t(lang, 'gd.s5.tpl')}</li></ul>`)}
     ${sec('s6', `<p>${t(lang, 'gd.s6.p')}</p><p>${t(lang, 'gd.s6.clear')}</p>`)}
     <p class="muted small">${t(lang, 'rep.disclaimer')}</p>

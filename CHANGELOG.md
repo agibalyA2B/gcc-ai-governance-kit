@@ -1,9 +1,26 @@
 # Changelog
 
 ## Unreleased
+- **Action matrix.** For six actions (classify or route, recommend, draft, update an internal record, communicate with
+  the customer or citizen, decide or trigger an irreversible action), the kit pre-fills Allowed, Needs approval or
+  Blocked from the recommended autonomy level and the tier. Rows can be tightened, never loosened, and take optional
+  limits, reversibility and an approver role. The backup now records `kitVersion` and `exportedAt`. See ADR 014.
+- **Agent brief.** A new step after Controls turns the assessment into a six-block delegation brief (intent and
+  outcome, context, constraints, authority, evidence, done), as a committee annex or an engineering handover spec, in
+  English and Arabic, to copy or download as Markdown. Evidence is four records (manifest, authorisation, each
+  consequential action, outcome) adapted from M. A. Hasbini and A. Seow, *Accountability for AI agents: from code
+  signing to evidence* (2026, CC BY 4.0), each linked to existing controls. Only the bad-practice warnings that a use
+  case's answers point to are shown, each with a platform requirement and a manual fallback. Level 4 gets a readiness
+  explanation instead. The brief is a contract, not an enforcement mechanism. See ADR 015.
+- **Release stage.** Each deployment can record its stage on the release ladder (Pre-pilot, Replay, Shadow, Assisted,
+  Bounded autonomy, Controlled expansion) with the date it was set. A banner warns when the stage is Bounded or
+  Expansion while a stop-switch, logging or oversight control is marked Gap. The templates pack adds a one-page release
+  contract in English and Arabic. See ADR 016.
+- **Sector note: the EU AI Act, EN 18286 and GCC organisations,** with an optional "Could this AI reach the EU?"
+  question that links to it and never changes the tier. See ADR 017 and `docs/sector-notes/eu-ai-act-en-18286.md`.
 - **New control CTL-HUM-11, oversight effectiveness.** Evidence that human review catches errors, not only that it
   happens. See ADR 013.
-- **All 58 control references verified.** The 8 rows that cite the UAE AI Charter were checked against the official
+- **All control references verified.** The 8 rows that cite the UAE AI Charter were checked against the official
   Charter page on the UAE Legislation portal. One principle name was corrected: "Promoting AI awareness for an
   inclusive future" (was "...inclusive society"). See the content audit.
 - **Guide: the autonomy release ladder.** How a use case earns its recommended autonomy level on evidence rather than

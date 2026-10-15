@@ -7,7 +7,7 @@
 [**Try it live →**](https://agibalya2b.github.io/gcc-ai-governance-kit/) · [User guide](https://agibalya2b.github.io/gcc-ai-governance-kit/#/guide) · [Templates](https://agibalya2b.github.io/gcc-ai-governance-kit/#/templates) · [How scoring works](https://agibalya2b.github.io/gcc-ai-governance-kit/#/scoring) · [العربية](#بالعربية)
 
 ![CI](https://github.com/agibalyA2B/gcc-ai-governance-kit/actions/workflows/deploy.yml/badge.svg)
-![Controls verified](https://img.shields.io/badge/controls%20verified-50%2F58-2e7d5b)
+![Controls verified](https://img.shields.io/badge/controls%20verified-59%2F59-2e7d5b)
 ![Languages](https://img.shields.io/badge/languages-AR%20%7C%20EN-0f5257)
 ![Code: MIT](https://img.shields.io/badge/code-MIT-blue) ![Content: CC BY 4.0](https://img.shields.io/badge/content-CC%20BY%204.0-lightgrey)
 
@@ -36,11 +36,14 @@ This kit is that practical layer. It is open, free and bilingual, and it runs en
 | **Framework-filtered controls** | 59 controls across six themes, mapped to the UAE AI Charter, the **UAE Code for Government Services and Zero Bureaucracy** (with the federal agentic-AI guide, national reference and data-sharing policy), Dubai AI Ethics, SDAIA, ISO/IEC 42001 (clause numbers only), NIST AI RMF and the EU AI Act. Pick the frameworks you follow. |
 | **What would lower your tier** | Separates operational gaps (testing, monitoring, incident handling, hosting, disclosure) from structural causes, and shows the tier once the operational gaps are closed. |
 | **Recommended autonomy** | Three prioritisation questions (usage, complexity, readiness), from the UAE AI-assistant priority matrix, recommend how much autonomy the AI should have, and warn when a design goes beyond it. |
+| **Action matrix** | For six actions (classify or route, recommend, draft, update a record, communicate with the customer, decide), the kit pre-fills what the AI may do (Allowed, Needs approval or Blocked) from the recommended level and the tier. You can tighten a row, never loosen it, and add limits, reversibility and an approver role. |
+| **Agent brief** | One extra step turns the assessment into a six-block delegation brief: intent and when to stop, context, constraints, authority, evidence (four records linked to the controls) and done. Copy or download it as a committee annex or an engineering handover spec, with only the warnings your answers point to. It is a contract, not an enforcement mechanism. |
+| **Release stage** | Record where each deployment is on the release ladder (Pre-pilot to Controlled expansion). A banner warns when it runs at Bounded or Expansion while a stop-switch, logging or oversight control is marked Gap. |
 | **Honest verification** | Each control shows its sources and whether its references were checked against them: **all 59 verified**. See the [content audit](docs/content-audit.md). |
 | **Control-evidence map** | Record Met / Partly met / Gap / N/A and the evidence for each applicable control; it is saved with the use case and flows into every export. |
 | **Committee-ready outputs** | A one-to-two-page *AI Use-Case Risk Summary* (print to PDF) with evidence status and a sign-off block, plus control lists as CSV/XLSX with right-to-left Arabic sheets. |
 | **User guide** | An in-app [guide](https://agibalya2b.github.io/gcc-ai-governance-kit/#/guide) in Arabic and English, with screenshots: the three steps, what each tier means, reading controls and badges, exports and backups. Also as PDF: [English](docs/USER-GUIDE.pdf) · [العربية](docs/USER-GUIDE-ar.pdf). |
-| **Templates** | Register, impact assessment, control checklist, vendor AI risk assessment, committee charter and RACI in Arabic and English (XLSX, CSV, Markdown) for teams that prefer spreadsheets or work offline. You don't need them to use the app. |
+| **Templates** | Register, impact assessment, control checklist, vendor AI risk assessment, committee charter, RACI and a one-page release contract in Arabic and English (XLSX, CSV, Markdown) for teams that prefer spreadsheets or work offline. You don't need them to use the app. |
 
 ## Worked example and sector notes
 
@@ -51,6 +54,9 @@ This kit is that practical layer. It is open, free and bilingual, and it runs en
 - **[The autonomy release ladder](docs/guides/autonomy-release-ladder.md):** how an AI use case earns its recommended
   autonomy level on evidence: replay, live shadow, assisted, bounded autonomy, controlled expansion, with autonomy
   granted per action and a written release contract.
+- **[The EU AI Act, EN 18286 and GCC organisations](docs/sector-notes/eu-ai-act-en-18286.md):** provider or deployer
+  first, when the Act reaches a GCC organisation, what the newly cited quality-management standard covers, and why
+  ISO/IEC 42001 is no substitute.
 
 ## Try it in 60 seconds
 
@@ -140,6 +146,9 @@ and governance programmes in UAE federal government.
   وصلاحيات الأنظمة، وإمكانية التراجع؛
 - تصدير الضوابط المنطبقة وفق الأطر التي تختارها: ميثاق الإمارات، وأخلاقيات دبي، وسدايا، وآيزو 42001، وإطار NIST،
   وقانون الاتحاد الأوروبي، إضافةً إلى كود الإمارات للخدمات الحكومية وتصفير البيروقراطية والدليل الاتحادي للذكاء الاصطناعي المساعد. وتوصي الحقيبة بمستوى الاستقلالية المناسب للذكاء الاصطناعي وفق مصفوفة الأولويات الحكومية.
+- تحديد ما يجوز للذكاء الاصطناعي فعله في كل إجراء (مسموح، أو يحتاج إلى موافقة، أو محظور)، مع إمكانية التشديد دون التخفيف؛
+- إنشاء موجز تفويض من ستة بنود، كملحق للجنة أو كمواصفات تسليم للفريق التقني، مع التنبيهات التي تخص حالتك فقط؛
+- تسجيل مرحلة الإطلاق لكل نشر، مع تنبيه إذا بلغ مرحلة التنفيذ وفي الأساسيات فجوات.
 
 تعمل بالكامل داخل المتصفح، ولا تغادر بياناتك جهازك.
 تُفتح الواجهة بالإنجليزية؛ اضغط «عربي» في أعلى الصفحة وسيُحفظ اختيارك.
