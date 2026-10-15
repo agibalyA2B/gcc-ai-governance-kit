@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.4.0 (2026-10-15)
+From assessment to delegation: what an AI may do per action, a brief for the committee and the delivery team, and
+the evidence to earn autonomy step by step.
 - **Action matrix.** For six actions (classify or route, recommend, draft, update an internal record, communicate with
   the customer or citizen, decide or trigger an irreversible action), the kit pre-fills Allowed, Needs approval or
   Blocked from the recommended autonomy level and the tier. Rows can be tightened, never loosened, and take optional
