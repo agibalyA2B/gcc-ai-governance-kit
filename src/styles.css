@@ -269,3 +269,16 @@ html[lang='ar'] .badge-optional { font-family: var(--font-arabic); }
 .deploy-fields { border: 1px dashed var(--color-border); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); margin-block: var(--space-4); }
 .deploy-fields legend { font-weight: 600; padding-inline: var(--space-2); }
 .l4-clarify { font-weight: 400; font-size: 0.9em; color: var(--color-text-muted); }
+
+/* Action matrix (ADR 014) */
+.actions-matrix { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); margin-block: var(--space-4); }
+.actions-matrix h3 { margin-block: 0 var(--space-2); font-size: 1rem; }
+table.matrix { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+table.matrix th, table.matrix td { padding: var(--space-2); border-block-end: 1px solid var(--color-border); text-align: start; vertical-align: top; }
+table.matrix tbody th { font-weight: 600; min-width: 12em; }
+table.matrix select, table.matrix input { width: 100%; min-width: 8em; font: inherit; }
+table.matrix input:disabled { background: var(--color-surface-muted); }
+.perm { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; border: 1px solid currentColor; }
+.perm-allowed { color: #1f5e43; }
+.perm-approval { color: #7a5200; }
+.perm-blocked { color: #8a2d08; }

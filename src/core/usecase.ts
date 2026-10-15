@@ -1,5 +1,6 @@
 import type { Answers } from './scoring';
 import { normaliseEvidence, type EvidenceMap } from './evidence';
+import { normaliseActions, type ActionMatrix } from './actions';
 
 export type Status = 'idea' | 'pilot' | 'production' | 'retired';
 export interface UseCase {
@@ -10,6 +11,8 @@ export interface UseCase {
   /** Per-deployment profiles: the product this use case is one deployment of, and a label for it (ADR 011). */
   product?: string;
   deployment?: string;
+  /** Action matrix: the user's per-action settings, never looser than the kit's ceiling (ADR 014). */
+  actions?: ActionMatrix;
 }
 
 export const newId = (): string =>
@@ -44,5 +47,5 @@ export function parseRegister(x: unknown): UseCase[] | null {
   const ok = o.useCases.every((u: Partial<UseCase>) => typeof u?.id === 'string' && typeof u?.name === 'string'
     && typeof u?.owner === 'string' && !!u.answers && typeof u.answers === 'object');
   const str = (v: unknown) => (typeof v === 'string' ? v : undefined);
-  return ok ? (o.useCases as UseCase[]).map((u) => ({ ...u, evidence: normaliseEvidence(u.evidence), product: str(u.product), deployment: str(u.deployment) })) : null;
+  return ok ? (o.useCases as UseCase[]).map((u) => ({ ...u, evidence: normaliseEvidence(u.evidence), product: str(u.product), deployment: str(u.deployment), actions: normaliseActions(u.actions) })) : null;
 }

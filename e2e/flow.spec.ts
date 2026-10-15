@@ -257,3 +257,28 @@ test('user guide is linked from the header, covers six topics and loads its scre
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('دليل الاستخدام');
   await expect(page.locator('.guide img').first()).toHaveAttribute('src', /guide\/ar\/home\.jpg$/);
 });
+
+test('action matrix: pre-filled, tighten only, saved and exported', async ({ page }) => {
+  await page.getByRole('button', { name: 'Load 2 sample use cases' }).click();
+  await page.getByRole('link', { name: 'Citizen service triage agent' }).click();
+  const matrix = page.getByTestId('action-matrix');
+  await expect(matrix).toContainText('Provisional');
+  const decide = matrix.locator('select[data-action="act-perm"][data-act="decide"]');
+  await expect(decide).toHaveValue('blocked');
+  // Loosening is refused with a warning; the setting stays where it was.
+  await decide.selectOption('allowed');
+  await expect(page.locator('.toast')).toContainText('Not saved');
+  await expect(decide).toHaveValue('blocked');
+  // Tightening is kept, and survives a reload.
+  await matrix.locator('select[data-action="act-perm"][data-act="recommend"]').selectOption('approval');
+  await matrix.locator('input[data-act="recommend"][data-field="approver"]').fill('Duty supervisor');
+  await page.reload();
+  await expect(page.getByTestId('action-matrix').locator('select[data-action="act-perm"][data-act="recommend"]')).toHaveValue('approval');
+  await expect(page.getByTestId('action-matrix').locator('input[data-act="recommend"][data-field="approver"]')).toHaveValue('Duty supervisor');
+  await page.goto('./');
+  await page.getByTestId('data-menu').locator('summary').click();
+  const [backup] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Save a backup (.json)' }).click()]);
+  const saved = JSON.parse(readFileSync((await backup.path())!, 'utf8'));
+  expect(saved.kitVersion).toMatch(/^\d+\.\d+\.\d+/);
+  expect(saved.useCases.find((u: { name: string }) => u.name === 'Citizen service triage agent').actions.recommend).toEqual({ permission: 'approval', approver: 'Duty supervisor' });
+});

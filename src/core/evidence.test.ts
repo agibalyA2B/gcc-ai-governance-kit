@@ -70,4 +70,18 @@ describe('register JSON Schema', () => {
     expect(validate(reg({ ...uc, evidence: { 'CTL-ACC-01': { status: 'met', note: 'Minutes 12' } } }))).toBe(true);
     expect(validate(reg({ ...uc, evidence: { 'CTL-ACC-01': { status: 'done', note: '' } } }))).toBe(false);
   });
+  it('accepts an action matrix and the kit version, and rejects unknown actions or permissions', async () => {
+    const Ajv = (await import('ajv')).default;
+    const schema = (await import('../../data/schema/usecase.schema.json')).default;
+    const validate = new Ajv({ allErrors: true }).compile(schema);
+    const uc = { id: 'u1', name: 'Agent', owner: 'Ops', answers: {}, createdAt: 'x', updatedAt: 'x' };
+    const reg = (u: object) => ({ format: 'gcc-ai-governance-kit/register', version: 1, kitVersion: '0.4.0', exportedAt: 'x', useCases: [u] });
+    expect(validate(reg({ ...uc, actions: { decide: { permission: 'blocked' }, update: { limits: '50 a day', reversible: 'yes', approver: 'Supervisor' } } }))).toBe(true);
+    expect(validate(reg({ ...uc, actions: { publish: { permission: 'allowed' } } }))).toBe(false);
+    expect(validate(reg({ ...uc, actions: { decide: { permission: 'sometimes' } } }))).toBe(false);
+  });
+  it('restores the action matrix from a backup and drops invalid rows', () => {
+    const u = { id: 'u1', name: 'Agent', owner: 'Ops', answers: {}, createdAt: 'x', updatedAt: 'x', actions: { decide: { permission: 'blocked' }, bogus: { permission: 'allowed' } } };
+    expect(parseRegister({ format: 'gcc-ai-governance-kit/register', version: 1, useCases: [u] })![0].actions).toEqual({ decide: { permission: 'blocked' } });
+  });
 });

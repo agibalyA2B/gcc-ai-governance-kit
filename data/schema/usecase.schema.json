@@ -105,9 +105,64 @@
             "type": "string",
             "maxLength": 200,
             "description": "Label for this deployment, e.g. Internal, SaaS, Agent (optional; 0.3.1)."
+          },
+          "actions": {
+            "type": "object",
+            "description": "Action matrix: per-action settings, never looser than the kit's ceiling (optional; 0.4, ADR 014).",
+            "additionalProperties": {
+              "$ref": "#/definitions/actionSetting"
+            },
+            "propertyNames": {
+              "enum": [
+                "classify",
+                "recommend",
+                "draft",
+                "update",
+                "communicate",
+                "decide"
+              ]
+            }
           }
         }
       }
+    },
+    "kitVersion": {
+      "type": "string",
+      "description": "Version of the kit that wrote the file (optional; 0.4)."
+    },
+    "exportedAt": {
+      "type": "string",
+      "description": "When the file was written, ISO 8601 (optional; 0.4)."
+    }
+  },
+  "definitions": {
+    "actionSetting": {
+      "type": "object",
+      "properties": {
+        "permission": {
+          "enum": [
+            "allowed",
+            "approval",
+            "blocked"
+          ]
+        },
+        "limits": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "reversible": {
+          "enum": [
+            "",
+            "yes",
+            "no"
+          ]
+        },
+        "approver": {
+          "type": "string",
+          "maxLength": 500
+        }
+      },
+      "additionalProperties": false
     }
   }
 }
