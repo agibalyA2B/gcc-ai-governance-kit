@@ -12,10 +12,10 @@ was checked against an official source fetched on that date. Rows that fail this
 | accountability | 11 | 11 |
 | transparency | 9 | 9 |
 | data | 9 | 9 |
-| human-oversight | 10 | 10 |
+| human-oversight | 11 | 11 |
 | safety-security | 10 | 10 |
 | monitoring | 9 | 9 |
-| **Total** | **58** | **58 (100%)** |
+| **Total** | **59** | **59 (100%)** |
 
 - 13 controls were added on 27 Sep 2026 from the UAE federal government-services sources (see "UAE Government
   Services Code framework" below): CTL-ACC-09, CTL-ACC-10, CTL-ACC-11, CTL-TRA-08, CTL-TRA-09, CTL-DAT-08, CTL-DAT-09,
@@ -165,6 +165,7 @@ Source keys are listed in the table above.
 | CTL-HUM-08 | Gov: Code 5.2, Agentic Guide §02, Agentic Guide §06 | CODE, EGS | yes | new control (27 Sep 2026); all refs confirmed |
 | CTL-HUM-09 | Gov: Code 1.7, Code 8.2, Agentic Guide §03, Agentic Guide §06 | CODE, EGS | yes | new control (27 Sep 2026); all refs confirmed |
 | CTL-HUM-10 | Gov: Code 1.6, Code 5.8, Agentic Guide §03, Agentic Guide §06 | CODE, EGS | yes | new control (27 Sep 2026); all refs confirmed |
+| CTL-HUM-11 | UAE: Human oversight; Dubai: Security; SDAIA: Accountability & Responsibility; NIST: MAP 3.5, GOVERN 3.2; EU: Art. 14 | DUB, SDA, NIST, EU | yes | new control (15 Oct 2026, ADR 013); same refs as CTL-HUM-01 |
 | CTL-SEC-01 | UAE: Safety; Dubai: Security; SDAIA: Reliability & Safety; ISO: A.6.2.4; NIST: MEASURE 2.5, MEASURE 2.6; EU: Art. 15; Gov: Code 8.8, Agentic Guide §06 | DUB, SDA, XW, NIST, EU, CODE, EGS | yes | UAE Charter name(s) confirmed 15 Oct 2026; all other refs confirmed |
 | CTL-SEC-02 | Dubai: Security; SDAIA: Privacy & Security; ISO: A.6.2.2; NIST: MAP 1.6, MEASURE 2.7; EU: Art. 15 | DUB, SDA, XW, NIST, EU | yes | all refs confirmed; MAP 1.6 added 28 Sep 2026 as the crosswalk route to A.6.2.2 |
 | CTL-SEC-03 | Dubai: Security; SDAIA: Reliability & Safety; ISO: A.6.2.4; NIST: MEASURE 2.6 | DUB, SDA, XW, NIST | yes | all refs confirmed |

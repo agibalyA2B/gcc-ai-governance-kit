@@ -1657,6 +1657,49 @@
     "notes": ""
   },
   {
+    "id": "CTL-HUM-11",
+    "theme": "human-oversight",
+    "title_en": "Oversight effectiveness",
+    "title_ar": "فاعلية الإشراف البشري",
+    "control_text_en": "Show that human review actually catches errors, not just that it happens: test reviewers with known flawed cases in testing or pilots, re-review a sample of approved cases blind, require approval reasons that cite evidence, cap each reviewer's volume, and treat near-100% approval rates or very short review times as triggers to investigate.",
+    "control_text_ar": "إثبات أن المراجعة البشرية تكتشف الأخطاء فعلًا، لا أنها تتم شكليًا فقط: اختبار المراجعين بحالات معروفة الخطأ أثناء الاختبار أو التجربة، وإعادة مراجعة عينة من الحالات المعتمدة دون الاطلاع على القرار الأصلي، واشتراط أن يستند سبب الموافقة إلى دليل، ووضع حد أقصى لحجم العمل لكل مراجع، والتعامل مع معدلات الموافقة القريبة من 100% أو أوقات المراجعة القصيرة جدًا كمؤشرات تستدعي التحقق.",
+    "applies_when": {
+      "min_tier": "limited",
+      "ai_types": [],
+      "data": []
+    },
+    "refs": {
+      "uae_charter": [
+        "Human oversight"
+      ],
+      "uae_gov_code": [],
+      "dubai_ethics": [
+        "Security"
+      ],
+      "sdaia": [
+        "Accountability & Responsibility"
+      ],
+      "iso42001": [],
+      "nist_ai_rmf": [
+        "MAP 3.5",
+        "GOVERN 3.2"
+      ],
+      "eu_ai_act": [
+        "Art. 14"
+      ]
+    },
+    "source_urls": [
+      "https://uaelegislation.gov.ae/en/policy/details/the-uae-charter-for-the-development-and-use-of-artificial-intelligence",
+      "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
+      "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+    ],
+    "verified": true,
+    "verified_on": "2026-10-15",
+    "notes": "New control (15 Oct 2026, ADR 013). Uses the same references as CTL-HUM-01, already checked against these sources; Art. 14(4)(b) names automation bias and MAP 3.5 requires oversight processes to be assessed, not only defined. Complements CTL-HUM-03 (training and override rates)."
+  },
+  {
     "id": "CTL-SEC-01",
     "theme": "safety-security",
     "title_en": "Test before deployment",
