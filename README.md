@@ -48,6 +48,9 @@ This kit is that practical layer. It is open, free and bilingual, and it runs en
   three deployment profiles, and the result changed what he shipped.
 - **[AI use and disclosure in arbitration](docs/sector-notes/arbitration-ai-disclosure.md):** what the Ciarb guideline
   means for AI tools that prepare claims and submissions.
+- **[The autonomy release ladder](docs/guides/autonomy-release-ladder.md):** how an AI use case earns its recommended
+  autonomy level on evidence: replay, live shadow, assisted, bounded autonomy, controlled expansion, with autonomy
+  granted per action and a written release contract.
 
 ## Try it in 60 seconds
 
