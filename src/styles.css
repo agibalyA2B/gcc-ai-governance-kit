@@ -307,3 +307,6 @@ table.matrix input:disabled { background: var(--color-surface-muted); }
 @media (max-width: 640px) { .warning-card dl { grid-template-columns: 1fr; } }
 .stage-banner { margin-block: var(--space-4); border-inline-start-color: var(--tier-high); background: #fff4ec; }
 .stage-banner p { margin-block: var(--space-1) var(--space-2); }
+.eu-fields .option.inline { display: inline-flex; margin-inline-end: var(--space-4); }
+.eu-note { margin-block: var(--space-3); }
+.eu-note p { margin-block: var(--space-1) var(--space-2); }

@@ -1,7 +1,7 @@
 import { applyLang, initialLang, storeLang, t, type Lang } from '../i18n';
 import { computeTier, topReasons, aiInScope, type Answers } from '../core/scoring';
 import { store } from '../core/store';
-import { blankUseCase, sampleUseCases, newId, parseRegister, REGISTER_FORMAT, type UseCase } from '../core/usecase';
+import { blankUseCase, sampleUseCases, newId, parseRegister, REGISTER_FORMAT, EU_EXPOSURE, type UseCase } from '../core/usecase';
 import { setEvidence, type EvidenceStatus } from '../core/evidence';
 import { actionMatrix, setAction, type ActionId, type Permission, type Reversible } from '../core/actions';
 import { newDeployment } from '../core/products';
@@ -246,7 +246,8 @@ function onChange(e: Event): void {
     store.save({ ...uc, name: String(fd.get('name') ?? '').trim(), owner: String(fd.get('owner') ?? '').trim(), businessUnit: String(fd.get('businessUnit') ?? ''),
       purpose: String(fd.get('purpose') ?? ''), status: String(fd.get('status') ?? 'idea') as UseCase['status'], notes: String(fd.get('notes') ?? ''),
       product: String(fd.get('product') ?? '').trim() || undefined, deployment: String(fd.get('deployment') ?? '').trim() || undefined,
-      ...stageFields(uc, String(fd.get('releaseStage') ?? '')) });
+      ...stageFields(uc, String(fd.get('releaseStage') ?? '')), euExposure: euValue(fd.get('euExposure')) });
+    if (el.name === 'euExposure') { render(false); document.querySelector<HTMLInputElement>(`input[name="euExposure"][value="${el.value}"]`)?.focus(); }
   } else if (el.type === 'radio') {
     const answers: Answers = { ...uc.answers, [el.name]: el.value };
     store.save({ ...uc, answers });
@@ -260,6 +261,8 @@ function onChange(e: Event): void {
     const p = form.querySelector('.progress'); if (p) p.textContent = `${done}/${qs.length}`;
   }
 }
+
+const euValue = (v: FormDataEntryValue | null): UseCase['euExposure'] => (EU_EXPOSURE as readonly unknown[]).includes(v) ? (v as UseCase['euExposure']) : undefined;
 
 /** The release stage and its date: the date moves only when the stage changes. */
 function stageFields(uc: UseCase, raw: string): Pick<UseCase, 'releaseStage' | 'stageDate'> {

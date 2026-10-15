@@ -506,5 +506,14 @@
   "stage.banner": "This deployment is at {stage}, but these controls are marked Gap: {ids}. An AI that acts without a person deciding each case needs a working stop switch, logging and real oversight first. Close the gaps or move back to Assisted.",
   "stage.col": "Release stage",
   "stage.col.date": "Stage set on",
-  "tpl.contract": "Release contract (one page)"
+  "tpl.contract": "Release contract (one page)",
+  "eu.legend": "Could this AI reach the EU? (optional)",
+  "eu.help": "For example, you sell it to EU clients, or its output is used in the EU. This never changes the risk tier; it only points you to a note.",
+  "eu.no": "No",
+  "eu.unsure": "Not sure",
+  "eu.yes": "Yes",
+  "eu.note.h": "EU exposure: read the EN 18286 note",
+  "eu.note.p": "The EU AI Act can reach organisations outside the EU when they place AI on the EU market or its output is used there. The note explains provider and deployer duties, the new EU quality-management standard and the dates. Your risk tier is unchanged.",
+  "eu.note.link": "EU AI Act, EN 18286 and GCC organisations (note)",
+  "br.c.eu": "EU exposure ({answer}): check whether you are a provider or a deployer under the EU AI Act before go-live; see the EN 18286 note."
 }

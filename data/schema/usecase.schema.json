@@ -138,6 +138,14 @@
             "type": "string",
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
             "description": "Date the release stage was last set (optional; 0.4)."
+          },
+          "euExposure": {
+            "enum": [
+              "no",
+              "unsure",
+              "yes"
+            ],
+            "description": "Optional EU exposure; links to the EN 18286 note and never changes the tier (0.4, ADR 017)."
           }
         }
       }

@@ -342,3 +342,19 @@ test('release stage: saved with a date, banner when Bounded runs with a Gap in t
   await page.locator('.stepper').getByRole('link', { name: 'Agent brief' }).click();
   await expect(page.getByTestId('stage-banner')).toHaveCount(0);
 });
+
+test('EU exposure question only surfaces the EN 18286 note and leaves the tier alone', async ({ page }) => {
+  await page.getByRole('button', { name: 'Load 2 sample use cases' }).click();
+  await page.getByRole('link', { name: 'Website FAQ chatbot' }).click();
+  const before = await page.locator('.tier-result .tier-badge').first().innerText();
+  await expect(page.getByTestId('eu-note')).toHaveCount(0);
+  await page.locator('.stepper').getByRole('link', { name: 'Details' }).click();
+  await page.locator('input[name="euExposure"][value="yes"]').check();
+  await expect(page.getByTestId('eu-note').getByRole('link')).toHaveAttribute('href', /docs\/sector-notes\/eu-ai-act-en-18286\.md$/);
+  await page.locator('.stepper').getByRole('link', { name: 'Risk tier' }).click();
+  await expect(page.locator('.tier-result .tier-badge').first()).toHaveText(before);
+  await expect(page.getByTestId('eu-note')).toBeVisible();
+  await page.locator('.stepper').getByRole('link', { name: 'Details' }).click();
+  await page.locator('input[name="euExposure"][value="no"]').check();
+  await expect(page.getByTestId('eu-note')).toHaveCount(0);
+});
