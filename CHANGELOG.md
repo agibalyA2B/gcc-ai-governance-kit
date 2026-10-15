@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+- **All 58 control references verified.** The 8 rows that cite the UAE AI Charter were checked against the official
+  Charter page on the UAE Legislation portal. One principle name was corrected: "Promoting AI awareness for an
+  inclusive future" (was "...inclusive society"). See the content audit.
+
 ## 0.3.1 (2026-10-03)
 More features requested by community testers.
 - **Per-deployment profiles.** One product can have several deployments (for example internal, SaaS and agent), each

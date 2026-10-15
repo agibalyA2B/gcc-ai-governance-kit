@@ -31,3 +31,17 @@ describe('security controls split from CTL-SEC-02 (ADR 010)', () => {
     expect(byId('CTL-SEC-10').refs.nist_ai_rmf).toEqual(['GOVERN 6.1', 'MAP 4.1', 'MANAGE 3.2']);
   });
 });
+
+describe('UAE AI Charter references (verified 15 Oct 2026)', () => {
+  const OFFICIAL = [
+    'Strengthening human-machine ties', 'Safety', 'Algorithmic bias', 'Data privacy', 'Transparency', 'Human oversight',
+    'Governance and accountability', 'Technological excellence', 'Human commitment', 'Peaceful coexistence with AI',
+    'Promoting AI awareness for an inclusive future', 'Commitment to treaties and applicable laws',
+  ];
+  it('every control is verified', () => {
+    expect(CROSSWALK.filter((c) => !c.verified).map((c) => c.id)).toEqual([]);
+  });
+  it('every Charter reference uses an official principle name', () => {
+    for (const c of CROSSWALK) for (const name of c.refs.uae_charter) expect(OFFICIAL).toContain(name);
+  });
+});
