@@ -296,3 +296,12 @@ table.matrix input:disabled { background: var(--color-surface-muted); }
 .brief-block .principles li { font-weight: 500; }
 .brief-table { font-size: 0.92rem; }
 .brief-table th[scope='row'] { font-weight: 600; }
+.warning-card { border: 1px solid var(--color-border); border-inline-start: 4px solid var(--tier-limited); border-radius: var(--radius-md); padding: var(--space-2) var(--space-3); margin-block: var(--space-2); background: #fff; }
+.warning-card.sev-critical { border-inline-start-color: var(--tier-unacceptable); }
+.warning-card summary { cursor: pointer; font-weight: 600; }
+.warning-card .sev { display: inline-block; font-size: 0.78rem; padding: 0 6px; border-radius: 999px; background: var(--color-surface-muted); margin-inline-end: 4px; }
+.warning-card.sev-critical .sev:first-child { background: #fbe4ea; color: #8a1031; }
+.warning-card dl { margin: var(--space-2) 0 0; display: grid; grid-template-columns: minmax(9em, max-content) 1fr; gap: var(--space-1) var(--space-3); }
+.warning-card dt { font-weight: 600; color: var(--color-text-muted); }
+.warning-card dd { margin: 0; }
+@media (max-width: 640px) { .warning-card dl { grid-template-columns: 1fr; } }
