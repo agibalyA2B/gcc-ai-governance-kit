@@ -10,6 +10,7 @@ import { applicableControls } from '../core/controls';
 import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
 import { toCsv, toXlsx, download, readTable, type Row } from '../export/tabular';
 import { casesFromRows } from '../core/importTable';
+import { buildBrief, briefMarkdown, type Audience } from '../core/brief';
 import * as V from './views';
 
 const REPO = 'https://github.com/agibalyA2B/gcc-ai-governance-kit';
@@ -17,6 +18,7 @@ let lang: Lang = initialLang();
 let regFilter = '';
 let ctlFw = '';
 let ctlVerifiedOnly = false;
+let briefAudience: Audience = 'annex';
 const showPoints = true;
 
 const app = () => document.getElementById('app')!;
@@ -137,6 +139,7 @@ function render(focus = true): void {
       : step === 'tier' ? V.tierView(lang, uc, r)
       : step === 'deep' ? V.questionsForm(lang, uc, 'deep', showPoints)
       : step === 'controls' ? V.controlsView(lang, uc, r, store.frameworks(), ctlFw, ctlVerifiedOnly)
+      : step === 'brief' ? V.briefView(lang, uc, store.frameworks(), briefAudience)
       : V.exportView(lang, uc);
     content = `<p class="crumb"><a href="#/">${t(lang, 'nav.home')}</a> / ${uc.name ? V.caseBadge(lang, uc, r) : ''} <span>${uc.name ? uc.name.replace(/[<>&]/g, '') : t(lang, 'reg.untitled')}</span></p>
       ${V.stepper(lang, uc, step, r)}${body}`;
@@ -191,6 +194,12 @@ function onClick(e: Event): void {
       break;
     case 'ctl-csv': if (uc) download(`controls-${slug(uc.name)}-${stamp()}.csv`, toCsv(controlRows(uc, store.frameworks())), 'text/csv;charset=utf-8'); break;
     case 'ctl-xlsx': if (uc) download(`controls-${slug(uc.name)}-${stamp()}.xlsx`, toXlsx([{ name: t(lang, 'step.controls'), rows: controlRows(uc, store.frameworks()) }, { name: t(lang, 'act.sheet'), rows: actionRows(uc) }], lang === 'ar'), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); break;
+    case 'brief-copy':
+      if (uc) void copyText(briefMarkdown(buildBrief(uc, lang, store.frameworks(), briefAudience), lang));
+      break;
+    case 'brief-download':
+      if (uc) download(`agent-brief-${briefAudience}-${slug(uc.name)}-${stamp()}.md`, briefMarkdown(buildBrief(uc, lang, store.frameworks(), briefAudience), lang), 'text/markdown;charset=utf-8');
+      break;
     case 'goto': document.getElementById(el.dataset.target!)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); break;
     case 'print-guide': {
       const g = document.querySelector('.guide');
@@ -212,6 +221,12 @@ function onChange(e: Event): void {
     const checked = [...document.querySelectorAll<HTMLInputElement>('input[name="fw"]:checked')].map((x) => x.value as FrameworkId);
     store.setFrameworks(checked);
     toast(t(lang, 'fw.saved'));
+    return;
+  }
+  if (el.dataset.action === 'brief-aud') {
+    briefAudience = el.value as Audience;
+    render(false);
+    document.querySelector<HTMLInputElement>(`input[name="brief-aud"][value="${briefAudience}"]`)?.focus();
     return;
   }
   if (el.dataset.action === 'filter') { regFilter = el.value; render(false); return; }
@@ -279,6 +294,15 @@ function saveAction(el: HTMLInputElement | HTMLSelectElement): void {
   if (el.dataset.action === 'act-perm') {
     render(false);
     document.querySelector<HTMLSelectElement>(`select[data-action="act-perm"][data-act="${id}"]`)?.focus();
+  }
+}
+
+async function copyText(text: string): Promise<void> {
+  try {
+    await navigator.clipboard.writeText(text);
+    toast(t(lang, 'br.copied'));
+  } catch {
+    toast(t(lang, 'br.copy.fail'));
   }
 }
 

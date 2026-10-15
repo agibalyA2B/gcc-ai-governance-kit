@@ -9,8 +9,9 @@ import { esc, tierIcon } from './html';
 import { recommendAutonomy, nextSteps, type AutonomyResult } from '../core/autonomy';
 import { sensitivity } from '../core/sensitivity';
 import { actionMatrix, looser, PERMISSIONS, type ActionRow } from '../core/actions';
+import { buildBrief, type Audience, type Brief, type Table } from '../core/brief';
 
-export const STEPS = ['details', 'quick', 'tier', 'deep', 'controls', 'export'] as const;
+export const STEPS = ['details', 'quick', 'tier', 'deep', 'controls', 'brief', 'export'] as const;
 export type Step = (typeof STEPS)[number];
 
 const L = (lang: Lang, en: string, ar: string) => (lang === 'ar' ? ar : en);
@@ -331,6 +332,40 @@ export function controlsView(lang: Lang, uc: UseCase, r: TierResult, frameworks:
         ${evidenceFields(lang, c, uc.evidence)}
       </li>`).join('')}</ul>` : '';
     }).join('') : `<p class="notice">${t(lang, 'ctl.none')}</p>`}
+    <div class="actions"><a class="btn primary" href="#/uc/${esc(uc.id)}/brief">${t(lang, 'step.brief')}</a></div>
+  </section>`;
+}
+
+const tableHtml = (tb: Table) => `<div class="table-wrap"><table class="brief-table"><thead><tr>${tb.head.map((h) => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead>
+  <tbody>${tb.rows.map((r) => `<tr>${r.map((c, i) => (i === 0 ? `<th scope="row">${esc(c)}</th>` : `<td>${esc(c)}</td>`)).join('')}</tr>`).join('')}</tbody></table></div>`;
+
+function briefBody(b: Brief, lang: Lang): string {
+  if (b.kind !== 'brief') {
+    const [lead, ...rest] = b.readiness;
+    return `<section class="brief-block readiness"><h3>${t(lang, b.kind === 'prohibited' ? 'br.x.h' : 'br.r.h')}</h3><p>${esc(lead)}</p>
+      ${rest.length ? `<ul>${rest.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}</section>`;
+  }
+  return b.blocks.map((bl) => `<section class="brief-block" data-block="${bl.id}"><h3>${esc(bl.title)}</h3>
+    ${bl.items.length ? `<ul>${bl.items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
+    ${bl.table ? tableHtml(bl.table) : ''}
+    ${bl.afterTitle ? `<h4>${esc(bl.afterTitle)}</h4>` : ''}
+    ${bl.after?.length ? `<ul class="${bl.afterTitle ? '' : 'principles'}">${bl.after.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}</section>`).join('');
+}
+
+/** The agent brief screen (ADR 015): one extra step after the controls, two outputs, copy or download. */
+export function briefView(lang: Lang, uc: UseCase, frameworks: FrameworkId[], audience: Audience): string {
+  const b = buildBrief(uc, lang, frameworks, audience);
+  return `<section class="card brief" data-testid="brief">
+    <h2 tabindex="-1">${t(lang, 'step.brief')}</h2>
+    <p class="muted">${t(lang, 'br.intro')}</p>
+    <p class="notice warn brief-notice" role="note">${t(lang, 'br.notice')}</p>
+    <div class="toolbar brief-tools">
+      <fieldset class="seg"><legend class="sr-only">${t(lang, 'br.show')}</legend>
+      ${(['annex', 'handover'] as const).map((a) => `<label class="seg-opt"><input type="radio" name="brief-aud" data-action="brief-aud" value="${a}" ${audience === a ? 'checked' : ''}/> ${t(lang, `br.${a}`)}</label>`).join('')}</fieldset>
+      <span class="spacer"></span>
+      <button type="button" class="btn" data-action="brief-copy">${t(lang, 'br.copy')}</button>
+      <button type="button" class="btn primary" data-action="brief-download">${t(lang, 'br.download')}</button></div>
+    <article class="brief-doc" aria-label="${esc(b.title)}">${briefBody(b, lang)}</article>
     <div class="actions"><a class="btn primary" href="#/uc/${esc(uc.id)}/export">${t(lang, 'step.export')}</a></div>
   </section>`;
 }
