@@ -4,7 +4,7 @@ import { recommendAutonomy, nextSteps, type AutonomyLevel } from './autonomy';
 import { actionMatrix, type ActionRow } from './actions';
 import { applicableControls, type Control } from './controls';
 import type { FrameworkId } from './frameworks';
-import type { UseCase } from './usecase';
+import { showsEuNote, type UseCase } from './usecase';
 import { warningsFor, WARNING_FIELDS, type Severity } from './warnings';
 
 /**
@@ -88,6 +88,7 @@ function constraints(lang: Lang, uc: UseCase, tier: Tier): Block {
   if (a.affected === 'public' || a.affected === 'vulnerable') items.push(T('br.c.disclose'));
   if (a.affected === 'vulnerable') items.push(T('br.c.vulnerable'));
   if (tier === 'high') items.push(T('br.c.high'));
+  if (showsEuNote(uc)) items.push(T('br.c.eu').replace('{answer}', T(`eu.${uc.euExposure}`)));
   const vendor = a.third_party === 'local' || a.third_party === 'external';
   return { id: 'constraints', title: T('br.b.constraints'), items, afterTitle: T('br.c.resp'), after: [T('br.c.resp.entity'), T(vendor ? 'br.c.resp.vendor' : 'br.c.resp.inhouse')] };
 }

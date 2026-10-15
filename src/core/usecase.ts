@@ -17,7 +17,15 @@ export interface UseCase {
   /** Release stage on the autonomy ladder, and the date it was last set (ADR 016). */
   releaseStage?: Stage;
   stageDate?: string;
+  /** Optional EU exposure answer: only surfaces the EN 18286 note, never changes the tier (ADR 017). */
+  euExposure?: EuExposure;
 }
+
+export const EU_EXPOSURE = ['no', 'unsure', 'yes'] as const;
+export type EuExposure = (typeof EU_EXPOSURE)[number];
+const isEu = (v: unknown): v is EuExposure => (EU_EXPOSURE as readonly unknown[]).includes(v);
+/** The note is shown when the AI may reach the EU, or nobody knows yet. */
+export const showsEuNote = (uc: Pick<UseCase, 'euExposure'>): boolean => uc.euExposure === 'yes' || uc.euExposure === 'unsure';
 
 export const newId = (): string =>
   (globalThis.crypto?.randomUUID?.() ?? `uc-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`);
@@ -52,5 +60,6 @@ export function parseRegister(x: unknown): UseCase[] | null {
     && typeof u?.owner === 'string' && !!u.answers && typeof u.answers === 'object');
   const str = (v: unknown) => (typeof v === 'string' ? v : undefined);
   return ok ? (o.useCases as UseCase[]).map((u) => ({ ...u, evidence: normaliseEvidence(u.evidence), product: str(u.product), deployment: str(u.deployment), actions: normaliseActions(u.actions),
-    releaseStage: normaliseStage(u.releaseStage), stageDate: normaliseStageDate(u.stageDate) })) : null;
+    releaseStage: normaliseStage(u.releaseStage), stageDate: normaliseStageDate(u.stageDate),
+    euExposure: isEu(u.euExposure) ? u.euExposure : undefined })) : null;
 }

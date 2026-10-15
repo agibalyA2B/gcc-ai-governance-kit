@@ -2,7 +2,7 @@ import { t, type Lang } from '../i18n';
 import { QUESTIONS, computeTier, topReasons, aiInScope, TIER_ORDER, type Tier, type TierResult } from '../core/scoring';
 import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
 import { applicableControls, verifiedShare, THEMES, CROSSWALK, type Control } from '../core/controls';
-import type { UseCase } from '../core/usecase';
+import { EU_EXPOSURE, showsEuNote, type UseCase } from '../core/usecase';
 import { groupByProduct } from '../core/products';
 import { EVIDENCE_STATUSES, evidenceSummary, type EvidenceMap } from '../core/evidence';
 import { esc, tierIcon } from './html';
@@ -13,6 +13,13 @@ import { buildBrief, type Audience, type Brief, type Table } from '../core/brief
 import { STAGES, stageGaps } from '../core/stage';
 
 export const LADDER_GUIDE = 'https://github.com/agibalyA2B/gcc-ai-governance-kit/blob/main/docs/guides/autonomy-release-ladder.md';
+export const EU_NOTE = 'https://github.com/agibalyA2B/gcc-ai-governance-kit/blob/main/docs/sector-notes/eu-ai-act-en-18286.md';
+
+/** Shown only when the EU exposure answer is Yes or Not sure; never part of the scoring (ADR 017). */
+export function euNote(lang: Lang, uc: UseCase): string {
+  return showsEuNote(uc) ? `<div class="notice eu-note" data-testid="eu-note"><strong>${t(lang, 'eu.note.h')}</strong><p>${t(lang, 'eu.note.p')}</p>
+    <a href="${EU_NOTE}" target="_blank" rel="noopener">${t(lang, 'eu.note.link')}</a></div>` : '';
+}
 
 export const STEPS = ['details', 'quick', 'tier', 'deep', 'controls', 'brief', 'export'] as const;
 export type Step = (typeof STEPS)[number];
@@ -131,6 +138,9 @@ export function detailsForm(lang: Lang, uc: UseCase): string {
       <p class="help" id="stage-hint">${t(lang, 'stage.hint')}${uc.stageDate ? ` (${t(lang, 'stage.since').replace('{date}', esc(uc.stageDate))})` : ''} <a href="${LADDER_GUIDE}" target="_blank" rel="noopener">${t(lang, 'stage.guide')}</a></p></div></fieldset>
     <div class="field"><label for="f-status">${t(lang, 'uc.status')}</label><select id="f-status" name="status">
       ${(['idea', 'pilot', 'production', 'retired'] as const).map((s) => `<option value="${s}" ${uc.status === s ? 'selected' : ''}>${t(lang, `status.${s}`)}</option>`).join('')}</select></div>
+    <fieldset class="eu-fields"><legend>${t(lang, 'eu.legend')}</legend><p class="help">${t(lang, 'eu.help')}</p>
+      ${EU_EXPOSURE.map((v) => `<label class="option inline"><input type="radio" name="euExposure" value="${v}" ${uc.euExposure === v ? 'checked' : ''}/> <span>${t(lang, `eu.${v}`)}</span></label>`).join('')}</fieldset>
+    ${euNote(lang, uc)}
     ${field('notes', false, true)}
     <div class="actions"><button class="btn primary" type="submit">${t(lang, 'nav.next')}</button></div></form>`;
 }
@@ -287,6 +297,7 @@ export function tierView(lang: Lang, uc: UseCase, r: TierResult): string {
       <p class="muted">${t(lang, 'tier.thresholds')} ${QUESTIONS.thresholds.limited} / ${QUESTIONS.thresholds.high}. <a href="#/scoring">${t(lang, 'nav.scoring')}</a></p>
     </details>
     ${sensitivityCard(lang, uc, r)}
+    ${euNote(lang, uc)}
     ${autonomyCard(lang, uc, r)}
     ${actionMatrixCard(lang, uc, r)}
     ${!r.deepComplete ? `<div class="prompt ${r.tier === 'high' || r.tier === 'unacceptable' ? 'strong' : ''}">
