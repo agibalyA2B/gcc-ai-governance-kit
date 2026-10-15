@@ -34,8 +34,8 @@ A system can be accurate enough to recommend a decision and still not be authori
 6. decide, approve, refuse, or trigger an irreversible action.
 
 Each of these is a separate authority. The same system can classify routine requests on its own, draft complex
-assessments for staff, and have no authority at all over final decisions in sensitive cases. Record the level per
-action in the register.
+assessments for staff, and have no authority at all over final decisions in sensitive cases. Record it per action in
+the kit's action matrix (on the risk-tier screen), which never lets an action go beyond the recommended level.
 
 ## The five stages
 
@@ -47,7 +47,8 @@ action in the register.
 | Bounded (level 2) | Can it act safely within limits? | Acts on approved actions, with monitoring and escalation | Documented risk acceptance and operational readiness |
 | Expansion (level 1 where allowed) | Does it stay safe as conditions change? | Widened one action or segment at a time | Ongoing evidence, never a permanent approval |
 
-Stages have names, not numbers, so they are never confused with the autonomy levels.
+Stages have names, not numbers, so they are never confused with the autonomy levels. Before replay starts, a
+deployment is at **Pre-pilot**.
 
 The ladder is not one-way. A model, prompt, tool, data-source or policy change, or a serious incident, can send an
 action back to an earlier stage. Different actions of the same system can sit on different stages at the same time.
@@ -194,8 +195,15 @@ That is why limits, monitoring and a fast suspension route matter more for AI th
 ## How this fits the kit
 
 - The **risk tier** and **recommended autonomy level** set the ceiling; this ladder sets the pace.
+- The **action matrix** ([ADR 014](../decisions/014-action-matrix.md)) records the authority per action.
+- Each deployment has a **release stage** field ([ADR 016](../decisions/016-release-stage.md)). At Bounded or
+  Expansion, the kit shows a warning while a stop-switch, logging or oversight control is marked Gap.
+- The **release contract** template (Templates page, English and Arabic) is the one-page version of the contract
+  below.
+- The **agent brief** ([ADR 015](../decisions/015-agent-brief.md)) carries the stage and the action matrix to the
+  committee and to the team that builds it.
 - The **control evidence map** ([ADR 008](../decisions/008-control-evidence-map.md)) is where the stage evidence and
-  the release contract can be filed.
+  the signed release contract can be filed.
 - **Per-deployment profiles** ([ADR 011](../decisions/011-per-deployment-profiles.md)) let each deployment sit on its
   own stage.
 

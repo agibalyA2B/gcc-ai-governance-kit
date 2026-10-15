@@ -10,6 +10,9 @@ import { recommendAutonomy, nextSteps, type AutonomyResult } from '../core/auton
 import { sensitivity } from '../core/sensitivity';
 import { actionMatrix, looser, PERMISSIONS, type ActionRow } from '../core/actions';
 import { buildBrief, type Audience, type Brief, type Table } from '../core/brief';
+import { STAGES, stageGaps } from '../core/stage';
+
+export const LADDER_GUIDE = 'https://github.com/agibalyA2B/gcc-ai-governance-kit/blob/main/docs/guides/autonomy-release-ladder.md';
 
 export const STEPS = ['details', 'quick', 'tier', 'deep', 'controls', 'brief', 'export'] as const;
 export type Step = (typeof STEPS)[number];
@@ -121,7 +124,11 @@ export function detailsForm(lang: Lang, uc: UseCase): string {
     <h2 tabindex="-1">${t(lang, 'step.details')}</h2>
     ${field('name', true)}${field('owner', true)}${field('businessUnit')}${field('purpose', false, true)}
     <fieldset class="deploy-fields"><legend>${t(lang, 'uc.profile')}</legend><p class="help">${t(lang, 'uc.profile.hint')}</p>
-    ${field('product')}${field('deployment')}</fieldset>
+    ${field('product')}${field('deployment')}
+    <div class="field"><label for="f-releaseStage">${t(lang, 'uc.releaseStage')}</label>
+      <select id="f-releaseStage" name="releaseStage" aria-describedby="stage-hint"><option value="">${t(lang, 'stage.unset')}</option>
+      ${STAGES.map((s) => `<option value="${s}" ${uc.releaseStage === s ? 'selected' : ''}>${t(lang, `stage.${s}`)}</option>`).join('')}</select>
+      <p class="help" id="stage-hint">${t(lang, 'stage.hint')}${uc.stageDate ? ` (${t(lang, 'stage.since').replace('{date}', esc(uc.stageDate))})` : ''} <a href="${LADDER_GUIDE}" target="_blank" rel="noopener">${t(lang, 'stage.guide')}</a></p></div></fieldset>
     <div class="field"><label for="f-status">${t(lang, 'uc.status')}</label><select id="f-status" name="status">
       ${(['idea', 'pilot', 'production', 'retired'] as const).map((s) => `<option value="${s}" ${uc.status === s ? 'selected' : ''}>${t(lang, `status.${s}`)}</option>`).join('')}</select></div>
     ${field('notes', false, true)}
@@ -215,6 +222,16 @@ function actionRowHtml(lang: Lang, r: ActionRow): string {
     <td><input data-action="act-text" data-field="limits" data-act="${r.id}" value="${esc(r.limits)}" maxlength="500" placeholder="${t(lang, 'act.limits.ph')}" aria-labelledby="${id} act-h-limits" ${r.permission === 'blocked' ? 'disabled' : ''}/></td>
     <td><select data-action="act-rev" data-act="${r.id}" aria-labelledby="${id} act-h-rev">${(['', 'yes', 'no'] as const).map((v) => `<option value="${v}" ${r.reversible === v ? 'selected' : ''}>${t(lang, `act.rev.${v || 'unset'}`)}</option>`).join('')}</select></td>
     <td><input data-action="act-text" data-field="approver" data-act="${r.id}" value="${esc(r.approver)}" maxlength="500" placeholder="${t(lang, 'act.approver.ph')}" aria-labelledby="${id} act-h-approver" ${r.permission === 'approval' ? '' : 'disabled'}/></td></tr>`;
+}
+
+/** Warning banner (ADR 016): an acting release stage while stop-switch, logging or oversight controls are Gap. */
+export function stageBanner(lang: Lang, uc: UseCase, r: TierResult, frameworks: FrameworkId[]): string {
+  if (r.tier === 'unacceptable') return '';
+  const gaps = stageGaps(uc.releaseStage, uc.evidence, new Set(applicableControls(r.tier, uc.answers, frameworks).map((c) => c.id)));
+  if (!gaps.length) return '';
+  return `<div class="notice warn stage-banner" role="alert" data-testid="stage-banner"><strong>${t(lang, 'stage.banner.h')}</strong>
+    <p>${t(lang, 'stage.banner').replace('{stage}', t(lang, `stage.${uc.releaseStage}`)).replace('{ids}', gaps.join(t(lang, 'br.comma')))}</p>
+    <a href="${LADDER_GUIDE}" target="_blank" rel="noopener">${t(lang, 'stage.guide')}</a></div>`;
 }
 
 /** The action matrix (ADR 014): six actions, pre-filled ceilings, tighten-only settings. */
@@ -458,7 +475,7 @@ export function aboutView(lang: Lang): string {
 export function templatesView(lang: Lang, base: string): string {
   const files = [
     ['register', 'tpl.register'], ['impact-assessment', 'tpl.impact'], ['control-checklist', 'tpl.checklist'],
-    ['vendor-ai-risk-assessment', 'tpl.vendor'], ['committee-charter', 'tpl.charter'], ['raci', 'tpl.raci'],
+    ['vendor-ai-risk-assessment', 'tpl.vendor'], ['committee-charter', 'tpl.charter'], ['raci', 'tpl.raci'], ['release-contract', 'tpl.contract'],
   ];
   return `<section class="card"><h1 tabindex="-1">${t(lang, 'tpl.title')}</h1><p>${t(lang, 'tpl.intro')}</p>
     <p><a class="btn" href="#/new">${t(lang, 'tpl.start')}</a></p>
