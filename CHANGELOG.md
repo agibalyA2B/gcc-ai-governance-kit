@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- **New control CTL-HUM-11, oversight effectiveness.** Evidence that human review catches errors, not only that it
+  happens. See ADR 013.
 - **All 58 control references verified.** The 8 rows that cite the UAE AI Charter were checked against the official
   Charter page on the UAE Legislation portal. One principle name was corrected: "Promoting AI awareness for an
   inclusive future" (was "...inclusive society"). See the content audit.

@@ -45,3 +45,14 @@ describe('UAE AI Charter references (verified 15 Oct 2026)', () => {
     for (const c of CROSSWALK) for (const name of c.refs.uae_charter) expect(OFFICIAL).toContain(name);
   });
 });
+
+describe('oversight effectiveness control (ADR 013)', () => {
+  it('applies to every AI type from Limited, is verified, and treats approval signals as triggers', () => {
+    const c = byId('CTL-HUM-11');
+    expect(c.theme).toBe('human-oversight');
+    expect(c.verified).toBe(true);
+    for (const t of ['predictive', 'generative', 'agentic']) expect(ids('limited', t)).toContain('CTL-HUM-11');
+    expect(ids('little', 'agentic')).not.toContain('CTL-HUM-11');
+    expect(c.control_text_en).toMatch(/triggers to investigate/);
+  });
+});
