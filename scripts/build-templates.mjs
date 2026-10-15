@@ -435,7 +435,7 @@ const CONTRACT_SECTIONS = {
 const CONTRACT_SCOPE = [
   B('Use case and deployment', 'حالة الاستخدام وطريقة النشر'),
   B('Action or actions covered (from the action matrix)', 'الإجراء أو الإجراءات المشمولة (من مصفوفة الإجراءات)'),
-  B('Stage requested: Replay / Shadow / Assisted / Bounded autonomy / Controlled expansion', 'المرحلة المطلوبة: إعادة التشغيل / التشغيل الظلّي / المساعدة / استقلالية محدودة / توسّع مضبوط'),
+  B('Stage requested: Replay / Shadow / Assisted / Bounded autonomy / Controlled expansion', 'المرحلة المطلوبة: المحاكاة بأثر رجعي / التشغيل الموازي / المساعدة / استقلالية محدودة / توسّع مضبوط'),
   B('Recommended autonomy level (the ceiling)', 'مستوى الاستقلالية الموصى به (السقف)'),
   B('Accountable owner', 'المسؤول المساءَل'),
   B('Date agreed (before data collection starts)', 'تاريخ الاتفاق (قبل بدء جمع البيانات)'),
@@ -507,7 +507,7 @@ const HOW_TO = {
   },
   contract: {
     en: 'Agree this contract in writing before replay starts, one per action or group of actions, so the goalposts cannot move. Set a threshold for each evidence dimension, then record the evidence and the result. A pass means the evidence is sufficient for this bounded authorisation; it never means the system is proved safe. See the autonomy release-ladder guide.',
-    ar: 'اتفق على هذا العقد كتابياً قبل بدء إعادة التشغيل، عقداً لكل إجراء أو مجموعة إجراءات، حتى لا تتغير المعايير لاحقاً. حدّد حدّاً لكل بُعد من أبعاد الأدلة، ثم سجّل الأدلة والنتيجة. النجاح يعني أن الأدلة كافية لهذا التفويض المحدود، ولا يعني أبداً أن النظام ثبتت سلامته. راجع دليل سلّم الإطلاق.',
+    ar: 'اتفق على هذه الوثيقة كتابياً قبل بدء المحاكاة بأثر رجعي، وثيقةً لكل إجراء أو مجموعة إجراءات، حتى لا تتغير المعايير لاحقاً. حدّد حدّاً لكل بُعد من أبعاد الأدلة، ثم سجّل الأدلة والنتيجة. النجاح يعني أن الأدلة كافية لهذا التفويض المحدود، ولا يعني أبداً أن النظام ثبتت سلامته. راجع دليل سلّم الإطلاق.',
   },
   raci: {
     en: 'R = Responsible (does the work), A = Accountable (owns the outcome and signs it off — exactly one per row), C = Consulted (gives input beforehand), I = Informed (kept up to date afterwards). Adjust role names to match your own organisation structure.',
@@ -521,7 +521,7 @@ const TITLES = {
   checklist: { en: 'AI Control Checklist', ar: 'قائمة التحقق من ضوابط الذكاء الاصطناعي' },
   vendor: { en: 'Vendor AI Risk Assessment', ar: 'تقييم مخاطر موردي الذكاء الاصطناعي' },
   charter: { en: 'AI Governance Committee Charter', ar: 'ميثاق لجنة حوكمة الذكاء الاصطناعي' },
-  contract: { en: 'AI Release Contract', ar: 'عقد إطلاق الذكاء الاصطناعي' },
+  contract: { en: 'AI Release Contract', ar: 'وثيقة اعتماد إطلاق الذكاء الاصطناعي' },
   raci: { en: 'AI Governance RACI Matrix', ar: 'مصفوفة المسؤوليات (RACI) لحوكمة الذكاء الاصطناعي' },
 };
 
