@@ -74,14 +74,15 @@
       "eu_ai_act": []
     },
     "source_urls": [
+      "https://uaelegislation.gov.ae/en/policy/details/the-uae-charter-for-the-development-and-use-of-artificial-intelligence",
       "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
     ],
-    "verified": false,
-    "verified_on": null,
-    "notes": "needs-verification: UAE Charter principle name(s) Governance and accountability (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27. p.9 of the UAE Agentic AI National Reference (July 2026) confirmed against the document text; no public URL known, so it is recorded here rather than in source_urls."
+    "verified": true,
+    "verified_on": "2026-10-15",
+    "notes": "UAE Charter principle name(s) Governance and accountability confirmed on 2026-10-15 against the official Charter page on the UAE Legislation portal (issued 10 Jun 2024), read in a browser because scripted fetches are blocked. All other refs in this row were confirmed on 2026-09-27. p.9 of the UAE Agentic AI National Reference (July 2026) confirmed against the document text; no public URL known, so it is recorded here rather than in source_urls."
   },
   {
     "id": "CTL-ACC-03",
@@ -267,7 +268,7 @@
     },
     "refs": {
       "uae_charter": [
-        "Promoting AI awareness for an inclusive society"
+        "Promoting AI awareness for an inclusive future"
       ],
       "uae_gov_code": [
         "Code 6.2"
@@ -286,14 +287,15 @@
       ]
     },
     "source_urls": [
+      "https://uaelegislation.gov.ae/en/policy/details/the-uae-charter-for-the-development-and-use-of-artificial-intelligence",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
       "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
       "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
     ],
-    "verified": false,
-    "verified_on": null,
-    "notes": "needs-verification: UAE Charter principle name(s) Promoting AI awareness for an inclusive society (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+    "verified": true,
+    "verified_on": "2026-10-15",
+    "notes": "UAE Charter principle name(s) Promoting AI awareness for an inclusive future confirmed on 2026-10-15 against the official Charter page on the UAE Legislation portal (issued 10 Jun 2024), read in a browser because scripted fetches are blocked. All other refs in this row were confirmed on 2026-09-27."
   },
   {
     "id": "CTL-ACC-08",
@@ -488,6 +490,7 @@
       ]
     },
     "source_urls": [
+      "https://uaelegislation.gov.ae/en/policy/details/the-uae-charter-for-the-development-and-use-of-artificial-intelligence",
       "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
@@ -495,9 +498,9 @@
       "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
       "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
     ],
-    "verified": false,
-    "verified_on": null,
-    "notes": "needs-verification: UAE Charter principle name(s) Transparency (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+    "verified": true,
+    "verified_on": "2026-10-15",
+    "notes": "UAE Charter principle name(s) Transparency confirmed on 2026-10-15 against the official Charter page on the UAE Legislation portal (issued 10 Jun 2024), read in a browser because scripted fetches are blocked. All other refs in this row were confirmed on 2026-09-27."
   },
   {
     "id": "CTL-TRA-02",
@@ -961,15 +964,16 @@
       "eu_ai_act": []
     },
     "source_urls": [
+      "https://uaelegislation.gov.ae/en/policy/details/the-uae-charter-for-the-development-and-use-of-artificial-intelligence",
       "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
       "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
     ],
-    "verified": false,
-    "verified_on": null,
-    "notes": "needs-verification: UAE Charter principle name(s) Data privacy (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27. Art. 5 of the UAE Government Services Data Sharing Policy (May 2026) confirmed against the policy text; no public URL known, so it is recorded here rather than in source_urls."
+    "verified": true,
+    "verified_on": "2026-10-15",
+    "notes": "UAE Charter principle name(s) Data privacy confirmed on 2026-10-15 against the official Charter page on the UAE Legislation portal (issued 10 Jun 2024), read in a browser because scripted fetches are blocked. All other refs in this row were confirmed on 2026-09-27. Art. 5 of the UAE Government Services Data Sharing Policy (May 2026) confirmed against the policy text; no public URL known, so it is recorded here rather than in source_urls."
   },
   {
     "id": "CTL-DAT-04",
@@ -1052,15 +1056,16 @@
       ]
     },
     "source_urls": [
+      "https://uaelegislation.gov.ae/en/policy/details/the-uae-charter-for-the-development-and-use-of-artificial-intelligence",
       "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
       "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
     ],
-    "verified": false,
-    "verified_on": null,
-    "notes": "needs-verification: UAE Charter principle name(s) Algorithmic bias (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+    "verified": true,
+    "verified_on": "2026-10-15",
+    "notes": "UAE Charter principle name(s) Algorithmic bias confirmed on 2026-10-15 against the official Charter page on the UAE Legislation portal (issued 10 Jun 2024), read in a browser because scripted fetches are blocked. All other refs in this row were confirmed on 2026-09-27."
   },
   {
     "id": "CTL-DAT-06",
@@ -1260,6 +1265,7 @@
       ]
     },
     "source_urls": [
+      "https://uaelegislation.gov.ae/en/policy/details/the-uae-charter-for-the-development-and-use-of-artificial-intelligence",
       "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
@@ -1268,9 +1274,9 @@
       "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
       "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
     ],
-    "verified": false,
-    "verified_on": null,
-    "notes": "needs-verification: UAE Charter principle name(s) Human oversight (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27. p.7 of the UAE Agentic AI National Reference (July 2026) confirmed against the document text; no public URL known, so it is recorded here rather than in source_urls."
+    "verified": true,
+    "verified_on": "2026-10-15",
+    "notes": "UAE Charter principle name(s) Human oversight confirmed on 2026-10-15 against the official Charter page on the UAE Legislation portal (issued 10 Jun 2024), read in a browser because scripted fetches are blocked. All other refs in this row were confirmed on 2026-09-27. p.7 of the UAE Agentic AI National Reference (July 2026) confirmed against the document text; no public URL known, so it is recorded here rather than in source_urls."
   },
   {
     "id": "CTL-HUM-02",
@@ -1447,6 +1453,7 @@
       ]
     },
     "source_urls": [
+      "https://uaelegislation.gov.ae/en/policy/details/the-uae-charter-for-the-development-and-use-of-artificial-intelligence",
       "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
@@ -1455,9 +1462,9 @@
       "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
       "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
     ],
-    "verified": false,
-    "verified_on": null,
-    "notes": "needs-verification: UAE Charter principle name(s) Human oversight (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+    "verified": true,
+    "verified_on": "2026-10-15",
+    "notes": "UAE Charter principle name(s) Human oversight confirmed on 2026-10-15 against the official Charter page on the UAE Legislation portal (issued 10 Jun 2024), read in a browser because scripted fetches are blocked. All other refs in this row were confirmed on 2026-09-27."
   },
   {
     "id": "CTL-HUM-06",
@@ -1687,6 +1694,7 @@
       ]
     },
     "source_urls": [
+      "https://uaelegislation.gov.ae/en/policy/details/the-uae-charter-for-the-development-and-use-of-artificial-intelligence",
       "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
@@ -1695,9 +1703,9 @@
       "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
       "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
     ],
-    "verified": false,
-    "verified_on": null,
-    "notes": "needs-verification: UAE Charter principle name(s) Safety (official charter pages returned HTTP 403 on 27 Sep 2026). All other refs in this row were confirmed on 2026-09-27."
+    "verified": true,
+    "verified_on": "2026-10-15",
+    "notes": "UAE Charter principle name(s) Safety confirmed on 2026-10-15 against the official Charter page on the UAE Legislation portal (issued 10 Jun 2024), read in a browser because scripted fetches are blocked. All other refs in this row were confirmed on 2026-09-27."
   },
   {
     "id": "CTL-SEC-02",
