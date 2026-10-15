@@ -6,6 +6,11 @@
 - **All 58 control references verified.** The 8 rows that cite the UAE AI Charter were checked against the official
   Charter page on the UAE Legislation portal. One principle name was corrected: "Promoting AI awareness for an
   inclusive future" (was "...inclusive society"). See the content audit.
+- **Guide: the autonomy release ladder.** How a use case earns its recommended autonomy level on evidence rather than
+  on the calendar: historical replay, live shadow (decision and execution), an assisted stage designed to expose
+  automation bias, bounded autonomy, and controlled expansion. Autonomy is granted per action, errors are weighted by
+  severity, and release follows a written contract with pass, conditional pass, fail or not-yet-demonstrated outcomes.
+  See `docs/guides/autonomy-release-ladder.md`.
 
 ## 0.3.1 (2026-10-03)
 More features requested by community testers.
