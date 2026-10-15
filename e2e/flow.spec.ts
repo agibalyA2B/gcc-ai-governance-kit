@@ -282,3 +282,38 @@ test('action matrix: pre-filled, tighten only, saved and exported', async ({ pag
   expect(saved.kitVersion).toMatch(/^\d+\.\d+\.\d+/);
   expect(saved.useCases.find((u: { name: string }) => u.name === 'Citizen service triage agent').actions.recommend).toEqual({ permission: 'approval', approver: 'Duty supervisor' });
 });
+
+test('agent brief: one extra step, two outputs, copy and download, in English and Arabic', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.getByRole('button', { name: 'Load 2 sample use cases' }).click();
+  await page.getByRole('link', { name: 'Citizen service triage agent' }).click();
+  await page.getByRole('link', { name: 'See applicable controls' }).click();
+  await page.locator('.actions').getByRole('link', { name: 'Agent brief' }).click();
+  const brief = page.getByTestId('brief');
+  await expect(brief.locator('.brief-notice')).toContainText('not an enforcement mechanism');
+  await expect(brief.locator('.brief-block')).toHaveCount(6);
+  await expect(brief.locator('[data-block="authority"] tbody tr')).toHaveCount(6);
+  await expect(brief.locator('[data-block="evidence"]')).toContainText('Each consequential action');
+  await brief.getByRole('button', { name: 'Copy as Markdown' }).click();
+  await expect(page.locator('.toast')).toContainText('Brief copied');
+  const copied = await page.evaluate(() => navigator.clipboard.readText());
+  expect(copied).toContain('# Agent brief: Citizen service triage agent');
+  expect(copied).toContain('## Sign-off');
+  await brief.getByRole('radio', { name: 'Engineering handover spec' }).check();
+  await expect(page.getByTestId('brief').locator('[data-block="authority"]')).toContainText('Enforce these limits in the platform');
+  const [md] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Download (.md)' }).click()]);
+  expect(md.suggestedFilename()).toMatch(/^agent-brief-handover-.*\.md$/);
+  const text = readFileSync((await md.path())!, 'utf8');
+  expect(text).toContain('Engineering handover spec');
+  expect(text).not.toContain('## Sign-off');
+  // Arabic: the same screen, right to left, with no untranslated keys.
+  await page.getByTestId('lang-toggle').click();
+  await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+  const ar = page.getByTestId('brief');
+  await expect(ar.locator('h2')).toHaveText('موجز التفويض');
+  await expect(ar.locator('.brief-notice')).toContainText('ليس آلية إنفاذ');
+  await expect(ar.locator('.brief-block')).toHaveCount(6);
+  expect(await ar.innerText()).not.toMatch(/\b(br|act|perm)\.[a-z]/);
+  const [arMd] = await Promise.all([page.waitForEvent('download'), ar.getByRole('button', { name: 'تنزيل (.md)' }).click()]);
+  expect(readFileSync((await arMd.path())!, 'utf8')).toContain('## 4. الصلاحيات');
+});
