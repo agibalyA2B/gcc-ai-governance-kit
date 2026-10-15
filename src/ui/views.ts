@@ -138,7 +138,7 @@ export function detailsForm(lang: Lang, uc: UseCase): string {
       <p class="help" id="stage-hint">${t(lang, 'stage.hint')}${uc.stageDate ? ` (${t(lang, 'stage.since').replace('{date}', esc(uc.stageDate))})` : ''} <a href="${LADDER_GUIDE}" target="_blank" rel="noopener">${t(lang, 'stage.guide')}</a></p></div></fieldset>
     <div class="field"><label for="f-status">${t(lang, 'uc.status')}</label><select id="f-status" name="status">
       ${(['idea', 'pilot', 'production', 'retired'] as const).map((s) => `<option value="${s}" ${uc.status === s ? 'selected' : ''}>${t(lang, `status.${s}`)}</option>`).join('')}</select></div>
-    <fieldset class="eu-fields"><legend>${t(lang, 'eu.legend')}</legend><p class="help">${t(lang, 'eu.help')}</p>
+    <fieldset class="deploy-fields eu-fields"><legend>${t(lang, 'eu.legend')}</legend><p class="help">${t(lang, 'eu.help')}</p>
       ${EU_EXPOSURE.map((v) => `<label class="option inline"><input type="radio" name="euExposure" value="${v}" ${uc.euExposure === v ? 'checked' : ''}/> <span>${t(lang, `eu.${v}`)}</span></label>`).join('')}</fieldset>
     ${euNote(lang, uc)}
     ${field('notes', false, true)}
