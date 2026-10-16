@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+- **Every reference links to its official source.** Each framework reference on a control (for example "UAE: Human
+  oversight" or "NIST: GOVERN 2.1") now opens the primary official document in a new tab: the UAE Legislation portal,
+  the Cabinet announcement and the EGSEP agentic guide, Dubai AI Ethics, SDAIA, the ISO page (the standard is
+  paywalled), NIST AI 100-1 and the EU AI Act on EUR-Lex. Two UAE documents with no public URL show an info marker
+  instead. Suggested by the AI Safety UAE community.
+
 ## 0.4.0 (2026-10-15)
 From assessment to delegation: what an AI may do per action, a brief for the committee and the delivery team, and
 the evidence to earn autonomy step by step.

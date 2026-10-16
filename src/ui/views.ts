@@ -1,6 +1,6 @@
 import { t, type Lang } from '../i18n';
 import { QUESTIONS, computeTier, topReasons, aiInScope, TIER_ORDER, type Tier, type TierResult } from '../core/scoring';
-import { FRAMEWORKS, type FrameworkId } from '../core/frameworks';
+import { FRAMEWORKS, refSource, type FrameworkId } from '../core/frameworks';
 import { applicableControls, verifiedShare, THEMES, CROSSWALK, type Control } from '../core/controls';
 import { EU_EXPOSURE, showsEuNote, type UseCase } from '../core/usecase';
 import { groupByProduct } from '../core/products';
@@ -307,9 +307,17 @@ export function tierView(lang: Lang, uc: UseCase, r: TierResult): string {
   </section>`;
 }
 
-function refChips(c: Control, frameworks: FrameworkId[]): string {
-  return FRAMEWORKS.filter((f) => frameworks.includes(f.id) && (c.refs[f.id] ?? []).length)
-    .map((f) => `<span class="ref-chip">${esc(f.short)}: ${esc(c.refs[f.id].join(', '))}</span>`).join('');
+function refChips(lang: Lang, c: Control, frameworks: FrameworkId[]): string {
+  // One chip per framework; references from different source documents are grouped, and each group links to its
+  // official source. References with no public URL say so in a tooltip.
+  return FRAMEWORKS.filter((f) => frameworks.includes(f.id) && (c.refs[f.id] ?? []).length).map((f) => {
+    const groups = new Map<string, string[]>();
+    for (const r of c.refs[f.id]) { const u = refSource(f.id, r) ?? ''; groups.set(u, [...(groups.get(u) ?? []), r]); }
+    const parts = [...groups.entries()].map(([u, refs]) => u
+      ? `<a class="ref-link" href="${esc(u)}" target="_blank" rel="noopener" title="${esc(t(lang, 'ctl.ref.open'))}">${esc(refs.join(', '))}<span class="ref-ext" aria-hidden="true">↗</span></a>`
+      : `<span class="ref-nolink" title="${esc(t(lang, 'ctl.ref.nolink'))}">${esc(refs.join(', '))}<span class="ref-ext" aria-hidden="true">ⓘ</span></span>`);
+    return `<span class="ref-chip">${esc(f.short)}: ${parts.join(', ')}</span>`;
+  }).join('');
 }
 
 export function verificationBadge(lang: Lang, c: Control): string {
@@ -355,7 +363,7 @@ export function controlsView(lang: Lang, uc: UseCase, r: TierResult, frameworks:
       return items.length ? `<h3>${t(lang, `theme.${th}`)}</h3><ul class="controls">${items.map((c) => `<li class="control" data-status="${uc.evidence?.[c.id]?.status ?? ''}">
         <div class="control-head"><strong>${esc(L(lang, c.title_en, c.title_ar))}</strong>${verificationBadge(lang, c)}</div>
         <p>${esc(L(lang, c.control_text_en, c.control_text_ar))}</p>
-        <div class="refs">${refChips(c, frameworks)}</div>
+        <div class="refs">${refChips(lang, c, frameworks)}</div>
         ${c.source_urls.length ? `<p class="sources">${t(lang, 'ctl.sources')} ${c.source_urls.map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener">[${i + 1}]</a>`).join(' ')}</p>` : ''}
         ${evidenceFields(lang, c, uc.evidence)}
       </li>`).join('')}</ul>` : '';

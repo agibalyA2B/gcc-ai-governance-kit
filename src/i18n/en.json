@@ -518,5 +518,7 @@
   "br.c.eu": "EU exposure ({answer}): check whether you are a provider or a deployer under the EU AI Act before go-live; see the EN 18286 note.",
   "gd.s4.matrix": "<strong>What the AI may do.</strong> Under the recommendation, the action matrix sets each of six actions to Allowed, Needs approval or Blocked, pre-filled from the level and the tier. Make a row stricter if you need to; a looser setting is refused, because raising it needs a new assessment. Add limits and the approver's role where they apply.",
   "gd.s4.stage": "<strong>Release stage.</strong> On the Details step, record where each deployment is on the release ladder, from Pre-pilot to Controlled expansion. If it is at Bounded autonomy or beyond while a stop-switch, logging or oversight control is marked Gap, every step shows a warning.",
-  "gd.s5.brief": "<strong>Agent brief.</strong> The step before Export builds a delegation brief from your answers: what the AI is for and when it must stop, what it may do, what must be recorded and when a person steps in. Choose the committee annex or the engineering handover spec, then copy it or download it as Markdown. The brief records what was agreed; it does not enforce it."
+  "gd.s5.brief": "<strong>Agent brief.</strong> The step before Export builds a delegation brief from your answers: what the AI is for and when it must stop, what it may do, what must be recorded and when a person steps in. Choose the committee annex or the engineering handover spec, then copy it or download it as Markdown. The brief records what was agreed; it does not enforce it.",
+  "ctl.ref.open": "Open the official source (new tab)",
+  "ctl.ref.nolink": "No public URL: the source is cited in the control notes"
 }
