@@ -23,6 +23,8 @@ const qText = (id, lang) => q(id)[`text_${lang}`];
 const FRAMEWORKS = [
   { id: 'uae_charter', en: 'UAE AI Charter', ar: 'ميثاق الإمارات للذكاء الاصطناعي' },
   { id: 'uae_gov_code', en: 'UAE Gov Services Code', ar: 'كود الإمارات للخدمات الحكومية' },
+  { id: 'uae_pdpl', en: 'UAE PDPL', ar: 'قانون حماية البيانات الشخصية' },
+  { id: 'uae_csc_ai', en: 'UAE AI Security Policy (CSC)', ar: 'السياسة الوطنية للأمن السيبراني للذكاء الاصطناعي' },
   { id: 'dubai_ethics', en: 'Dubai AI Ethics', ar: 'أخلاقيات الذكاء الاصطناعي في دبي' },
   { id: 'sdaia', en: 'SDAIA AI Ethics', ar: 'مبادئ أخلاقيات الذكاء الاصطناعي (سدايا)' },
   { id: 'iso42001', en: 'ISO/IEC 42001', ar: 'آيزو/آي إي سي 42001' },

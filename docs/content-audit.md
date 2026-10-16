@@ -186,6 +186,48 @@ Source keys are listed in the table above.
 | CTL-MON-08 | Dubai: Security; SDAIA: Accountability & Responsibility; ISO: A.6.2.6; NIST: MEASURE 2.4, MANAGE 2.4; Gov: Code 5.5, Agentic Reference p.8 | DUB, SDA, XW, NIST, CODE, AGR | yes | all refs confirmed; AGR ref(s) confirmed against the text but not publicly hosted, recorded in notes |
 | CTL-MON-09 | Gov: Code 2.1, Code 2.3, Agentic Guide §05, Agentic Guide §06; SDAIA: Reliability & Safety; ISO: A.6.2.6; NIST: MEASURE 2.4, MANAGE 1.1 | CODE, EGS, SDA, XW, NIST | yes | new control (27 Sep 2026); all refs confirmed |
 
+## UAE PDPL and the CSC AI Security Policy (added 16 Oct 2026)
+
+Two UAE sources added at the suggestion of the AI Safety UAE community. Both were read in full on 16 Oct 2026 and
+every reference below was checked against the text.
+
+| Key | Source | Result |
+|---|---|---|
+| PDPL | Federal Decree-Law No. 45 of 2021 on the Protection of Personal Data: https://uaelegislation.gov.ae/en/legislations/1972 | Read in a browser (scripted download blocked). Article numbers and headings checked. |
+| CSC | National Cyber Security Policy for Artificial Intelligence, v1.1, UAE Cyber Security Council: https://csc.gov.ae/en/w/national-artificial-intelligence-security-policy | PDF (55 pages) read; policy statements 2.1.1 to 2.6.3 checked. |
+
+**Scope note on PDPL.** Article 2(2) says the law does not apply to government data, to government entities that
+control or process personal data, or to personal data held by security and judicial authorities. Government users
+follow their own data rules (the kit's UAE Gov Services Code references, including the Data Sharing Policy); PDPL
+applies to private-sector and semi-government users outside that carve-out. The references are shown for every user
+so that vendors and private entities see them.
+
+| Control | PDPL | CSC AI policy |
+|---|---|---|
+| CTL-ACC-01 Approved AI policy | | 2.1.1 (enforceable policies and procedures) |
+| CTL-ACC-03 AI use-case register | | 2.2.1 (inventory of AI/ML assets) |
+| CTL-ACC-04 Impact assessment | Art. 21 (impact assessment before processing with new technologies) | 2.1.2 (identify, assess, mitigate AI risks) |
+| CTL-ACC-06 Third-party due diligence | Art. 8 (processor obligations) | 2.1.3 (supply-chain risk) |
+| CTL-ACC-07 AI literacy | | 2.5.1 (awareness and training on AI attacks) |
+| CTL-TRA-03 Explanation on request | Art. 13(1)(c) (information on automated decisions) | |
+| CTL-TRA-04 Notify people of AI-informed decisions | Art. 13(1)(c) | |
+| CTL-DAT-03 Privacy review and minimisation | Art. 5 (processing controls), Art. 21 | 2.3.5 (data protection at rest and in motion) |
+| CTL-HUM-02 Right to challenge | Art. 18 (right to object to automated decisions) | |
+| CTL-SEC-01 Test before deployment | | 2.4.4 (testing and validation) |
+| CTL-SEC-02 AI security assessment | Art. 20 (security measures) | 2.1.2, 2.3.2 (model protection) |
+| CTL-SEC-03 Safeguards on generated output | | 2.3.3 (inference security) |
+| CTL-SEC-05 Sandbox and staged rollout | | 2.1.4 (controlled changes) |
+| CTL-SEC-06 Fallback and fail-safe | | 2.4.2 (redundancy, failover), 2.4.3 (continuity, recovery tests) |
+| CTL-SEC-09 Red-team testing | | 2.5.2 (defence, regular testing) |
+| CTL-SEC-10 Model supply chain | | 2.1.3 |
+| CTL-MON-01 Monitoring with alerts | | 2.6.1 (security analytics, real-time detection) |
+| CTL-MON-04 AI incident response | Art. 9 (reporting personal data breaches) | 2.6.2 (incident reporting), 2.6.3 (forensics) |
+
+Deliberately not mapped: PDPL cross-border transfer rules (Arts. 22–23) have no single matching control; the Agent
+Brief's Constraints block asks where inference and tool payloads are processed. The CSC policy's human-oversight
+mention appears in its implementation guidance, not in a policy statement, so no CSC reference was added to the
+human-oversight controls.
+
 ## What could not be verified, and why
 
 1. **UAE Charter principle names (8 rows): resolved 15 Oct 2026.** Both official hosts returned HTTP 403 to automated

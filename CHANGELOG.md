@@ -6,6 +6,11 @@
   the Cabinet announcement and the EGSEP agentic guide, Dubai AI Ethics, SDAIA, the ISO page (the standard is
   paywalled), NIST AI 100-1 and the EU AI Act on EUR-Lex. Two UAE documents with no public URL show an info marker
   instead. Suggested by the AI Safety UAE community.
+- **Two new UAE frameworks: PDPL and the CSC AI Security Policy.** Controls now also map to the UAE Personal Data
+  Protection Law (Federal Decree-Law 45/2021; 8 controls, by article) and the UAE Cyber Security Council's National
+  Cyber Security Policy for AI v1.1 (15 controls, by policy statement). Both were read in full and every reference
+  checked; PDPL's carve-out for government entities is explained in the content audit. Suggested by the AI Safety UAE
+  community.
 
 ## 0.4.0 (2026-10-15)
 From assessment to delegation: what an AI may do per action, a brief for the committee and the delivery team, and
