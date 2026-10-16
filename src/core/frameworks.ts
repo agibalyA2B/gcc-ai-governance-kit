@@ -11,3 +11,25 @@ export const FRAMEWORKS: { id: FrameworkId; en: string; ar: string; short: strin
 ];
 
 export const ALL_FRAMEWORKS = FRAMEWORKS.map((f) => f.id);
+
+// Primary official source per framework (suggested by the AI Safety UAE community, 16 Oct 2026): every reference links to
+// where it can be checked. ISO/IEC 42001 is paywalled: the link goes to the official ISO page, not the text.
+export const FRAMEWORK_SOURCES: Record<FrameworkId, string> = {
+  uae_charter: 'https://uaelegislation.gov.ae/en/policy/details/the-uae-charter-for-the-development-and-use-of-artificial-intelligence',
+  uae_gov_code: 'https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years',
+  dubai_ethics: 'https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf',
+  sdaia: 'https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf',
+  iso42001: 'https://www.iso.org/standard/81230.html',
+  nist_ai_rmf: 'https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf',
+  eu_ai_act: 'https://eur-lex.europa.eu/eli/reg/2024/1689/oj',
+};
+
+// The UAE Gov Services Code framework cites four documents; two have no public URL (cited in the control notes).
+export function refSource(fw: FrameworkId, ref: string): string | null {
+  if (fw === 'uae_gov_code') {
+    if (/^Agentic Guide/.test(ref)) return 'https://uaemodel.egsep.ae/agentic_ai_guide_website.html';
+    if (/^(Data Sharing Policy|Agentic Reference)/.test(ref)) return null;
+    return FRAMEWORK_SOURCES.uae_gov_code;
+  }
+  return FRAMEWORK_SOURCES[fw];
+}

@@ -170,6 +170,10 @@ thead th { font-size: 0.85rem; color: var(--color-text-muted); background: #fbfa
 .ev-count { white-space: nowrap; }
 .ev-gap { color: #8a2d08; font-weight: 600; }
 .refs { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.ref-link { color: inherit; text-decoration: underline dotted; text-underline-offset: 2px; }
+.ref-link:hover, .ref-link:focus-visible { text-decoration-style: solid; }
+.ref-ext { margin-inline-start: 3px; font-size: 0.75em; opacity: 0.7; }
+@media print { .ref-ext { display: none; } }
 .ref-chip { font-size: 0.8rem; padding: 2px 8px; border-radius: var(--radius-sm); background: var(--color-surface-muted); border: 1px solid var(--color-border); unicode-bidi: plaintext; }
 .vbadge { font-size: 0.8rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
 .vbadge.verified { background: #e3f3eb; color: #1f5e43; }
