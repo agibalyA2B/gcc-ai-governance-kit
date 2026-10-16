@@ -1,6 +1,10 @@
 # Changelog
 
 ## Unreleased
+
+## 0.4.1 (2026-10-16)
+Every reference now links to its official source, and two UAE frameworks join the crosswalk.
+
 - **Every reference links to its official source.** Each framework reference on a control (for example "UAE: Human
   oversight" or "NIST: GOVERN 2.1") now opens the primary official document in a new tab: the UAE Legislation portal,
   the Cabinet announcement and the EGSEP agentic guide, Dubai AI Ethics, SDAIA, the ISO page (the standard is
