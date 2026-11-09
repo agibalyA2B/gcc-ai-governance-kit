@@ -54,3 +54,17 @@ describe('fix-in-this-order section (ADR 018)', () => {
     expect(reportView('en', uc, r, [...ALL_FRAMEWORKS])).toContain('No control is marked Gap or Partly met yet.');
   });
 });
+
+describe('target-framework gap count in the committee report (ADR 019)', () => {
+  const uc = sampleUseCases('en')[0];
+  const r = computeTier(uc.answers);
+  it('appears only when a target is picked, with the NIST functions for NIST', () => {
+    expect(reportView('en', uc, r, [...ALL_FRAMEWORKS])).not.toContain('data-testid="gap-line"');
+    const html = reportView('en', uc, r, [...ALL_FRAMEWORKS], 'nist_ai_rmf');
+    expect(html).toMatch(/\d+ of \d+ controls mapped to NIST AI RMF are still at Gap or Partly met/);
+    expect(html).toContain('data-testid="gap-nist"');
+    expect(html).toContain('not a conformity assessment');
+    expect(reportView('en', uc, r, [...ALL_FRAMEWORKS], 'uae_csc_ai')).not.toContain('data-testid="gap-nist"');
+    expect(reportView('ar', uc, r, [...ALL_FRAMEWORKS], 'nist_ai_rmf')).toContain('الحوكمة (Govern)');
+  });
+});

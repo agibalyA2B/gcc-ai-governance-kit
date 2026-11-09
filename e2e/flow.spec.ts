@@ -374,3 +374,35 @@ test('fix-in-this-order list puts prerequisites first and updates as evidence ch
   await expect(box.locator('.fix-order li').first()).toContainText('Event logging');
   await expect(box.locator('.fix-order li').nth(1)).toContainText('Agent action audit trail');
 });
+
+test('target-framework gap count: NIST by function, kept for the register, in the XLSX', async ({ page }) => {
+  await page.getByRole('button', { name: 'Load 2 sample use cases' }).click();
+  await page.getByRole('link', { name: 'Citizen service triage agent' }).click();
+  await page.getByRole('link', { name: 'See applicable controls' }).click();
+  await expect(page.getByTestId('gap-line')).toHaveCount(0);
+  await page.locator('select[data-action="gap-fw"]').selectOption('nist_ai_rmf');
+  await expect(page.getByTestId('gap-line')).toContainText(/^0 of \d+ controls mapped to NIST AI RMF/);
+  await expect(page.getByTestId('gap-nist').locator('tbody tr')).toHaveCount(4);
+  await page.locator('li.control', { hasText: 'Event logging' }).locator('select[data-action="ev-status"]').selectOption('gap');
+  await expect(page.getByTestId('gap-line')).toContainText(/^1 of \d+/);
+  await page.reload();
+  await expect(page.locator('select[data-action="gap-fw"]')).toHaveValue('nist_ai_rmf');
+  await page.locator('.stepper').getByRole('link', { name: 'Export' }).click();
+  const [xlsx] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Controls (XLSX)' }).click()]);
+  const wb = XLSX.read(readFileSync((await xlsx.path())!));
+  expect(wb.SheetNames).toContain('Target framework');
+  const rows = XLSX.utils.sheet_to_json<Record<string, string | number>>(wb.Sheets['Target framework']);
+  expect(rows).toHaveLength(5);
+  expect(rows[0].Gap).toBe(1);
+});
+
+test('controls step has no horizontal scroll on a phone in Arabic, with a target framework picked', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.evaluate(() => { localStorage.setItem('gaigk.lang', 'ar'); localStorage.setItem('gaigk.target.v1', 'nist_ai_rmf'); });
+  await page.reload();
+  await page.locator('button[data-action="samples"]').click();
+  await page.locator('table.register a').first().click();
+  await page.goto(page.url().replace(/\/[a-z]+$/, '/controls'));
+  await expect(page.getByTestId('gap-nist')).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
+});

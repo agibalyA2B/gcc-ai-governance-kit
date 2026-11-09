@@ -92,10 +92,10 @@ main:focus { outline: none; }
 
 .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-block: var(--space-4); }
 .toolbar .spacer { flex: 1; }
-.filter { display: inline-flex; align-items: center; gap: var(--space-2); }
+.filter { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); max-width: 100%; }
 select, input, textarea { font: inherit; }
 select, input:not([type='checkbox']):not([type='radio']), textarea { padding: 8px 10px; border: 1px solid #c9c2b4; border-radius: var(--radius-sm); background: #fff; width: 100%; }
-.filter select { width: auto; }
+.filter select { width: auto; max-width: 100%; min-width: 0; }
 
 .table-wrap { position: relative; overflow-x: auto; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
 table { border-collapse: collapse; width: 100%; }
@@ -322,3 +322,7 @@ table.matrix input:disabled { background: var(--color-surface-muted); }
 .fix-order li { margin-block: var(--space-1); }
 .fix-after { display: block; font-size: 0.85rem; color: var(--color-text-muted); }
 @media print { .report .fix-order li { break-inside: avoid; font-size: 9.5pt; } }
+.gap-box { margin-block: var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.gap-box h3 { margin-block-start: 0; }
+.gap-table td, .gap-table th { text-align: center; }
+.gap-table th[scope='row'] { text-align: start; }

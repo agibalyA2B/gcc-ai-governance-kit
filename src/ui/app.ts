@@ -12,6 +12,7 @@ import { toCsv, toXlsx, download, readTable, type Row } from '../export/tabular'
 import { casesFromRows } from '../core/importTable';
 import { buildBrief, briefMarkdown, type Audience } from '../core/brief';
 import { isStage } from '../core/stage';
+import { gapCount, nistByFunction, NIST_FUNCTIONS, type GapCount } from '../core/gapcount';
 import * as V from './views';
 
 const REPO = 'https://github.com/agibalyA2B/gcc-ai-governance-kit';
@@ -87,6 +88,20 @@ function actionSummary(uc: UseCase): string {
   }).filter(Boolean).join(' | ');
 }
 
+/** XLSX sheet for the target-framework gap count (ADR 019); none when no target is picked. */
+function gapSheet(uc: UseCase): { name: string; rows: Row[] }[] {
+  const target = store.target();
+  if (!target) return [];
+  const fw = FRAMEWORKS.find((f) => f.id === target)!;
+  const row = (label: string, g: GapCount): Row => ({
+    [t(lang, 'gap.pick')]: lang === 'ar' ? fw.ar : fw.en, [t(lang, 'gap.fn')]: label, [t(lang, 'gap.controls')]: g.total,
+    ...Object.fromEntries((['gap', 'partly', 'unset', 'met', 'na'] as const).map((k) => [t(lang, `ev.${k}`), g[k]])),
+  });
+  const rows = [row(t(lang, 'reg.filter.all'), gapCount(uc, target, uc.evidence))];
+  if (target === 'nist_ai_rmf') { const fns = nistByFunction(uc, uc.evidence); for (const fn of NIST_FUNCTIONS) rows.push(row(t(lang, `nist.${fn}`), fns[fn])); }
+  return [{ name: t(lang, 'gap.sheet'), rows }];
+}
+
 function actionRows(uc: UseCase): Row[] {
   const r = computeTier(uc.answers);
   return actionMatrix(uc.answers, r.tier, uc.actions).rows.map((x) => ({
@@ -140,7 +155,7 @@ function render(focus = true): void {
       : !r.quickComplete ? `<p class="notice">${t(lang, 'step.locked')}</p><a class="btn" href="#/uc/${uc.id}/quick">${t(lang, 'step.quick')}</a>`
       : step === 'tier' ? V.tierView(lang, uc, r)
       : step === 'deep' ? V.questionsForm(lang, uc, 'deep', showPoints)
-      : step === 'controls' ? V.controlsView(lang, uc, r, store.frameworks(), ctlFw, ctlVerifiedOnly)
+      : step === 'controls' ? V.controlsView(lang, uc, r, store.frameworks(), ctlFw, ctlVerifiedOnly, store.target())
       : step === 'brief' ? V.briefView(lang, uc, store.frameworks(), briefAudience)
       : V.exportView(lang, uc);
     content = `<p class="crumb"><a href="#/">${t(lang, 'nav.home')}</a> / ${uc.name ? V.caseBadge(lang, uc, r) : ''} <span>${uc.name ? uc.name.replace(/[<>&]/g, '') : t(lang, 'reg.untitled')}</span></p>
@@ -195,7 +210,7 @@ function onClick(e: Event): void {
       download(`ai-register-${stamp()}.xlsx`, toXlsx([{ name: t(lang, 'reg.sheet'), rows: registerRows(store.list()) }], lang === 'ar'), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       break;
     case 'ctl-csv': if (uc) download(`controls-${slug(uc.name)}-${stamp()}.csv`, toCsv(controlRows(uc, store.frameworks())), 'text/csv;charset=utf-8'); break;
-    case 'ctl-xlsx': if (uc) download(`controls-${slug(uc.name)}-${stamp()}.xlsx`, toXlsx([{ name: t(lang, 'step.controls'), rows: controlRows(uc, store.frameworks()) }, { name: t(lang, 'act.sheet'), rows: actionRows(uc) }], lang === 'ar'), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); break;
+    case 'ctl-xlsx': if (uc) download(`controls-${slug(uc.name)}-${stamp()}.xlsx`, toXlsx([{ name: t(lang, 'step.controls'), rows: controlRows(uc, store.frameworks()) }, { name: t(lang, 'act.sheet'), rows: actionRows(uc) }, ...gapSheet(uc)], lang === 'ar'), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); break;
     case 'brief-copy':
       if (uc) void copyText(briefMarkdown(buildBrief(uc, lang, store.frameworks(), briefAudience), lang));
       break;
@@ -210,7 +225,7 @@ function onClick(e: Event): void {
     }
     case 'pdf':
       if (uc) {
-        document.getElementById('print-root')!.innerHTML = V.reportView(lang, uc, computeTier(uc.answers), store.frameworks());
+        document.getElementById('print-root')!.innerHTML = V.reportView(lang, uc, computeTier(uc.answers), store.frameworks(), store.target());
         window.print();
       }
       break;
@@ -233,6 +248,12 @@ function onChange(e: Event): void {
   }
   if (el.dataset.action === 'filter') { regFilter = el.value; render(false); return; }
   if (el.dataset.action === 'ctl-fw') { ctlFw = el.value; render(false); return; }
+  if (el.dataset.action === 'gap-fw') {
+    store.setTarget(el.value as FrameworkId | '');
+    const uc = currentUc(), box = document.querySelector<HTMLElement>('[data-testid="gap-summary"]');
+    if (uc && box) box.innerHTML = V.gapSummary(lang, uc, store.target());
+    return;
+  }
   if (el.dataset.action === 'ctl-verified') { ctlVerifiedOnly = (el as HTMLInputElement).checked; render(false); return; }
   if (el.dataset.action === 'import-file') { void importFile((el as HTMLInputElement).files?.[0]); return; }
   if (el.dataset.action === 'import-table-file') { void importTableFile((el as HTMLInputElement).files?.[0]); return; }
@@ -285,6 +306,8 @@ function saveEvidence(el: HTMLInputElement | HTMLSelectElement | HTMLTextAreaEle
   const applicable = applicableControls(r.tier, next.answers, store.frameworks());
   const sum = document.querySelector<HTMLElement>('[data-testid="ev-summary"]');
   if (sum) sum.innerHTML = V.evidenceSummaryText(lang, applicable.map((c) => c.id), next.evidence);
+  const gap = document.querySelector<HTMLElement>('[data-testid="gap-summary"]');
+  if (gap && el.dataset.action === 'ev-status') gap.innerHTML = V.gapSummary(lang, next, store.target());
   const fix = document.querySelector<HTMLElement>('[data-testid="fix-order"]');
   if (fix && el.dataset.action === 'ev-status') fix.innerHTML = V.fixOrderList(lang, applicable, next.evidence);
 }

@@ -3,6 +3,7 @@ import { ALL_FRAMEWORKS, type FrameworkId } from './frameworks';
 
 const KEY_CASES = 'gaigk.usecases.v1';
 const KEY_FW = 'gaigk.frameworks.v1';
+const KEY_TARGET = 'gaigk.target.v1';
 
 /** Browser-only persistence. Falls back to memory when storage is blocked (private mode, policies). */
 class Store {
@@ -45,6 +46,13 @@ class Store {
     } catch { return [...ALL_FRAMEWORKS]; }
   }
   setFrameworks(fw: FrameworkId[]): void { this.set(KEY_FW, JSON.stringify(fw)); }
+
+  /** Target framework for the gap count (ADR 019); one choice for the whole register, empty when none is picked. */
+  target(): FrameworkId | '' {
+    const v = this.get(KEY_TARGET) ?? '';
+    return (ALL_FRAMEWORKS as string[]).includes(v) ? (v as FrameworkId) : '';
+  }
+  setTarget(fw: FrameworkId | ''): void { this.set(KEY_TARGET, fw); }
 }
 
 export const store = new Store();
