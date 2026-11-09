@@ -103,6 +103,9 @@
       "ai_types": [],
       "data": []
     },
+    "depends_on": [
+      "CTL-ACC-11"
+    ],
     "refs": {
       "uae_charter": [],
       "uae_gov_code": [],
@@ -198,6 +201,12 @@
       "ai_types": [],
       "data": []
     },
+    "depends_on": [
+      "CTL-ACC-01",
+      "CTL-ACC-02",
+      "CTL-ACC-04",
+      "CTL-SEC-01"
+    ],
     "refs": {
       "uae_charter": [],
       "uae_gov_code": [
@@ -390,6 +399,9 @@
       ],
       "data": []
     },
+    "depends_on": [
+      "CTL-ACC-10"
+    ],
     "refs": {
       "uae_charter": [],
       "uae_gov_code": [
@@ -759,6 +771,9 @@
       "ai_types": [],
       "data": []
     },
+    "depends_on": [
+      "CTL-ACC-03"
+    ],
     "refs": {
       "uae_charter": [],
       "uae_gov_code": [],
@@ -971,6 +986,9 @@
       "ai_types": [],
       "data": []
     },
+    "depends_on": [
+      "CTL-DAT-01"
+    ],
     "refs": {
       "uae_charter": [],
       "uae_gov_code": [
@@ -1401,6 +1419,9 @@
         "personal"
       ]
     },
+    "depends_on": [
+      "CTL-TRA-04"
+    ],
     "refs": {
       "uae_charter": [],
       "uae_gov_code": [
@@ -1451,6 +1472,9 @@
       "ai_types": [],
       "data": []
     },
+    "depends_on": [
+      "CTL-HUM-01"
+    ],
     "refs": {
       "uae_charter": [],
       "uae_gov_code": [],
@@ -1492,6 +1516,9 @@
       ],
       "data": []
     },
+    "depends_on": [
+      "CTL-ACC-10"
+    ],
     "refs": {
       "uae_charter": [],
       "uae_gov_code": [
@@ -1545,6 +1572,9 @@
       ],
       "data": []
     },
+    "depends_on": [
+      "CTL-HUM-01"
+    ],
     "refs": {
       "uae_charter": [
         "Human oversight"
@@ -1813,6 +1843,9 @@
       "ai_types": [],
       "data": []
     },
+    "depends_on": [
+      "CTL-HUM-01"
+    ],
     "refs": {
       "uae_charter": [
         "Human oversight"
@@ -2014,6 +2047,9 @@
       ],
       "data": []
     },
+    "depends_on": [
+      "CTL-ACC-10"
+    ],
     "refs": {
       "uae_charter": [],
       "uae_gov_code": [
@@ -2203,6 +2239,9 @@
       ],
       "data": []
     },
+    "depends_on": [
+      "CTL-SEC-04"
+    ],
     "refs": {
       "uae_charter": [],
       "uae_gov_code": [
@@ -2450,6 +2489,9 @@
       ],
       "data": []
     },
+    "depends_on": [
+      "CTL-MON-02"
+    ],
     "refs": {
       "uae_charter": [],
       "uae_gov_code": [
@@ -2549,6 +2591,9 @@
       "ai_types": [],
       "data": []
     },
+    "depends_on": [
+      "CTL-ACC-03"
+    ],
     "refs": {
       "uae_charter": [],
       "uae_gov_code": [
@@ -2675,6 +2720,10 @@
       ],
       "data": []
     },
+    "depends_on": [
+      "CTL-HUM-04",
+      "CTL-HUM-06"
+    ],
     "refs": {
       "uae_charter": [],
       "uae_gov_code": [

@@ -17,5 +17,17 @@ for (const [file, schema] of checks) {
 const cw = existsSync(new URL('../data/crosswalk.json', import.meta.url)) ? read('data/crosswalk.json') : [];
 const ids = cw.map((c) => c.id);
 if (new Set(ids).size !== ids.length) { failed = true; console.error('duplicate control ids'); }
-if (cw.length) console.log(`crosswalk: ${cw.length} controls, ${cw.filter((c) => c.verified).length} verified`);
+// Dependencies (ADR 018): each names another real control, and they never form a cycle.
+const deps = new Map(cw.map((c) => [c.id, c.depends_on ?? []]));
+for (const [id, ds] of deps) for (const d of ds) if (d === id || !deps.has(d)) { failed = true; console.error(`${id}: bad depends_on ${d}`); }
+const state = new Map();
+const visit = (id, path) => {
+  if (state.get(id) === 'done') return;
+  if (state.get(id) === 'open') { failed = true; console.error(`depends_on cycle: ${[...path, id].join(' -> ')}`); return; }
+  state.set(id, 'open');
+  for (const d of deps.get(id) ?? []) if (deps.has(d)) visit(d, [...path, id]);
+  state.set(id, 'done');
+};
+for (const id of deps.keys()) visit(id, []);
+if (cw.length) console.log(`crosswalk: ${cw.length} controls, ${cw.filter((c) => c.verified).length} verified, ${[...deps.values()].flat().length} dependencies`);
 process.exit(failed ? 1 : 0);

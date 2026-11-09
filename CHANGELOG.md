@@ -6,6 +6,9 @@
   map to NIST, and all 59 stay verified. Three have none because no subcategory covers them, and their notes say so:
   telling people about an AI-informed decision, showing which data an agent used, and "Ask once". Every NIST ID is
   checked against the 72 subcategories in NIST AI 100-1.
+- **Control dependencies.** 19 links record which control should be in place before another, for example the register
+  before re-tiering and event logging before the agent audit trail. Each link and its basis is listed in the content
+  audit (ADR 018). They prepare the fix-in-this-order list and never change which controls apply.
 
 ## 0.4.1 (2026-10-16)
 Every reference now links to its official source, and two UAE frameworks join the crosswalk.

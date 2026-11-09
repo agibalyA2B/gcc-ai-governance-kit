@@ -85,6 +85,16 @@
           }
         }
       },
+      "depends_on": {
+        "description": "Controls that should be in place first (ADR 018). Ordering only; never changes which controls apply.",
+        "type": "array",
+        "uniqueItems": true,
+        "minItems": 1,
+        "items": {
+          "type": "string",
+          "pattern": "^CTL-[A-Z]{2,4}-[0-9]{2}$"
+        }
+      },
       "refs": {
         "type": "object",
         "additionalProperties": false,

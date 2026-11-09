@@ -79,3 +79,27 @@ describe('NIST AI RMF references (completed 9 Nov 2026)', () => {
     for (const c of CROSSWALK) if (c.refs.nist_ai_rmf.length) expect(c.source_urls.some((u) => u.includes('nvlpubs.nist.gov'))).toBe(true);
   });
 });
+
+describe('control dependencies (ADR 018)', () => {
+  const ALL = new Set(CROSSWALK.map((c) => c.id));
+  const deps = (id: string) => byId(id).depends_on ?? [];
+  it('every dependency names a real, different control', () => {
+    for (const c of CROSSWALK) for (const d of c.depends_on ?? []) { expect(ALL.has(d)).toBe(true); expect(d).not.toBe(c.id); }
+  });
+  it('dependencies never form a cycle', () => {
+    const state = new Map<string, 'open' | 'done'>();
+    const visit = (id: string): void => {
+      if (state.get(id) === 'done') return;
+      expect(state.get(id)).not.toBe('open');
+      state.set(id, 'open');
+      for (const d of deps(id)) visit(d);
+      state.set(id, 'done');
+    };
+    for (const id of ALL) visit(id);
+  });
+  it('carries the three orderings from the v0.5 brief', () => {
+    expect(deps('CTL-MON-05')).toContain('CTL-ACC-03'); // register before re-tiering
+    expect(deps('CTL-MON-03')).toContain('CTL-MON-02'); // logging before the agent audit trail
+    expect(deps('CTL-ACC-05')).toContain('CTL-ACC-02'); // named owner before go/no-go
+  });
+});
