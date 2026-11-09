@@ -234,6 +234,37 @@ Brief's Constraints block asks where inference and tool payloads are processed. 
 mention appears in its implementation guidance, not in a policy statement, so no CSC reference was added to the
 human-oversight controls.
 
+## Control dependencies (added 9 Nov 2026, ADR 018)
+
+A dependency means "put the second control in place first". It is used only to order the fix list, never to decide
+which controls apply. A link is recorded only when the dependent control's own wording presupposes the other one, or a
+cited source puts them in that order. Four links that were judgement calls were added after a second reader confirmed
+them; four others were left out on purpose: the stop switch (CTL-HUM-06) never waits for the audit trail, a handover
+(CTL-HUM-09) can carry its own case summary, operator instructions (CTL-TRA-07) can be written from test results, and
+agent KPIs (CTL-MON-09) run in parallel with the governance review.
+
+| Control | Do first | Basis |
+|---|---|---|
+| CTL-ACC-03 AI use-case register | CTL-ACC-11 classify against the national agentic definition | Control text: CTL-ACC-11 says to classify "before registering" (Agentic Reference). |
+| CTL-ACC-05 Go/no-go decision gate | CTL-ACC-01 approved AI policy | Control text: the gate needs an "authorised" committee or executive; the policy sets the approval rules. |
+| CTL-ACC-05 Go/no-go decision gate | CTL-ACC-02 named accountable owner | The use case needs an accountable owner before anyone decides on it going live. |
+| CTL-ACC-05 Go/no-go decision gate | CTL-ACC-04 impact assessment | NIST AI 100-1 §5.2: MAP outcomes inform the go/no-go decision. Control text: "residual risk". |
+| CTL-ACC-05 Go/no-go decision gate | CTL-SEC-01 test before deployment | Control text: the decision is "based on test results". |
+| CTL-ACC-09 Governance review for each agent | CTL-ACC-10 approved scope document | Control text: the review re-runs when the agent's "scope" changes, so the approved scope must exist first. Confirmed by a second reader, 9 Nov 2026. |
+| CTL-DAT-02 Data quality and representativeness | CTL-DAT-01 data sources and provenance | Quality is checked on data that has been identified and sourced first. Confirmed by a second reader, 9 Nov 2026. |
+| CTL-HUM-02 Right to challenge a decision | CTL-TRA-04 notify people of AI-informed decisions | Nobody can challenge a decision they were not told an AI informed. Applies only where both controls apply (High tier with personal data). Confirmed by a second reader, 9 Nov 2026. |
+| CTL-HUM-03 Guard against over-reliance | CTL-HUM-01 defined human oversight model | Control text: trains and checks the reviewers that the oversight model names. |
+| CTL-HUM-04 Autonomy limits for agents | CTL-ACC-10 approved scope document | Control text: the scope document records what the agent may decide alone; CTL-HUM-04 then enforces those limits in the system. Confirmed by a second reader, 9 Nov 2026. |
+| CTL-HUM-05 Human approval for irreversible actions | CTL-HUM-01 defined human oversight model | Control text: a "named human" approves; the oversight model assigns who. |
+| CTL-HUM-11 Oversight effectiveness | CTL-HUM-01 defined human oversight model | Control text: shows that the human review defined in CTL-HUM-01 catches errors. |
+| CTL-MON-03 Agent action audit trail | CTL-MON-02 event logging | The audit trail extends system logging to every agent action, in a log the agent cannot alter. |
+| CTL-MON-05 Periodic review and re-tiering | CTL-ACC-03 AI use-case register | Control text: updates "its risk tier", which the register holds. |
+| CTL-MON-08 Agent behaviour limits and auto-pause | CTL-HUM-04 autonomy limits for agents | Control text: pauses "when limits are hit"; CTL-HUM-04 sets the limits. |
+| CTL-MON-08 Agent behaviour limits and auto-pause | CTL-HUM-06 stop switch and rollback | Control text: an automatic pause needs the pause mechanism of CTL-HUM-06. |
+| CTL-SEC-04 Least-privilege tools and permissions | CTL-ACC-10 approved scope document | Control text: grants what the task needs; the scope document lists the agent's permissions and access limits. |
+| CTL-SEC-08 Identity and authority check | CTL-SEC-04 least-privilege permissions | Control text: checks the action is "within approved permissions" (Code 5.1 pairs the two). |
+| CTL-TRA-06 Public statement of AI use | CTL-ACC-03 AI use-case register | Control text: summarises "where the organisation uses AI", which the register records. |
+
 ## What could not be verified, and why
 
 1. **UAE Charter principle names (8 rows): resolved 15 Oct 2026.** Both official hosts returned HTTP 403 to automated

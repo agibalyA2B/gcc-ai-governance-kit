@@ -7,6 +7,8 @@ import type { Answers } from './scoring';
 export interface Control {
   id: string; theme: string; title_en: string; title_ar: string; control_text_en: string; control_text_ar: string;
   applies_when: { min_tier: Exclude<Tier, 'unacceptable'>; ai_types?: string[]; data?: string[] };
+  /** Controls that should be in place first (ADR 018). Ordering only; never changes which controls apply. */
+  depends_on?: string[];
   refs: Record<FrameworkId, string[]>;
   source_urls: string[]; verified: boolean; verified_on: string | null; notes: string;
 }
