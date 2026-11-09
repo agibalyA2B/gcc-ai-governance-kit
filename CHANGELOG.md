@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **NIST AI RMF mapping completed.** 9 more controls now cite a NIST AI RMF 1.0 subcategory, so 56 of 59 controls
+  map to NIST, and all 59 stay verified. Three have none because no subcategory covers them, and their notes say so:
+  telling people about an AI-informed decision, showing which data an agent used, and "Ask once". Every NIST ID is
+  checked against the 72 subcategories in NIST AI 100-1.
+
 ## 0.4.1 (2026-10-16)
 Every reference now links to its official source, and two UAE frameworks join the crosswalk.
 
