@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 0.5.0 (2026-11-09)
+Where to start: a fix-in-this-order list, a gap count against the framework you work towards, and NIST AI RMF
+references on 56 of 59 controls, all verified.
+
 - **NIST AI RMF mapping completed.** 9 more controls now cite a NIST AI RMF 1.0 subcategory, so 56 of 59 controls
   map to NIST, and all 59 stay verified. Three have none because no subcategory covers them, and their notes say so:
   telling people about an AI-informed decision, showing which data an agent used, and "Ask once". Every NIST ID is
