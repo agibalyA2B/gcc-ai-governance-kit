@@ -11,6 +11,11 @@
   audit (ADR 018). They prepare the fix-in-this-order list and never change which controls apply.
 - **Fix in this order.** The Controls step and the committee PDF list every control marked Gap or Partly met, with the
   controls it depends on first and any unfinished prerequisite named beside it. It updates as you record evidence.
+- **Target-framework gap count.** Pick one framework (for example the UAE CSC AI Security Policy, ISO/IEC 42001 or
+  NIST AI RMF) and see how many of the kit controls mapped to it are still at Gap or Partly met for this use case.
+  With NIST it is grouped by Govern, Map, Measure and Manage. It is shown on the Controls step, in the committee PDF
+  and as an XLSX sheet, and it is labelled as a count of kit controls, not a conformity assessment (ADR 019).
+- **Fix: filter menus no longer push the Controls page sideways on a phone** (seen in Arabic at 390 px).
 
 ## 0.4.1 (2026-10-16)
 Every reference now links to its official source, and two UAE frameworks join the crosswalk.

@@ -12,6 +12,7 @@ import { actionMatrix, looser, PERMISSIONS, type ActionRow } from '../core/actio
 import { buildBrief, type Audience, type Brief, type Table } from '../core/brief';
 import { STAGES, stageGaps } from '../core/stage';
 import { fixOrder } from '../core/fixorder';
+import { gapCount, nistByFunction, NIST_FUNCTIONS } from '../core/gapcount';
 
 export const LADDER_GUIDE = 'https://github.com/agibalyA2B/gcc-ai-governance-kit/blob/main/docs/guides/autonomy-release-ladder.md';
 export const EU_NOTE = 'https://github.com/agibalyA2B/gcc-ai-governance-kit/blob/main/docs/sector-notes/eu-ai-act-en-18286.md';
@@ -336,6 +337,31 @@ export function fixOrderList(lang: Lang, applicable: Control[], ev: EvidenceMap 
     ? ` <span class="fix-after">${t(lang, 'fix.after')} ${it.after.map((p) => `${title(p.id)} (${t(lang, `ev.${p.status}`)})`).join('; ')}</span>` : ''}</li>`).join('')}</ol>`;
 }
 
+/** Target-framework gap count (G8, ADR 019): one line, plus the NIST functions when NIST is the target. */
+export function gapSummary(lang: Lang, uc: UseCase, target: FrameworkId | ''): string {
+  if (!target) return '';
+  const fw = FRAMEWORKS.find((f) => f.id === target)!;
+  const name = esc(L(lang, fw.en, fw.ar));
+  const g = gapCount(uc, target, uc.evidence);
+  const fill = (key: string) => t(lang, key).replace('{fw}', name).replace('{open}', String(g.open)).replace('{total}', String(g.total)).replace('{unset}', String(g.unset));
+  if (!g.total) return `<p data-testid="gap-line">${fill('gap.zero')}</p>`;
+  const cols = ['gap', 'partly', 'unset', 'met', 'na'] as const;
+  const nist = target === 'nist_ai_rmf' ? (() => {
+    const fns = nistByFunction(uc, uc.evidence);
+    return `<div class="table-wrap"><table class="gap-table" data-testid="gap-nist"><thead><tr><th scope="col">${t(lang, 'gap.fn')}</th><th scope="col">${t(lang, 'gap.controls')}</th>${cols.map((k) => `<th scope="col">${t(lang, `ev.${k}`)}</th>`).join('')}</tr></thead>
+      <tbody>${NIST_FUNCTIONS.map((fn) => `<tr><th scope="row">${t(lang, `nist.${fn}`)}</th><td>${fns[fn].total}</td>${cols.map((k) => `<td>${fns[fn][k]}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+      <p class="muted small">${t(lang, 'gap.fn.note')}</p>`;
+  })() : '';
+  return `<p data-testid="gap-line"><strong>${fill('gap.line')}</strong></p>${nist}<p class="muted small">${t(lang, 'gap.disclaimer')}</p>`;
+}
+
+function gapCard(lang: Lang, uc: UseCase, target: FrameworkId | ''): string {
+  return `<section class="gap-box" aria-labelledby="gap-h"><h3 id="gap-h">${t(lang, 'gap.h')}</h3><p class="muted small">${t(lang, 'gap.intro')}</p>
+    <label class="filter">${t(lang, 'gap.pick')} <select data-action="gap-fw"><option value="">${t(lang, 'gap.none')}</option>
+      ${FRAMEWORKS.map((f) => `<option value="${f.id}" ${target === f.id ? 'selected' : ''}>${esc(L(lang, f.en, f.ar))}</option>`).join('')}</select></label>
+    <div data-testid="gap-summary" aria-live="polite">${gapSummary(lang, uc, target)}</div></section>`;
+}
+
 /** One-line tally of evidence statuses over the applicable controls (updated in place as the user edits). */
 export function evidenceSummaryText(lang: Lang, ids: string[], ev: EvidenceMap = {}): string {
   const sum = evidenceSummary(ids, ev);
@@ -351,7 +377,7 @@ function evidenceFields(lang: Lang, c: Control, ev: EvidenceMap = {}): string {
       <textarea data-action="ev-note" data-ctl="${c.id}" rows="2" maxlength="4000" placeholder="${t(lang, 'ev.note.ph')}">${esc(e?.note ?? '')}</textarea></label></div>`;
 }
 
-export function controlsView(lang: Lang, uc: UseCase, r: TierResult, frameworks: FrameworkId[], fwFilter: string, verifiedOnly: boolean): string {
+export function controlsView(lang: Lang, uc: UseCase, r: TierResult, frameworks: FrameworkId[], fwFilter: string, verifiedOnly: boolean, target: FrameworkId | '' = ''): string {
   if (r.tier === 'unacceptable')
     return `<section class="card"><h2 tabindex="-1">${t(lang, 'step.controls')}</h2><p class="notice danger-note">${t(lang, 'ctl.unacceptable')}</p></section>`;
   if (!frameworks.length) return `<section class="card"><h2 tabindex="-1">${t(lang, 'step.controls')}</h2><p class="notice">${t(lang, 'ctl.nofw')}</p><a class="btn" href="#/">${t(lang, 'nav.home')}</a></section>`;
@@ -365,6 +391,7 @@ export function controlsView(lang: Lang, uc: UseCase, r: TierResult, frameworks:
     <p class="muted">${t(lang, 'ctl.intro')} <strong>${share.verified}/${share.total}</strong> ${t(lang, 'ctl.verified.share')}</p>
     <p class="muted small">${t(lang, 'ev.intro')}</p>
     <p class="ev-summary" data-testid="ev-summary" aria-live="polite">${evidenceSummaryText(lang, all.map((c) => c.id), uc.evidence)}</p>
+    ${gapCard(lang, uc, target)}
     <details class="fix-box"><summary>${t(lang, 'fix.h')}</summary><p class="muted small">${t(lang, 'fix.intro')}</p>
       <div data-testid="fix-order">${fixOrderList(lang, all, uc.evidence)}</div></details>
     <div class="toolbar"><label class="filter">${t(lang, 'ctl.filter.fw')}<select data-action="ctl-fw"><option value="">${t(lang, 'reg.filter.all')}</option>
@@ -434,7 +461,7 @@ export function exportView(lang: Lang, uc: UseCase): string {
     <div class="actions"><a class="btn" href="#/">${t(lang, 'nav.home')}</a></div></section>`;
 }
 
-export function reportView(lang: Lang, uc: UseCase, r: TierResult, frameworks: FrameworkId[]): string {
+export function reportView(lang: Lang, uc: UseCase, r: TierResult, frameworks: FrameworkId[], target: FrameworkId | '' = ''): string {
   const list = r.tier === 'unacceptable' ? [] : applicableControls(r.tier, uc.answers, frameworks);
   const share = verifiedShare(list);
   const fwNames = FRAMEWORKS.filter((f) => frameworks.includes(f.id)).map((f) => L(lang, f.en, f.ar)).join(' · ');
@@ -458,6 +485,7 @@ export function reportView(lang: Lang, uc: UseCase, r: TierResult, frameworks: F
       <td class="ev-cell">${esc(e?.note ?? '')}</td>
       <td>${c.verified ? t(lang, 'ctl.verified') : t(lang, 'ctl.needs')}</td></tr>`; }).join('')}</tbody></table>
     <p class="small">${t(lang, 'rep.verification')} ${share.verified}/${share.total}.</p>
+    ${target ? `<h2>${t(lang, 'gap.h')}</h2>${gapSummary(lang, uc, target)}` : ''}
     <h2>${t(lang, 'fix.h')}</h2><p class="small">${t(lang, 'fix.intro')}</p>${fixOrderList(lang, list, uc.evidence)}`}
     <h2>${t(lang, 'rep.signoff')}</h2>
     <table class="signoff"><tbody><tr><th>${t(lang, 'rep.prepared')}</th><td></td><th>${t(lang, 'rep.date')}</th><td></td></tr>
