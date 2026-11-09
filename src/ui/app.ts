@@ -282,9 +282,11 @@ function saveEvidence(el: HTMLInputElement | HTMLSelectElement | HTMLTextAreaEle
   const li = el.closest<HTMLElement>('li.control');
   if (li && el.dataset.action === 'ev-status') li.dataset.status = el.value;
   const r = computeTier(next.answers);
-  const ids = applicableControls(r.tier, next.answers, store.frameworks()).map((c) => c.id);
+  const applicable = applicableControls(r.tier, next.answers, store.frameworks());
   const sum = document.querySelector<HTMLElement>('[data-testid="ev-summary"]');
-  if (sum) sum.innerHTML = V.evidenceSummaryText(lang, ids, next.evidence);
+  if (sum) sum.innerHTML = V.evidenceSummaryText(lang, applicable.map((c) => c.id), next.evidence);
+  const fix = document.querySelector<HTMLElement>('[data-testid="fix-order"]');
+  if (fix && el.dataset.action === 'ev-status') fix.innerHTML = V.fixOrderList(lang, applicable, next.evidence);
 }
 
 /** Saves one action-matrix edit. A looser permission is refused with a warning; the select goes back to what applies. */
