@@ -56,3 +56,26 @@ describe('oversight effectiveness control (ADR 013)', () => {
     expect(c.control_text_en).toMatch(/triggers to investigate/);
   });
 });
+
+describe('NIST AI RMF references (completed 9 Nov 2026)', () => {
+  // Every subcategory ID in NIST AI 100-1, Tables 1-4 (72 in all).
+  const range = (fn: string, ids: string) => ids.split(' ').map((n) => `${fn} ${n}`);
+  const NIST_IDS = [
+    ...range('GOVERN', '1.1 1.2 1.3 1.4 1.5 1.6 1.7 2.1 2.2 2.3 3.1 3.2 4.1 4.2 4.3 5.1 5.2 6.1 6.2'),
+    ...range('MAP', '1.1 1.2 1.3 1.4 1.5 1.6 2.1 2.2 2.3 3.1 3.2 3.3 3.4 3.5 4.1 4.2 5.1 5.2'),
+    ...range('MEASURE', '1.1 1.2 1.3 2.1 2.2 2.3 2.4 2.5 2.6 2.7 2.8 2.9 2.10 2.11 2.12 2.13 3.1 3.2 3.3 4.1 4.2 4.3'),
+    ...range('MANAGE', '1.1 1.2 1.3 1.4 2.1 2.2 2.3 2.4 3.1 3.2 4.1 4.2 4.3'),
+  ];
+  it('every NIST reference is a real AI RMF 1.0 subcategory', () => {
+    expect(NIST_IDS).toHaveLength(72);
+    for (const c of CROSSWALK) for (const r of c.refs.nist_ai_rmf) expect(NIST_IDS).toContain(r);
+  });
+  it('every control carries a NIST reference except three that no subcategory covers, and says so', () => {
+    const unmapped = CROSSWALK.filter((c) => !c.refs.nist_ai_rmf.length).map((c) => c.id);
+    expect(unmapped).toEqual(['CTL-TRA-04', 'CTL-TRA-08', 'CTL-DAT-09']);
+    for (const id of unmapped) expect(byId(id).notes).toMatch(/no subcategory covers/);
+  });
+  it('rows given NIST references cite the NIST AI RMF source', () => {
+    for (const c of CROSSWALK) if (c.refs.nist_ai_rmf.length) expect(c.source_urls.some((u) => u.includes('nvlpubs.nist.gov'))).toBe(true);
+  });
+});

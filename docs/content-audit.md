@@ -17,6 +17,12 @@ was checked against an official source fetched on that date. Rows that fail this
 | monitoring | 9 | 9 |
 | **Total** | **59** | **59 (100%)** |
 
+- NIST AI RMF references were completed on 9 Nov 2026: 9 of the 12 controls that had none now cite a subcategory
+  from NIST AI 100-1, so 56 of 59 controls map to NIST, and every NIST ID is checked against the 72 subcategories in
+  Tables 1–4. Three controls have no NIST ref because no subcategory covers them: telling an affected person about an
+  AI-informed decision (CTL-TRA-04), showing a customer which data an agent used (CTL-TRA-08) and "Ask once"
+  (CTL-DAT-09). A nearest-fit ref was considered for the first two (MEASURE 2.8) and rejected on review: it is about
+  examining transparency risk, not informing people.
 - 13 controls were added on 27 Sep 2026 from the UAE federal government-services sources (see "UAE Government
   Services Code framework" below): CTL-ACC-09, CTL-ACC-10, CTL-ACC-11, CTL-TRA-08, CTL-TRA-09, CTL-DAT-08, CTL-DAT-09,
   CTL-HUM-07, CTL-HUM-08, CTL-HUM-09, CTL-HUM-10, CTL-SEC-08 and CTL-MON-09. All 13 are verified.
@@ -38,7 +44,7 @@ was checked against an official source fetched on that date. Rows that fail this
 | NIST | NIST AI 100-1, AI RMF 1.0: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf | Fetched. Subcategory IDs checked against Tables 1–4. |
 | XW | NIST-hosted AI RMF ↔ ISO/IEC 42001 crosswalk: https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf | Fetched. Source for ISO/IEC 42001 numbering (see limitation 2). |
 | EU | Regulation (EU) 2024/1689 (AI Act), EUR-Lex: https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689 | Fetched. Article numbers and headings checked. On 28 Sep 2026 EUR-Lex returned empty responses to automated fetching, so Art. 15(5), 25(4) and 55(1)(a) were checked in the same Official Journal text served by the EU Publications Office. |
-| GAI | NIST AI 600-1, Generative AI Profile: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf | Fetched 28 Sep 2026. Supporting source only (not a `refs` framework): action MS-2.7-007 calls for AI red-teaming. |
+| GAI | NIST AI 600-1, Generative AI Profile: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf | Fetched 28 Sep 2026 and again 9 Nov 2026. Supporting source only (not a `refs` framework): action MS-2.7-007 calls for AI red-teaming; actions MP-5.1-003 and GV-5.1-002 place disclosure of AI use under MAP 5.1 and GOVERN 5.1; action MS-2.8-003 places content provenance under MEASURE 2.8. |
 | SDA | SDAIA AI Ethics Principles 2025: https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf | Fetched. Seven principle names checked. |
 | DUB | Dubai AI Ethics Principles & Guidelines (PDF): https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf | Fetched. Principle and sub-principle names checked. |
 | — | Dubai AI System Ethics Self-Assessment Tool: https://www.digitaldubai.ae/self-assessment | Fetched (context only; no refs taken from it). |
@@ -137,15 +143,15 @@ Source keys are listed in the table above.
 | CTL-ACC-09 | Gov: Code 2.1, Agentic Guide §06; SDAIA: Accountability & Responsibility; ISO: A.6.2.5; NIST: MANAGE 1.1 | CODE, EGS, SDA, XW, NIST | yes | new control (27 Sep 2026); all refs confirmed |
 | CTL-ACC-10 | Gov: Code 5.4, Agentic Guide §05; NIST: MAP 3.3 | CODE, EGS, NIST | yes | new control (27 Sep 2026); all refs confirmed |
 | CTL-ACC-11 | Gov: Agentic Reference p.6, Agentic Reference p.7, Agentic Reference p.9, Agentic Reference p.13, Agentic Reference p.14; NIST: MAP 2.1 | AGR, NIST | yes | new control (27 Sep 2026); all refs confirmed; AGR ref(s) confirmed against the text but not publicly hosted, recorded in notes |
-| CTL-TRA-01 | UAE: Transparency; Dubai: Transparency; SDAIA: Transparency & Explainability; ISO: A.8.2; EU: Art. 50; Gov: Code 5.6, Agentic Guide §06 | DUB, SDA, XW, EU, CODE, EGS | yes | UAE Charter name(s) confirmed 15 Oct 2026; all other refs confirmed |
-| CTL-TRA-02 | Dubai: Security; SDAIA: Transparency & Explainability; ISO: A.8.2; EU: Art. 50 | DUB, SDA, XW, EU | yes | all refs confirmed |
+| CTL-TRA-01 | UAE: Transparency; Dubai: Transparency; SDAIA: Transparency & Explainability; ISO: A.8.2; EU: Art. 50; Gov: Code 5.6, Agentic Guide §06; NIST: MAP 5.1, GOVERN 5.1 | DUB, SDA, XW, EU, CODE, EGS, NIST, GAI | yes | UAE Charter name(s) confirmed 15 Oct 2026; all other refs confirmed; NIST ref(s) added and confirmed 9 Nov 2026 |
+| CTL-TRA-02 | Dubai: Security; SDAIA: Transparency & Explainability; ISO: A.8.2; EU: Art. 50; NIST: MEASURE 2.8 | DUB, SDA, XW, EU, NIST, GAI | yes | all refs confirmed; NIST ref(s) added and confirmed 9 Nov 2026 |
 | CTL-TRA-03 | Dubai: Explainability; SDAIA: Transparency & Explainability; ISO: A.8.2; NIST: MEASURE 2.9; EU: Art. 86; Gov: Code 5.6 | DUB, SDA, XW, NIST, EU, CODE | yes | all refs confirmed |
-| CTL-TRA-04 | Dubai: Transparency; SDAIA: Transparency & Explainability; ISO: A.8.5; EU: Art. 26; Gov: Code 5.6 | DUB, SDA, XW, EU, CODE | yes | all refs confirmed |
+| CTL-TRA-04 | Dubai: Transparency; SDAIA: Transparency & Explainability; ISO: A.8.5; EU: Art. 26; Gov: Code 5.6 | DUB, SDA, XW, EU, CODE | yes | all refs confirmed; NIST checked 9 Nov 2026: no subcategory covers telling an affected person about an AI-informed decision, so no NIST ref |
 | CTL-TRA-05 | Dubai: Transparency; SDAIA: Reliability & Safety, Transparency & Explainability; ISO: A.6.2.3, A.6.2.7; NIST: MAP 2.1, MAP 2.2; EU: Art. 11 | DUB, SDA, XW, NIST, EU | yes | all refs confirmed |
 | CTL-TRA-06 | Dubai: Transparency; SDAIA: Transparency & Explainability; ISO: A.8.5; NIST: GOVERN 4.2 | DUB, SDA, XW, NIST | yes | all refs confirmed |
 | CTL-TRA-07 | SDAIA: Transparency & Explainability; ISO: A.8.2; NIST: MAP 2.2; EU: Art. 13 | SDA, XW, NIST, EU | yes | all refs confirmed |
-| CTL-TRA-08 | Gov: Code 5.2, Agentic Guide §03; Dubai: Transparency; SDAIA: Transparency & Explainability; ISO: A.8.2 | CODE, EGS, DUB, SDA, XW | yes | new control (27 Sep 2026); all refs confirmed |
-| CTL-TRA-09 | Gov: Code 4.5, Agentic Guide §03 | CODE, EGS | yes | new control (27 Sep 2026); all refs confirmed |
+| CTL-TRA-08 | Gov: Code 5.2, Agentic Guide §03; Dubai: Transparency; SDAIA: Transparency & Explainability; ISO: A.8.2 | CODE, EGS, DUB, SDA, XW | yes | new control (27 Sep 2026); all refs confirmed; NIST checked 9 Nov 2026: no subcategory covers showing a customer which data an agent used, so no NIST ref |
+| CTL-TRA-09 | Gov: Code 4.5, Agentic Guide §03; NIST: MANAGE 4.3 | CODE, EGS, NIST | yes | new control (27 Sep 2026); all refs confirmed; NIST ref(s) added and confirmed 9 Nov 2026 |
 | CTL-DAT-01 | Dubai: Privacy; SDAIA: Privacy & Security; ISO: A.7.2, A.7.3, A.7.5; NIST: MAP 2.3; EU: Art. 10 | DUB, SDA, XW, NIST, EU | yes | all refs confirmed |
 | CTL-DAT-02 | Dubai: Fairness; SDAIA: Fairness, Accountability & Responsibility; ISO: A.7.4, A.7.6; NIST: MAP 2.3; EU: Art. 10; Gov: Code 5.3 | DUB, SDA, XW, NIST, EU, CODE | yes | all refs confirmed |
 | CTL-DAT-03 | UAE: Data privacy; Dubai: Privacy; SDAIA: Privacy & Security; ISO: A.2.3, A.7.3; NIST: MEASURE 2.10; Gov: Code 5.2, Code 5.7, Data Sharing Policy Art. 5 | DUB, SDA, XW, NIST, CODE, DSP | yes | UAE Charter name(s) confirmed 15 Oct 2026; all other refs confirmed; DSP ref(s) confirmed against the text but not publicly hosted, recorded in notes |
@@ -153,18 +159,18 @@ Source keys are listed in the table above.
 | CTL-DAT-05 | UAE: Algorithmic bias; Dubai: Fairness; SDAIA: Fairness; ISO: A.5.4, A.6.2.4; NIST: MEASURE 2.11; EU: Art. 10 | DUB, SDA, XW, NIST, EU | yes | UAE Charter name(s) confirmed 15 Oct 2026; all other refs confirmed |
 | CTL-DAT-06 | Dubai: Privacy; SDAIA: Privacy & Security; ISO: A.2.3, A.9.2; NIST: GOVERN 6.1, MEASURE 2.10 | DUB, SDA, XW, NIST | yes | all refs confirmed |
 | CTL-DAT-07 | SDAIA: Transparency & Explainability; ISO: A.7.3, A.7.5; NIST: MAP 4.1, GOVERN 6.1; EU: Art. 53 | SDA, XW, NIST, EU | yes | all refs confirmed |
-| CTL-DAT-08 | Gov: Code 5.3, Code 5.7, Data Sharing Policy Art. 5, Data Sharing Policy Art. 8 | CODE, DSP | yes | new control (27 Sep 2026); all refs confirmed; DSP ref(s) confirmed against the text but not publicly hosted, recorded in notes |
-| CTL-DAT-09 | Gov: Code 1.5, Code 5.4, Agentic Guide §03, Agentic Guide §06, Data Sharing Policy Art. 5, Data Sharing Policy Art. 8 | CODE, EGS, DSP | yes | new control (27 Sep 2026); all refs confirmed; DSP ref(s) confirmed against the text but not publicly hosted, recorded in notes |
+| CTL-DAT-08 | Gov: Code 5.3, Code 5.7, Data Sharing Policy Art. 5, Data Sharing Policy Art. 8; NIST: MEASURE 2.10 | CODE, DSP, NIST | yes | new control (27 Sep 2026); all refs confirmed; DSP ref(s) confirmed against the text but not publicly hosted, recorded in notes; NIST ref(s) added and confirmed 9 Nov 2026 |
+| CTL-DAT-09 | Gov: Code 1.5, Code 5.4, Agentic Guide §03, Agentic Guide §06, Data Sharing Policy Art. 5, Data Sharing Policy Art. 8 | CODE, EGS, DSP | yes | new control (27 Sep 2026); all refs confirmed; DSP ref(s) confirmed against the text but not publicly hosted, recorded in notes; NIST checked 9 Nov 2026: no subcategory covers this, so no NIST ref |
 | CTL-HUM-01 | UAE: Human oversight; Dubai: Security; SDAIA: Accountability & Responsibility; ISO: A.6.1.3; NIST: MAP 3.5, GOVERN 3.2; EU: Art. 14, Art. 26; Gov: Code 5.4, Agentic Guide §05, Agentic Reference p.7 | DUB, SDA, XW, NIST, EU, CODE, EGS, AGR | yes | UAE Charter name(s) confirmed 15 Oct 2026; all other refs confirmed; AGR ref(s) confirmed against the text but not publicly hosted, recorded in notes |
 | CTL-HUM-02 | Dubai: Accountability; SDAIA: Transparency & Explainability; ISO: A.8.3; NIST: MEASURE 3.3; Gov: Code 2.4, Agentic Guide §03, Agentic Guide §06 | DUB, SDA, XW, NIST, CODE, EGS | yes | all refs confirmed |
 | CTL-HUM-03 | ISO: A.4.6; NIST: MAP 3.4, GOVERN 3.2; EU: Art. 14 | XW, NIST, EU | yes | all refs confirmed |
 | CTL-HUM-04 | Dubai: Security; SDAIA: Accountability & Responsibility; ISO: A.9.4; NIST: MAP 3.3, GOVERN 3.2; EU: Art. 14; Gov: Code 5.4, Agentic Guide §05, Agentic Reference p.8 | DUB, SDA, XW, NIST, EU, CODE, EGS, AGR | yes | all refs confirmed; AGR ref(s) confirmed against the text but not publicly hosted, recorded in notes |
 | CTL-HUM-05 | UAE: Human oversight; Dubai: Security; SDAIA: Reliability & Safety; ISO: A.6.1.3; NIST: MAP 3.5, GOVERN 3.2; EU: Art. 14; Gov: Code 5.2, Agentic Guide §03 | DUB, SDA, XW, NIST, EU, CODE, EGS | yes | UAE Charter name(s) confirmed 15 Oct 2026; all other refs confirmed |
 | CTL-HUM-06 | Dubai: Security; SDAIA: Accountability & Responsibility; ISO: A.6.2.6; NIST: MANAGE 2.4; EU: Art. 14; Gov: Code 5.5 | DUB, SDA, XW, NIST, EU, CODE | yes | all refs confirmed |
-| CTL-HUM-07 | Gov: Code 5.2, Agentic Guide §03, Agentic Guide §06 | CODE, EGS | yes | new control (27 Sep 2026); all refs confirmed |
-| CTL-HUM-08 | Gov: Code 5.2, Agentic Guide §02, Agentic Guide §06 | CODE, EGS | yes | new control (27 Sep 2026); all refs confirmed |
-| CTL-HUM-09 | Gov: Code 1.7, Code 8.2, Agentic Guide §03, Agentic Guide §06 | CODE, EGS | yes | new control (27 Sep 2026); all refs confirmed |
-| CTL-HUM-10 | Gov: Code 1.6, Code 5.8, Agentic Guide §03, Agentic Guide §06 | CODE, EGS | yes | new control (27 Sep 2026); all refs confirmed |
+| CTL-HUM-07 | Gov: Code 5.2, Agentic Guide §03, Agentic Guide §06; NIST: MAP 3.5, GOVERN 3.2 | CODE, EGS, NIST | yes | new control (27 Sep 2026); all refs confirmed; NIST ref(s) added and confirmed 9 Nov 2026 |
+| CTL-HUM-08 | Gov: Code 5.2, Agentic Guide §02, Agentic Guide §06; NIST: MANAGE 2.4 | CODE, EGS, NIST | yes | new control (27 Sep 2026); all refs confirmed; NIST ref(s) added and confirmed 9 Nov 2026 |
+| CTL-HUM-09 | Gov: Code 1.7, Code 8.2, Agentic Guide §03, Agentic Guide §06; NIST: MAP 3.5, MANAGE 4.1 | CODE, EGS, NIST | yes | new control (27 Sep 2026); all refs confirmed; NIST ref(s) added and confirmed 9 Nov 2026 |
+| CTL-HUM-10 | Gov: Code 1.6, Code 5.8, Agentic Guide §03, Agentic Guide §06; NIST: MAP 3.5, GOVERN 3.2 | CODE, EGS, NIST | yes | new control (27 Sep 2026); all refs confirmed; NIST ref(s) added and confirmed 9 Nov 2026 |
 | CTL-HUM-11 | UAE: Human oversight; Dubai: Security; SDAIA: Accountability & Responsibility; NIST: MAP 3.5, GOVERN 3.2; EU: Art. 14 | DUB, SDA, NIST, EU | yes | new control (15 Oct 2026, ADR 013); same refs as CTL-HUM-01 |
 | CTL-SEC-01 | UAE: Safety; Dubai: Security; SDAIA: Reliability & Safety; ISO: A.6.2.4; NIST: MEASURE 2.5, MEASURE 2.6; EU: Art. 15; Gov: Code 8.8, Agentic Guide §06 | DUB, SDA, XW, NIST, EU, CODE, EGS | yes | UAE Charter name(s) confirmed 15 Oct 2026; all other refs confirmed |
 | CTL-SEC-02 | Dubai: Security; SDAIA: Privacy & Security; ISO: A.6.2.2; NIST: MAP 1.6, MEASURE 2.7; EU: Art. 15 | DUB, SDA, XW, NIST, EU | yes | all refs confirmed; MAP 1.6 added 28 Sep 2026 as the crosswalk route to A.6.2.2 |
@@ -173,7 +179,7 @@ Source keys are listed in the table above.
 | CTL-SEC-05 | Dubai: Security; SDAIA: Reliability & Safety; ISO: A.6.2.4, A.6.2.5; NIST: MEASURE 2.3, MEASURE 2.6 | DUB, SDA, XW, NIST | yes | all refs confirmed |
 | CTL-SEC-06 | SDAIA: Accountability & Responsibility; NIST: MANAGE 2.1, MEASURE 2.6; EU: Art. 15; Gov: Code 8.2 | SDA, NIST, EU, CODE | yes | all refs confirmed |
 | CTL-SEC-07 | Dubai: Security; SDAIA: Reliability & Safety; ISO: A.9.4; NIST: MANAGE 1.1; EU: Art. 5 | DUB, SDA, XW, NIST, EU | yes | all refs confirmed |
-| CTL-SEC-08 | Gov: Code 5.1; Dubai: Security; SDAIA: Privacy & Security | CODE, DUB, SDA | yes | new control (27 Sep 2026); all refs confirmed |
+| CTL-SEC-08 | Gov: Code 5.1; Dubai: Security; SDAIA: Privacy & Security; NIST: MAP 4.2, MEASURE 2.7 | CODE, DUB, SDA, NIST | yes | new control (27 Sep 2026); all refs confirmed; NIST ref(s) added and confirmed 9 Nov 2026 |
 | CTL-SEC-09 | Dubai: Security; SDAIA: Privacy & Security; ISO: A.6.2.4; NIST: MEASURE 1.3, MEASURE 2.6, MEASURE 2.7; EU: Art. 15, Art. 55 | DUB, SDA, XW, NIST, GAI, EU | yes | new control (28 Sep 2026); all refs confirmed; Art. 55 binds GPAI providers with systemic risk (noted in the row) |
 | CTL-SEC-10 | Dubai: Security; SDAIA: Privacy & Security; ISO: A.4.4, A.10.3; NIST: GOVERN 6.1, MAP 4.1, MANAGE 3.2; EU: Art. 15, Art. 25 | DUB, SDA, XW, NIST, EU | yes | new control (28 Sep 2026); all refs confirmed |
 | CTL-MON-01 | SDAIA: Accountability & Responsibility, Reliability & Safety; ISO: A.6.2.6; NIST: MEASURE 2.4, MANAGE 4.1; EU: Art. 26, Art. 72; Gov: Code 2.1 | SDA, XW, NIST, EU, CODE | yes | all refs confirmed |

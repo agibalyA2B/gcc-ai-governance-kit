@@ -529,7 +529,10 @@
       "iso42001": [
         "A.8.2"
       ],
-      "nist_ai_rmf": [],
+      "nist_ai_rmf": [
+        "MAP 5.1",
+        "GOVERN 5.1"
+      ],
       "eu_ai_act": [
         "Art. 50"
       ]
@@ -541,11 +544,13 @@
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
       "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
       "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
-      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
     ],
     "verified": true,
     "verified_on": "2026-10-15",
-    "notes": "UAE Charter principle name(s) Transparency confirmed on 2026-10-15 against the official Charter page on the UAE Legislation portal (issued 10 Jun 2024), read in a browser because scripted fetches are blocked. All other refs in this row were confirmed on 2026-09-27."
+    "notes": "UAE Charter principle name(s) Transparency confirmed on 2026-10-15 against the official Charter page on the UAE Legislation portal (issued 10 Jun 2024), read in a browser because scripted fetches are blocked. All other refs in this row were confirmed on 2026-09-27. NIST refs added 2026-11-09 from NIST AI 100-1 Tables 1-2; the NIST Generative AI Profile (AI 600-1) places disclosure of AI use to users under the same subcategories (actions MP-5.1-003, GV-5.1-002)."
   },
   {
     "id": "CTL-TRA-02",
@@ -575,7 +580,9 @@
       "iso42001": [
         "A.8.2"
       ],
-      "nist_ai_rmf": [],
+      "nist_ai_rmf": [
+        "MEASURE 2.8"
+      ],
       "eu_ai_act": [
         "Art. 50"
       ]
@@ -584,11 +591,13 @@
       "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
       "https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf",
-      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
-    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A. NIST ref added 2026-11-09 from NIST AI 100-1 Table 3; the NIST Generative AI Profile (AI 600-1) places content provenance and transparency records under MEASURE 2.8 (action MS-2.8-003)."
   },
   {
     "id": "CTL-TRA-03",
@@ -689,7 +698,7 @@
     ],
     "verified": true,
     "verified_on": "2026-09-27",
-    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A. Added 2026-10-16 and checked against the official text: UAE PDPL (Federal Decree-Law 45/2021) Art. 13."
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A. Added 2026-10-16 and checked against the official text: UAE PDPL (Federal Decree-Law 45/2021) Art. 13. NIST AI RMF 1.0 checked 2026-11-09: no subcategory covers telling an affected person about an AI-informed decision, so no NIST ref is given."
   },
   {
     "id": "CTL-TRA-05",
@@ -863,7 +872,7 @@
     ],
     "verified": true,
     "verified_on": "2026-09-27",
-    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A."
+    "notes": "ISO/IEC 42001 numbers confirmed via the NIST-hosted crosswalk, which cites the FDIS Annex B guidance numbering that parallels Annex A. NIST AI RMF 1.0 checked 2026-11-09: no subcategory covers showing a customer which data an agent used, so no NIST ref is given."
   },
   {
     "id": "CTL-TRA-09",
@@ -890,16 +899,19 @@
       "dubai_ethics": [],
       "sdaia": [],
       "iso42001": [],
-      "nist_ai_rmf": [],
+      "nist_ai_rmf": [
+        "MANAGE 4.3"
+      ],
       "eu_ai_act": []
     },
     "source_urls": [
       "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
-      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
-    "notes": ""
+    "notes": "NIST ref added 2026-11-09 from NIST AI 100-1 Table 4: MANAGE 4.3 covers communicating errors to affected people."
   },
   {
     "id": "CTL-DAT-01",
@@ -1266,15 +1278,18 @@
       "dubai_ethics": [],
       "sdaia": [],
       "iso42001": [],
-      "nist_ai_rmf": [],
+      "nist_ai_rmf": [
+        "MEASURE 2.10"
+      ],
       "eu_ai_act": []
     },
     "source_urls": [
-      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
-    "notes": "Art. 5, Art. 8 of the UAE Government Services Data Sharing Policy (May 2026) confirmed against the policy text; no public URL known, so it is recorded here rather than in source_urls."
+    "notes": "Art. 5, Art. 8 of the UAE Government Services Data Sharing Policy (May 2026) confirmed against the policy text; no public URL known, so it is recorded here rather than in source_urls. NIST ref added 2026-11-09 from NIST AI 100-1 Table 3: purpose-bound use of data maps to privacy risk (MEASURE 2.10), as for CTL-DAT-03."
   },
   {
     "id": "CTL-DAT-09",
@@ -1315,7 +1330,7 @@
     ],
     "verified": true,
     "verified_on": "2026-09-27",
-    "notes": "Art. 5, Art. 8 of the UAE Government Services Data Sharing Policy (May 2026) confirmed against the policy text; no public URL known, so it is recorded here rather than in source_urls."
+    "notes": "Art. 5, Art. 8 of the UAE Government Services Data Sharing Policy (May 2026) confirmed against the policy text; no public URL known, so it is recorded here rather than in source_urls. NIST AI RMF 1.0 checked 2026-11-09: no subcategory covers asking the customer once for data already held, so no NIST ref is given."
   },
   {
     "id": "CTL-HUM-01",
@@ -1646,16 +1661,20 @@
       "dubai_ethics": [],
       "sdaia": [],
       "iso42001": [],
-      "nist_ai_rmf": [],
+      "nist_ai_rmf": [
+        "MAP 3.5",
+        "GOVERN 3.2"
+      ],
       "eu_ai_act": []
     },
     "source_urls": [
       "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
-      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
-    "notes": ""
+    "notes": "NIST refs added 2026-11-09 from NIST AI 100-1 Tables 1-2: per-action approval is a human oversight process (MAP 3.5) and a human-AI role definition (GOVERN 3.2), as for CTL-HUM-05."
   },
   {
     "id": "CTL-HUM-08",
@@ -1683,16 +1702,19 @@
       "dubai_ethics": [],
       "sdaia": [],
       "iso42001": [],
-      "nist_ai_rmf": [],
+      "nist_ai_rmf": [
+        "MANAGE 2.4"
+      ],
       "eu_ai_act": []
     },
     "source_urls": [
       "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
-      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
-    "notes": ""
+    "notes": "NIST ref added 2026-11-09 from NIST AI 100-1 Table 4: MANAGE 2.4 covers mechanisms to disengage or deactivate an AI system, as for CTL-HUM-06."
   },
   {
     "id": "CTL-HUM-09",
@@ -1722,16 +1744,20 @@
       "dubai_ethics": [],
       "sdaia": [],
       "iso42001": [],
-      "nist_ai_rmf": [],
+      "nist_ai_rmf": [
+        "MAP 3.5",
+        "MANAGE 4.1"
+      ],
       "eu_ai_act": []
     },
     "source_urls": [
       "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
-      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
-    "notes": ""
+    "notes": "NIST refs added 2026-11-09 from NIST AI 100-1 Tables 2 and 4: handover is a human oversight process (MAP 3.5) and an override mechanism (MANAGE 4.1)."
   },
   {
     "id": "CTL-HUM-10",
@@ -1760,16 +1786,20 @@
       "dubai_ethics": [],
       "sdaia": [],
       "iso42001": [],
-      "nist_ai_rmf": [],
+      "nist_ai_rmf": [
+        "MAP 3.5",
+        "GOVERN 3.2"
+      ],
       "eu_ai_act": []
     },
     "source_urls": [
       "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
-      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html"
+      "https://uaemodel.egsep.ae/agentic_ai_guide_website.html",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
-    "notes": ""
+    "notes": "NIST refs added 2026-11-09 from NIST AI 100-1 Tables 1-2: consent before payment is human approval of a consequential action, as for CTL-HUM-05."
   },
   {
     "id": "CTL-HUM-11",
@@ -2187,17 +2217,21 @@
         "Privacy & Security"
       ],
       "iso42001": [],
-      "nist_ai_rmf": [],
+      "nist_ai_rmf": [
+        "MAP 4.2",
+        "MEASURE 2.7"
+      ],
       "eu_ai_act": []
     },
     "source_urls": [
       "https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf",
       "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
-      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years"
+      "https://uaecabinet.ae/en/news/under-directives-of-uae-president-and-in-world-first-mohammed-bin-rashid-reveals-new-uae-government-framework-to-deploy-agentic-ai-across-50-of-government-sectors-operations-within-two-years",
+      "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
     ],
     "verified": true,
     "verified_on": "2026-09-27",
-    "notes": ""
+    "notes": "NIST refs added 2026-11-09 from NIST AI 100-1 Tables 2-3: an authority check is an internal risk control on a system component (MAP 4.2), as for CTL-SEC-04, and part of security evaluation (MEASURE 2.7)."
   },
   {
     "id": "CTL-SEC-09",
