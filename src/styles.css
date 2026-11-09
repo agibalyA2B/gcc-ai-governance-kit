@@ -314,3 +314,11 @@ table.matrix input:disabled { background: var(--color-surface-muted); }
 .eu-fields .option.inline { display: inline-flex; margin-inline-end: var(--space-4); }
 .eu-note { margin-block: var(--space-3); }
 .eu-note p { margin-block: var(--space-1) var(--space-2); }
+
+/* Fix-in-this-order list (ADR 018) */
+.fix-box { margin-block: var(--space-3); }
+.fix-box summary { cursor: pointer; font-weight: 600; }
+.fix-order { padding-inline-start: 1.5em; }
+.fix-order li { margin-block: var(--space-1); }
+.fix-after { display: block; font-size: 0.85rem; color: var(--color-text-muted); }
+@media print { .report .fix-order li { break-inside: avoid; font-size: 9.5pt; } }

@@ -358,3 +358,19 @@ test('EU exposure question only surfaces the EN 18286 note and leaves the tier a
   await page.locator('input[name="euExposure"][value="no"]').check();
   await expect(page.getByTestId('eu-note')).toHaveCount(0);
 });
+
+test('fix-in-this-order list puts prerequisites first and updates as evidence changes', async ({ page }) => {
+  await page.getByRole('button', { name: 'Load 2 sample use cases' }).click();
+  await page.getByRole('link', { name: 'Citizen service triage agent' }).click();
+  await page.getByRole('link', { name: 'See applicable controls' }).click();
+  const box = page.locator('details.fix-box');
+  await box.locator('summary').click();
+  await expect(box).toContainText('No control is marked Gap or Partly met yet.');
+  await page.locator('li.control', { hasText: 'Agent action audit trail' }).locator('select[data-action="ev-status"]').selectOption('gap');
+  await expect(box.locator('.fix-order li')).toHaveCount(1);
+  await expect(box.locator('.fix-after')).toContainText('Event logging (Not reviewed)');
+  await page.locator('li.control', { hasText: 'Event logging' }).locator('select[data-action="ev-status"]').selectOption('partly');
+  await expect(box.locator('.fix-order li')).toHaveCount(2);
+  await expect(box.locator('.fix-order li').first()).toContainText('Event logging');
+  await expect(box.locator('.fix-order li').nth(1)).toContainText('Agent action audit trail');
+});

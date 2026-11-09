@@ -37,3 +37,20 @@ describe('level 4 clarifier', () => {
     }
   });
 });
+
+describe('fix-in-this-order section (ADR 018)', () => {
+  const uc = sampleUseCases('en')[0];
+  const r = computeTier(uc.answers);
+  const ids = applicableControls(r.tier, uc.answers, [...ALL_FRAMEWORKS]).map((c) => c.id);
+  it('lists Gap and Partly controls in the committee report, prerequisites first, in both languages', () => {
+    const pre = ids.includes('CTL-MON-02') && ids.includes('CTL-MON-03') ? ['CTL-MON-02', 'CTL-MON-03'] : null;
+    const ev = pre ? { [pre[0]]: { status: 'partly' as const, note: '' }, [pre[1]]: { status: 'gap' as const, note: '' } } : { [ids[0]]: { status: 'gap' as const, note: '' } };
+    const html = reportView('en', { ...uc, evidence: ev }, r, [...ALL_FRAMEWORKS]);
+    expect(html).toContain('Fix in this order');
+    if (pre) expect(html.indexOf(`data-ctl="${pre[0]}"`)).toBeLessThan(html.indexOf(`data-ctl="${pre[1]}"`));
+    expect(reportView('ar', { ...uc, evidence: ev }, r, [...ALL_FRAMEWORKS])).toContain('ترتيب المعالجة');
+  });
+  it('says so when nothing is open', () => {
+    expect(reportView('en', uc, r, [...ALL_FRAMEWORKS])).toContain('No control is marked Gap or Partly met yet.');
+  });
+});

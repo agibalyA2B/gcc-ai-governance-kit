@@ -11,6 +11,7 @@ import { sensitivity } from '../core/sensitivity';
 import { actionMatrix, looser, PERMISSIONS, type ActionRow } from '../core/actions';
 import { buildBrief, type Audience, type Brief, type Table } from '../core/brief';
 import { STAGES, stageGaps } from '../core/stage';
+import { fixOrder } from '../core/fixorder';
 
 export const LADDER_GUIDE = 'https://github.com/agibalyA2B/gcc-ai-governance-kit/blob/main/docs/guides/autonomy-release-ladder.md';
 export const EU_NOTE = 'https://github.com/agibalyA2B/gcc-ai-governance-kit/blob/main/docs/sector-notes/eu-ai-act-en-18286.md';
@@ -326,6 +327,15 @@ export function verificationBadge(lang: Lang, c: Control): string {
     : `<span class="vbadge pending" title="${esc(c.notes)}"><span aria-hidden="true">⏱</span> ${t(lang, 'ctl.needs')}</span>`;
 }
 
+/** Fix-in-this-order list (ADR 018): controls at Gap or Partly, prerequisites first. Rendered on screen and in the PDF. */
+export function fixOrderList(lang: Lang, applicable: Control[], ev: EvidenceMap = {}): string {
+  const items = fixOrder(applicable, ev);
+  if (!items.length) return `<p class="muted small">${t(lang, 'fix.none')}</p>`;
+  const title = (id: string) => { const c = applicable.find((x) => x.id === id)!; return esc(L(lang, c.title_en, c.title_ar)); };
+  return `<ol class="fix-order">${items.map((it) => `<li data-ctl="${it.id}"><strong>${title(it.id)}</strong> <span class="ev-count ev-${it.status}">${t(lang, `ev.${it.status}`)}</span>${it.after.length
+    ? ` <span class="fix-after">${t(lang, 'fix.after')} ${it.after.map((p) => `${title(p.id)} (${t(lang, `ev.${p.status}`)})`).join('; ')}</span>` : ''}</li>`).join('')}</ol>`;
+}
+
 /** One-line tally of evidence statuses over the applicable controls (updated in place as the user edits). */
 export function evidenceSummaryText(lang: Lang, ids: string[], ev: EvidenceMap = {}): string {
   const sum = evidenceSummary(ids, ev);
@@ -355,6 +365,8 @@ export function controlsView(lang: Lang, uc: UseCase, r: TierResult, frameworks:
     <p class="muted">${t(lang, 'ctl.intro')} <strong>${share.verified}/${share.total}</strong> ${t(lang, 'ctl.verified.share')}</p>
     <p class="muted small">${t(lang, 'ev.intro')}</p>
     <p class="ev-summary" data-testid="ev-summary" aria-live="polite">${evidenceSummaryText(lang, all.map((c) => c.id), uc.evidence)}</p>
+    <details class="fix-box"><summary>${t(lang, 'fix.h')}</summary><p class="muted small">${t(lang, 'fix.intro')}</p>
+      <div data-testid="fix-order">${fixOrderList(lang, all, uc.evidence)}</div></details>
     <div class="toolbar"><label class="filter">${t(lang, 'ctl.filter.fw')}<select data-action="ctl-fw"><option value="">${t(lang, 'reg.filter.all')}</option>
       ${FRAMEWORKS.filter((f) => frameworks.includes(f.id)).map((f) => `<option value="${f.id}" ${fwFilter === f.id ? 'selected' : ''}>${esc(L(lang, f.en, f.ar))}</option>`).join('')}</select></label>
       <label class="filter"><input type="checkbox" data-action="ctl-verified" ${verifiedOnly ? 'checked' : ''}/> ${t(lang, 'ctl.filter.verified')}</label></div>
@@ -445,7 +457,8 @@ export function reportView(lang: Lang, uc: UseCase, r: TierResult, frameworks: F
       <td>${FRAMEWORKS.filter((f) => frameworks.includes(f.id) && (c.refs[f.id] ?? []).length).map((f) => `${esc(f.short)}: ${esc(c.refs[f.id].join(', '))}`).join('<br/>')}</td>
       <td class="ev-cell">${esc(e?.note ?? '')}</td>
       <td>${c.verified ? t(lang, 'ctl.verified') : t(lang, 'ctl.needs')}</td></tr>`; }).join('')}</tbody></table>
-    <p class="small">${t(lang, 'rep.verification')} ${share.verified}/${share.total}.</p>`}
+    <p class="small">${t(lang, 'rep.verification')} ${share.verified}/${share.total}.</p>
+    <h2>${t(lang, 'fix.h')}</h2><p class="small">${t(lang, 'fix.intro')}</p>${fixOrderList(lang, list, uc.evidence)}`}
     <h2>${t(lang, 'rep.signoff')}</h2>
     <table class="signoff"><tbody><tr><th>${t(lang, 'rep.prepared')}</th><td></td><th>${t(lang, 'rep.date')}</th><td></td></tr>
       <tr><th>${t(lang, 'rep.reviewed')}</th><td></td><th>${t(lang, 'rep.date')}</th><td></td></tr>
