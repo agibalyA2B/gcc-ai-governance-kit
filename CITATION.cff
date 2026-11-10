@@ -7,7 +7,9 @@ authors:
     given-names: Ahmed
 repository-code: "https://github.com/agibalyA2B/gcc-ai-governance-kit"
 url: "https://agibalya2b.github.io/gcc-ai-governance-kit/"
-license: MIT
+license:
+  - MIT
+  - CC-BY-4.0
 version: 0.5.0
 date-released: 2026-11-09
 keywords: [AI governance, GCC, UAE, Saudi Arabia, ISO/IEC 42001, NIST AI RMF, agentic AI, Arabic]

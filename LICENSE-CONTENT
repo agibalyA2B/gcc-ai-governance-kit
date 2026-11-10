@@ -1,0 +1,24 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 Ahmed Omar
+
+The content of the GCC AI Governance Kit is licensed under the Creative Commons
+Attribution 4.0 International License. The full licence text is at:
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+"Content" means:
+- the templates in public/templates/;
+- the data files in data/ (questions, weights, rules, controls and their mappings);
+- the documentation in docs/, including the user guide, sector notes and worked examples;
+- the interface and user-guide text in src/i18n/.
+
+You may share and adapt the content for any purpose, including commercially, as long as
+you give appropriate credit ("GCC AI Governance Kit by Ahmed Omar"), link to the licence
+and say whether you made changes.
+
+The source code is licensed separately under the MIT License (see LICENSE).
+
+Frameworks, laws and standards that the content cites (for example ISO/IEC 42001, the
+NIST AI RMF, the EU AI Act and UAE, Dubai and Saudi instruments) belong to their owners and
+are not covered by this licence. The kit cites them by clause, article or page and
+paraphrases them in its own words.
