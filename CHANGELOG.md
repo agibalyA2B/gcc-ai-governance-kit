@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+## 0.5.1 (2026-11-10)
+Corrections and clarity after a practitioner review of 0.5.0. No change to scoring, controls or mappings.
+
+- **Arbitration note corrected.** Ciarb Art. 7.3: the tribunal's power to impose AI disclosure duties applies unless
+  the parties agree otherwise, after consulting them. Art. 9.1: if the parties object to an AI tool, the arbitrators
+  should not use it; Art. 9.2 (consulting the other arbitrators) added. Re-checked against the guideline (updated
+  September 2025).
+- **Causa Claims example dated.** The September 2026 gap list now says it has not been re-assessed since, and the
+  figures are confirmed at 0.5.0: scoring weights, rules and logic are unchanged since 0.3.
+- **Content licence added.** `LICENSE-CONTENT` (CC BY 4.0) covers the templates, data, documentation and interface
+  text; `CITATION.cff` lists both licences. The code stays MIT.
+- **Coverage stated.** The README and the user guide (EN and AR) say what is mapped (UAE federal, Dubai, SDAIA,
+  ISO/IEC 42001, NIST AI RMF, EU AI Act) and what is not yet (Saudi PDPL, Qatar, Bahrain, Oman, Kuwait).
+- **Not a system of record.** The README and the user guide say plainly that the kit runs in the browser only, the
+  exported file is the record, and there is no audit trail or access control.
+- **Verification note.** Beside the 59/59 badge, the README names the two UAE sources with no public URL: the
+  Government Services Data Sharing Policy and the Agentic AI National Reference.
+- **Roadmap refreshed.** Binding instruments first: DIFC Regulation 10 and the CBUAE guidance note (February 2026).
+
 ## 0.5.0 (2026-11-09)
 Where to start: a fix-in-this-order list, a gap count against the framework you work towards, and NIST AI RMF
 references on 56 of 59 controls, all verified.
