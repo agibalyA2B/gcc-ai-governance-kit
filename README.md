@@ -11,6 +11,10 @@
 ![Languages](https://img.shields.io/badge/languages-AR%20%7C%20EN-0f5257)
 ![Code: MIT](https://img.shields.io/badge/code-MIT-blue) ![Content: CC BY 4.0](https://img.shields.io/badge/content-CC%20BY%204.0-lightgrey)
 
+<sub>59/59 verified: two UAE sources have no public URL, the Government Services Data Sharing Policy (May 2026) and
+the Agentic AI National Reference (July 2026). Their references were checked against the full text and are cited in
+the control notes. See the [content audit](docs/content-audit.md).</sub>
+
 ![Demo: register a use case, get an explainable tier, see controls, switch to Arabic](docs/media/demo.gif)
 
 </div>
@@ -25,6 +29,10 @@ English-only spreadsheets. **Agentic AI** also raises questions the classic ques
 is it, who approves its actions, what systems can it change, and can those actions be undone?
 
 This kit is that practical layer. It is open, free and bilingual, and it runs entirely in your browser.
+
+**Coverage.** Mapped: UAE federal (AI Charter, Government Services Code, PDPL, CSC AI Security Policy), Dubai AI
+Ethics, SDAIA AI Ethics Principles, ISO/IEC 42001, NIST AI RMF and the EU AI Act. Not mapped yet: the Saudi PDPL,
+Qatar, Bahrain, Oman and Kuwait.
 
 ## What you get
 
@@ -103,8 +111,10 @@ The reasoning behind these choices is recorded in [ADR 002](docs/decisions/002-r
 ## Scope and honesty
 
 - This is guidance, not legal advice, and not a certification tool.
-- The UAE Charter's official pages could not be retrieved automatically, so rows citing it are marked *needs
-  verification* until they are checked by hand.
+- It is not a system of record. It runs in the browser only, and the file you export is the record: there is no audit
+  trail and no access control, so keep exports where your organisation keeps its records.
+- The UAE Charter's official pages block scripted fetches, so its principle names were checked by hand in a browser
+  (15 October 2026).
 - ISO/IEC 42001 is a paid standard. The kit cites clause and Annex A numbers only and paraphrases in its own words.
 - The mappings are the kit's interpretation, not endorsed by any framework body.
 - UAE Government Services Code references cite card numbers (e.g. "Code 5.2"). The Data Sharing Policy and the Agentic
@@ -126,11 +136,21 @@ npm test && npm run e2e    # unit and end-to-end tests
 
 ## Roadmap
 
-- v0.3: verify the remaining UAE Charter rows; an agentic pre-launch readiness checklist per use case (from the federal
-  agentic-AI guide); sector packs for UAE banking (CBUAE), Qatar (QCB) and telecoms; DIFC Regulation 10.
-- Later: shareable read-only links, and an assessment-history diff per use case.
+- **First, binding instruments:** DIFC Regulation 10 (autonomous and semi-autonomous systems) and the CBUAE guidance
+  note (February 2026), so regulated firms see what is mandatory before what is good practice.
+- **Next:** an agent launch checklist per use case (with checks for voice and contact-centre agents); a "not
+  defensible as designed" verdict; an Organisation view with a readiness stage and evidence counts.
+- **Later:** more GCC frameworks (the Saudi PDPL, Qatar, Bahrain, Oman, Kuwait); shareable read-only links; an
+  assessment-history diff per use case.
+
+The core stays cross-sector: the same tiers and controls for any use case in any sector. The sector notes above show
+the kit in use; they are not sector packs.
 
 Contributions are welcome. Corrections to mappings are the most valuable; see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Licence
+
+Code: [MIT](LICENSE). Content (templates, data, documentation and interface text): [CC BY 4.0](LICENSE-CONTENT).
 
 ## Author
 
