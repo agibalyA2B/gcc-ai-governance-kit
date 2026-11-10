@@ -310,6 +310,8 @@
   "gd.s6.h": "6. Privacy",
   "gd.s6.p": "The kit has no server. Your use cases are stored only in this browser and are never sent anywhere; you can confirm this in your browser's network tools. Other people cannot see them, and neither can other browsers on your computer. In a private window, or where storage is blocked, the kit warns you that changes will be lost when you close the page, so save a backup.",
   "gd.s6.clear": "To remove everything, choose <em>Clear all data</em> under the register.",
+  "gd.coverage": "<strong>Coverage.</strong> Mapped: UAE federal (AI Charter, Government Services Code, PDPL, CSC AI Security Policy), Dubai AI Ethics, SDAIA AI Ethics Principles, ISO/IEC 42001, NIST AI RMF and the EU AI Act. Not mapped yet: the Saudi PDPL, Qatar, Bahrain, Oman and Kuwait.",
+  "gd.s6.record": "<strong>Not a system of record.</strong> The kit runs in the browser only, and the file you export is the record. There is no audit trail and no access control, so keep your exports where your organisation keeps its records.",
   "act.title": "What the AI may do",
   "act.intro": "One row per action. The kit pre-fills the most each action may do, from the recommended autonomy level and the risk tier. You can make any row stricter, never looser.",
   "act.provisional": "Provisional: based on level 3 until you answer the three prioritisation questions in the deep-dive.",

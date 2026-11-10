@@ -553,6 +553,7 @@ export function guideView(lang: Lang, base: string): string {
   return `<article class="card prose guide">
     <h1 tabindex="-1">${t(lang, 'gd.title')}</h1>
     <p>${t(lang, 'gd.intro')}</p>
+    <p>${t(lang, 'gd.coverage')}</p>
     <div class="guide-tools no-print"><button type="button" class="btn" data-action="print-guide">${t(lang, 'gd.print')}</button></div>
     <nav class="guide-toc no-print" aria-label="${t(lang, 'gd.toc')}"><ol>${GUIDE_SECTIONS.map((id) => `<li><button type="button" class="link" data-action="goto" data-target="gd-${id}">${t(lang, `gd.${id}.h`).replace(/^\d+\.\s*/, '')}</button></li>`).join('')}</ol></nav>
     ${sec('s1', `<ol class="steps"><li>${t(lang, 'gd.s1.1')}</li><li>${t(lang, 'gd.s1.2')}</li><li>${t(lang, 'gd.s1.3')}</li></ol>
@@ -565,7 +566,7 @@ export function guideView(lang: Lang, base: string): string {
     ${sec('s4', `<p>${t(lang, 'gd.s4.p1')}</p><ul>${[1, 2, 3, 4].map((n) => `<li><strong>${t(lang, 'auto.level')} ${n}:</strong> ${levelLabel(lang, n)}</li>`).join('')}</ul><p>${t(lang, 'gd.s4.p2')}</p><p>${t(lang, 'gd.s4.matrix')}</p><p>${t(lang, 'gd.s4.stage')}</p>`)}
     ${sec('s5', `<ul class="plain"><li>${t(lang, 'gd.s5.brief')}</li><li>${t(lang, 'gd.s5.pdf')}</li><li>${t(lang, 'gd.s5.ctl')}</li></ul>${fig('export', 'gd.fig.export')}
       <ul class="plain"><li>${t(lang, 'gd.s5.backup')}</li><li>${t(lang, 'gd.s5.share')}</li><li>${t(lang, 'gd.s5.tpl')}</li></ul>`)}
-    ${sec('s6', `<p>${t(lang, 'gd.s6.p')}</p><p>${t(lang, 'gd.s6.clear')}</p>`)}
+    ${sec('s6', `<p>${t(lang, 'gd.s6.p')}</p><p>${t(lang, 'gd.s6.record')}</p><p>${t(lang, 'gd.s6.clear')}</p>`)}
     <p class="muted small">${t(lang, 'rep.disclaimer')}</p>
   </article>`;
 }
