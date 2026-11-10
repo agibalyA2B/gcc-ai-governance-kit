@@ -247,6 +247,8 @@ test('user guide is linked from the header, covers six topics and loads its scre
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('User guide');
   await expect(page.locator('.guide-sec')).toHaveCount(6);
   await expect(page.locator('.tiers dt')).toHaveCount(4);
+  await expect(page.locator('.guide')).toContainText('Not mapped yet: the Saudi PDPL');
+  await expect(page.locator('.guide')).toContainText('Not a system of record.');
   const imgs = page.locator('.guide img');
   await expect(imgs).toHaveCount(5);
   for (const img of await imgs.all()) {
