@@ -17,8 +17,8 @@ companies* on the impact question.
 | B. Multi-tenant SaaS for GCC contractors | 57 pts, **High** | 85 pts, High | As A, plus client-facing and harder to reverse |
 | C. An agent that sends contractual notices itself | 98 pts, **High** | not needed | Rules T-AUTONOMOUS-B2B-DECISIONS and T-IRREVERSIBLE-ACTIONS: it acts on its own, and a sent notice cannot be undone |
 
-The figures are from the founder's own re-scoring. They were checked against the kit's current version (0.3.x) and
-match.
+The figures are from the founder's own re-scoring. They were checked against version 0.3.x and match. The scoring
+weights, rules and logic have not changed since, so the figures hold at 0.5.0.
 
 ## Personal data is the lever
 Real claim packs carry names, emails and signatures in contracts and correspondence, so most deployments of a tool like
@@ -50,7 +50,8 @@ kit's evidence map, "met by design" is recorded as *Partly met* until the runtim
 - **Met by design:** staged go/no-go controls before anything is produced; every assertion traced to a cited
   source; output checks that block unsupported statements; an independent challenge step; a hard stop to a gap
   report rather than a weak claim; a screen for prohibited practices such as backdating or fabricated notices.
-- **Gaps identified at the time of assessment (September 2026), in his priority order:**
+- **Gaps identified at the time of assessment (September 2026), in his priority order.** Status: gaps as assessed
+  in September 2026; not re-assessed since.
   1. assess indirect prompt injection through counterparty letters, subcontractor emails and PDFs (CTL-SEC-02; now
      also CTL-SEC-09);
   2. privacy review and redaction plus model-provider due diligence (CTL-DAT-03, CTL-ACC-06); this also settles

@@ -15,8 +15,9 @@ model agreements and procedural orders for that purpose.
 - **Disclosure may be required** where using an AI tool could affect the evidence or the outcome, or would hand
   over a duty owed to the tribunal or another party. The aim is transparency, and ultimately the integrity of the
   process and the enforceability of the award (Art. 7.1–7.2).
-- **Tribunals can set the rules.** After consulting the parties, a tribunal may direct which AI use must be
-  disclosed, when, to whom and by when. This can cover party-appointed experts and fact witnesses (Art. 7.3). Unless
+- **Tribunals can set the rules.** Unless the parties agree otherwise, the tribunal may impose AI disclosure duties
+  on them, after consulting them, and direct which AI use must be disclosed, when, to whom and by when. This can
+  cover party-appointed experts and fact witnesses (Art. 7.3). Unless
   ordered otherwise, the duty lasts for the whole proceedings (Art. 7.4). Tribunals may regulate the parties' use of
   AI and record decisions in a procedural order (Art. 4.3, 4.6), and may rule on the use and admissibility of
   AI-generated material (Art. 6).
@@ -32,8 +33,11 @@ model agreements and procedural orders for that purpose.
   inquire, take remedial measures, draw adverse inferences or reflect it in costs (Art. 7.6–7.7).
 - **Confidentiality.** Putting confidential case material into a third-party AI tool raises serious confidentiality
   risks (Art. 2.2).
-- **Arbitrators' own use.** Arbitrators should not hand their decision-making to AI, remain responsible for the
-  award, and are encouraged to consult the parties before using AI tools (Art. 8.2, 8.4, 9.1).
+- **Arbitrators' own use.** Arbitrators should not hand their decision-making to AI and remain responsible for the
+  whole award (Art. 8.2, 8.4). Unless the parties agree otherwise, arbitrators are encouraged to consult the parties
+  before using an AI tool and to give them the chance to comment or object. If the parties disagree on its use, the
+  arbitrators should not use that tool (Art. 9.1). On a panel, each arbitrator should consult the others on their
+  use of AI (Art. 9.2).
 
 ## What to record, per matter
 1. Whether the arbitration agreement, the institutional rules or a procedural order address AI use.
@@ -57,3 +61,4 @@ model agreements and procedural orders for that purpose.
 *Guidance only, not legal advice. Check the applicable arbitration rules and the current version of the guideline.*
 
 Reviewed for accuracy by Syed Hasan, founder of Causa Claims and construction disputes practitioner, October 2026.
+Art. 7.3 and 9.1 wording corrected after his review, November 2026.
